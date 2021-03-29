@@ -147,5 +147,5 @@ output
 pelican-plugins
 pelican-themes
 .vscode
-content
+# content
 .DS_Store
