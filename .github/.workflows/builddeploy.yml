@@ -1,0 +1,33 @@
+name: Pelican Builder
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  builddeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: setup environment
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9.1
+      - name: dependencies
+        run: |
+          pip install --no-cache-dir -U pip
+          pip install -r requirements.txt
+      - name: build
+        run: |
+          make publish
+      - name: Add nojekyll
+        run: |
+          touch ./output/.nojekyll
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@master
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASE_BRANCH: main
+          BRANCH: gh-pages
+          FOLDER: output
