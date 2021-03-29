@@ -146,6 +146,7 @@ dmypy.json
 output
 pelican-plugins
 pelican-themes
+! pelican-themes/Flex
 .vscode
 # content
 .DS_Store
