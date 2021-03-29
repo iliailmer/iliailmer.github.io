@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="/theme/pygments/github.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/solid.css">
+
+
+    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
+
+
+
+
+
+<meta name="author" content="Ilia Ilmer" />
+<meta name="description" content="A simple function that can be used to justify image quality and control enhancement. Introduction One difficult thing about image enhancement is to actually measure the level of image quality which is quite a subjective task. On the one hand, each individual can perceive the image quality according to their …" />
+<meta name="keywords" content="image enhancement, image quality">
+
+
+<meta property="og:site_name" content="Ilia Ilmer"/>
+<meta property="og:title" content="&#39;Image Quality Measure&#39;"/>
+<meta property="og:description" content="A simple function that can be used to justify image quality and control enhancement. Introduction One difficult thing about image enhancement is to actually measure the level of image quality which is quite a subjective task. On the one hand, each individual can perceive the image quality according to their …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="/2018/12/image-quality/.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2018-12-13 00:00:00-05:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="/author/ilia-ilmer.html">
+<meta property="article:section" content="Posts"/>
+<meta property="article:tag" content="image enhancement"/>
+<meta property="article:tag" content="image quality"/>
+<meta property="og:image" content="">
+
+  <title>Ilia Ilmer &ndash; &#39;Image Quality Measure&#39;</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="">
+        <img src="/theme/img/profile.png" alt="" title="">
+      </a>
+
+      <h1>
+        <a href=""></a>
+      </h1>
+
+
+
+      <nav>
+        <ul class="list">
+
+
+              <li>
+                <a target="_self"
+                   href="/pages/about.html#about">
+                  About
+                </a>
+              </li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="image-quality/">'Image Quality Measure'</h1>
+    <p>
+      Posted on Thu 13 December 2018 in <a href="/category/posts.html">Posts</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>A simple function that can be used to justify image quality and control enhancement.</p>
+<h1>Introduction</h1>
+<p>One difficult thing about image enhancement is to actually measure the level of image quality which is quite a subjective task. On the one hand, each individual can perceive the image quality according to their own tastes and preferences. On the other hand, our visual system is the same for all of us, no matter what tastes you have.</p>
+<p>An interesting measure that goes forward to unify the subjectivity of human taste and the visual system based perspective was introduced in <a href="https://pdfs.semanticscholar.org/5ada/c5932775f089eaace7ebc45a6cba89809134.pdf">this paper</a>. Let's try it out!</p>
+<h1>Code</h1>
+<p>Well, the essential idea of this measure is that we focus our attention on the image in a blockwise manner. Splitting the image into blocks and then finding the maximal value of the pixel intensity per each block is fairly straightforward and simple to code.</p>
+<p>We split the $M\times N$ image, which in computer memory is represented as a matrix of pixel intensities, into submatrices each of size $n\times n$. This results in $k_1$ blocks along the vertical axis of the image and $k_2$ along the horizontal one. The quality measure can be used</p>
+<p>$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp})}{\min(W_{lp})}.$$</p>
+<p>To avoid division by zero, what I do (and this seems to preserve the measure's main purpose) is the following</p>
+<p>$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp}+1)}{\min(W_{lp}+1)}.$$</p>
+<p>The addition $W_{lp}+1$ implies that we add 1 to all elements in the window $W_{lp}$.</p>
+<p>I prefer to scale image to have intensities between 0 and 1, but it really is not important, you can use any range as long as it is <code>float</code> type. This is because of the nature of the division and $\log$ operators.</p>
+<p>And here's the code for this function:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">EME</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">window_width</span><span class="p">,</span> <span class="n">window_height</span><span class="p">):</span>
+  <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>
+  <span class="n">sum_</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>                                    <span class="c1"># I just decided not to keep</span>
+                                           <span class="c1"># track of the blocks</span>
+  <span class="c1"># window_height/ window_width variables take care of number of blocks</span>
+  <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">window_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># range in height, distance from the</span>
+                                           <span class="c1"># center of the window</span>
+  <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">window_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>   <span class="c1"># range in width, same as above</span>
+  <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span> <span class="o">+</span> <span class="n">H</span><span class="p">,</span> <span class="n">height</span> <span class="o">-</span> <span class="n">H</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">window_height</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span> <span class="o">+</span> <span class="n">W</span><span class="p">,</span> <span class="n">width</span> <span class="o">-</span> <span class="n">W</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">window_width</span><span class="p">):</span>
+        <span class="n">window</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="n">row</span> <span class="o">-</span> <span class="n">H</span><span class="p">:</span><span class="n">row</span> <span class="o">+</span> <span class="n">H</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">column</span> <span class="o">-</span> <span class="n">W</span><span class="p">:</span><span class="n">column</span> <span class="o">+</span> <span class="n">W</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">I_max</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">I_min</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="p">(</span><span class="n">I_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">I_min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">D</span> <span class="o">&lt;</span> <span class="mf">0.02</span><span class="p">:</span> <span class="c1"># this is also an underflow precaution</span>
+          <span class="n">D</span> <span class="o">=</span> <span class="mf">0.02</span>
+        <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">sum_</span> <span class="o">+=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">sum_</span> <span class="o">/</span> <span class="n">k</span>
+</code></pre></div>
+
+<h1>Examples</h1>
+<p>Let's try it out on some examples. What I am going to do here is, I will use the <code>skimage</code> library to obtain the data first.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">camera</span><span class="p">()</span> <span class="c1"># my favourite at this point</span>
+</code></pre></div>
+
+<figure>
+  <img src="/images/enhancement-measure/camera.png?raw=true" alt="original"/>
+  <figcaption>My favourite sample image.</figcaption>
+</figure>
+<p>And then lets use simple histogram equalization for image enhancement. This function will enhance the contrast of the image and will bring some details (but also noise! Don't 100% rely on it!)</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">camera</span>
+<span class="kn">from</span> <span class="nn">skimage.restoration</span> <span class="kn">import</span> <span class="n">denoise_bilateral</span><span class="p">,</span> <span class="n">denoise_wavelet</span>
+
+<span class="n">original</span> <span class="o">=</span> <span class="n">camera</span><span class="p">()</span>
+<span class="n">enhanced</span> <span class="o">=</span> <span class="n">equalize_hist</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">rescale</span><span class="p">(</span><span class="n">enhanced</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;uint8&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>And the result is pretty evident</p>
+<figure>
+  <img src="/images/enhancement-measure/camera_enh.png?raw=true" alt="comparison"/>
+  <figcaption>Quality comparison.</figcaption>
+</figure>
+
+<p>Of course, histogram equalization produces artifacts, but visually the image is more detailed than originally which corresponds to increase in the measure, which is what we wanted from it in the first place!</p>
+<h1>Question</h1>
+<p>A question that I have for EME, so far just one, but I feel like it's important.</p>
+<h3>How can we make it more resistant to noise?</h3>
+<p>It does decrease for small amounts of noise:</p>
+<figure>
+  <img src="/images/enhancement-measure/camera_noise_sigma_1.png?raw=true" alt="comparison"/>
+  <figcaption>Adding Gaussian noise to the image (right) with $\sigma=1$ decreases the quality measure.</figcaption>
+</figure>
+
+<p>But once noise is pretty strong:</p>
+<figure>
+  <img src="/images/enhancement-measure/camera_noise_sigma_10.png?raw=true" alt="comparison"/>
+  <figcaption>Adding Gaussian noise to the image (right) with $\sigma=10$ increases the quality measure.</figcaption>
+</figure>
+
+<p>This is not good, particularly when the enhancement we perform somewhere implicitly brings large noise (such as histogram equalization!) forcing us to believe that the quality improved.</p>
+<p>The explanation is, of course, that due to random noise, we (with non-zero probability) increase the maximal and decrease the minimal values of pixels and thus cause the change in the final metric value.</p>
+<p>But how to make the metric more noise-robust?..</p>
+<p>Well, there are certainly options. Some extensions listed <a href="https://ieeexplore.ieee.org/abstract/document/6626251/">here</a> certainly could do the job and be noise-resistant. But this is probably for some future experiments, who knows!</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="/tag/image-enhancement.html">image enhancement</a>
+      <a href="/tag/image-quality.html">image quality</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Ilia Ilmer ",
+  "url" : "",
+  "image": "",
+  "description": ""
+}
+</script>
+
+
+</body>
+</html>
