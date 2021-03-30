@@ -147,7 +147,7 @@ output
 pelican-plugins
 pelican-themes
 
-*/*/__pycache__*
+
 !pelican-themes/Flex
 !pelican-plugins/i18n_subsites
 !pelican-plugins/render_math
