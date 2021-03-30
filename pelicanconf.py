@@ -8,7 +8,7 @@ THEME = "Flex"  # bootstrap2-dark
 ARTICLE_PATHS = ["Posts"]
 ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}.html"
 ARTICLE_URL = "{date:%Y}/{date:%m}/{slug}.html"
-
+AUTHOR = "Ilia Ilmer"
 SITEURL = "https://iliailmer.github.io"
 SITENAME = "Ilia's Blog"
 SITETITLE = "Ilia Ilmer"
