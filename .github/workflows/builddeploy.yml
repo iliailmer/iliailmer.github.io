@@ -27,9 +27,6 @@ jobs:
           touch ./output/.nojekyll
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@4.1.0
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BASE_BRANCH: main
-          BRANCH: gh-pages
-          FOLDER: output
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: output # The folder the action should deploy.
