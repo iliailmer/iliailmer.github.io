@@ -5,6 +5,7 @@
 DEFAULT_PAGINATION = 10
 
 THEME = "Flex"  # bootstrap2-dark
+
 ARTICLE_PATHS = ["Posts"]
 ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}.html"
 ARTICLE_URL = "{date:%Y}/{date:%m}/{slug}.html"
@@ -13,6 +14,7 @@ SITEURL = "https://iliailmer.github.io"
 SITENAME = "Ilia's Blog"
 SITETITLE = "Ilia Ilmer"
 SITESUBTITLE = "Algorithms and Coffee"
+
 # SITEDESCRIPTION = "Foo Bar's Thoughts and Writings"
 # SITELOGO = SITEURL + "/images/profile.png"
 # FAVICON = SITEURL + "/images/favicon.ico"
@@ -35,14 +37,15 @@ EXTRA_PATH_METADATA = {
 CUSTOM_CSS = "static/custom.css"
 
 MAIN_MENU = True
-
-ADD_THIS_ID = "ra-77hh6723hhjd"
+MENUITEMS = (
+    ("Home", "/"),
+    ("About", "/about/"),
+)
+# ADD_THIS_ID = "ra-77hh6723hhjd"
 
 # Enable i18n plugin.
 PLUGIN_PATHS = ["./pelican-plugins", "./pelican-themes"]
-PLUGINS = ["i18n_subsites", "render_math"]
-# Enable Jinja2 i18n extension used to parse translations.
-JINJA_ENVIRONMENT = {"extensions": ["jinja2.ext.i18n"]}
+PLUGINS = ["render_math"]
 
 # Default theme language.
 I18N_TEMPLATES_LANG = "en"
@@ -60,20 +63,4 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-# Blogroll
-# LINKS = (
-#     ("Pelican", "https://getpelican.com/"),
-#     ("Python.org", "https://www.python.org/"),
-#     ("Jinja2", "https://palletsprojects.com/p/jinja/"),
-#     ("You can modify those links in your config file", "#"),
-# )
-
-# Social widget
-# SOCIAL = (
-#     ("You can add links in your config file", "#"),
-#     ("Another social link", "#"),
-# )
-
-
-# Uncomment following line if you want document-relative URLs when developing
-# RELATIVE_URLS = True
+NEWEST_FIRST_ARCHIVES = True
