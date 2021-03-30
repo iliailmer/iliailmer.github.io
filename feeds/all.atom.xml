@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia Ilmer</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2020-08-18T00:00:00-04:00</updated><entry><title>How I had to translate Matlab code into Maple</title><link href="/2020/08/matlab-2-maple.html" rel="alternate"></link><published>2020-08-18T00:00:00-04:00</published><updated>2020-08-18T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2020-08-18:/2020/08/matlab-2-maple.html</id><summary type="html">&lt;p&gt;In this short post, I wanted to point out one interesting application of regular expressions I had to work on for my PhD research project. The code was meant as a technical tool to help tranlate some ordingary differential equation models from numerical (Matlab) to symbolic (Maple) code.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia's Blog</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2020-08-18T00:00:00-04:00</updated><subtitle>Algorithms and Coffee</subtitle><entry><title>How I had to translate Matlab code into Maple</title><link href="/2020/08/matlab-2-maple.html" rel="alternate"></link><published>2020-08-18T00:00:00-04:00</published><updated>2020-08-18T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2020-08-18:/2020/08/matlab-2-maple.html</id><summary type="html">&lt;p&gt;In this short post, I wanted to point out one interesting application of regular expressions I had to work on for my PhD research project. The code was meant as a technical tool to help tranlate some ordingary differential equation models from numerical (Matlab) to symbolic (Maple) code.&lt;/p&gt;
 &lt;h2&gt;The original …&lt;/h2&gt;</summary><content type="html">&lt;p&gt;In this short post, I wanted to point out one interesting application of regular expressions I had to work on for my PhD research project. The code was meant as a technical tool to help tranlate some ordingary differential equation models from numerical (Matlab) to symbolic (Maple) code.&lt;/p&gt;
 &lt;h2&gt;The original code&lt;/h2&gt;
 &lt;p&gt;The original *.m files were pulled from &lt;a href="https://www.ebi.ac.uk/biomodels/"&gt;this&lt;/a&gt; webpage using &lt;code&gt;wget&lt;/code&gt; and their own API. Ordingary differential equation (ODE) models in those files contain a special function called &lt;code&gt;xdot&lt;/code&gt;. It returns an array of &lt;code&gt;n&lt;/code&gt; elements, which form right-hand side of an ODE.&lt;/p&gt;
@@ -134,9 +134,9 @@
 &lt;h3&gt;Linear Layer&lt;/h3&gt;
 &lt;p&gt;Inspired by PyTorch, the naming convention here is the preserved. The design of the layer is also similar to PyTorch: the class &lt;code&gt;Linear&lt;/code&gt; will have a &lt;code&gt;forward&lt;/code&gt; and a &lt;code&gt;backward&lt;/code&gt; methods. The former will represent the forward pass, that is, the passing of the input data through the layer towards the next. The latter is responsible for backward propagation of the gradient.&lt;/p&gt;
 &lt;h4&gt;Forward Pass&lt;/h4&gt;
-&lt;p&gt;Linear layer essentially represents matrix multiplication of the input data $x$ by a weight matrix $W$ with addition of bias $b$:&lt;/p&gt;
-&lt;p&gt;$$\mathrm{L}(x) = xW + b.$$&lt;/p&gt;
-&lt;p&gt;We require that the size of the input data was of the format $batch\times input~features$, for instance if the input data has 784 pixel values, for a batch of 100 images the size of $x$ would be $100\times 784$ and the size of $W$ would be $784\times out~features$, while $b$ is of the shape $out~features\times 1$. Here we rely on &lt;code&gt;numpy&lt;/code&gt; broadcasting the value of bias onto the resulting matrix $xW$ when adding $b$.&lt;/p&gt;
+&lt;p&gt;Linear layer essentially represents matrix multiplication of the input data &lt;span class="math"&gt;\(x\)&lt;/span&gt; by a weight matrix &lt;span class="math"&gt;\(W\)&lt;/span&gt; with addition of bias &lt;span class="math"&gt;\(b\)&lt;/span&gt;:&lt;/p&gt;
+&lt;div class="math"&gt;$$\mathrm{L}(x) = xW + b.$$&lt;/div&gt;
+&lt;p&gt;We require that the size of the input data was of the format &lt;span class="math"&gt;\(batch\times input~features\)&lt;/span&gt;, for instance if the input data has 784 pixel values, for a batch of 100 images the size of &lt;span class="math"&gt;\(x\)&lt;/span&gt; would be &lt;span class="math"&gt;\(100\times 784\)&lt;/span&gt; and the size of &lt;span class="math"&gt;\(W\)&lt;/span&gt; would be &lt;span class="math"&gt;\(784\times out~features\)&lt;/span&gt;, while &lt;span class="math"&gt;\(b\)&lt;/span&gt; is of the shape &lt;span class="math"&gt;\(out~features\times 1\)&lt;/span&gt;. Here we rely on &lt;code&gt;numpy&lt;/code&gt; broadcasting the value of bias onto the resulting matrix &lt;span class="math"&gt;\(xW\)&lt;/span&gt; when adding &lt;span class="math"&gt;\(b\)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;In code, we define it as follows:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;forward&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Tensor&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Tensor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
@@ -145,14 +145,14 @@
 
 &lt;h4&gt;Gradient&lt;/h4&gt;
 &lt;p&gt;In the forward pass, we computed the matrix product. Next, we need to evaluate the rate of change of the output of the current layer with respect to the input. Note, that due to the chain rule, the gradient flows from right (output) to left (input) as a product.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;backward&lt;/code&gt; method utilizes chainrule. It accepts the gradient from the layer $l+1$, uses it to find the derivatives of the current layer's output with respect to $W$ and $b$ and finally, passes it along multiplying by the derivative of its output w.r.t. $x$, the input.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;backward&lt;/code&gt; method utilizes chainrule. It accepts the gradient from the layer &lt;span class="math"&gt;\(l+1\)&lt;/span&gt;, uses it to find the derivatives of the current layer's output with respect to &lt;span class="math"&gt;\(W\)&lt;/span&gt; and &lt;span class="math"&gt;\(b\)&lt;/span&gt; and finally, passes it along multiplying by the derivative of its output w.r.t. &lt;span class="math"&gt;\(x\)&lt;/span&gt;, the input.&lt;/p&gt;
 &lt;p&gt;Mathematically, this is the following:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;The loss's derivatives w.r.t. weights are $$\frac{\partial E}{\partial W^{l}&lt;em _text_input-output="\text{input-output" pair&gt;{ij}}=\sum\limits&lt;/em&gt;}\delta^l_i out^{l-1}_j$$.&lt;/li&gt;
-&lt;li&gt;Here, $\delta^l_i$ is the error of the $l$th layer for $i$th node: $$\delta^l_i=g'&lt;em ik&gt;{out}(a_i^l)\sum\limits_k W^{l+1}&lt;/em&gt;\delta^{l+1}_{k}$$, where $g$ is the activation function.&lt;/li&gt;
+&lt;li&gt;The loss's derivatives w.r.t. weights are &lt;div class="math"&gt;$$\frac{\partial E}{\partial W^{l}_{ij}}=\sum\limits_{\text{input-output pair}}\delta^l_i out^{l-1}_j$$&lt;/div&gt;.&lt;/li&gt;
+&lt;li&gt;Here, &lt;span class="math"&gt;\(\delta^l_i\)&lt;/span&gt; is the error of the &lt;span class="math"&gt;\(l\)&lt;/span&gt;th layer for &lt;span class="math"&gt;\(i\)&lt;/span&gt;th node: &lt;div class="math"&gt;$$\delta^l_i=g'_{out}(a_i^l)\sum\limits_k W^{l+1}_{ik}\delta^{l+1}_{k}$$&lt;/div&gt;, where &lt;span class="math"&gt;\(g\)&lt;/span&gt; is the activation function.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;These equations are written in a different shape convention, but we can take care of that in the code.&lt;/p&gt;
-&lt;p&gt;The derivative of $xW+b$ w.r.t. $W$ is $x^T$. The derivative of $xW+b$ w.r.t. to $b$ is an identity matrix. Therefore, let &lt;code&gt;grad&lt;/code&gt; be the gradient (error) received from $(l+1)$th layer, then we can define the &lt;code&gt;backward&lt;/code&gt; method as below:&lt;/p&gt;
+&lt;p&gt;The derivative of &lt;span class="math"&gt;\(xW+b\)&lt;/span&gt; w.r.t. &lt;span class="math"&gt;\(W\)&lt;/span&gt; is &lt;span class="math"&gt;\(x^T\)&lt;/span&gt;. The derivative of &lt;span class="math"&gt;\(xW+b\)&lt;/span&gt; w.r.t. to &lt;span class="math"&gt;\(b\)&lt;/span&gt; is an identity matrix. Therefore, let &lt;code&gt;grad&lt;/code&gt; be the gradient (error) received from &lt;span class="math"&gt;\((l+1)\)&lt;/span&gt;th layer, then we can define the &lt;code&gt;backward&lt;/code&gt; method as below:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;backward&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;grad&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Tensor&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Tensor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="c1"&gt;# input_feat by batch_size @ batch_size by out_features&lt;/span&gt;
         &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dydw&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt; &lt;span class="o"&gt;@&lt;/span&gt; &lt;span class="n"&gt;grad&lt;/span&gt;
@@ -220,10 +220,13 @@
 
 &lt;h3&gt;Layers with Activation Functions&lt;/h3&gt;
 &lt;p&gt;We define separate layers for activation functions, similarly to the way PyTorch handles those. We only define two here: ReLU and Sigmoid.&lt;/p&gt;
-&lt;p&gt;ReLU is defined as $$f(x) = \max{0, x}$$ and Sigmoid is defined as $$\sigma(x) = \frac{1}{1+\exp(-x)}.$$ &lt;/p&gt;
+&lt;p&gt;ReLU is defined as &lt;/p&gt;
+&lt;div class="math"&gt;$$f(x) = \max\{0, x\}$$&lt;/div&gt;
+&lt;p&gt; and Sigmoid is defined as &lt;/p&gt;
+&lt;div class="math"&gt;$$\sigma(x) = \frac{1}{1+\exp(-x)}.$$&lt;/div&gt;
 &lt;p&gt;Their derivatives are defined as &lt;/p&gt;
-&lt;p&gt;$$(\nabla f)(t) = 0 \text{ if } t=0\text{, else }t$$
-$$(\nabla \sigma)(t) = \sigma(t)(1-\sigma(t))$$&lt;/p&gt;
+&lt;div class="math"&gt;$$(\nabla f)(t) = 0 \text{ if } t=0\text{, else }t$$&lt;/div&gt;
+&lt;div class="math"&gt;$$(\nabla \sigma)(t) = \sigma(t)(1-\sigma(t))$$&lt;/div&gt;
 &lt;p&gt;The respective classes are defined below&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;sigmoid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Tensor&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Tensor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Calculate the sigmoid function of x.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
@@ -320,7 +323,7 @@ $$(\nabla \sigma)(t) = \sigma(t)(1-\sigma(t))$$&lt;/p&gt;
 
 &lt;p&gt;In addition to Sigmoid and ReLU, we also import &lt;code&gt;softmax&lt;/code&gt; activation function from &lt;code&gt;scipy&lt;/code&gt;. In my experiments, I found that this is the most stable implementation, so I did not want to run into &lt;a href="https://en.wikipedia.org/wiki/Not_invented_here"&gt;"not invented here"&lt;/a&gt; problem.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;softmax&lt;/code&gt; is defined as follows:&lt;/p&gt;
-&lt;p&gt;$$\mathcal{S}(x)=\left[\frac{\exp(x_i)}{\sum\limits_{k}\exp(x_k)}\right], i=1..n,~x=[x_1, ... , x_n]$$&lt;/p&gt;
+&lt;div class="math"&gt;$$\mathcal{S}(x)=\left[\frac{\exp(x_i)}{\sum\limits_{k}\exp(x_k)}\right], i=1..n,~x=[x_1, ... , x_n]$$&lt;/div&gt;
 &lt;p&gt;Softmax accepts a vector of network's output and converts it to a vector of probability values. For this function we need to use one-hot encoding.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;scipy.special&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;softmax&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;softmax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Tensor&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Tensor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
@@ -331,26 +334,32 @@ $$(\nabla \sigma)(t) = \sigma(t)(1-\sigma(t))$$&lt;/p&gt;
 &lt;h3&gt;Loss Functions&lt;/h3&gt;
 &lt;p&gt;We implement two loss functions here. We will implement Mean Squared Error Loss class and a Cross Entropy Loss class.&lt;/p&gt;
 &lt;h4&gt;Mean Squared Error Loss&lt;/h4&gt;
-&lt;p&gt;This is a very straight-forward loss function, it takes the output of the last layer of the neural network $\hat{y}$ and ccomputes:&lt;/p&gt;
-&lt;p&gt;$$\mathcal{L}(y, \hat{y}) = \frac{1}{2m}||y-\hat{y}||^2,$$&lt;/p&gt;
-&lt;p&gt;where $m$ is the size of $y$ and $$\hat{y}$$ and $$\vert\vert...\vert\vert$$ represents the vector norm (sum of squared component-wise differences). The gradient of this function for backpropagation is computed as&lt;/p&gt;
-&lt;p&gt;$$\nabla{\mathcal{L}}=\frac{1}{m}(y-\hat{y})$$&lt;/p&gt;
+&lt;p&gt;This is a very straight-forward loss function, it takes the output of the last layer of the neural network &lt;span class="math"&gt;\(\hat{y}\)&lt;/span&gt; and ccomputes:&lt;/p&gt;
+&lt;div class="math"&gt;$$\mathcal{L}(y, \hat{y}) = \frac{1}{2m}||y-\hat{y}||^2,$$&lt;/div&gt;
+&lt;p&gt;where &lt;span class="math"&gt;\(m\)&lt;/span&gt; is the size of &lt;span class="math"&gt;\(y\)&lt;/span&gt; and &lt;/p&gt;
+&lt;div class="math"&gt;$$\hat{y}$$&lt;/div&gt;
+&lt;p&gt; and &lt;/p&gt;
+&lt;div class="math"&gt;$$\vert\vert...\vert\vert$$&lt;/div&gt;
+&lt;p&gt; represents the vector norm (sum of squared component-wise differences). The gradient of this function for backpropagation is computed as&lt;/p&gt;
+&lt;div class="math"&gt;$$\nabla{\mathcal{L}}=\frac{1}{m}(y-\hat{y})$$&lt;/div&gt;
 &lt;h4&gt;Cross Entropy Loss&lt;/h4&gt;
-&lt;p&gt;Cross entropy loss function is defined as follows. Let $\hat{y}$ be the so-called ${logits}$, the outputs of the neural network. Then, we use softmax to calculate the probabilities $p=\mathcal{S}\left(\hat{y}\right)$. The cross entropy is&lt;/p&gt;
-&lt;p&gt;$$\mathcal{L}(y, \hat{y}) = -\sum\limits_{i} y_i \log p_i,$$
-where $y_i$ is the true label vector.&lt;/p&gt;
+&lt;p&gt;Cross entropy loss function is defined as follows. Let &lt;span class="math"&gt;\(\hat{y}\)&lt;/span&gt; be the so-called &lt;span class="math"&gt;\({logits}\)&lt;/span&gt;, the outputs of the neural network. Then, we use softmax to calculate the probabilities &lt;span class="math"&gt;\(p=\mathcal{S}\left(\hat{y}\right)\)&lt;/span&gt;. The cross entropy is&lt;/p&gt;
+&lt;div class="math"&gt;$$\mathcal{L}(y, \hat{y}) = -\sum\limits_{i} y_i \log p_i,$$&lt;/div&gt;
+&lt;p&gt;
+where &lt;span class="math"&gt;\(y_i\)&lt;/span&gt; is the true label vector.&lt;/p&gt;
 &lt;p&gt;To evaluate the gradient, consider the following argument&lt;/p&gt;
-&lt;p&gt;$$\nabla{\mathcal{L}}(y, \hat{y}) = -\sum\limits_i \frac{\partial \left(y_i \log [\mathcal{S}(x)]_i\right)}{\partial x_j}$$
-where $x$ is the network's output. Continuing this, we obtain&lt;/p&gt;
-&lt;p&gt;$$\nabla{\mathcal{L}}(y, \hat{y}) = -\sum\limits_i y_i \frac{1}{p_i}\frac{\partial  \mathcal{S}(x)_i}{\partial x_j}$$&lt;/p&gt;
+&lt;div class="math"&gt;$$\nabla{\mathcal{L}}(y, \hat{y}) = -\sum\limits_i \frac{\partial \left(y_i \log [\mathcal{S}(x)]_i\right)}{\partial x_j}$$&lt;/div&gt;
+&lt;p&gt;
+where &lt;span class="math"&gt;\(x\)&lt;/span&gt; is the network's output. Continuing this, we obtain&lt;/p&gt;
+&lt;div class="math"&gt;$$\nabla{\mathcal{L}}(y, \hat{y}) = -\sum\limits_i y_i \frac{1}{p_i}\frac{\partial  \mathcal{S}(x)_i}{\partial x_j}$$&lt;/div&gt;
 &lt;p&gt;To find the derivative of softmax, consider&lt;/p&gt;
-&lt;p&gt;$$\frac{\partial \mathcal{S}&lt;em k&gt;i}{\partial x_j} = \frac{\partial}{\partial x_j}\left(\frac{\exp(x_i)}{\sum\limits&lt;/em&gt;\exp(x_k)}\right) = \frac{\frac{\partial\exp(x_i)}{\partial x_j} \sum\limits_{k}\exp(x_k) - \exp(x_i) \sum\limits_{k}\frac{\partial\exp(x_k)}{\partial x_j}}{\left(\sum\limits_{k}\exp(x_k)\right)^2},$$&lt;/p&gt;
-&lt;p&gt;$$\frac{\partial \mathcal{S}&lt;em ij&gt;i}{\partial x_j} = \frac{\exp(x_i)\delta&lt;/em&gt; \sum\limits_{k}\exp(x_k) - \exp(x_i)\exp(x_j)}{\left(\sum\limits_{k}\exp(x_k)\right)^2},$$&lt;/p&gt;
-&lt;p&gt;$$\frac{\partial \mathcal{S}&lt;em k&gt;i}{\partial x_j} = \frac{\exp(x_i)}{ \sum\limits&lt;/em&gt;\exp(x_k)}\delta_{ij} - \frac{\exp(x_i)}{\sum\limits_{k}\exp(x_k)}\frac{\exp(x_j)}{\sum\limits_{k}\exp(x_k)} = \mathcal{S}&lt;em ij&gt;i\delta&lt;/em&gt; - \mathcal{S}_i \mathcal{S}_j.$$&lt;/p&gt;
-&lt;p&gt;We use $\delta_{ij}$ to represent Kronecker delta-symbol (essentially, identity matrix). Finally, we can interchange the notation $\mathcal{S}_i$ for $p_i$, since both represent the $i$th component of the softmax output (the probability)&lt;/p&gt;
-&lt;p&gt;$$\nabla{\mathcal{L}}(y, \hat{y}) = -\sum\limits_i y_i \frac{1}{p_i}p_i(\delta_{ij}-p_j) = - y_j  + p_j\sum\limits_i y_i.$$&lt;/p&gt;
-&lt;p&gt;Recall, that the vector $y$ is one-hot encoded, therefore, the sum of its components $\sum\limits_i y_i=1$. Hence, we obtain&lt;/p&gt;
-&lt;p&gt;$$\nabla{\mathcal{L}}(y, \hat{y}) =p_j - y_j.$$&lt;/p&gt;
+&lt;div class="math"&gt;$$\frac{\partial \mathcal{S}_i}{\partial x_j} = \frac{\partial}{\partial x_j}\left(\frac{\exp(x_i)}{\sum\limits_{k}\exp(x_k)}\right) = \frac{\frac{\partial\exp(x_i)}{\partial x_j} \sum\limits_{k}\exp(x_k) - \exp(x_i) \sum\limits_{k}\frac{\partial\exp(x_k)}{\partial x_j}}{\left(\sum\limits_{k}\exp(x_k)\right)^2},$$&lt;/div&gt;
+&lt;div class="math"&gt;$$\frac{\partial \mathcal{S}_i}{\partial x_j} = \frac{\exp(x_i)\delta_{ij} \sum\limits_{k}\exp(x_k) - \exp(x_i)\exp(x_j)}{\left(\sum\limits_{k}\exp(x_k)\right)^2},$$&lt;/div&gt;
+&lt;div class="math"&gt;$$\frac{\partial \mathcal{S}_i}{\partial x_j} = \frac{\exp(x_i)}{ \sum\limits_{k}\exp(x_k)}\delta_{ij} - \frac{\exp(x_i)}{\sum\limits_{k}\exp(x_k)}\frac{\exp(x_j)}{\sum\limits_{k}\exp(x_k)} = \mathcal{S}_i\delta_{ij} - \mathcal{S}_i \mathcal{S}_j.$$&lt;/div&gt;
+&lt;p&gt;We use &lt;span class="math"&gt;\(\delta_{ij}\)&lt;/span&gt; to represent Kronecker delta-symbol (essentially, identity matrix). Finally, we can interchange the notation &lt;span class="math"&gt;\(\mathcal{S}_i\)&lt;/span&gt; for &lt;span class="math"&gt;\(p_i\)&lt;/span&gt;, since both represent the &lt;span class="math"&gt;\(i\)&lt;/span&gt;th component of the softmax output (the probability)&lt;/p&gt;
+&lt;div class="math"&gt;$$\nabla{\mathcal{L}}(y, \hat{y}) = -\sum\limits_i y_i \frac{1}{p_i}p_i(\delta_{ij}-p_j) = - y_j  + p_j\sum\limits_i y_i.$$&lt;/div&gt;
+&lt;p&gt;Recall, that the vector &lt;span class="math"&gt;\(y\)&lt;/span&gt; is one-hot encoded, therefore, the sum of its components &lt;span class="math"&gt;\(\sum\limits_i y_i=1\)&lt;/span&gt;. Hence, we obtain&lt;/p&gt;
+&lt;div class="math"&gt;$$\nabla{\mathcal{L}}(y, \hat{y}) =p_j - y_j.$$&lt;/div&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Loss&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Placeholder class for losses.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 
@@ -480,9 +489,9 @@ where $x$ is the network's output. Continuing this, we obtain&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;Optimizers&lt;/h3&gt;
-&lt;p&gt;Our main optimizer here is going to be Stochastic Gradient Descent. After we computed the backpropagation, for every layer in the network, we are going to update the weights. If the gradient is $\Delta w$ then the update rule is &lt;/p&gt;
-&lt;p&gt;$$w = w - \eta \Delta w - 2*\alpha w,$$&lt;/p&gt;
-&lt;p&gt;where $\eta$ is the learning rate and $\alpha$ is the $L^2$ regularization parameter. The code is presented below.&lt;/p&gt;
+&lt;p&gt;Our main optimizer here is going to be Stochastic Gradient Descent. After we computed the backpropagation, for every layer in the network, we are going to update the weights. If the gradient is &lt;span class="math"&gt;\(\Delta w\)&lt;/span&gt; then the update rule is &lt;/p&gt;
+&lt;div class="math"&gt;$$w = w - \eta \Delta w - 2*\alpha w,$$&lt;/div&gt;
+&lt;p&gt;where &lt;span class="math"&gt;\(\eta\)&lt;/span&gt; is the learning rate and &lt;span class="math"&gt;\(\alpha\)&lt;/span&gt; is the &lt;span class="math"&gt;\(L^2\)&lt;/span&gt; regularization parameter. The code is presented below.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;SGD&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Stochastic Gradient Descent class.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 
@@ -794,7 +803,69 @@ where $x$ is the network's output. Continuing this, we obtain&lt;/p&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;We implemented a neural network class that supports several activation functions. We followed here a design pattern based on PyTorch deep learning package. We implemented linear (fully-connected) layer, ReLU and Sigmoid layer. Each layer includes a backpropagation function &lt;code&gt;backward&lt;/code&gt; that sends the gradient from the output back to input. As a result we were able to use a Cross Entropy Loss function to train a handwritten digit classifier with 95% accuracy on the test set. Notice that on the graph we observe a pattern of periodically dropping accuracy. I assume this is due to internal structure of the loss landscape: we repeatedly "walk" out of the minimum region and then "walk" back in during the SGD.&lt;/p&gt;
 &lt;p&gt;Using the Mean Squared Error loss function did not yield a productive result here, however, while developing this library, I observed that if I train on a small sample of data (i.e. 50 items or less), the model was able to learn the underlying data representations very well and was able to over fit. This is one the tests usually performed on new architectures in order to check if the model can learn at all. This, unfortunately, did not scale in case of MSE but it did for Cross Entropy Loss.&lt;/p&gt;
-&lt;p&gt;The overall structure of the project is posted on my github &lt;a href="https://github.com/iliailmer/numpy_learn"&gt;page&lt;/a&gt;&lt;/p&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="python"></category><category term="numpy"></category><category term="deep learning"></category></entry><entry><title>"Three Ways to Deal With Imbalance"</title><link href="/2020/03/precision-recall.html" rel="alternate"></link><published>2020-03-02T00:00:00-05:00</published><updated>2020-03-02T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2020-03-02:/2020/03/precision-recall.html</id><summary type="html">&lt;p&gt;In this post, I put together an interesting example of what to do with imbalanced datasets and why precision and recall matter.&lt;/p&gt;
+&lt;p&gt;The overall structure of the project is posted on my github &lt;a href="https://github.com/iliailmer/numpy_learn"&gt;page&lt;/a&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="python"></category><category term="numpy"></category><category term="deep learning"></category></entry><entry><title>"Three Ways to Deal With Imbalance"</title><link href="/2020/03/precision-recall.html" rel="alternate"></link><published>2020-03-02T00:00:00-05:00</published><updated>2020-03-02T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2020-03-02:/2020/03/precision-recall.html</id><summary type="html">&lt;p&gt;In this post, I put together an interesting example of what to do with imbalanced datasets and why precision and recall matter.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;The following is part of a Machine learning assignment I had to do while at CUNY. This particular example illustrates quite well the importance of understanding various …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, I put together an interesting example of what to do with imbalanced datasets and why precision and recall matter.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
@@ -1117,17 +1188,17 @@ Name: 0, dtype: float64
 &lt;p&gt;&lt;img alt="png" src="/images/2020-02-24-data-explore/output_18_0.png"&gt;&lt;/p&gt;
 &lt;h3&gt;Linear Regression fitting&lt;/h3&gt;
 &lt;p&gt;We will approach the solution in the following way. Firstly, we will train a linear regression model on the available data (256 pixel intensity values). Note that the problem is high-dimensional and therefore it is impossible to visualize all of it at once.&lt;/p&gt;
-&lt;p&gt;However, the main idea of the linear regression based classifier remains simple: we find a hyperplane in the $p+1=257$ dimensional space that fits the training data perfectly:&lt;/p&gt;
-&lt;p&gt;$$ \hat{y}=\mathbf{X}\hat{\beta},$$&lt;/p&gt;
-&lt;p&gt;where $X_i$ is the input column vector (features) with intercept (that is $X_0=1$):&lt;/p&gt;
-&lt;p&gt;$$\X_i=(1, X_{i1} ,\dots X_{ip} )^T \in \mathbb{R}^{p+1},$$ &lt;/p&gt;
-&lt;p&gt;$\mathbf{X}$ is the matrix of features&lt;/p&gt;
-&lt;p&gt;$$\\mathbf{X} = [X_1^T,\dots, X_n^T]\in \mathbb{R}^{n\times(p+1)}\text{},$$&lt;/p&gt;
-&lt;p&gt;and $\beta=[\beta_0, \dots, \beta_p]$ is the vector of parameters&lt;/p&gt;
-&lt;p&gt;$$\\beta=[\beta_0, \dots, \beta_p]\in \mathbb{R}^{p+1},$$&lt;/p&gt;
-&lt;p&gt;where $\hat{\beta}$ is given by &lt;/p&gt;
-&lt;p&gt;$$ \hat{\beta} = (X^TX)^{-1}X^Ty.$$&lt;/p&gt;
-&lt;p&gt;We are projecting our training set $\mathbf{X}$ orthogonally onto the hyperplane defined by $\hat\beta$. We can then derive a classifier from there as follows: let us set up the threshold $t$ such that if for a given unseen feature vector $X_{test}$ the value $y_{test}=X_{test}^T\hat\beta=\hat\beta_0+\sum\limits_{i=1}^p (X_{test})_i\hat\beta_i$ is greater than $t$, we assign label 1, otherwise 0.&lt;/p&gt;
+&lt;p&gt;However, the main idea of the linear regression based classifier remains simple: we find a hyperplane in the &lt;span class="math"&gt;\(p+1=257\)&lt;/span&gt; dimensional space that fits the training data perfectly:&lt;/p&gt;
+&lt;div class="math"&gt;$$ \hat{y}=\mathbf{X}\hat{\beta},$$&lt;/div&gt;
+&lt;p&gt;where &lt;span class="math"&gt;\(X_i\)&lt;/span&gt; is the input column vector (features) with intercept (that is &lt;span class="math"&gt;\(X_0=1\)&lt;/span&gt;):&lt;/p&gt;
+&lt;div class="math"&gt;$$\\X_i=(1, X_{i1} ,\dots X_{ip} )^T \in \mathbb{R}^{p+1},$$&lt;/div&gt;
+&lt;p&gt;&lt;span class="math"&gt;\(\mathbf{X}\)&lt;/span&gt; is the matrix of features&lt;/p&gt;
+&lt;div class="math"&gt;$$\\\mathbf{X} = [X_1^T,\dots, X_n^T]\in \mathbb{R}^{n\times(p+1)}\text{},$$&lt;/div&gt;
+&lt;p&gt;and &lt;span class="math"&gt;\(\beta=[\beta_0, \dots, \beta_p]\)&lt;/span&gt; is the vector of parameters&lt;/p&gt;
+&lt;div class="math"&gt;$$\\\beta=[\beta_0, \dots, \beta_p]\in \mathbb{R}^{p+1},$$&lt;/div&gt;
+&lt;p&gt;where &lt;span class="math"&gt;\(\hat{\beta}\)&lt;/span&gt; is given by &lt;/p&gt;
+&lt;div class="math"&gt;$$ \hat{\beta} = (X^TX)^{-1}X^Ty.$$&lt;/div&gt;
+&lt;p&gt;We are projecting our training set &lt;span class="math"&gt;\(\mathbf{X}\)&lt;/span&gt; orthogonally onto the hyperplane defined by &lt;span class="math"&gt;\(\hat\beta\)&lt;/span&gt;. We can then derive a classifier from there as follows: let us set up the threshold &lt;span class="math"&gt;\(t\)&lt;/span&gt; such that if for a given unseen feature vector &lt;span class="math"&gt;\(X_{test}\)&lt;/span&gt; the value &lt;span class="math"&gt;\(y_{test}=X_{test}^T\hat\beta=\hat\beta_0+\sum\limits_{i=1}^p (X_{test})_i\hat\beta_i\)&lt;/span&gt; is greater than &lt;span class="math"&gt;\(t\)&lt;/span&gt;, we assign label 1, otherwise 0.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;linreg&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;LinearRegression&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;linreg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -1140,7 +1211,7 @@ Name: 0, dtype: float64
 &lt;span class="n"&gt;y_pred&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;linreg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;predict&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;We select the threshold range between the minimum and maximum value of the predicted $y$ with a step 0.1 and then check the accuracy for each threshold.&lt;/p&gt;
+&lt;p&gt;We select the threshold range between the minimum and maximum value of the predicted &lt;span class="math"&gt;\(y\)&lt;/span&gt; with a step 0.1 and then check the accuracy for each threshold.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;thresh_range&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;max&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="mf"&gt;0.1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;train_acc_scores&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
 
@@ -1421,7 +1492,69 @@ Labels from rightmost threshold:
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;We applied two different classification methods for the data. Method 1 was based on the linear regression using least squares method. The second method was based on 5 different Nearest neighbor classifiers.&lt;/p&gt;
 &lt;p&gt;Each approach showed different results specific to assumptions underlying each model. Linear model assumes that the relationship between the label and pixel intensities is a high-dimensional linear function. Using various threshold we were able to show the change in hyperplane location relative to test and train data and how the accuracy scores (error scores) reflect this change.&lt;/p&gt;
-&lt;p&gt;For the k-NN model, we observed a similar behavior: going from few neighbors to more, we saw that the model is prone to the larger error. This is to be expected but not to say that 1 neighbor is necessarily better than 15 neighbors, since 1 neighbor case is &lt;em&gt;overfitting&lt;/em&gt; the data. The data is very high-dimensional so it is harder to evaluate how many neighbors we should aim for here.&lt;/p&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="linear regression"></category><category term="python"></category><category term="scikit-learn"></category><category term="statistical learning"></category></entry><entry><title>"How to write a decent training loop with enough flexibility."</title><link href="/2019/06/how-to-make-training-loop.html" rel="alternate"></link><published>2019-06-15T00:00:00-04:00</published><updated>2019-06-15T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2019-06-15:/2019/06/how-to-make-training-loop.html</id><summary type="html">&lt;p&gt;In this post, I briefly describe my experience in setting up training with PyTorch.&lt;/p&gt;
+&lt;p&gt;For the k-NN model, we observed a similar behavior: going from few neighbors to more, we saw that the model is prone to the larger error. This is to be expected but not to say that 1 neighbor is necessarily better than 15 neighbors, since 1 neighbor case is &lt;em&gt;overfitting&lt;/em&gt; the data. The data is very high-dimensional so it is harder to evaluate how many neighbors we should aim for here.&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="linear regression"></category><category term="python"></category><category term="scikit-learn"></category><category term="statistical learning"></category></entry><entry><title>"How to write a decent training loop with enough flexibility."</title><link href="/2019/06/how-to-make-training-loop.html" rel="alternate"></link><published>2019-06-15T00:00:00-04:00</published><updated>2019-06-15T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2019-06-15:/2019/06/how-to-make-training-loop.html</id><summary type="html">&lt;p&gt;In this post, I briefly describe my experience in setting up training with PyTorch.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;PyTorch is an extremely useful and convenient framework for deep learning. When it comes to working on  a deep learning project, I am more comfortable with PyTorch rather than TensorFlow.&lt;/p&gt;
 &lt;p&gt;In this quick post, I …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, I briefly describe my experience in setting up training with PyTorch.&lt;/p&gt;
@@ -1544,10 +1677,10 @@ Kaggle, FastAI, and Python (which quite a lot of them are already familiar with!
 &lt;h1&gt;Difficulties in implementation&lt;/h1&gt;
 &lt;p&gt;Let me discuss some difficulties I ran into when I was implementing the network. I will try to be as brief as I can.&lt;/p&gt;
 &lt;h2&gt;Finding the right kernel (filter bank)&lt;/h2&gt;
-&lt;p&gt;Firs of all, representing the DCT as a convolution sounds intuitively simple but turned out to be more difficult in practice. Let's look at the formula transforming the 2D N-by-N input signal $x$ into 2D output signal $\hat X$:&lt;/p&gt;
-&lt;p&gt;$\hat X_{u,v} = \sum_{ii=0}^{N-1}\left[\sum_{jj=0}^{N-1} x_{ii,jj} \cos\left(\frac{\pi}{N}\left(ii+0.5\right) u \right)\right] \cos\left(\frac{\pi}{N}\left(jj+0.5\right) v \right).$&lt;/p&gt;
-&lt;p&gt;So the approach is to use a separate kernel for each combination of $(u,~v)$ indices. They will implicitly represent the direction in which our filter is looking at the image.&lt;/p&gt;
-&lt;p&gt;So, if our sliding convolution window is $N\times N$ then we need $N^2$ filters, $N\times N$ each:&lt;/p&gt;
+&lt;p&gt;Firs of all, representing the DCT as a convolution sounds intuitively simple but turned out to be more difficult in practice. Let's look at the formula transforming the 2D N-by-N input signal &lt;span class="math"&gt;\(x\)&lt;/span&gt; into 2D output signal &lt;span class="math"&gt;\(\hat X\)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math"&gt;\(\hat X_{u,v} = \sum_{ii=0}^{N-1}\left[\sum_{jj=0}^{N-1} x_{ii,jj} \cos\left(\frac{\pi}{N}\left(ii+0.5\right) u \right)\right] \cos\left(\frac{\pi}{N}\left(jj+0.5\right) v \right).\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;So the approach is to use a separate kernel for each combination of &lt;span class="math"&gt;\((u,~v)\)&lt;/span&gt; indices. They will implicitly represent the direction in which our filter is looking at the image.&lt;/p&gt;
+&lt;p&gt;So, if our sliding convolution window is &lt;span class="math"&gt;\(N\times N\)&lt;/span&gt; then we need &lt;span class="math"&gt;\(N^2\)&lt;/span&gt; filters, &lt;span class="math"&gt;\(N\times N\)&lt;/span&gt; each:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;torch&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
 &lt;span class="n"&gt;PI&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;
@@ -1573,8 +1706,8 @@ Kaggle, FastAI, and Python (which quite a lot of them are already familiar with!
 
 &lt;p&gt;Great, the filters are collected. The cool thing with PyTorch is that by default these tensors will not be updated in the backwards pass. This is because the property called &lt;code&gt;requires_grad&lt;/code&gt; is initialized to &lt;code&gt;False&lt;/code&gt; automatically. (I should probably add that it can always be manipulated manually, but we will not worry about that here.)&lt;/p&gt;
 &lt;h2&gt;Further processing of harmonic blocks&lt;/h2&gt;
-&lt;p&gt;One convolution with kernels is not enough. The authors propose a way of combining them linearly through $1\times1$ convolution. That way each consequent layer is a linear combination of the previous one. This convolution &lt;strong&gt;is&lt;/strong&gt; affected by the backwards pass. The linear combination occurs across the result of convolution with DCT filters.&lt;/p&gt;
-&lt;p&gt;If the input has 3 channels and each channel produces 9 convolution results ($3\times 3$ filters, 9 of them)
+&lt;p&gt;One convolution with kernels is not enough. The authors propose a way of combining them linearly through &lt;span class="math"&gt;\(1\times1\)&lt;/span&gt; convolution. That way each consequent layer is a linear combination of the previous one. This convolution &lt;strong&gt;is&lt;/strong&gt; affected by the backwards pass. The linear combination occurs across the result of convolution with DCT filters.&lt;/p&gt;
+&lt;p&gt;If the input has 3 channels and each channel produces 9 convolution results (&lt;span class="math"&gt;\(3\times 3\)&lt;/span&gt; filters, 9 of them)
 then we get the output shape after the harmonic block as (3,9,W,H) where W and H are width and height respectively. The linear combination than happens across the &lt;strong&gt;9&lt;/strong&gt; outputs for each channel. That's it!&lt;/p&gt;
 &lt;h2&gt;Sending to GPU device using &lt;code&gt;torch.cuda()&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;A problem I encountered while implementing the Harmonic block of the network was that just sending the model to GPU using&lt;/p&gt;
@@ -1606,7 +1739,69 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 &lt;p&gt;Experiment with binarization of weights: to decrease model size&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The implementation of the model can be found &lt;a href="https://github.com/iliailmer/harmonic_network"&gt;here&lt;/a&gt;.&lt;/p&gt;</content><category term="Posts"></category><category term="deep learning"></category><category term="computer vision"></category><category term="work in progress"></category></entry><entry><title>'Image Quality Measure'</title><link href="/2018/12/image-quality/.html" rel="alternate"></link><published>2018-12-13T00:00:00-05:00</published><updated>2018-12-13T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2018-12-13:/2018/12/image-quality/.html</id><summary type="html">&lt;p&gt;A simple function that can be used to justify image quality and control enhancement.&lt;/p&gt;
+&lt;p&gt;The implementation of the model can be found &lt;a href="https://github.com/iliailmer/harmonic_network"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="Posts"></category><category term="deep learning"></category><category term="computer vision"></category><category term="work in progress"></category></entry><entry><title>'Image Quality Measure'</title><link href="/2018/12/image-quality/.html" rel="alternate"></link><published>2018-12-13T00:00:00-05:00</published><updated>2018-12-13T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2018-12-13:/2018/12/image-quality/.html</id><summary type="html">&lt;p&gt;A simple function that can be used to justify image quality and control enhancement.&lt;/p&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;One difficult thing about image enhancement is to actually measure the level of image quality which is quite a subjective task. On the one hand, each individual can perceive the image quality according to their …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A simple function that can be used to justify image quality and control enhancement.&lt;/p&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
@@ -1614,12 +1809,12 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 &lt;p&gt;An interesting measure that goes forward to unify the subjectivity of human taste and the visual system based perspective was introduced in &lt;a href="https://pdfs.semanticscholar.org/5ada/c5932775f089eaace7ebc45a6cba89809134.pdf"&gt;this paper&lt;/a&gt;. Let's try it out!&lt;/p&gt;
 &lt;h1&gt;Code&lt;/h1&gt;
 &lt;p&gt;Well, the essential idea of this measure is that we focus our attention on the image in a blockwise manner. Splitting the image into blocks and then finding the maximal value of the pixel intensity per each block is fairly straightforward and simple to code.&lt;/p&gt;
-&lt;p&gt;We split the $M\times N$ image, which in computer memory is represented as a matrix of pixel intensities, into submatrices each of size $n\times n$. This results in $k_1$ blocks along the vertical axis of the image and $k_2$ along the horizontal one. The quality measure can be used&lt;/p&gt;
-&lt;p&gt;$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp})}{\min(W_{lp})}.$$&lt;/p&gt;
+&lt;p&gt;We split the &lt;span class="math"&gt;\(M\times N\)&lt;/span&gt; image, which in computer memory is represented as a matrix of pixel intensities, into submatrices each of size &lt;span class="math"&gt;\(n\times n\)&lt;/span&gt;. This results in &lt;span class="math"&gt;\(k_1\)&lt;/span&gt; blocks along the vertical axis of the image and &lt;span class="math"&gt;\(k_2\)&lt;/span&gt; along the horizontal one. The quality measure can be used&lt;/p&gt;
+&lt;div class="math"&gt;$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp})}{\min(W_{lp})}.$$&lt;/div&gt;
 &lt;p&gt;To avoid division by zero, what I do (and this seems to preserve the measure's main purpose) is the following&lt;/p&gt;
-&lt;p&gt;$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp}+1)}{\min(W_{lp}+1)}.$$&lt;/p&gt;
-&lt;p&gt;The addition $W_{lp}+1$ implies that we add 1 to all elements in the window $W_{lp}$.&lt;/p&gt;
-&lt;p&gt;I prefer to scale image to have intensities between 0 and 1, but it really is not important, you can use any range as long as it is &lt;code&gt;float&lt;/code&gt; type. This is because of the nature of the division and $\log$ operators.&lt;/p&gt;
+&lt;div class="math"&gt;$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp}+1)}{\min(W_{lp}+1)}.$$&lt;/div&gt;
+&lt;p&gt;The addition &lt;span class="math"&gt;\(W_{lp}+1\)&lt;/span&gt; implies that we add 1 to all elements in the window &lt;span class="math"&gt;\(W_{lp}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;I prefer to scale image to have intensities between 0 and 1, but it really is not important, you can use any range as long as it is &lt;code&gt;float&lt;/code&gt; type. This is because of the nature of the division and &lt;span class="math"&gt;\(\log\)&lt;/span&gt; operators.&lt;/p&gt;
 &lt;p&gt;And here's the code for this function:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;EME&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;window_width&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;window_height&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
   &lt;span class="n"&gt;height&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;width&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;shape&lt;/span&gt;
@@ -1686,7 +1881,69 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 &lt;p&gt;This is not good, particularly when the enhancement we perform somewhere implicitly brings large noise (such as histogram equalization!) forcing us to believe that the quality improved.&lt;/p&gt;
 &lt;p&gt;The explanation is, of course, that due to random noise, we (with non-zero probability) increase the maximal and decrease the minimal values of pixels and thus cause the change in the final metric value.&lt;/p&gt;
 &lt;p&gt;But how to make the metric more noise-robust?..&lt;/p&gt;
-&lt;p&gt;Well, there are certainly options. Some extensions listed &lt;a href="https://ieeexplore.ieee.org/abstract/document/6626251/"&gt;here&lt;/a&gt; certainly could do the job and be noise-resistant. But this is probably for some future experiments, who knows!&lt;/p&gt;</content><category term="Posts"></category><category term="image enhancement"></category><category term="image quality"></category></entry><entry><title>A surprising way sigmoid function is applied in computer vision</title><link href="/2018/11/image-enhancement/.html" rel="alternate"></link><published>2018-11-30T00:00:00-05:00</published><updated>2018-11-30T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2018-11-30:/2018/11/image-enhancement/.html</id><summary type="html">&lt;p&gt;Let's talk about all things image enhancement, what it is, why it is necessary and how do wavelets play a big part in it!&lt;/p&gt;
+&lt;p&gt;Well, there are certainly options. Some extensions listed &lt;a href="https://ieeexplore.ieee.org/abstract/document/6626251/"&gt;here&lt;/a&gt; certainly could do the job and be noise-resistant. But this is probably for some future experiments, who knows!&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="Posts"></category><category term="image enhancement"></category><category term="image quality"></category></entry><entry><title>A surprising way sigmoid function is applied in computer vision</title><link href="/2018/11/image-enhancement/.html" rel="alternate"></link><published>2018-11-30T00:00:00-05:00</published><updated>2018-11-30T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2018-11-30:/2018/11/image-enhancement/.html</id><summary type="html">&lt;p&gt;Let's talk about all things image enhancement, what it is, why it is necessary and how do wavelets play a big part in it!&lt;/p&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Enhancement of images is an important preprocessing step in any image related system. Getting rid of noise, brightening, extraction of details - all of this helps …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Let's talk about all things image enhancement, what it is, why it is necessary and how do wavelets play a big part in it!&lt;/p&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
@@ -1763,7 +2020,7 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 
 &lt;p&gt;This is a simple way to bring image brightness up or down, especially comparing the results to some sort of metric (say, signal-to-noise ratio, or mean-squared error). In a different post, I will show a measure of image quality that our computer vision prof showed us (it's pretty cool, but has its own quirks).&lt;/p&gt;
 &lt;p&gt;We should try to do a little better/advanced with image enhancement. A function introduced in &lt;a href="https://www.researchgate.net/profile/Vikrant_Bhateja2/publication/267338917_Mammographic_Image_Enhancement_using_Double_Sigmoid_Transformation_Function/links/544de7cb0cf2d6347f45d0d0/Mammographic-Image-Enhancement-using-Double-Sigmoid-Transformation-Function.pdf"&gt;this paper&lt;/a&gt; dubbed "double sigmoid" looks something like this&lt;/p&gt;
-&lt;p&gt;$ \sigma_{double} = \mathrm{sign}(x-x_1) \exp \left(1- \frac{(x-x_1)^2}{s}\right)$&lt;/p&gt;
+&lt;p&gt;&lt;span class="math"&gt;\( \sigma_{double} = \mathrm{sign}(x-x_1) \exp \left(1- \frac{(x-x_1)^2}{s}\right)\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;And the plot of it&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;linspace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;double_sigmoid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
@@ -1800,4 +2057,66 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This can also be applied to grey-level images. The problem with this method of enhancement is that it heavily relies on a careful choice of parameters and is very sensitive to their values.&lt;/p&gt;
-&lt;p&gt;I really like that we can always find interesting applications of mathematical functions for image quality enhancement. In the next post I plan to talk about a measure that can be used to describe image quality.&lt;/p&gt;</content><category term="Posts"></category><category term="image enhancement"></category></entry></feed>
+&lt;p&gt;I really like that we can always find interesting applications of mathematical functions for image quality enhancement. In the next post I plan to talk about a measure that can be used to describe image quality.&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="Posts"></category><category term="image enhancement"></category></entry></feed>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="" />
+    <meta name="robots" content="index, follow" />
 
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
@@ -21,19 +21,29 @@
   <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/brands.css">
   <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/solid.css">
 
+    <link href="/static/custom.css" rel="stylesheet">
 
-    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
+    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia's Blog Atom">
 
 
 
 
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333">
 
 <meta name="author" content="Ilia Ilmer" />
 <meta name="description" content="A simple function that can be used to justify image quality and control enhancement. Introduction One difficult thing about image enhancement is to actually measure the level of image quality which is quite a subjective task. On the one hand, each individual can perceive the image quality according to their …" />
 <meta name="keywords" content="image enhancement, image quality">
 
 
-<meta property="og:site_name" content="Ilia Ilmer"/>
+<meta property="og:site_name" content="Ilia's Blog"/>
 <meta property="og:title" content="&#39;Image Quality Measure&#39;"/>
 <meta property="og:description" content="A simple function that can be used to justify image quality and control enhancement. Introduction One difficult thing about image enhancement is to actually measure the level of image quality which is quite a subjective task. On the one hand, each individual can perceive the image quality according to their …"/>
 <meta property="og:locale" content="en_US"/>
@@ -47,21 +57,21 @@
 <meta property="article:tag" content="image quality"/>
 <meta property="og:image" content="">
 
-  <title>Ilia Ilmer &ndash; &#39;Image Quality Measure&#39;</title>
+  <title>Ilia's Blog &ndash; &#39;Image Quality Measure&#39;</title>
 
 </head>
 <body class="light-theme">
   <aside>
     <div>
       <a href="">
-        <img src="/theme/img/profile.png" alt="" title="">
+        <img src="/theme/img/profile.png" alt="Ilia Ilmer" title="Ilia Ilmer">
       </a>
 
       <h1>
-        <a href=""></a>
+        <a href="">Ilia Ilmer</a>
       </h1>
 
-
+<p>Algorithms and Coffee</p>
 
       <nav>
         <ul class="list">
@@ -84,6 +94,13 @@
   </aside>
   <main>
 
+    <nav>
+      <a href="">Home</a>
+
+
+      <a href="/feeds/all.atom.xml">Atom</a>
+
+    </nav>
 
 <article class="single">
   <header>
@@ -103,12 +120,12 @@
 <p>An interesting measure that goes forward to unify the subjectivity of human taste and the visual system based perspective was introduced in <a href="https://pdfs.semanticscholar.org/5ada/c5932775f089eaace7ebc45a6cba89809134.pdf">this paper</a>. Let's try it out!</p>
 <h1>Code</h1>
 <p>Well, the essential idea of this measure is that we focus our attention on the image in a blockwise manner. Splitting the image into blocks and then finding the maximal value of the pixel intensity per each block is fairly straightforward and simple to code.</p>
-<p>We split the $M\times N$ image, which in computer memory is represented as a matrix of pixel intensities, into submatrices each of size $n\times n$. This results in $k_1$ blocks along the vertical axis of the image and $k_2$ along the horizontal one. The quality measure can be used</p>
-<p>$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp})}{\min(W_{lp})}.$$</p>
+<p>We split the <span class="math">\(M\times N\)</span> image, which in computer memory is represented as a matrix of pixel intensities, into submatrices each of size <span class="math">\(n\times n\)</span>. This results in <span class="math">\(k_1\)</span> blocks along the vertical axis of the image and <span class="math">\(k_2\)</span> along the horizontal one. The quality measure can be used</p>
+<div class="math">$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp})}{\min(W_{lp})}.$$</div>
 <p>To avoid division by zero, what I do (and this seems to preserve the measure's main purpose) is the following</p>
-<p>$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp}+1)}{\min(W_{lp}+1)}.$$</p>
-<p>The addition $W_{lp}+1$ implies that we add 1 to all elements in the window $W_{lp}$.</p>
-<p>I prefer to scale image to have intensities between 0 and 1, but it really is not important, you can use any range as long as it is <code>float</code> type. This is because of the nature of the division and $\log$ operators.</p>
+<div class="math">$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp}+1)}{\min(W_{lp}+1)}.$$</div>
+<p>The addition <span class="math">\(W_{lp}+1\)</span> implies that we add 1 to all elements in the window <span class="math">\(W_{lp}\)</span>.</p>
+<p>I prefer to scale image to have intensities between 0 and 1, but it really is not important, you can use any range as long as it is <code>float</code> type. This is because of the nature of the division and <span class="math">\(\log\)</span> operators.</p>
 <p>And here's the code for this function:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">EME</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">window_width</span><span class="p">,</span> <span class="n">window_height</span><span class="p">):</span>
   <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>
@@ -176,6 +193,68 @@
 <p>The explanation is, of course, that due to random noise, we (with non-zero probability) increase the maximal and decrease the minimal values of pixels and thus cause the change in the final metric value.</p>
 <p>But how to make the metric more noise-robust?..</p>
 <p>Well, there are certainly options. Some extensions listed <a href="https://ieeexplore.ieee.org/abstract/document/6626251/">here</a> certainly could do the job and be noise-resistant. But this is probably for some future experiments, who knows!</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
   </div>
   <div class="tag-cloud">
     <p>
@@ -184,27 +263,48 @@
     </p>
   </div>
 
+  <div class="center social-share">
+    <p>Like this article? Share it with your friends!</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+    <div class="addthis_inline_share_toolbox"></div>
+  </div>
 
 
+    <div class="addthis_relatedposts_inline"></div>
 
 
 </article>
 
     <footer>
-<p>&copy;  </p>
+<p>
+  &copy; 2021  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
 <p>
 Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
 </p>    </footer>
   </main>
 
 
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-77hh6723hhjd" async="async"></script>
 
 
 <script type="application/ld+json">
 {
   "@context" : "http://schema.org",
   "@type" : "Blog",
-  "name": " Ilia Ilmer ",
+  "name": " Ilia's Blog ",
   "url" : "",
   "image": "",
   "description": ""

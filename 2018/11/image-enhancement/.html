@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="" />
+    <meta name="robots" content="index, follow" />
 
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
@@ -21,19 +21,29 @@
   <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/brands.css">
   <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/solid.css">
 
+    <link href="/static/custom.css" rel="stylesheet">
 
-    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
+    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia's Blog Atom">
 
 
 
 
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333">
 
 <meta name="author" content="Ilia Ilmer" />
 <meta name="description" content="Let&#39;s talk about all things image enhancement, what it is, why it is necessary and how do wavelets play a big part in it! Introduction Enhancement of images is an important preprocessing step in any image related system. Getting rid of noise, brightening, extraction of details - all of this helps …" />
 <meta name="keywords" content="image enhancement">
 
 
-<meta property="og:site_name" content="Ilia Ilmer"/>
+<meta property="og:site_name" content="Ilia's Blog"/>
 <meta property="og:title" content="A surprising way sigmoid function is applied in computer vision"/>
 <meta property="og:description" content="Let&#39;s talk about all things image enhancement, what it is, why it is necessary and how do wavelets play a big part in it! Introduction Enhancement of images is an important preprocessing step in any image related system. Getting rid of noise, brightening, extraction of details - all of this helps …"/>
 <meta property="og:locale" content="en_US"/>
@@ -46,21 +56,21 @@
 <meta property="article:tag" content="image enhancement"/>
 <meta property="og:image" content="">
 
-  <title>Ilia Ilmer &ndash; A surprising way sigmoid function is applied in computer vision</title>
+  <title>Ilia's Blog &ndash; A surprising way sigmoid function is applied in computer vision</title>
 
 </head>
 <body class="light-theme">
   <aside>
     <div>
       <a href="">
-        <img src="/theme/img/profile.png" alt="" title="">
+        <img src="/theme/img/profile.png" alt="Ilia Ilmer" title="Ilia Ilmer">
       </a>
 
       <h1>
-        <a href=""></a>
+        <a href="">Ilia Ilmer</a>
       </h1>
 
-
+<p>Algorithms and Coffee</p>
 
       <nav>
         <ul class="list">
@@ -83,6 +93,13 @@
   </aside>
   <main>
 
+    <nav>
+      <a href="">Home</a>
+
+
+      <a href="/feeds/all.atom.xml">Atom</a>
+
+    </nav>
 
 <article class="single">
   <header>
@@ -171,7 +188,7 @@
 
 <p>This is a simple way to bring image brightness up or down, especially comparing the results to some sort of metric (say, signal-to-noise ratio, or mean-squared error). In a different post, I will show a measure of image quality that our computer vision prof showed us (it's pretty cool, but has its own quirks).</p>
 <p>We should try to do a little better/advanced with image enhancement. A function introduced in <a href="https://www.researchgate.net/profile/Vikrant_Bhateja2/publication/267338917_Mammographic_Image_Enhancement_using_Double_Sigmoid_Transformation_Function/links/544de7cb0cf2d6347f45d0d0/Mammographic-Image-Enhancement-using-Double-Sigmoid-Transformation-Function.pdf">this paper</a> dubbed "double sigmoid" looks something like this</p>
-<p>$ \sigma_{double} = \mathrm{sign}(x-x_1) \exp \left(1- \frac{(x-x_1)^2}{s}\right)$</p>
+<p><span class="math">\( \sigma_{double} = \mathrm{sign}(x-x_1) \exp \left(1- \frac{(x-x_1)^2}{s}\right)\)</span></p>
 <p>And the plot of it</p>
 <div class="highlight"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">double_sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
@@ -209,6 +226,68 @@
 
 <p>This can also be applied to grey-level images. The problem with this method of enhancement is that it heavily relies on a careful choice of parameters and is very sensitive to their values.</p>
 <p>I really like that we can always find interesting applications of mathematical functions for image quality enhancement. In the next post I plan to talk about a measure that can be used to describe image quality.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
   </div>
   <div class="tag-cloud">
     <p>
@@ -216,27 +295,48 @@
     </p>
   </div>
 
+  <div class="center social-share">
+    <p>Like this article? Share it with your friends!</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+    <div class="addthis_inline_share_toolbox"></div>
+  </div>
 
 
+    <div class="addthis_relatedposts_inline"></div>
 
 
 </article>
 
     <footer>
-<p>&copy;  </p>
+<p>
+  &copy; 2021  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
 <p>
 Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
 </p>    </footer>
   </main>
 
 
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-77hh6723hhjd" async="async"></script>
 
 
 <script type="application/ld+json">
 {
   "@context" : "http://schema.org",
   "@type" : "Blog",
-  "name": " Ilia Ilmer ",
+  "name": " Ilia's Blog ",
   "url" : "",
   "image": "",
   "description": ""
