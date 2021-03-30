@@ -1,9 +1,45 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 # TODO build theme
-AUTHOR = "Ilia Ilmer"
-SITENAME = "Ilia Ilmer"
-SITEURL = ""
+SITEURL = "https://iliailmer.github.io"
+SITENAME = "Ilia's Blog"
+SITETITLE = "Ilia Ilmer"
+SITESUBTITLE = "Algorithms and Coffee"
+# SITEDESCRIPTION = "Foo Bar's Thoughts and Writings"
+# SITELOGO = SITEURL + "/images/profile.png"
+# FAVICON = SITEURL + "/images/favicon.ico"
+
+BROWSER_COLOR = "#333"
+ROBOTS = "index, follow"
+
+CC_LICENSE = {
+    "name": "Creative Commons Attribution-ShareAlike",
+    "version": "4.0",
+    "slug": "by-sa",
+}
+
+COPYRIGHT_YEAR = 2021
+
+EXTRA_PATH_METADATA = {
+    "extra/custom.css": {"path": "static/custom.css"},
+}
+
+CUSTOM_CSS = "static/custom.css"
+
+MAIN_MENU = True
+
+ADD_THIS_ID = "ra-77hh6723hhjd"
+# DISQUS_SITENAME = "yoursite"
+# GOOGLE_ANALYTICS = "UA-1234-5678"
+# GOOGLE_TAG_MANAGER = "GTM-ABCDEF"
+
+# Enable i18n plugin.
+PLUGINS = ["i18n_subsites"]
+# Enable Jinja2 i18n extension used to parse translations.
+JINJA_ENVIRONMENT = {"extensions": ["jinja2.ext.i18n"]}
+
+# Default theme language.
+I18N_TEMPLATES_LANG = "en"
 
 PATH = "content"
 
