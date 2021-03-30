@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
-# TODO build theme
+
+
+DEFAULT_PAGINATION = 10
+
+THEME = "Flex"  # bootstrap2-dark
+ARTICLE_PATHS = ["Posts"]
+ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}.html"
+ARTICLE_URL = "{date:%Y}/{date:%m}/{slug}.html"
+
 SITEURL = "https://iliailmer.github.io"
 SITENAME = "Ilia's Blog"
 SITETITLE = "Ilia Ilmer"
@@ -29,12 +37,10 @@ CUSTOM_CSS = "static/custom.css"
 MAIN_MENU = True
 
 ADD_THIS_ID = "ra-77hh6723hhjd"
-# DISQUS_SITENAME = "yoursite"
-# GOOGLE_ANALYTICS = "UA-1234-5678"
-# GOOGLE_TAG_MANAGER = "GTM-ABCDEF"
 
 # Enable i18n plugin.
-PLUGINS = ["i18n_subsites"]
+PLUGIN_PATHS = ["./pelican-plugins", "./pelican-themes"]
+PLUGINS = ["i18n_subsites", "render_math"]
 # Enable Jinja2 i18n extension used to parse translations.
 JINJA_ENVIRONMENT = {"extensions": ["jinja2.ext.i18n"]}
 
@@ -67,16 +73,6 @@ AUTHOR_FEED_RSS = None
 #     ("You can add links in your config file", "#"),
 #     ("Another social link", "#"),
 # )
-
-DEFAULT_PAGINATION = 10
-PLUGIN_PATHS = ["./pelican-plugins", "./pelican-themes"]
-PLUGINS = ["render_math"]
-
-
-THEME = "Flex"  # bootstrap2-dark
-ARTICLE_PATHS = ["Posts"]
-ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}.html"
-ARTICLE_URL = "{date:%Y}/{date:%m}/{slug}.html"
 
 
 # Uncomment following line if you want document-relative URLs when developing
