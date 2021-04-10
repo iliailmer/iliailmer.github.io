@@ -10,20 +10,20 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="/theme/stylesheet/style.min.css">
+    <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
 
 
     <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-          href="/theme/pygments/github.min.css">
+          href="https://iliailmer.github.io/theme/pygments/github.min.css">
 
 
-  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/fontawesome.css">
-  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/brands.css">
-  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/solid.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
-    <link href="/static/custom.css" rel="stylesheet">
+    <link href="https://iliailmer.github.io/static/custom.css" rel="stylesheet">
 
-    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia's Blog Atom">
+    <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia's Blog Atom">
 
 
 
@@ -47,11 +47,11 @@
 <meta property="og:title" content="&#39;Image Quality Measure&#39;"/>
 <meta property="og:description" content="A simple function that can be used to justify image quality and control enhancement. Introduction One difficult thing about image enhancement is to actually measure the level of image quality which is quite a subjective task. On the one hand, each individual can perceive the image quality according to their …"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="/2018/12/image-quality/.html"/>
+<meta property="og:url" content="https://iliailmer.github.io/2018/12/image-quality/.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2018-12-13 00:00:00-05:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="/author/ilia-ilmer.html">
+<meta property="article:author" content="https://iliailmer.github.io/author/ilia-ilmer.html">
 <meta property="article:section" content="Posts"/>
 <meta property="article:tag" content="image enhancement"/>
 <meta property="article:tag" content="image quality"/>
@@ -63,12 +63,12 @@
 <body class="light-theme">
   <aside>
     <div>
-      <a href="">
-        <img src="/theme/img/profile.png" alt="Ilia Ilmer" title="Ilia Ilmer">
+      <a href="https://iliailmer.github.io">
+        <img src="https://iliailmer.github.io/theme/img/profile.png" alt="Ilia Ilmer" title="Ilia Ilmer">
       </a>
 
       <h1>
-        <a href="">Ilia Ilmer</a>
+        <a href="https://iliailmer.github.io">Ilia Ilmer</a>
       </h1>
 
 <p>Algorithms and Coffee</p>
@@ -79,7 +79,7 @@
 
               <li>
                 <a target="_self"
-                   href="/pages/about.html#about">
+                   href="https://iliailmer.github.io/pages/about.html#about">
                   About
                 </a>
               </li>
@@ -95,11 +95,11 @@
   <main>
 
     <nav>
-      <a href="">Home</a>
+      <a href="https://iliailmer.github.io">Home</a>
 
       <a href="/pages/about.html">About</a>
 
-      <a href="/feeds/all.atom.xml">Atom</a>
+      <a href="https://iliailmer.github.io/feeds/all.atom.xml">Atom</a>
 
     </nav>
 
@@ -108,7 +108,7 @@
       
     <h1 id="image-quality/">'Image Quality Measure'</h1>
     <p>
-      Posted on Thu 13 December 2018 in <a href="/category/posts.html">Posts</a>
+      Posted on Thu 13 December 2018 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
 
     </p>
   </header>
@@ -156,7 +156,7 @@
 </code></pre></div>
 
 <figure>
-  <img src="/images/enhancement-measure/camera.png?raw=true" alt="original"/>
+  <img src="https://iliailmer.github.io/images/enhancement-measure/camera.png?raw=true" alt="original"/>
   <figcaption>My favourite sample image.</figcaption>
 </figure>
 <p>And then lets use simple histogram equalization for image enhancement. This function will enhance the contrast of the image and will bring some details (but also noise! Don't 100% rely on it!)</p>
@@ -170,7 +170,7 @@
 
 <p>And the result is pretty evident</p>
 <figure>
-  <img src="/images/enhancement-measure/camera_enh.png?raw=true" alt="comparison"/>
+  <img src="https://iliailmer.github.io/images/enhancement-measure/camera_enh.png?raw=true" alt="comparison"/>
   <figcaption>Quality comparison.</figcaption>
 </figure>
 
@@ -180,13 +180,13 @@
 <h3>How can we make it more resistant to noise?</h3>
 <p>It does decrease for small amounts of noise:</p>
 <figure>
-  <img src="/images/enhancement-measure/camera_noise_sigma_1.png?raw=true" alt="comparison"/>
+  <img src="https://iliailmer.github.io/images/enhancement-measure/camera_noise_sigma_1.png?raw=true" alt="comparison"/>
   <figcaption>Adding Gaussian noise to the image (right) with $\sigma=1$ decreases the quality measure.</figcaption>
 </figure>
 
 <p>But once noise is pretty strong:</p>
 <figure>
-  <img src="/images/enhancement-measure/camera_noise_sigma_10.png?raw=true" alt="comparison"/>
+  <img src="https://iliailmer.github.io/images/enhancement-measure/camera_noise_sigma_10.png?raw=true" alt="comparison"/>
   <figcaption>Adding Gaussian noise to the image (right) with $\sigma=10$ increases the quality measure.</figcaption>
 </figure>
 
@@ -259,8 +259,8 @@
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="/tag/image-enhancement.html">image enhancement</a>
-      <a href="/tag/image-quality.html">image quality</a>
+      <a href="https://iliailmer.github.io/tag/image-enhancement.html">image enhancement</a>
+      <a href="https://iliailmer.github.io/tag/image-quality.html">image quality</a>
     </p>
   </div>
 
@@ -298,7 +298,7 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " Ilia's Blog ",
-  "url" : "",
+  "url" : "https://iliailmer.github.io",
   "image": "",
   "description": ""
 }

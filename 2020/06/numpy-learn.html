@@ -10,20 +10,20 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="/theme/stylesheet/style.min.css">
+    <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
 
 
     <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-          href="/theme/pygments/github.min.css">
+          href="https://iliailmer.github.io/theme/pygments/github.min.css">
 
 
-  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/fontawesome.css">
-  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/brands.css">
-  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/solid.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
-    <link href="/static/custom.css" rel="stylesheet">
+    <link href="https://iliailmer.github.io/static/custom.css" rel="stylesheet">
 
-    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia's Blog Atom">
+    <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia's Blog Atom">
 
 
 
@@ -47,11 +47,11 @@
 <meta property="og:title" content="&#34;NumPy-Learn: A Homemade Machine Learning Library&#34;"/>
 <meta property="og:description" content="In this post, I expand on a little class/self-teaching project that I did during the Spring 2020 semester. NumPy-Learn: A Homemade Machine Learning Library Organization In this section we will discuss the main organization of the library: How the layers are built How loss functions work How a stochastic …"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="/2020/06/numpy-learn.html"/>
+<meta property="og:url" content="https://iliailmer.github.io/2020/06/numpy-learn.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2020-06-14 00:00:00-04:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="/author/ilia-ilmer.html">
+<meta property="article:author" content="https://iliailmer.github.io/author/ilia-ilmer.html">
 <meta property="article:section" content="Posts"/>
 <meta property="article:tag" content="machine learning"/>
 <meta property="article:tag" content="python"/>
@@ -65,12 +65,12 @@
 <body class="light-theme">
   <aside>
     <div>
-      <a href="">
-        <img src="/theme/img/profile.png" alt="Ilia Ilmer" title="Ilia Ilmer">
+      <a href="https://iliailmer.github.io">
+        <img src="https://iliailmer.github.io/theme/img/profile.png" alt="Ilia Ilmer" title="Ilia Ilmer">
       </a>
 
       <h1>
-        <a href="">Ilia Ilmer</a>
+        <a href="https://iliailmer.github.io">Ilia Ilmer</a>
       </h1>
 
 <p>Algorithms and Coffee</p>
@@ -81,7 +81,7 @@
 
               <li>
                 <a target="_self"
-                   href="/pages/about.html#about">
+                   href="https://iliailmer.github.io/pages/about.html#about">
                   About
                 </a>
               </li>
@@ -97,11 +97,11 @@
   <main>
 
     <nav>
-      <a href="">Home</a>
+      <a href="https://iliailmer.github.io">Home</a>
 
       <a href="/pages/about.html">About</a>
 
-      <a href="/feeds/all.atom.xml">Atom</a>
+      <a href="https://iliailmer.github.io/feeds/all.atom.xml">Atom</a>
 
     </nav>
 
@@ -110,7 +110,7 @@
       
     <h1 id="numpy-learn">"NumPy-Learn: A Homemade Machine Learning Library"</h1>
     <p>
-      Posted on Sun 14 June 2020 in <a href="/category/posts.html">Posts</a>
+      Posted on Sun 14 June 2020 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
 
     </p>
   </header>
@@ -642,7 +642,7 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <div class="highlight"><pre><span></span><code>Text(114.0, 0.5, &#39;Predicted&#39;)
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-06-14-numpy-learn/output_17_1.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_17_1.png"></p>
 <p>We can see from the confusion matrix above that the model performs poorly if the training is based on MSE. Let us try a different loss function: Cross Entropy loss.</p>
 <h2>Cross Entropy Training</h2>
 <div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;Training example for a simple network with MNIST Dataset.&quot;&quot;&quot;</span>
@@ -790,7 +790,7 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-06-14-numpy-learn/output_22_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_22_0.png"></p>
 <div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">test_label</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -800,7 +800,7 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <span class="n">_</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-06-14-numpy-learn/output_23_1.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_23_1.png"></p>
 <h2>Conclusion</h2>
 <p>We implemented a neural network class that supports several activation functions. We followed here a design pattern based on PyTorch deep learning package. We implemented linear (fully-connected) layer, ReLU and Sigmoid layer. Each layer includes a backpropagation function <code>backward</code> that sends the gradient from the output back to input. As a result we were able to use a Cross Entropy Loss function to train a handwritten digit classifier with 95% accuracy on the test set. Notice that on the graph we observe a pattern of periodically dropping accuracy. I assume this is due to internal structure of the loss landscape: we repeatedly "walk" out of the minimum region and then "walk" back in during the SGD.</p>
 <p>Using the Mean Squared Error loss function did not yield a productive result here, however, while developing this library, I observed that if I train on a small sample of data (i.e. 50 items or less), the model was able to learn the underlying data representations very well and was able to over fit. This is one the tests usually performed on new architectures in order to check if the model can learn at all. This, unfortunately, did not scale in case of MSE but it did for Cross Entropy Loss.</p>
@@ -870,10 +870,10 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="/tag/machine-learning.html">machine learning</a>
-      <a href="/tag/python.html">python</a>
-      <a href="/tag/numpy.html">numpy</a>
-      <a href="/tag/deep-learning.html">deep learning</a>
+      <a href="https://iliailmer.github.io/tag/machine-learning.html">machine learning</a>
+      <a href="https://iliailmer.github.io/tag/python.html">python</a>
+      <a href="https://iliailmer.github.io/tag/numpy.html">numpy</a>
+      <a href="https://iliailmer.github.io/tag/deep-learning.html">deep learning</a>
     </p>
   </div>
 
@@ -911,7 +911,7 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " Ilia's Blog ",
-  "url" : "",
+  "url" : "https://iliailmer.github.io",
   "image": "",
   "description": ""
 }

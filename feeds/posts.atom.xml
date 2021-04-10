@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia's Blog - Posts</title><link href="/" rel="alternate"></link><link href="/feeds/posts.atom.xml" rel="self"></link><id>/</id><updated>2020-08-18T00:00:00-04:00</updated><subtitle>Algorithms and Coffee</subtitle><entry><title>How I had to translate Matlab code into Maple</title><link href="/2020/08/matlab-2-maple.html" rel="alternate"></link><published>2020-08-18T00:00:00-04:00</published><updated>2020-08-18T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2020-08-18:/2020/08/matlab-2-maple.html</id><summary type="html">&lt;p&gt;In this short post, I wanted to point out one interesting application of regular expressions I had to work on for my PhD research project. The code was meant as a technical tool to help tranlate some ordingary differential equation models from numerical (Matlab) to symbolic (Maple) code.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia's Blog - Posts</title><link href="https://iliailmer.github.io/" rel="alternate"></link><link href="https://iliailmer.github.io/feeds/posts.atom.xml" rel="self"></link><id>https://iliailmer.github.io/</id><updated>2020-08-18T00:00:00-04:00</updated><subtitle>Algorithms and Coffee</subtitle><entry><title>How I had to translate Matlab code into Maple</title><link href="https://iliailmer.github.io/2020/08/matlab-2-maple.html" rel="alternate"></link><published>2020-08-18T00:00:00-04:00</published><updated>2020-08-18T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2020-08-18:/2020/08/matlab-2-maple.html</id><summary type="html">&lt;p&gt;In this short post, I wanted to point out one interesting application of regular expressions I had to work on for my PhD research project. The code was meant as a technical tool to help tranlate some ordingary differential equation models from numerical (Matlab) to symbolic (Maple) code.&lt;/p&gt;
 &lt;h2&gt;The original …&lt;/h2&gt;</summary><content type="html">&lt;p&gt;In this short post, I wanted to point out one interesting application of regular expressions I had to work on for my PhD research project. The code was meant as a technical tool to help tranlate some ordingary differential equation models from numerical (Matlab) to symbolic (Maple) code.&lt;/p&gt;
 &lt;h2&gt;The original code&lt;/h2&gt;
 &lt;p&gt;The original *.m files were pulled from &lt;a href="https://www.ebi.ac.uk/biomodels/"&gt;this&lt;/a&gt; webpage using &lt;code&gt;wget&lt;/code&gt; and their own API. Ordingary differential equation (ODE) models in those files contain a special function called &lt;code&gt;xdot&lt;/code&gt;. It returns an array of &lt;code&gt;n&lt;/code&gt; elements, which form right-hand side of an ODE.&lt;/p&gt;
@@ -109,7 +109,7 @@
             &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Index not Found.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Some stuff really specific to our project was omitted for brevity, but one can definitely add any other Maple/Matlab interaction here.&lt;/p&gt;</content><category term="Posts"></category><category term="python"></category><category term="regular expressions"></category><category term="matlab"></category><category term="maple"></category></entry><entry><title>"NumPy-Learn: A Homemade Machine Learning Library"</title><link href="/2020/06/numpy-learn.html" rel="alternate"></link><published>2020-06-14T00:00:00-04:00</published><updated>2020-06-14T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2020-06-14:/2020/06/numpy-learn.html</id><summary type="html">&lt;p&gt;In this post, I expand on a little class/self-teaching project that I did during the Spring 2020 semester.&lt;/p&gt;
+&lt;p&gt;Some stuff really specific to our project was omitted for brevity, but one can definitely add any other Maple/Matlab interaction here.&lt;/p&gt;</content><category term="Posts"></category><category term="python"></category><category term="regular expressions"></category><category term="matlab"></category><category term="maple"></category></entry><entry><title>"NumPy-Learn: A Homemade Machine Learning Library"</title><link href="https://iliailmer.github.io/2020/06/numpy-learn.html" rel="alternate"></link><published>2020-06-14T00:00:00-04:00</published><updated>2020-06-14T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2020-06-14:/2020/06/numpy-learn.html</id><summary type="html">&lt;p&gt;In this post, I expand on a little class/self-teaching project that I did during the Spring 2020 semester.&lt;/p&gt;
 &lt;h1&gt;NumPy-Learn: A Homemade Machine Learning Library&lt;/h1&gt;
 &lt;h2&gt;Organization&lt;/h2&gt;
 &lt;p&gt;In this section we will discuss the main organization of the library:&lt;/p&gt;
@@ -641,7 +641,7 @@ where &lt;span class="math"&gt;\(x\)&lt;/span&gt; is the network's output. Conti
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Text(114.0, 0.5, &amp;#39;Predicted&amp;#39;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-06-14-numpy-learn/output_17_1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_17_1.png"&gt;&lt;/p&gt;
 &lt;p&gt;We can see from the confusion matrix above that the model performs poorly if the training is based on MSE. Let us try a different loss function: Cross Entropy loss.&lt;/p&gt;
 &lt;h2&gt;Cross Entropy Training&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Training example for a simple network with MNIST Dataset.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
@@ -789,7 +789,7 @@ where &lt;span class="math"&gt;\(x\)&lt;/span&gt; is the network's output. Conti
 &lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-06-14-numpy-learn/output_22_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_22_0.png"&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;y_true&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;test_label&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argmax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;y_pred&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argmax&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;figure&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;figsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
@@ -799,7 +799,7 @@ where &lt;span class="math"&gt;\(x\)&lt;/span&gt; is the network's output. Conti
 &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_ylabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Predicted&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-06-14-numpy-learn/output_23_1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_23_1.png"&gt;&lt;/p&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;We implemented a neural network class that supports several activation functions. We followed here a design pattern based on PyTorch deep learning package. We implemented linear (fully-connected) layer, ReLU and Sigmoid layer. Each layer includes a backpropagation function &lt;code&gt;backward&lt;/code&gt; that sends the gradient from the output back to input. As a result we were able to use a Cross Entropy Loss function to train a handwritten digit classifier with 95% accuracy on the test set. Notice that on the graph we observe a pattern of periodically dropping accuracy. I assume this is due to internal structure of the loss landscape: we repeatedly "walk" out of the minimum region and then "walk" back in during the SGD.&lt;/p&gt;
 &lt;p&gt;Using the Mean Squared Error loss function did not yield a productive result here, however, while developing this library, I observed that if I train on a small sample of data (i.e. 50 items or less), the model was able to learn the underlying data representations very well and was able to over fit. This is one the tests usually performed on new architectures in order to check if the model can learn at all. This, unfortunately, did not scale in case of MSE but it did for Cross Entropy Loss.&lt;/p&gt;
@@ -865,7 +865,7 @@ where &lt;span class="math"&gt;\(x\)&lt;/span&gt; is the network's output. Conti
     (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="python"></category><category term="numpy"></category><category term="deep learning"></category></entry><entry><title>"Three Ways to Deal With Imbalance"</title><link href="/2020/03/precision-recall.html" rel="alternate"></link><published>2020-03-02T00:00:00-05:00</published><updated>2020-03-02T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2020-03-02:/2020/03/precision-recall.html</id><summary type="html">&lt;p&gt;In this post, I put together an interesting example of what to do with imbalanced datasets and why precision and recall matter.&lt;/p&gt;
+&lt;/script&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="python"></category><category term="numpy"></category><category term="deep learning"></category></entry><entry><title>"Three Ways to Deal With Imbalance"</title><link href="https://iliailmer.github.io/2020/03/precision-recall.html" rel="alternate"></link><published>2020-03-02T00:00:00-05:00</published><updated>2020-03-02T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2020-03-02:/2020/03/precision-recall.html</id><summary type="html">&lt;p&gt;In this post, I put together an interesting example of what to do with imbalanced datasets and why precision and recall matter.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;The following is part of a Machine learning assignment I had to do while at CUNY. This particular example illustrates quite well the importance of understanding various …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, I put together an interesting example of what to do with imbalanced datasets and why precision and recall matter.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
@@ -928,7 +928,7 @@ where &lt;span class="math"&gt;\(x\)&lt;/span&gt; is the network's output. Conti
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;ax&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sns&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;countplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;default&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_5_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_5_0.png"&gt;&lt;/p&gt;
 &lt;p&gt;The histogram above verifies the problem: the data is highly imbalanced. To train a linear regression classifier, we will try to remedy the issue with three approaches:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;We sample a training, validation, and testing subsets in a &lt;strong&gt;&lt;em&gt;stratified&lt;/em&gt;&lt;/strong&gt; manner, that is, preserving the ratio between "0" and "1" labels.&lt;/li&gt;
@@ -957,7 +957,7 @@ where &lt;span class="math"&gt;\(x\)&lt;/span&gt; is the network's output. Conti
     &lt;span class="n"&gt;sns&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;countplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_11_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_11_0.png"&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Train data to original dataset: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;df_train&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;%&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Validation data to original dataset: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;df_val&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;%&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Test data to original dataset: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;df_test&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;%&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -990,7 +990,7 @@ Negative labels in test data: 96.7%
 &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;suptitle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Oversampled value counts.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_15_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_15_0.png"&gt;&lt;/p&gt;
 &lt;h2&gt;Underspamling&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;imblearn.under_sampling&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;RandomUnderSampler&lt;/span&gt;
 
@@ -1000,7 +1000,7 @@ Negative labels in test data: 96.7%
 &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;suptitle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Undersampled value counts.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_17_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_17_0.png"&gt;&lt;/p&gt;
 &lt;h2&gt;Train naively without stratification&lt;/h2&gt;
 &lt;p&gt;Let us first train logistic regression model on a similarly split data without stratification.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;df_train_naive&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;df_test_naive&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y_train_naive&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y_test_naive&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;train_test_split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
@@ -1017,7 +1017,7 @@ Negative labels in test data: 96.7%
 &lt;span class="n"&gt;plot_cm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_val_naive&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_21_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_21_0.png"&gt;&lt;/p&gt;
 &lt;p&gt;We observe zero precision and zero recall scores and the model overfits on the '0' class, which is expected and is bad.&lt;/p&gt;
 &lt;h2&gt;Train on Stratified&lt;/h2&gt;
 &lt;p&gt;Below we train on the stratified data. We observe a better recall and precision scores and the predicted result on validation data follows the distribution of labels as in the training data (note that this heuristic is absolutely non-strict and does not necessarily indicate whether a model is good or bad).&lt;/p&gt;
@@ -1028,12 +1028,12 @@ Negative labels in test data: 96.7%
 &lt;span class="n"&gt;plot_cm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_25_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_25_0.png"&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;ax&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;subplot&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;ax&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sns&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;countplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_26_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_26_0.png"&gt;&lt;/p&gt;
 &lt;h2&gt;Train on Oversampled&lt;/h2&gt;
 &lt;p&gt;When training on Oversampled data we get a very high precision score but lose the recall score.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;logreg&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;LogisticRegression&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;penalty&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;none&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;max_iter&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;1e4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;random_state&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -1043,13 +1043,13 @@ Negative labels in test data: 96.7%
 &lt;span class="n"&gt;plot_cm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_29_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_29_0.png"&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;y_pred&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;logreg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;predict&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;df_test&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;plot_cm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_test&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_30_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_30_0.png"&gt;&lt;/p&gt;
 &lt;h2&gt;Train on Undersampled&lt;/h2&gt;
 &lt;p&gt;A similar behavior occurs in the undersampled case, we see increase in Precision compared to naive and stratified cases, but both precision and recall are a bit lower that oversampled case.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;logreg&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;LogisticRegression&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;penalty&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;none&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;max_iter&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;1e4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;random_state&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -1059,7 +1059,7 @@ Negative labels in test data: 96.7%
 &lt;span class="n"&gt;plot_cm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_33_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_33_0.png"&gt;&lt;/p&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;In this assignment, we considered a problem of default prediction for a credit card holder. We omitted most of preliminary data analysis and instead focused on basic model building for a highly imbalanced dataset. The proportion of negative labels is 97% out of all given data. Let us briefly outline meaning behind precision and recall scores.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Precision score&lt;/strong&gt; shows the ratio of true positive predictions over all positive predictions regardless if they were true or false. If the number of true positive predictions is negligible compared to false positives then precision is low.&lt;/p&gt;
@@ -1073,13 +1073,13 @@ Negative labels in test data: 96.7%
 &lt;span class="n"&gt;plot_cm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_36_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_36_0.png"&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;y_pred&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;logreg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;predict&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;df_test&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;plot_cm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_test&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-03-02-precision-recall/output_37_0.png"&gt;&lt;/p&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="logistic regression"></category><category term="python"></category><category term="scikit-learn"></category><category term="statistical learning"></category></entry><entry><title>"Linear Regression as the Simplest Classifier"</title><link href="/2020/02/data-explore.html" rel="alternate"></link><published>2020-02-24T00:00:00-05:00</published><updated>2020-02-24T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2020-02-24:/2020/02/data-explore.html</id><summary type="html">&lt;p&gt;In this post I wanted to describe a simple application of a linear least squares method to a problem of data classification. It is a naive approach and is unlikely to beat more sophisticated techniques like &lt;a href="https://en.wikipedia.org/wiki/Logistic_regression"&gt;Logistic Regression&lt;/a&gt;, for instance.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_37_0.png"&gt;&lt;/p&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="logistic regression"></category><category term="python"></category><category term="scikit-learn"></category><category term="statistical learning"></category></entry><entry><title>"Linear Regression as the Simplest Classifier"</title><link href="https://iliailmer.github.io/2020/02/data-explore.html" rel="alternate"></link><published>2020-02-24T00:00:00-05:00</published><updated>2020-02-24T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2020-02-24:/2020/02/data-explore.html</id><summary type="html">&lt;p&gt;In this post I wanted to describe a simple application of a linear least squares method to a problem of data classification. It is a naive approach and is unlikely to beat more sophisticated techniques like &lt;a href="https://en.wikipedia.org/wiki/Logistic_regression"&gt;Logistic Regression&lt;/a&gt;, for instance.&lt;/p&gt;
 &lt;h3&gt;Imports&lt;/h3&gt;
 &lt;p&gt;Some imports we are going to need for this …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post I wanted to describe a simple application of a linear least squares method to a problem of data classification. It is a naive approach and is unlikely to beat more sophisticated techniques like &lt;a href="https://en.wikipedia.org/wiki/Logistic_regression"&gt;Logistic Regression&lt;/a&gt;, for instance.&lt;/p&gt;
 &lt;h3&gt;Imports&lt;/h3&gt;
@@ -1185,7 +1185,7 @@ Name: 0, dtype: float64
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;show_sample&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-02-24-data-explore/output_18_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_18_0.png"&gt;&lt;/p&gt;
 &lt;h3&gt;Linear Regression fitting&lt;/h3&gt;
 &lt;p&gt;We will approach the solution in the following way. Firstly, we will train a linear regression model on the available data (256 pixel intensity values). Note that the problem is high-dimensional and therefore it is impossible to visualize all of it at once.&lt;/p&gt;
 &lt;p&gt;However, the main idea of the linear regression based classifier remains simple: we find a hyperplane in the &lt;span class="math"&gt;\(p+1=257\)&lt;/span&gt; dimensional space that fits the training data perfectly:&lt;/p&gt;
@@ -1257,7 +1257,7 @@ Name: 0, dtype: float64
     &lt;span class="n"&gt;fontsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-02-24-data-explore/output_26_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_26_0.png"&gt;&lt;/p&gt;
 &lt;h4&gt;Test set predictions&lt;/h4&gt;
 &lt;p&gt;We can do similar analysis on the testing set.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;y_true&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y_test&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;
@@ -1309,7 +1309,7 @@ Name: 0, dtype: float64
     &lt;span class="n"&gt;fontsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-02-24-data-explore/output_30_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_30_0.png"&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;percentage&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unique&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_test&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;return_counts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_test&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# proportion of each label in the training set&lt;/span&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Minimal accuracy on the left: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;test_acc_scores&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;, proportion of &amp;quot;0&amp;quot; labels in the data: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;percentage&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Minimal accuracy on the right: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;test_acc_scores&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;, proportion of &amp;quot;1&amp;quot; labels in the data: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;percentage&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -1401,7 +1401,7 @@ Labels from rightmost threshold:
     &lt;span class="n"&gt;fontsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-02-24-data-explore/output_36_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_36_0.png"&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;percentage&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unique&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_test&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;return_counts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="n"&gt;y_test&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# proportion of each label in the training set&lt;/span&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
@@ -1488,7 +1488,7 @@ Labels from rightmost threshold:
     &lt;span class="n"&gt;fontsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="png" src="/images/2020-02-24-data-explore/output_41_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_41_0.png"&gt;&lt;/p&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;We applied two different classification methods for the data. Method 1 was based on the linear regression using least squares method. The second method was based on 5 different Nearest neighbor classifiers.&lt;/p&gt;
 &lt;p&gt;Each approach showed different results specific to assumptions underlying each model. Linear model assumes that the relationship between the label and pixel intensities is a high-dimensional linear function. Using various threshold we were able to show the change in hyperplane location relative to test and train data and how the accuracy scores (error scores) reflect this change.&lt;/p&gt;
@@ -1554,7 +1554,7 @@ Labels from rightmost threshold:
     (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="linear regression"></category><category term="python"></category><category term="scikit-learn"></category><category term="statistical learning"></category></entry><entry><title>"How to write a decent training loop with enough flexibility."</title><link href="/2019/06/how-to-make-training-loop.html" rel="alternate"></link><published>2019-06-15T00:00:00-04:00</published><updated>2019-06-15T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2019-06-15:/2019/06/how-to-make-training-loop.html</id><summary type="html">&lt;p&gt;In this post, I briefly describe my experience in setting up training with PyTorch.&lt;/p&gt;
+&lt;/script&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="linear regression"></category><category term="python"></category><category term="scikit-learn"></category><category term="statistical learning"></category></entry><entry><title>"How to write a decent training loop with enough flexibility."</title><link href="https://iliailmer.github.io/2019/06/how-to-make-training-loop.html" rel="alternate"></link><published>2019-06-15T00:00:00-04:00</published><updated>2019-06-15T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2019-06-15:/2019/06/how-to-make-training-loop.html</id><summary type="html">&lt;p&gt;In this post, I briefly describe my experience in setting up training with PyTorch.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;PyTorch is an extremely useful and convenient framework for deep learning. When it comes to working on  a deep learning project, I am more comfortable with PyTorch rather than TensorFlow.&lt;/p&gt;
 &lt;p&gt;In this quick post, I …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, I briefly describe my experience in setting up training with PyTorch.&lt;/p&gt;
@@ -1612,7 +1612,7 @@ Labels from rightmost threshold:
 &lt;h2&gt;In Closing: abstracting training loop&lt;/h2&gt;
 &lt;p&gt;In this post I summarized my experience in building a training loop for PyTorch. Lately, I have been using a more abstracted way of training through &lt;a href="https://catalyst-team.github.io/catalyst/"&gt;Catalyst&lt;/a&gt;. It is a great tool for higher level abstraction during training and a lot of hardwork has been done to take away the hard part of training.&lt;/p&gt;
 &lt;p&gt;Nevertheless, both, I believe, are equally important: the abstract and the explicit methods.&lt;/p&gt;
-&lt;p&gt;Thanks for reading!&lt;/p&gt;</content><category term="Posts"></category><category term="deep learning"></category></entry><entry><title>"RiCNN and Rotation Robustness of ConvNets: A Paper Review"</title><link href="/2019/06/paper-review.html" rel="alternate"></link><published>2019-06-15T00:00:00-04:00</published><updated>2019-06-15T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2019-06-15:/2019/06/paper-review.html</id><summary type="html">&lt;p&gt;Lately, I have been reading more papers on modern advances in deep learning in order to get a clear view of what problem I want to focus on during my PhD research.&lt;/p&gt;
+&lt;p&gt;Thanks for reading!&lt;/p&gt;</content><category term="Posts"></category><category term="deep learning"></category></entry><entry><title>"RiCNN and Rotation Robustness of ConvNets: A Paper Review"</title><link href="https://iliailmer.github.io/2019/06/paper-review.html" rel="alternate"></link><published>2019-06-15T00:00:00-04:00</published><updated>2019-06-15T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2019-06-15:/2019/06/paper-review.html</id><summary type="html">&lt;p&gt;Lately, I have been reading more papers on modern advances in deep learning in order to get a clear view of what problem I want to focus on during my PhD research.&lt;/p&gt;
 &lt;p&gt;There is a lot of information to process and an incredible amount of papers are being published from …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Lately, I have been reading more papers on modern advances in deep learning in order to get a clear view of what problem I want to focus on during my PhD research.&lt;/p&gt;
 &lt;p&gt;There is a lot of information to process and an incredible amount of papers are being published from all over the world.&lt;/p&gt;
 &lt;p&gt;In order to keep up, I will do my best to document everything that I read in this weekly series of paper reviews. The aim is to post one review a week and go from there.&lt;/p&gt;
@@ -1639,7 +1639,7 @@ Convolution in its natural habitat: a blog post.&lt;/p&gt;
 &lt;h3&gt;Rotation of the Filters&lt;/h3&gt;
 &lt;p&gt;What the authors proposed is to connect rotation of the input with that of the feature extractor explicitly. To elaborate, the convolutional kernel is, essentially, rotated for a desired range of angles. At the same time, the image is split into conic regions, each region will have a designated rotated copy of the convolution kernel. Each rotated kernel is applied to the region.&lt;/p&gt;
 &lt;p&gt;This formulation opens up a new formalism: a conic convolution.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="diagram" src="/images/ricnn-paper-review/diagram.png"&gt;
+&lt;p&gt;&lt;img alt="diagram" src="https://iliailmer.github.io/images/ricnn-paper-review/diagram.png"&gt;
 Diagram of the proposed network by &lt;a href="https://arxiv.org/abs/1805.12301"&gt;Chidester, Do, and Ma&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The authors prove a very interesting property of this network. Essentially, the rotation equivariance property we stated still holds, according the results, however, &lt;img alt="T" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathrm%7BT%7D%5Cnocache"&gt; is equal to &lt;img alt="F" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathcal%7BF%7D%5Cnocache"&gt;. (This is proven in Theorem 1 of the article.)&lt;/p&gt;
 &lt;h3&gt;Discrete Fourier transform (DFT)&lt;/h3&gt;
@@ -1648,7 +1648,7 @@ Diagram of the proposed network by &lt;a href="https://arxiv.org/abs/1805.12301"
 &lt;p&gt;Finally, this representation is passed into the fully connected layer.&lt;/p&gt;
 &lt;h1&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;I will not focus this review on the results of the work when applied to benchmark datasets, I believe it is only fair that one refers to the &lt;a href="https://arxiv.org/abs/1805.12301"&gt;paper&lt;/a&gt; itself for that.&lt;/p&gt;
-&lt;p&gt;Rotation equivariance and general robustness of neural networks to external peturbations is important and in applications such as medical imaging, where the data can be the same image from different angles (or with different transformations applied), a neural network must return a faulty result as the life of a patient is on the line.&lt;/p&gt;</content><category term="Posts"></category><category term="review series"></category><category term="deep learning"></category><category term="computer vision"></category></entry><entry><title>"Computer Vision: Can You Teach a Machine To See?"</title><link href="/2019/03/science-day.html" rel="alternate"></link><published>2019-03-22T00:00:00-04:00</published><updated>2019-03-22T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2019-03-22:/2019/03/science-day.html</id><summary type="html">&lt;p&gt;A little overview of what I talked about at CUNY CSI Science Day.&lt;/p&gt;
+&lt;p&gt;Rotation equivariance and general robustness of neural networks to external peturbations is important and in applications such as medical imaging, where the data can be the same image from different angles (or with different transformations applied), a neural network must return a faulty result as the life of a patient is on the line.&lt;/p&gt;</content><category term="Posts"></category><category term="review series"></category><category term="deep learning"></category><category term="computer vision"></category></entry><entry><title>"Computer Vision: Can You Teach a Machine To See?"</title><link href="https://iliailmer.github.io/2019/03/science-day.html" rel="alternate"></link><published>2019-03-22T00:00:00-04:00</published><updated>2019-03-22T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2019-03-22:/2019/03/science-day.html</id><summary type="html">&lt;p&gt;A little overview of what I talked about at CUNY CSI Science Day.&lt;/p&gt;
 &lt;p&gt;During the Science Day at the CUNY College of Staten Island, I presented a gentle introduction to area of computer vision with fun examples and research results to visiting middle and high school students.&lt;/p&gt;
 &lt;p&gt;It was a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A little overview of what I talked about at CUNY CSI Science Day.&lt;/p&gt;
 &lt;p&gt;During the Science Day at the CUNY College of Staten Island, I presented a gentle introduction to area of computer vision with fun examples and research results to visiting middle and high school students.&lt;/p&gt;
@@ -1656,7 +1656,7 @@ Diagram of the proposed network by &lt;a href="https://arxiv.org/abs/1805.12301"
 &lt;p&gt;My favorite part of the talk was when we played a little game of "Do you know who this person is?" with fake images from GANs. The reactions were priceless and the interest unmistakably there.&lt;/p&gt;
 &lt;p&gt;I finished the talk with a bit of a diversion for those who might be interested in trying stuff on their own:
 Kaggle, FastAI, and Python (which quite a lot of them are already familiar with!) were all mentioned as something to try out.&lt;/p&gt;
-&lt;!-- The slides for the talk can be viewed [here]({static}/files/2019-03-22-science-day.pdf) --&gt;</content><category term="Posts"></category><category term="education"></category><category term="talks"></category></entry><entry><title>'Harmonic networks: implementation of paper results'</title><link href="/2019/03/harmonic-network/.html" rel="alternate"></link><published>2019-03-10T00:00:00-05:00</published><updated>2019-03-10T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2019-03-10:/2019/03/harmonic-network/.html</id><summary type="html">&lt;p&gt;I implement an interesting result from a recent paper on convolutional neural networks.&lt;/p&gt;
+&lt;!-- The slides for the talk can be viewed [here]({static}/files/2019-03-22-science-day.pdf) --&gt;</content><category term="Posts"></category><category term="education"></category><category term="talks"></category></entry><entry><title>'Harmonic networks: implementation of paper results'</title><link href="https://iliailmer.github.io/2019/03/harmonic-network/.html" rel="alternate"></link><published>2019-03-10T00:00:00-05:00</published><updated>2019-03-10T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2019-03-10:/2019/03/harmonic-network/.html</id><summary type="html">&lt;p&gt;I implement an interesting result from a recent paper on convolutional neural networks.&lt;/p&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;In this post I will briefly discuss my implementation of a model introduced in &lt;a href="https://arxiv.org/abs/1812.03205v1"&gt;this paper&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;In short, the authors suggest using predefined filters in a convolutional network based on Discrete Cosine Transform.&lt;/p&gt;
@@ -1801,7 +1801,7 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
     (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="Posts"></category><category term="deep learning"></category><category term="computer vision"></category><category term="work in progress"></category></entry><entry><title>'Image Quality Measure'</title><link href="/2018/12/image-quality/.html" rel="alternate"></link><published>2018-12-13T00:00:00-05:00</published><updated>2018-12-13T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2018-12-13:/2018/12/image-quality/.html</id><summary type="html">&lt;p&gt;A simple function that can be used to justify image quality and control enhancement.&lt;/p&gt;
+&lt;/script&gt;</content><category term="Posts"></category><category term="deep learning"></category><category term="computer vision"></category><category term="work in progress"></category></entry><entry><title>'Image Quality Measure'</title><link href="https://iliailmer.github.io/2018/12/image-quality/.html" rel="alternate"></link><published>2018-12-13T00:00:00-05:00</published><updated>2018-12-13T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2018-12-13:/2018/12/image-quality/.html</id><summary type="html">&lt;p&gt;A simple function that can be used to justify image quality and control enhancement.&lt;/p&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;One difficult thing about image enhancement is to actually measure the level of image quality which is quite a subjective task. On the one hand, each individual can perceive the image quality according to their …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A simple function that can be used to justify image quality and control enhancement.&lt;/p&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
@@ -1844,7 +1844,7 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;figure&gt;
-  &lt;img src="/images/enhancement-measure/camera.png?raw=true" alt="original"/&gt;
+  &lt;img src="https://iliailmer.github.io/images/enhancement-measure/camera.png?raw=true" alt="original"/&gt;
   &lt;figcaption&gt;My favourite sample image.&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;And then lets use simple histogram equalization for image enhancement. This function will enhance the contrast of the image and will bring some details (but also noise! Don't 100% rely on it!)&lt;/p&gt;
@@ -1858,7 +1858,7 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 
 &lt;p&gt;And the result is pretty evident&lt;/p&gt;
 &lt;figure&gt;
-  &lt;img src="/images/enhancement-measure/camera_enh.png?raw=true" alt="comparison"/&gt;
+  &lt;img src="https://iliailmer.github.io/images/enhancement-measure/camera_enh.png?raw=true" alt="comparison"/&gt;
   &lt;figcaption&gt;Quality comparison.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -1868,13 +1868,13 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 &lt;h3&gt;How can we make it more resistant to noise?&lt;/h3&gt;
 &lt;p&gt;It does decrease for small amounts of noise:&lt;/p&gt;
 &lt;figure&gt;
-  &lt;img src="/images/enhancement-measure/camera_noise_sigma_1.png?raw=true" alt="comparison"/&gt;
+  &lt;img src="https://iliailmer.github.io/images/enhancement-measure/camera_noise_sigma_1.png?raw=true" alt="comparison"/&gt;
   &lt;figcaption&gt;Adding Gaussian noise to the image (right) with $\sigma=1$ decreases the quality measure.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;But once noise is pretty strong:&lt;/p&gt;
 &lt;figure&gt;
-  &lt;img src="/images/enhancement-measure/camera_noise_sigma_10.png?raw=true" alt="comparison"/&gt;
+  &lt;img src="https://iliailmer.github.io/images/enhancement-measure/camera_noise_sigma_10.png?raw=true" alt="comparison"/&gt;
   &lt;figcaption&gt;Adding Gaussian noise to the image (right) with $\sigma=10$ increases the quality measure.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -1943,7 +1943,7 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
     (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="Posts"></category><category term="image enhancement"></category><category term="image quality"></category></entry><entry><title>A surprising way sigmoid function is applied in computer vision</title><link href="/2018/11/image-enhancement/.html" rel="alternate"></link><published>2018-11-30T00:00:00-05:00</published><updated>2018-11-30T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:None,2018-11-30:/2018/11/image-enhancement/.html</id><summary type="html">&lt;p&gt;Let's talk about all things image enhancement, what it is, why it is necessary and how do wavelets play a big part in it!&lt;/p&gt;
+&lt;/script&gt;</content><category term="Posts"></category><category term="image enhancement"></category><category term="image quality"></category></entry><entry><title>A surprising way sigmoid function is applied in computer vision</title><link href="https://iliailmer.github.io/2018/11/image-enhancement/.html" rel="alternate"></link><published>2018-11-30T00:00:00-05:00</published><updated>2018-11-30T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2018-11-30:/2018/11/image-enhancement/.html</id><summary type="html">&lt;p&gt;Let's talk about all things image enhancement, what it is, why it is necessary and how do wavelets play a big part in it!&lt;/p&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Enhancement of images is an important preprocessing step in any image related system. Getting rid of noise, brightening, extraction of details - all of this helps …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Let's talk about all things image enhancement, what it is, why it is necessary and how do wavelets play a big part in it!&lt;/p&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
@@ -1970,7 +1970,7 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;figure&gt;
-  &lt;img src="/images/enhancement-images/astronaut.png?raw=true" alt="astronaut"/&gt;
+  &lt;img src="https://iliailmer.github.io/images/enhancement-images/astronaut.png?raw=true" alt="astronaut"/&gt;
   &lt;figcaption&gt;Our base image, astronaut.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -1980,7 +1980,7 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;figure&gt;
-  &lt;img src="/images/enhancement-images/sigmoid.png" alt="sigmoid"/&gt;
+  &lt;img src="https://iliailmer.github.io/images/enhancement-images/sigmoid.png" alt="sigmoid"/&gt;
   &lt;figcaption&gt;A simple sigmoid.&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;!--![](/assets/post_imgs/enhancement-images/sigmoid.png?raw=true)--&gt;
@@ -2009,12 +2009,12 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 
 &lt;p&gt;and the result:&lt;/p&gt;
 &lt;figure&gt;
-  &lt;img src="/images/enhancement-images/astro_sigmoid_dark.png?raw=true" alt="sigmoid_enh1"/&gt;
+  &lt;img src="https://iliailmer.github.io/images/enhancement-images/astro_sigmoid_dark.png?raw=true" alt="sigmoid_enh1"/&gt;
   &lt;figcaption&gt;Application of the code above.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;figure&gt;
-  &lt;img src="/images/enhancement-images/astro_sigmoid_bright.png?raw=true" alt="sigmoid_enh2"/&gt;
+  &lt;img src="https://iliailmer.github.io/images/enhancement-images/astro_sigmoid_bright.png?raw=true" alt="sigmoid_enh2"/&gt;
   &lt;figcaption&gt;Application of the code above with $\alpha = -2,~\beta=0.1$ and the result of rescaled to be between 0 and 255 for display.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -2027,7 +2027,7 @@ then we get the output shape after the harmonic block as (3,9,W,H) where W and H
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;figure&gt;
-  &lt;img src="/images/enhancement-images/double_sigmoid_sample.png" alt="sigmoid_enh2"/&gt;
+  &lt;img src="https://iliailmer.github.io/images/enhancement-images/double_sigmoid_sample.png" alt="sigmoid_enh2"/&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;which is similar to two sigmoids complementing each other. Using the technique from the paper on a colored image, we need to be careful because this method is very sensitive to input parameters.&lt;/p&gt;

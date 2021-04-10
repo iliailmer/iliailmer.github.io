@@ -10,20 +10,20 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="/theme/stylesheet/style.min.css">
+    <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
 
 
     <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-          href="/theme/pygments/github.min.css">
+          href="https://iliailmer.github.io/theme/pygments/github.min.css">
 
 
-  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/fontawesome.css">
-  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/brands.css">
-  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/solid.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
-    <link href="/static/custom.css" rel="stylesheet">
+    <link href="https://iliailmer.github.io/static/custom.css" rel="stylesheet">
 
-    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia's Blog Atom">
+    <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia's Blog Atom">
 
 
 
@@ -47,11 +47,11 @@
 <meta property="og:title" content="&#34;Three Ways to Deal With Imbalance&#34;"/>
 <meta property="og:description" content="In this post, I put together an interesting example of what to do with imbalanced datasets and why precision and recall matter. Introduction The following is part of a Machine learning assignment I had to do while at CUNY. This particular example illustrates quite well the importance of understanding various …"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="/2020/03/precision-recall.html"/>
+<meta property="og:url" content="https://iliailmer.github.io/2020/03/precision-recall.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2020-03-02 00:00:00-05:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="/author/ilia-ilmer.html">
+<meta property="article:author" content="https://iliailmer.github.io/author/ilia-ilmer.html">
 <meta property="article:section" content="Posts"/>
 <meta property="article:tag" content="machine learning"/>
 <meta property="article:tag" content="logistic regression"/>
@@ -66,12 +66,12 @@
 <body class="light-theme">
   <aside>
     <div>
-      <a href="">
-        <img src="/theme/img/profile.png" alt="Ilia Ilmer" title="Ilia Ilmer">
+      <a href="https://iliailmer.github.io">
+        <img src="https://iliailmer.github.io/theme/img/profile.png" alt="Ilia Ilmer" title="Ilia Ilmer">
       </a>
 
       <h1>
-        <a href="">Ilia Ilmer</a>
+        <a href="https://iliailmer.github.io">Ilia Ilmer</a>
       </h1>
 
 <p>Algorithms and Coffee</p>
@@ -82,7 +82,7 @@
 
               <li>
                 <a target="_self"
-                   href="/pages/about.html#about">
+                   href="https://iliailmer.github.io/pages/about.html#about">
                   About
                 </a>
               </li>
@@ -98,11 +98,11 @@
   <main>
 
     <nav>
-      <a href="">Home</a>
+      <a href="https://iliailmer.github.io">Home</a>
 
       <a href="/pages/about.html">About</a>
 
-      <a href="/feeds/all.atom.xml">Atom</a>
+      <a href="https://iliailmer.github.io/feeds/all.atom.xml">Atom</a>
 
     </nav>
 
@@ -111,7 +111,7 @@
       
     <h1 id="precision-recall">"Three Ways to Deal With Imbalance"</h1>
     <p>
-      Posted on Mon 02 March 2020 in <a href="/category/posts.html">Posts</a>
+      Posted on Mon 02 March 2020 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
 
     </p>
   </header>
@@ -179,7 +179,7 @@
 <div class="highlight"><pre><span></span><code><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_5_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_5_0.png"></p>
 <p>The histogram above verifies the problem: the data is highly imbalanced. To train a linear regression classifier, we will try to remedy the issue with three approaches:</p>
 <ol>
 <li>We sample a training, validation, and testing subsets in a <strong><em>stratified</em></strong> manner, that is, preserving the ratio between "0" and "1" labels.</li>
@@ -208,7 +208,7 @@
     <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_11_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_11_0.png"></p>
 <div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Train data to original dataset: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Validation data to original dataset: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_val</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test data to original dataset: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
@@ -241,7 +241,7 @@ Negative labels in test data: 96.7%
 <span class="n">t</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Oversampled value counts.&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_15_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_15_0.png"></p>
 <h2>Underspamling</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">imblearn.under_sampling</span> <span class="kn">import</span> <span class="n">RandomUnderSampler</span>
 
@@ -251,7 +251,7 @@ Negative labels in test data: 96.7%
 <span class="n">t</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Undersampled value counts.&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_17_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_17_0.png"></p>
 <h2>Train naively without stratification</h2>
 <p>Let us first train logistic regression model on a similarly split data without stratification.</p>
 <div class="highlight"><pre><span></span><code><span class="n">df_train_naive</span><span class="p">,</span> <span class="n">df_test_naive</span><span class="p">,</span> <span class="n">y_train_naive</span><span class="p">,</span> <span class="n">y_test_naive</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
@@ -268,7 +268,7 @@ Negative labels in test data: 96.7%
 <span class="n">plot_cm</span><span class="p">(</span><span class="n">y_val_naive</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_21_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_21_0.png"></p>
 <p>We observe zero precision and zero recall scores and the model overfits on the '0' class, which is expected and is bad.</p>
 <h2>Train on Stratified</h2>
 <p>Below we train on the stratified data. We observe a better recall and precision scores and the predicted result on validation data follows the distribution of labels as in the training data (note that this heuristic is absolutely non-strict and does not necessarily indicate whether a model is good or bad).</p>
@@ -279,12 +279,12 @@ Negative labels in test data: 96.7%
 <span class="n">plot_cm</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_25_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_25_0.png"></p>
 <div class="highlight"><pre><span></span><code><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_26_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_26_0.png"></p>
 <h2>Train on Oversampled</h2>
 <p>When training on Oversampled data we get a very high precision score but lose the recall score.</p>
 <div class="highlight"><pre><span></span><code><span class="n">logreg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -294,13 +294,13 @@ Negative labels in test data: 96.7%
 <span class="n">plot_cm</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_29_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_29_0.png"></p>
 <div class="highlight"><pre><span></span><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
 
 <span class="n">plot_cm</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_30_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_30_0.png"></p>
 <h2>Train on Undersampled</h2>
 <p>A similar behavior occurs in the undersampled case, we see increase in Precision compared to naive and stratified cases, but both precision and recall are a bit lower that oversampled case.</p>
 <div class="highlight"><pre><span></span><code><span class="n">logreg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -310,7 +310,7 @@ Negative labels in test data: 96.7%
 <span class="n">plot_cm</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_33_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_33_0.png"></p>
 <h2>Conclusion</h2>
 <p>In this assignment, we considered a problem of default prediction for a credit card holder. We omitted most of preliminary data analysis and instead focused on basic model building for a highly imbalanced dataset. The proportion of negative labels is 97% out of all given data. Let us briefly outline meaning behind precision and recall scores.</p>
 <p><strong>Precision score</strong> shows the ratio of true positive predictions over all positive predictions regardless if they were true or false. If the number of true positive predictions is negligible compared to false positives then precision is low.</p>
@@ -324,21 +324,21 @@ Negative labels in test data: 96.7%
 <span class="n">plot_cm</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_36_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_36_0.png"></p>
 <div class="highlight"><pre><span></span><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
 
 <span class="n">plot_cm</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="/images/2020-03-02-precision-recall/output_37_0.png"></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_37_0.png"></p>
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="/tag/machine-learning.html">machine learning</a>
-      <a href="/tag/logistic-regression.html">logistic regression</a>
-      <a href="/tag/python.html">python</a>
-      <a href="/tag/scikit-learn.html">scikit-learn</a>
-      <a href="/tag/statistical-learning.html">statistical learning</a>
+      <a href="https://iliailmer.github.io/tag/machine-learning.html">machine learning</a>
+      <a href="https://iliailmer.github.io/tag/logistic-regression.html">logistic regression</a>
+      <a href="https://iliailmer.github.io/tag/python.html">python</a>
+      <a href="https://iliailmer.github.io/tag/scikit-learn.html">scikit-learn</a>
+      <a href="https://iliailmer.github.io/tag/statistical-learning.html">statistical learning</a>
     </p>
   </div>
 
@@ -376,7 +376,7 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " Ilia's Blog ",
-  "url" : "",
+  "url" : "https://iliailmer.github.io",
   "image": "",
   "description": ""
 }
