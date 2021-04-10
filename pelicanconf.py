@@ -61,6 +61,6 @@ AUTHOR_FEED_RSS = None
 NEWEST_FIRST_ARCHIVES = True
 MAIN_MENU = True
 MENUITEMS = (
-    ("Home", "/"),
+    # ("Home", "/"),
     ("About", "/pages/about.html"),
 )
