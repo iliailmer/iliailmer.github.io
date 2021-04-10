@@ -149,6 +149,7 @@ pelican-themes
 
 
 !pelican-themes/Flex
+!pelican-themes/bootstrap2-dark
 !pelican-plugins/i18n_subsites
 !pelican-plugins/render_math
 .vscode
