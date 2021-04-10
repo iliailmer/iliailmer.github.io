@@ -4,7 +4,7 @@
 
 DEFAULT_PAGINATION = 10
 
-THEME = "bootstrap2-dark"
+THEME = "Flex"
 
 ARTICLE_PATHS = ["Posts"]
 ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}.html"
