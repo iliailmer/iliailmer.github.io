@@ -36,16 +36,11 @@ EXTRA_PATH_METADATA = {
 
 CUSTOM_CSS = "static/custom.css"
 
-MAIN_MENU = True
-MENUITEMS = (
-    ("Home", "/"),
-    ("About", "/about/"),
-)
 # ADD_THIS_ID = "ra-77hh6723hhjd"
 
 # Enable i18n plugin.
 PLUGIN_PATHS = ["./pelican-plugins", "./pelican-themes"]
-PLUGINS = ["render_math"]
+PLUGINS = ["render_math", "i18n_subsites"]
 
 # Default theme language.
 I18N_TEMPLATES_LANG = "en"
@@ -64,3 +59,8 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 NEWEST_FIRST_ARCHIVES = True
+MAIN_MENU = True
+MENUITEMS = (
+    ("Home", "/"),
+    ("About", "/pages/about.html"),
+)
