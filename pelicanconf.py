@@ -16,7 +16,7 @@ SITETITLE = "Ilia Ilmer"
 SITESUBTITLE = "Algorithms and Coffee"
 
 # SITEDESCRIPTION = "Foo Bar's Thoughts and Writings"
-# SITELOGO = SITEURL + "/images/profile.png"
+SITELOGO = SITEURL + "/images/profile.png"
 # FAVICON = SITEURL + "/images/favicon.ico"
 
 BROWSER_COLOR = "#333"
