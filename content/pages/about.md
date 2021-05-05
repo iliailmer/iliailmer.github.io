@@ -6,3 +6,4 @@ My name is Ilia, I am a computer science PhD student at City University of New Y
 
 My other interests include, algorithms, data structures, machine learning and artificial intelligence.
 
+[Here]({static}/files/resume.pdf) is my CV.
