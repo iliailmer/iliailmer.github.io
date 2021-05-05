@@ -1,5 +1,5 @@
 ---
-Title: "NumPy-Learn: A Homemade Machine Learning Library"
+Title: NumPy-Learn, A Homemade Machine Learning Library
 collection: posts
 analytics: true
 slug: numpy-learn
