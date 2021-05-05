@@ -4,7 +4,7 @@
 
 DEFAULT_PAGINATION = 10
 
-THEME = "Flex"
+THEME = "./pelican-themes/Flex"
 
 ARTICLE_PATHS = ["Posts"]
 ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}.html"
