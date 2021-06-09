@@ -5,7 +5,7 @@
 #
 # Translators:
 # Shiao Qu <whisperzzzz@icloud.com>, 2016
-# Casey Tsui <cuikaidong@foxmail.com>, 2019
+# a2c1471d1cd73a676b800725acec033c_035a6a6 <7c743bc6ac83171e35a5aa8bd66cc1ea_775282>, 2019
 # Qian Gu <guqian110@163.com>, 2020
 #, fuzzy
 msgid ""

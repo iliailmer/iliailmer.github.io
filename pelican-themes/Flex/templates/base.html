@@ -70,11 +70,6 @@
   {% endif %}
 
   {% if PLUGINS and 'tipue_search' in PLUGINS %}
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/jquery.min.js"></script>
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch.min.js"></script>
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch.min.js"></script>
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch_set.min.js"></script>
-    <script src="{{ SITEURL }}/tipuesearch_content.js"></script>
     <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/tipuesearch/tipuesearch.min.css" />
   {% endif %}
 
@@ -101,6 +96,10 @@
 
   {% if GOOGLE_ANALYTICS %}
     {% include "partial/ga.html" %}
+  {% endif %}
+  
+  {% if GOOGLE_GLOBAL_SITE_TAG %}
+    {% include "partial/ggst.html" %}
   {% endif %}
 
   {% if BROWSER_COLOR %}
@@ -148,6 +147,9 @@
   {% if GOOGLE_TAG_MANAGER %}
     {% include "partial/gtm.html" %}
   {% endif %}
+  {% if MICROSOFT_CLARITY %}
+    {% include "partial/clarity.html" %}
+  {% endif %}
 </head>
 <body {% if not THEME_COLOR_AUTO_DETECT_BROWSER_PREFERENCE %}class="{{ THEME_COLOR|default('light') }}-theme"{% endif %}>
   {% if GOOGLE_TAG_MANAGER %}
@@ -175,7 +177,7 @@
         </form>
       {% endif %}
 
-      {% if pages or LINKS %}
+      {% if (pages and DISPLAY_PAGES_ON_MENU) or LINKS %}
       <nav>
         <ul class="list">
           {# Open links in new window depending on the LINKS_IN_NEW_TAB setting #}
@@ -291,14 +293,6 @@
 
   {% if GITHUB_CORNER_URL %}
     {% include 'partial/github.html' %}
-  {% endif %}
-
-  {% if PLUGINS and 'tipue_search' in PLUGINS %}
-    <script>
-      $(document).ready(function() {
-        $('#tipue_search_input').tipuesearch();
-      });
-    </script>
   {% endif %}
 
   {% block additional_js %}{% endblock %}
