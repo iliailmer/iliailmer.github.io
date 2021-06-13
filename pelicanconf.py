@@ -41,7 +41,7 @@ CUSTOM_CSS = "static/custom.css"
 # Enable i18n plugin.
 PLUGIN_PATHS = ["./pelican-plugins", "./pelican-themes"]
 PLUGINS = ["render_math", "i18n_subsites"]
-JINJA_EXTENSIONS = ['jinja2.ext.i18n']
+
 # Default theme language.
 I18N_TEMPLATES_LANG = "en"
 
