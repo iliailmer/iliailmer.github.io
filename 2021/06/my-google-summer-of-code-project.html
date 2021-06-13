@@ -1,0 +1,189 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
+
+
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     href="https://iliailmer.github.io/theme/pygments/github.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
+
+  <link href="https://iliailmer.github.io/static/custom.css" rel="stylesheet">
+
+  <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+    title="Ilia's Blog Atom">
+
+
+
+
+
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333">
+
+<meta name="author" content="Ilia Ilmer" />
+<meta name="description" content="About The Project Problem Formulation The problem of parameter identifiability is one of the most crucial issues arising in systems biology. To take a look at a problem of identifiability, we must first describe a setting in which it arises. Systems biology deals with biological processes that are described by …" />
+<meta name="keywords" content="">
+
+
+<meta property="og:site_name" content="Ilia's Blog"/>
+<meta property="og:title" content="My Google Summer of Code Project"/>
+<meta property="og:description" content="About The Project Problem Formulation The problem of parameter identifiability is one of the most crucial issues arising in systems biology. To take a look at a problem of identifiability, we must first describe a setting in which it arises. Systems biology deals with biological processes that are described by …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://iliailmer.github.io/2021/06/my-google-summer-of-code-project.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2021-06-08 00:00:00-04:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://iliailmer.github.io/author/ilia-ilmer.html">
+<meta property="article:section" content="Posts"/>
+<meta property="og:image" content="https://iliailmer.github.io/images/profile.png">
+
+  <title>Ilia's Blog &ndash; My Google Summer of Code Project</title>
+
+</head>
+
+<body class="light-theme" >
+  <aside>
+    <div>
+      <a href="https://iliailmer.github.io">
+        <img src="https://iliailmer.github.io/images/profile.png" alt="Ilia Ilmer" title="Ilia Ilmer">
+      </a>
+
+      <h1>
+        <a href="https://iliailmer.github.io">Ilia Ilmer</a>
+      </h1>
+
+<p>Algorithms and Coffee</p>
+
+      <nav>
+        <ul class="list">
+
+
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/about.html#about">
+              About
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://iliailmer.github.io">Home</a>
+
+      <a href="/pages/about.html">About</a>
+
+      <a href="https://iliailmer.github.io/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="my-google-summer-of-code-project">My Google Summer of Code Project</h1>
+    <p>
+      Posted on Tue 08 June 2021 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <h1>About The Project</h1>
+<h2>Problem Formulation</h2>
+<p>The problem of parameter identifiability is one of the most crucial issues arising in systems biology. To take a look at a problem of identifiability, we must first describe a setting in which it arises. Systems biology deals with biological processes that are described by ordinary differential equations (ODEs). These equations, in essence, describe mathematically the model’s evolution through time. Each such theoretical model can have dedicated inputs and outputs. An example of an input is a catalyst for chemical reaction. An example of an output could be a measurement done by the chemist.</p>
+<p>In addition to input and output, the model has states and parameters. States are quantities whose time evolution is being considered, while parameters are values that come from intrinsic properties of the system. For example, in a model of population growth such as the Lotka-Volterra model, a species’ intrinsic growth rate is a parameter but the population density is a state.</p>
+<p>Now we are ready to pose the identifiability question: given an input and an output as functions of time, can we recover information about states and parameters?</p>
+<p>The answer to that question can be one of three kinds: </p>
+<ol>
+<li>No, the parameters or states of the system cannot be recovered from given inputs or outputs</li>
+<li>Yes, we can uniquely recover parameters and states</li>
+<li>Yes, we can recover parameters and states but up to finitely many values.</li>
+</ol>
+<p>Point 1 corresponds to non-identifiability. This means that an experiment with given inputs outputs cannot help the researcher recover the parameters or states. Answers 2 and 3 correspond to two kinds of identifiability: global and local respectively.</p>
+<p>The above problem formulation refers to structural identifiability, which is a theoretical property. Another type of identifiability is practical which studies recovery of parameters from given data.</p>
+<h2>The Project</h2>
+<p>This summer I will be working on an implementation of an algorithm for testing local (see part 3 above) identifiability which will become part of the <code>ModelingToolkit.jl</code> package.</p>
+<p><code>ModelingToolkit.jl</code> and <code>Symbolics.jl</code> make a significant contribution to the area of symbolic computation for Julia language. It is currently an open problem to enhance these packages with the capabilities of structural identifiability analysis. This project consists of coding the algorithms for local and global identifiability problems using Julia Programming Language and <code>Symbolic.jl</code> with <code>ModelingToolkit.jl</code>.</p>
+<p>The general direction of solving this problem is to begin with fast and efficient (polynomial time) algorithm implementation. A good starting point is <a href="https://www.lifl.fr/~sedoglav/Load/Sedoglavic2002.pdf">this</a> algorithm for local identifiability tests that relies on power series solutions.</p>
+<p>Later on (and, more importantly, with enough time) we can enhance the functionality to allow tests for global identifiability checking.</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Ilia's Blog ",
+  "url" : "https://iliailmer.github.io",
+  "image": "https://iliailmer.github.io/images/profile.png",
+  "description": ""
+}
+</script>
+
+</body>
+
+</html>
