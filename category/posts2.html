@@ -17,8 +17,11 @@
 
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
 
+  <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)"
+     href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
-  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     href="https://iliailmer.github.io/theme/pygments/github.min.css">
+  <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"  media="(prefers-color-scheme: light)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
 
 
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
@@ -58,15 +61,15 @@
 
 </head>
 
-<body class="light-theme" >
+<body >
   <aside>
     <div>
       <a href="https://iliailmer.github.io">
-        <img src="https://iliailmer.github.io/images/profile.png" alt="Ilia Ilmer" title="Ilia Ilmer">
+        <img src="https://iliailmer.github.io/images/profile.png" alt="Ilia's Blog" title="Ilia's Blog">
       </a>
 
       <h1>
-        <a href="https://iliailmer.github.io">Ilia Ilmer</a>
+        <a href="https://iliailmer.github.io">Ilia's Blog</a>
       </h1>
 
 <p>Algorithms and Coffee</p>
@@ -96,6 +99,7 @@
       <a href="https://iliailmer.github.io">Home</a>
 
       <a href="/pages/about.html">About</a>
+      <a href="/pages/talks.html">Talks</a>
 
       <a href="https://iliailmer.github.io/feeds/all.atom.xml">Atom</a>
 
@@ -139,6 +143,14 @@
 </p>
 <p>
 Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+  <span class="footer-separator">|</span>
+  Switch to the <a href="javascript:void(0)" onclick="theme.switch(`dark`)">dark</a> | <a href="javascript:void(0)" onclick="theme.switch(`light`)">light</a> | <a href="javascript:void(0)" onclick="theme.switch(`browser`)">browser</a> theme
+  <script id="dark-theme-script"
+          src="https://iliailmer.github.io/theme/dark-theme/dark-theme.min.js"
+          data-enable-auto-detect-theme="True"
+          data-default-theme="dark"
+          type="text/javascript">
+  </script>
 </p><p>
   <a rel="license"
      href="http://creativecommons.org/licenses/by-sa/4.0/"
