@@ -5,6 +5,12 @@
 DEFAULT_PAGINATION = 10
 
 THEME = "./pelican-themes/Flex"
+THEME_COLOR = "dark"
+THEME_COLOR_AUTO_DETECT_BROWSER_PREFERENCE = True
+THEME_COLOR_ENABLE_USER_OVERRIDE = True
+
+PYGMENTS_STYLE = "emacs"
+PYGMENTS_STYLE_DARK = "monokai"
 
 ARTICLE_PATHS = ["Posts"]
 ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}.html"
@@ -12,7 +18,7 @@ ARTICLE_URL = "{date:%Y}/{date:%m}/{slug}.html"
 AUTHOR = "Ilia Ilmer"
 SITEURL = "https://iliailmer.github.io"
 SITENAME = "Ilia's Blog"
-SITETITLE = "Ilia Ilmer"
+SITETITLE = "Ilia's Blog"
 SITESUBTITLE = "Algorithms and Coffee"
 
 # SITEDESCRIPTION = "Foo Bar's Thoughts and Writings"
@@ -63,4 +69,5 @@ MAIN_MENU = True
 MENUITEMS = (
     # ("Home", "/"),
     ("About", "/pages/about.html"),
+    ("Talks", "/pages/talks.html"),
 )
