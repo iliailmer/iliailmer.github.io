@@ -1,5 +1,5 @@
 ---
-Title: 'Image Quality Measure'
+Title: Image Quality Measure
 date: 2018-12-13
 analytics: true
 slug: image-quality/

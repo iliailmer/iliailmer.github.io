@@ -1,5 +1,5 @@
 ---
-Title: 'Harmonic networks: implementation of paper results'
+Title: Harmonic networks: implementation of paper results
 date: 2019-03-10
 analytics: true
 slug: harmonic-network/

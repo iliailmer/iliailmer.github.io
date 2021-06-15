@@ -1,5 +1,5 @@
 ---
-Title: "Linear Regression as the Simplest Classifier"
+Title: Linear Regression as the Simplest Classifier
 collection: posts
 analytics: true
 slug: data-explore 

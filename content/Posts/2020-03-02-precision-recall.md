@@ -1,5 +1,5 @@
 ---
-Title: "Three Ways to Deal With Imbalance"
+Title: Three Ways to Deal With Imbalance
 collection: posts
 analytics: true
 slug: precision-recall 

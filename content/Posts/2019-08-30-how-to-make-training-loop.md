@@ -1,5 +1,5 @@
 ---
-Title: "How to write a decent training loop with enough flexibility."
+Title: How to write a decent training loop with enough flexibility.
 collection: posts
 analytics: true
 slug: how-to-make-training-loop 

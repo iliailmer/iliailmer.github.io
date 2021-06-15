@@ -1,5 +1,5 @@
 ---
-Title: "RiCNN and Rotation Robustness of ConvNets: A Paper Review"
+Title: RiCNN and Rotation Robustness of ConvNets. A Paper Review
 collection: posts
 analytics: true
 slug: paper-review
