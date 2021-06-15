@@ -10,3 +10,5 @@ Here is a list of programs I maintain, develop, and/or contribute to:
 - I maintain [SIAN-Julia](https://github.com/alexeyovchinnikov/SIAN-Julia), see dev fork [here](https://github.com/iliailmer/SIAN-Julia).
 - I contributed to [Symbolics.jl](https://github.com/JuliaSymbolics/Symbolics.jl)
 - I work on a Google Summer of Code project for [ModelingToolking.jl](https://github.com/SciML/ModelingToolkit.jl), contributing identifiability algorithm to the toolkit.
+
+For a list of our parameter identifiability software with links to source code, see [here](https://iliailmer.github.io/structsoftware/)
