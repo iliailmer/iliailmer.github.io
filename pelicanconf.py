@@ -7,8 +7,8 @@ DEFAULT_PAGINATION = 10
 
 AUTHOR = "Ilia Ilmer"
 SITEURL = "http://localhost:8000"
-SITENAME = "Ilia's Blog"
-SITETITLE = "Ilia's Blog"
+SITENAME = "Ilia Ilmer"
+SITETITLE = "Ilia Ilmer"
 SITESUBTITLE = "Algorithms and Coffee"
 
 THEME = "./pelican-themes/Flex"
