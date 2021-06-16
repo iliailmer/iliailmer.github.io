@@ -1,27 +1,29 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 
+import datetime
 
 DEFAULT_PAGINATION = 10
+
+AUTHOR = "Ilia Ilmer"
+SITEURL = "http://localhost:8000"
+SITENAME = "Ilia's Blog"
+SITETITLE = "Ilia's Blog"
+SITESUBTITLE = "Algorithms and Coffee"
 
 THEME = "./pelican-themes/Flex"
 THEME_COLOR = "dark"
 THEME_COLOR_AUTO_DETECT_BROWSER_PREFERENCE = True
 THEME_COLOR_ENABLE_USER_OVERRIDE = True
-
 PYGMENTS_STYLE = "emacs"
 PYGMENTS_STYLE_DARK = "monokai"
 
 ARTICLE_PATHS = ["Posts"]
+PATH = "content"
 ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}.html"
 ARTICLE_URL = "{date:%Y}/{date:%m}/{slug}.html"
-AUTHOR = "Ilia Ilmer"
-SITEURL = "https://iliailmer.github.io"
-SITENAME = "Ilia's Blog"
-SITETITLE = "Ilia's Blog"
-SITESUBTITLE = "Algorithms and Coffee"
 
-# SITEDESCRIPTION = "Foo Bar's Thoughts and Writings"
+SITEDESCRIPTION = ""
 SITELOGO = SITEURL + "/images/profile.png"
 # FAVICON = SITEURL + "/images/favicon.ico"
 
@@ -34,15 +36,11 @@ CC_LICENSE = {
     "slug": "by-sa",
 }
 
-COPYRIGHT_YEAR = 2021
+COPYRIGHT_YEAR = datetime.date.today().year
 
 EXTRA_PATH_METADATA = {
     "extra/custom.css": {"path": "static/custom.css"},
 }
-
-CUSTOM_CSS = "static/custom.css"
-
-# ADD_THIS_ID = "ra-77hh6723hhjd"
 
 # Enable i18n plugin.
 PLUGIN_PATHS = ["./pelican-plugins", "./pelican-themes"]
@@ -51,10 +49,7 @@ PLUGINS = ["render_math", "i18n_subsites"]
 # Default theme language.
 I18N_TEMPLATES_LANG = "en"
 
-PATH = "content"
-
 TIMEZONE = "America/New_York"
-
 DEFAULT_LANG = "en"
 
 # Feed generation is usually not desired when developing
@@ -66,8 +61,8 @@ AUTHOR_FEED_RSS = None
 
 NEWEST_FIRST_ARCHIVES = True
 MAIN_MENU = True
+SOCIAL = (("github", "https://github.com/iliailmer"),)
 MENUITEMS = (
-    # ("Home", "/"),
     ("About", "/pages/about.html"),
     ("Talks", "/pages/talks.html"),
 )
