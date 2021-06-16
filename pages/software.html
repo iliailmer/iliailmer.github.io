@@ -28,7 +28,6 @@
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
-  <link href="https://iliailmer.github.io/static/custom.css" rel="stylesheet">
 
   <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
     title="Ilia's Blog Atom">
@@ -55,7 +54,7 @@
 <meta property="og:description" content=""/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://iliailmer.github.io"/>
-<meta property="og:image" content="https://iliailmer.github.io/images/profile.png">
+<meta property="og:image" content="http://localhost:8000/images/profile.png">
 
 
 
@@ -67,7 +66,7 @@
   <aside>
     <div>
       <a href="https://iliailmer.github.io">
-        <img src="https://iliailmer.github.io/images/profile.png" alt="Ilia's Blog" title="Ilia's Blog">
+        <img src="http://localhost:8000/images/profile.png" alt="Ilia's Blog" title="Ilia's Blog">
       </a>
 
       <h1>
@@ -109,6 +108,11 @@
       </nav>
 
       <ul class="social">
+        <li>
+          <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -138,6 +142,9 @@
 <li>I maintain <a href="https://github.com/alexeyovchinnikov/SIAN-Julia">SIAN-Julia</a>, see dev fork <a href="https://github.com/iliailmer/SIAN-Julia">here</a>.</li>
 <li>I contributed to <a href="https://github.com/JuliaSymbolics/Symbolics.jl">Symbolics.jl</a></li>
 <li>I work on a Google Summer of Code project for <a href="https://github.com/SciML/ModelingToolkit.jl">ModelingToolking.jl</a>, contributing identifiability algorithm to the toolkit.</li>
+<li>As a personal project, I wrote a <code>numpy</code> deep learning library in the style of PyTorch: <a href="https://github.com/iliailmer/numpy_learn">numpy-learn</a></li>
+<li>I wrote a cli tool for gitignore file creation <a href="https://github.com/iliailmer/gitignore-create">gitignore-create</a>. Install it via <code>pip install gitignore-create</code> and run <code>gitignore-create -n &lt;your file type here&gt;</code> to get started!</li>
+<li>I am also a fan of Kaggle competitions for machine learning (especially love them when there is enough time for them!). </li>
 </ul>
 <p>For a list of our parameter identifiability software with links to source code, see <a href="https://iliailmer.github.io/structsoftware/">here</a></p>  </div>
 </article>
@@ -179,7 +186,7 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
   "@type" : "Blog",
   "name": " Ilia's Blog ",
   "url" : "https://iliailmer.github.io",
-  "image": "https://iliailmer.github.io/images/profile.png",
+  "image": "http://localhost:8000/images/profile.png",
   "description": ""
 }
 </script>
