@@ -55,17 +55,26 @@
   <!-- Microsoft EDGE -->
   <meta name="msapplication-TileColor" content="#333">
 
-  <meta name="author" content="Ilia Ilmer" />
-  <meta name="description" content="" />
+<meta name="author" content="Ilia Ilmer" />
+<meta name="description" content="Introduction In this repository, I will describe our recently-released Structural Identifiability Toolbox, a web-based application for assessing parameter identifiability of differential models. Click here to checkout the application! Read on to learn more. Why is it better? The program is fast, free, and is available in any web-browser, including mobile …" />
+<meta name="keywords" content="Maple, Symbolic Computing">
+
+
 <meta property="og:site_name" content="Ilia Ilmer"/>
-<meta property="og:type" content="blog"/>
-<meta property="og:title" content="Ilia Ilmer"/>
-<meta property="og:description" content=""/>
+<meta property="og:title" content="Structural Identifiability Toolbox"/>
+<meta property="og:description" content="Introduction In this repository, I will describe our recently-released Structural Identifiability Toolbox, a web-based application for assessing parameter identifiability of differential models. Click here to checkout the application! Read on to learn more. Why is it better? The program is fast, free, and is available in any web-browser, including mobile …"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://iliailmer.github.io"/>
+<meta property="og:url" content="https://iliailmer.github.io/2021/07/structural-identifiability-toolbox.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2021-07-25 00:00:00-04:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://iliailmer.github.io/author/ilia-ilmer.html">
+<meta property="article:section" content="Posts"/>
+<meta property="article:tag" content="Maple"/>
+<meta property="article:tag" content="Symbolic Computing"/>
 <meta property="og:image" content="http://localhost:8000/images/profile.png">
 
-  <title>Ilia Ilmer &ndash; Authors</title>
+  <title>Ilia Ilmer &ndash; Structural Identifiability Toolbox</title>
 
 </head>
 
@@ -138,13 +147,45 @@
 
 <article class="single">
   <header>
-    <h1 id="authors">Authors</h1>
+      
+    <h1 id="structural-identifiability-toolbox">Structural Identifiability Toolbox</h1>
+    <p>
+      Posted on Sun 25 July 2021 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
+
+    </p>
   </header>
+
+
   <div>
-    <ul class="list">
-      <li><a href="https://iliailmer.github.io/author/ilia-ilmer.html">Ilia Ilmer</a> (12)</li>
-    </ul>
+    <h1>Introduction</h1>
+<p>In this repository, I will describe our recently-released Structural Identifiability Toolbox, a web-based application for assessing parameter identifiability of differential models.</p>
+<p><a href="https://maple.cloud/app/6509768948056064/">Click here</a> to checkout the application! Read on to learn more.</p>
+<h1>Why is it better?</h1>
+<p>The program is fast, free, and is available in <em>any</em> web-browser, including mobile. We take care of a lot stuff in the background letting the user worry only about their model definition without any technicalities.</p>
+<h1>Who is it designed for?</h1>
+<p>Simply put, if you are working with models based on ordinary differential equations and you wish to know structural identifiability properties of your models' parameters then this app is built for you!</p>
+<p>Knowing structural identifiability properties will help one set up better experiments to obtain data for the underlying process and extract parameter values correctly.</p>
+<h1>What can it do?</h1>
+<h2>Individual Parameters</h2>
+<p>The application can answer questions about local or global identifiability parameters (including initial conditions): you provide the input system, choose the probability of correctness and, optionally, specify which parameter to check (by default it checks for all possible parameters). For this, the app is using SIAN algorithm (see [1][1] and [2][2] for details) which is fast, robust, and is correct with user-specified probability.</p>
+<h2>Parameter Combinations</h2>
+<p>If a parameter is <em>non</em>-identifiable, one may wish to seek an identifiable function that contains this parameter (and, possibly, others). Built with the algorithm from [3][3], the app can quickly assess generators for all such functions. Moreover, we provide a way to assess whether 1 or more experiments are required to do so, this is called multi-experiment identifiability.</p>
+<h1>References</h1>
+<p>[1]: H. Hong, A. Ovchinnikov, G. Pogudin, C. Yap, <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/cpa.21921">Global Identifiability of Differential Models</a>, Communications on Pure and Applied Mathematics, Volume 73, Issue 9, Pages 1831-1879, 2020</p>
+<p>[2]: H. Hong, A. Ovchinnikov, G. Pogudin, C. Yap, <a href="https://doi.org/10.1093/bioinformatics/bty1069">SIAN: Software for Structural Identifiability Analysis of ODE Models</a> Bioinformatics, Volume 35, Issue 16, Pages 2873–2874, 2019</p>
+<p>[3]: <a href="https://arxiv.org/abs/2004.07774">Computing All Identifiable Functions of ODE Models</a>, arXiv:2004.07774</p>
   </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://iliailmer.github.io/tag/maple.html">Maple</a>
+      <a href="https://iliailmer.github.io/tag/symbolic-computing.html">Symbolic Computing</a>
+    </p>
+  </div>
+
+
+
+
+
 </article>
 
     <footer>
