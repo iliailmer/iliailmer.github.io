@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia Ilmer</title><link href="https://iliailmer.github.io/" rel="alternate"></link><link href="https://iliailmer.github.io/feeds/all.atom.xml" rel="self"></link><id>https://iliailmer.github.io/</id><updated>2021-07-25T00:00:00-04:00</updated><subtitle>Algorithms and Coffee</subtitle><entry><title>Structural Identifiability Toolbox</title><link href="https://iliailmer.github.io/2021/07/structural-identifiability-toolbox.html" rel="alternate"></link><published>2021-07-25T00:00:00-04:00</published><updated>2021-07-25T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-07-25:/2021/07/structural-identifiability-toolbox.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia Ilmer</title><link href="https://iliailmer.github.io/" rel="alternate"></link><link href="https://iliailmer.github.io/feeds/all.atom.xml" rel="self"></link><id>https://iliailmer.github.io/</id><updated>2021-07-25T00:00:00-04:00</updated><subtitle>Algorithms and Coffee</subtitle><entry><title>First Month In GSoC</title><link href="https://iliailmer.github.io/2021/07/first-month-in-gsoc.html" rel="alternate"></link><published>2021-07-25T00:00:00-04:00</published><updated>2021-07-25T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-07-25:/2021/07/first-month-in-gsoc.html</id><summary type="html">&lt;h1&gt;Project Updates&lt;/h1&gt;
+&lt;p&gt;We slightly churned our project idea from the original algorithm implementation into an inclusion of a &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; package develop by my colleague &lt;a href="https://pogudingleb.github.io/"&gt;Gleb Pogudin&lt;/a&gt;. The package is currently part of SciML with more updates to come!&lt;/p&gt;
+&lt;p&gt;Here is a list of things it can do:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;check local …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;h1&gt;Project Updates&lt;/h1&gt;
+&lt;p&gt;We slightly churned our project idea from the original algorithm implementation into an inclusion of a &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; package develop by my colleague &lt;a href="https://pogudingleb.github.io/"&gt;Gleb Pogudin&lt;/a&gt;. The package is currently part of SciML with more updates to come!&lt;/p&gt;
+&lt;p&gt;Here is a list of things it can do:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;check local identifiability of parameters&lt;/li&gt;
+&lt;li&gt;check global identifiability of parameters&lt;/li&gt;
+&lt;li&gt;check for identifiable functions (work-in-progress feature)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Future Directions&lt;/h1&gt;
+&lt;p&gt;We plan to add more tutorials, finalize registering the package, and make it compatible with ODE systems defined in other SciML projects!&lt;/p&gt;</content><category term="Posts"></category><category term="Julia"></category><category term="GSoC"></category></entry><entry><title>Structural Identifiability Toolbox</title><link href="https://iliailmer.github.io/2021/07/structural-identifiability-toolbox.html" rel="alternate"></link><published>2021-07-25T00:00:00-04:00</published><updated>2021-07-25T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-07-25:/2021/07/structural-identifiability-toolbox.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;In this repository, I will describe our recently-released Structural Identifiability Toolbox, a web-based application for assessing parameter identifiability of differential models.&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://maple.cloud/app/6509768948056064/"&gt;Click here&lt;/a&gt; to checkout the application! Read on to learn more.&lt;/p&gt;
 &lt;h1&gt;Why is it better?&lt;/h1&gt;
