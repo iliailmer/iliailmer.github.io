@@ -24,7 +24,7 @@ ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}.html"
 ARTICLE_URL = "{date:%Y}/{date:%m}/{slug}.html"
 
 SITEDESCRIPTION = ""
-SITELOGO = SITEURL + "/images/profile.png"
+# SITELOGO = SITEURL + "/images/profile.png"
 # FAVICON = SITEURL + "/images/favicon.ico"
 
 BROWSER_COLOR = "#333"
