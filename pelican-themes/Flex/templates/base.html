@@ -1,5 +1,4 @@
 {% if 'jinja2.ext.i18n' not in JINJA_ENVIRONMENT.extensions %}
-{% if JINJA_EXTENSIONS is not defined or 'jinja2.ext.i18n' not in JINJA_EXTENSIONS %}
 {%- macro _(msg) -%}
 {{ msg % kwargs }}
 {%- endmacro -%}
@@ -69,80 +68,99 @@
   <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/font-awesome/css/solid.css">
 
   {% if CUSTOM_CSS %}
-  <link href="{{ SITEURL }}/{{ CUSTOM_CSS }}" rel="stylesheet">
-  {% endif %}
+  <<<<<<< HEAD <link href="{{ SITEURL }}/{{ CUSTOM_CSS }}" rel="stylesheet">
+    =======
+    <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ CUSTOM_CSS }}">
+    >>>>>>> a2b7d6de370779679875eb199279d3deea08f30f
+    {% endif %}
 
-  {% if FEED_ALL_ATOM %}
-  <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate"
-    title="{{ SITENAME }} Atom">
-  {% endif %}
+    {% if FEED_ALL_ATOM %}
+    <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate"
+      title="{{ SITENAME }} Atom">
+    {% endif %}
 
-  {% if FEED_ALL_RSS %}
-  <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate"
-    title="{{ SITENAME }} RSS">
-  {% endif %}
+    {% if FEED_ALL_RSS %}
+    <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate"
+      title="{{ SITENAME }} RSS">
+    {% endif %}
 
-  {% if FAVICON %}
-  <link rel="shortcut icon" href="{{ FAVICON }}" type="image/x-icon">
-  <link rel="icon" href="{{ FAVICON }}" type="image/x-icon">
-  {% endif %}
+    {% if FAVICON %}
+    <link rel="shortcut icon" href="{{ FAVICON }}" type="image/x-icon">
+    <link rel="icon" href="{{ FAVICON }}" type="image/x-icon">
+    {% endif %}
 
-  {% if GOOGLE_ANALYTICS %}
-  {% include "partial/ga.html" %}
-  {% endif %}
+    {% if GOOGLE_ANALYTICS %}
+    {% include "partial/ga.html" %}
+    {% endif %}
 
-  {% if GOOGLE_GLOBAL_SITE_TAG %}
-  {% include "partial/ggst.html" %}
-  {% endif %}
+    {% if GOOGLE_GLOBAL_SITE_TAG %}
+    {% include "partial/ggst.html" %}
+    {% endif %}
 
-  {% if BROWSER_COLOR %}
-  <!-- Chrome, Firefox OS and Opera -->
-  <meta name="theme-color" content="{{ BROWSER_COLOR }}">
-  <!-- Windows Phone -->
-  <meta name="msapplication-navbutton-color" content="{{ BROWSER_COLOR }}">
-  <!-- iOS Safari -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Microsoft EDGE -->
-  <meta name="msapplication-TileColor" content="{{ BROWSER_COLOR }}">
-  {% endif %}
+    {% if BROWSER_COLOR %}
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="{{ BROWSER_COLOR }}">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="{{ BROWSER_COLOR }}">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="{{ BROWSER_COLOR }}">
+    {% endif %}
 
-  {% if REL_CANONICAL %}
-  {% if page %}
-  <link rel="canonical" href="{{ SITEURL }}/{{ page.url }}">
-  {% elif article %}
-  <link rel="canonical" href="{{ SITEURL }}/{{ article.url }}">
-  {% elif page_name == 'index' and not articles_previous_page %}
-  <link rel="canonical" href="{{ SITEURL }}">
-  {% elif author or category or tag or page_name == 'index' %}
-  <link rel="canonical" href="{{ SITEURL }}/{{ articles_page.url }}">
-  {% else %}
-  <link rel="canonical" href="{{ SITEURL }}/{{ output_file }}">
-  {% endif %}
-  {% endif %}
-  {% block meta %}
-  <meta name="author" content="{{ AUTHOR }}" />
-  <meta name="description" content="{{ SITEDESCRIPTION }}" />
-  {% include "partial/og.html" %}
-  {% endblock %}
+    <<<<<<< HEAD {% if REL_CANONICAL %} {% if page %} <link rel="canonical" href="{{ SITEURL }}/{{ page.url }}">
+      {% elif article %}
+      <link rel="canonical" href="{{ SITEURL }}/{{ article.url }}">
+      {% elif page_name == 'index' and not articles_previous_page %}
+      <link rel="canonical" href="{{ SITEURL }}">
+      {% elif author or category or tag or page_name == 'index' %}
+      <link rel="canonical" href="{{ SITEURL }}/{{ articles_page.url }}">
+      {% else %}
+      <link rel="canonical" href="{{ SITEURL }}/{{ output_file }}">
+      {% endif %}
+      {% endif %}
+      =======
+      {% if not PLUGINS or 'seo' not in PLUGINS %}
+      {% if REL_CANONICAL %}
+      {% if page %}
+      <link rel="canonical" href="{{ SITEURL }}/{{ page.url }}">
+      {% elif article %}
+      <link rel="canonical" href="{{ SITEURL }}/{{ article.url }}">
+      {% elif page_name == 'index' and not articles_previous_page %}
+      <link rel="canonical" href="{{ SITEURL }}">
+      {% elif author or category or tag or page_name == 'index' %}
+      <link rel="canonical" href="{{ SITEURL }}/{{ articles_page.url }}">
+      {% else %}
+      <link rel="canonical" href="{{ SITEURL }}/{{ output_file }}">
+      {% endif %}
+      {% endif %}
+      {% endif %}
 
-  <title>{{ SITENAME }}{% block title %}{% endblock %}</title>
+      >>>>>>> a2b7d6de370779679875eb199279d3deea08f30f
+      {% block meta %}
+      <meta name="author" content="{{ AUTHOR }}" />
+      <meta name="description" content="{{ SITEDESCRIPTION }}" />
+      {% include "partial/og.html" %}
+      {% endblock %}
 
-  {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.page_level_ads %}
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "{{ GOOGLE_ADSENSE.ca_id }}",
-      enable_page_level_ads: true
-    });
-  </script>
-  {% endif %}
-  {% if GOOGLE_TAG_MANAGER %}
-  {% include "partial/gtm.html" %}
-  {% endif %}
-  {% if MICROSOFT_CLARITY %}
-  {% include "partial/clarity.html" %}
-  {% endif %}
+      <title>{{ SITENAME }}{% block title %}{% endblock %}</title>
+
+      {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.page_level_ads %}
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "{{ GOOGLE_ADSENSE.ca_id }}",
+          enable_page_level_ads: true
+        });
+      </script>
+      {% endif %}
+      {% if GOOGLE_TAG_MANAGER %}
+      {% include "partial/gtm.html" %}
+      {% endif %}
+      {% if MICROSOFT_CLARITY %}
+      {% include "partial/clarity.html" %}
+      {% endif %}
 </head>
 
 <body {% if not THEME_COLOR_AUTO_DETECT_BROWSER_PREFERENCE %}class="{{ THEME_COLOR|default('light') }}-theme" {% endif
@@ -152,7 +170,7 @@
   {% endif %}
   <aside>
     <div>
-      <a href="{{ SITEURL }}">
+      <a href="{{ SITEURL }}/">
         {% if SITELOGO %}
         <img src="{{ SITELOGO }}" alt="{{ SITETITLE }}" title="{{ SITETITLE }}">
         {% else %}
@@ -161,64 +179,69 @@
       </a>
 
       <h1>
-        <a href="{{ SITEURL }}">{{ SITETITLE }}</a>
+        <a href="{{ SITEURL }}/">{{ SITETITLE }}</a>
       </h1>
 
       {% if SITESUBTITLE %}<p>{{ SITESUBTITLE }}</p>{% endif %}
 
       {% if PLUGINS and 'tipue_search' in PLUGINS %}
-      <form class="navbar-search" action="/search.html" role="search">
+      <<<<<<< HEAD <form class="navbar-search" action="/search.html" role="search">
         <input type="text" name="q" id="tipue_search_input" placeholder="{{ _('Search...') }}">
-      </form>
-      {% endif %}
+        </form>
+        =======
+        <form class="navbar-search" action="{{ SITEURL }}/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="{{ _('Search...') }}">
+        </form>
+        >>>>>>> a2b7d6de370779679875eb199279d3deea08f30f
+        {% endif %}
 
-      {% if (pages and DISPLAY_PAGES_ON_MENU) or LINKS %}
-      <nav>
-        <ul class="list">
-          {# Open links in new window depending on the LINKS_IN_NEW_TAB setting #}
-          {% macro get_target(link) -%}
-          {%- if LINKS_IN_NEW_TAB in ('all', true) -%}
-          _blank
-          {%- elif LINKS_IN_NEW_TAB == "external" and not link.startswith("/") and not link.startswith(SITEURL) -%}
-          _blank
-          {%- else -%}
-          _self
-          {%- endif -%}
-          {%- endmacro %}
+        {% if (pages and DISPLAY_PAGES_ON_MENU) or LINKS %}
+        <nav>
+          <ul class="list">
+            {# Open links in new window depending on the LINKS_IN_NEW_TAB setting #}
+            {% macro get_target(link) -%}
+            {%- if LINKS_IN_NEW_TAB in ('all', true) -%}
+            _blank
+            {%- elif LINKS_IN_NEW_TAB == "external" and not link.startswith("/") and not link.startswith(SITEURL) -%}
+            _blank
+            {%- else -%}
+            _self
+            {%- endif -%}
+            {%- endmacro %}
 
-          {% if PAGES_SORT_ATTRIBUTE -%}
-          {% set pages = pages|sort(attribute=PAGES_SORT_ATTRIBUTE) %}
-          {%- endif %}
+            {% if PAGES_SORT_ATTRIBUTE -%}
+            {% set pages = pages|sort(attribute=PAGES_SORT_ATTRIBUTE) %}
+            {%- endif %}
 
-          {% if DISPLAY_PAGES_ON_MENU %}
-          {% for page in pages %}
+            {% if DISPLAY_PAGES_ON_MENU %}
+            {% for page in pages %}
+            <li>
+              <a target="{{ get_target(SITEURL) }}"
+                href="{{ SITEURL }}/{{ page.url }}{% if not DISABLE_URL_HASH %}#{{ page.slug }}{% endif %}">
+                {{ page.title }}
+              </a>
+            </li>
+            {% endfor %}
+            {% endif %}
+
+            {% for name, link in LINKS %}
+            <li>
+              <a target="{{ get_target(link) }}" href="{{ link }}">{{ name }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+        {% endif %}
+
+        <ul class="social">
+          {% for name, link in SOCIAL %}
           <li>
-            <a target="{{ get_target(SITEURL) }}"
-              href="{{ SITEURL }}/{{ page.url }}{% if not DISABLE_URL_HASH %}#{{ page.slug }}{% endif %}">
-              {{ page.title }}
+            <a {% if name=='mastodon' %}rel="me" {% endif %} class="sc-{{ name }}" href="{{ link }}" target="_blank">
+              <i class="{% if name in ['envelope', 'rss'] %}fas{% else %}fab{% endif %} fa-{{ name }}"></i>
             </a>
           </li>
           {% endfor %}
-          {% endif %}
-
-          {% for name, link in LINKS %}
-          <li>
-            <a target="{{ get_target(link) }}" href="{{ link }}">{{ name }}</a>
-          </li>
-          {% endfor %}
         </ul>
-      </nav>
-      {% endif %}
-
-      <ul class="social">
-        {% for name, link in SOCIAL %}
-        <li>
-          <a {% if name=='mastodon' %}rel="me" {% endif %} class="sc-{{ name }}" href="{{ link }}" target="_blank">
-            <i class="{% if name in ['envelope', 'rss'] %}fas{% else %}fab{% endif %} fa-{{ name }}"></i>
-          </a>
-        </li>
-        {% endfor %}
-      </ul>
     </div>
 
     {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.aside %}
@@ -242,7 +265,7 @@
 
     {% if MAIN_MENU %}
     <nav>
-      <a href="{{ SITEURL }}">{{ _('Home') }}</a>
+      <a href="{{ SITEURL }}/">{{ _('Home') }}</a>
 
       {% for title, link in MENUITEMS %}
       <a href="{{ link }}">{{ _(title) }}</a>
