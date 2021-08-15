@@ -61,7 +61,11 @@ AUTHOR_FEED_RSS = None
 
 NEWEST_FIRST_ARCHIVES = True
 MAIN_MENU = True
-SOCIAL = (("github", "https://github.com/iliailmer"),)
+SOCIAL = (
+    ("github", "https://github.com/iliailmer"),
+    ("gitlab", "https://gitlab.com/iliailmer"),
+    ("linkedin", "https://linkedin.com/in/iilmer"),
+)
 MENUITEMS = (
     # ("About", "/pages/about.html"),
     # ("Talks", "/pages/talks.html"),
