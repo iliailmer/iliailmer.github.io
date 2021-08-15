@@ -24,8 +24,8 @@ ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}.html"
 ARTICLE_URL = "{date:%Y}/{date:%m}/{slug}.html"
 
 SITEDESCRIPTION = ""
-SITELOGO = SITEURL + "/content/images/profile.jpg"
-# FAVICON = SITEURL + "/images/favicon.ico"
+SITELOGO = SITEURL + "/images/compressed.jpeg"
+FAVICON = SITEURL + "/images/favicon.ico"
 
 BROWSER_COLOR = "#333"
 ROBOTS = "index, follow"
@@ -65,4 +65,5 @@ SOCIAL = (("github", "https://github.com/iliailmer"),)
 MENUITEMS = (
     ("About", "/pages/about.html"),
     ("Talks", "/pages/talks.html"),
+    ("CV", "/files/resume.pdf"),
 )
