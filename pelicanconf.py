@@ -63,7 +63,7 @@ NEWEST_FIRST_ARCHIVES = True
 MAIN_MENU = True
 SOCIAL = (("github", "https://github.com/iliailmer"),)
 MENUITEMS = (
-    ("About", "/pages/about.html"),
-    ("Talks", "/pages/talks.html"),
+    # ("About", "/pages/about.html"),
+    # ("Talks", "/pages/talks.html"),
     ("CV", "/files/resume.pdf"),
 )
