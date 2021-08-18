@@ -15,8 +15,7 @@ THEME = "./pelican-themes/Flex"
 # THEME_COLOR = "dark"
 THEME_COLOR_AUTO_DETECT_BROWSER_PREFERENCE = True
 THEME_COLOR_ENABLE_USER_OVERRIDE = True
-PYGMENTS_STYLE = "emacs"
-PYGMENTS_STYLE_DARK = "monokai"
+PYGMENTS_STYLE = "monokai"
 
 ARTICLE_PATHS = ["Posts"]
 PATH = "content"
@@ -49,10 +48,9 @@ PLUGINS = [
     "i18n_subsites",
     "tipue_search",
     "simple_footnotes",
-    "extract_toc",
     "better_code_samples",
 ]
-MARKDOWN = {"extensions": ["toc", "fenced_code", "codehilite"]}
+# MARKDOWN = {"extensions": ["toc", "fenced_code", "codehilite"]}
 
 # Default theme language.
 I18N_TEMPLATES_LANG = "en"
