@@ -52,7 +52,7 @@ PLUGINS = [
     "extract_toc",
     "better_code_samples",
 ]
-MARKDOWN = {"extensions": ["toc", "fenced_code"]}
+MARKDOWN = {"extensions": ["toc", "fenced_code", "codehilite"]}
 
 # Default theme language.
 I18N_TEMPLATES_LANG = "en"
