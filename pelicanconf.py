@@ -50,8 +50,9 @@ PLUGINS = [
     "tipue_search",
     "simple_footnotes",
     "extract_toc",
+    "better_code_samples",
 ]
-MARKDOWN = {"extensions": ["toc"]}
+MARKDOWN = {"extensions": ["toc", "fenced_code"]}
 
 # Default theme language.
 I18N_TEMPLATES_LANG = "en"
