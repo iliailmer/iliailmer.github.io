@@ -34,7 +34,7 @@
 &lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/34"&gt;#34&lt;/a&gt;: check for non-integer coefficients in the input system of the &lt;code&gt;ODESystem&lt;/code&gt; object. This PR will also include checks for presence of special functions and functions in the numerator. The latter are, as of writing this post, only supported via &lt;code&gt;ODE&lt;/code&gt; class of &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;Future work&lt;/h2&gt;
-&lt;p&gt;Current main focus is PR &lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/34"&gt;#34&lt;/a&gt; after which we will release the changes as a new version. There will probably be a separate PR to resolve support for rational functions with &lt;code&gt;ODESystem&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Current main focus is PR &lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/34"&gt;#34&lt;/a&gt; after which we will release the changes as a new version.&lt;/p&gt;
 &lt;h2&gt;Final Thoughts&lt;/h2&gt;
 &lt;p&gt;I am extremely grateful to my mentors, &lt;a href="https://www.chrisrackauckas.com/"&gt;Christopher Rackauckas&lt;/a&gt;, &lt;a href="https://yingboma.github.io"&gt;Yingbo Ma&lt;/a&gt; and to &lt;a href="http://shashi.biz/"&gt;Shashi Gowda&lt;/a&gt; for their help during this summer.&lt;/p&gt;
 &lt;p&gt;Huge shout out and thanks to &lt;a href="https://pogudingleb.github.io/"&gt;Gleb Pogudin&lt;/a&gt; who is the original package developer.&lt;/p&gt;
