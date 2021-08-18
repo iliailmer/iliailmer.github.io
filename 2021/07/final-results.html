@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
+
+  <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
+
+  <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+
+  <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
+
+
+  <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+    title="Ilia Ilmer Atom">
+
+
+  <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-131502498-2', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333">
+
+
+<meta name="author" content="Ilia Ilmer" />
+<meta name="description" content="Over the course of the summer, my work resulted in successfully ported code of StructuralIdentifiability.jl, a package that can help researchers who use ordinary differential equations in their work. The package allows answering queries about individual identifiability of parameters and their combinations. The StructuralIdentifiability.jl package is ready to …" />
+<meta name="keywords" content="Julia, GSoC">
+
+
+  <meta property="og:site_name" content="Ilia Ilmer"/>
+  <meta property="og:title" content="Final Results"/>
+  <meta property="og:description" content="Over the course of the summer, my work resulted in successfully ported code of StructuralIdentifiability.jl, a package that can help researchers who use ordinary differential equations in their work. The package allows answering queries about individual identifiability of parameters and their combinations. The StructuralIdentifiability.jl package is ready to …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://iliailmer.github.io/2021/07/final-results.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2021-07-25 00:00:00-04:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://iliailmer.github.io/author/ilia-ilmer.html">
+  <meta property="article:section" content="Posts"/>
+  <meta property="article:tag" content="Julia"/>
+  <meta property="article:tag" content="GSoC"/>
+  <meta property="og:image" content="https://iliailmer.github.io/images/compressed.jpeg">
+
+  <title>Ilia Ilmer &ndash; Final Results</title>
+
+</head>
+
+<body >
+  <aside>
+    <div>
+      <a href="https://iliailmer.github.io/">
+        <img src="https://iliailmer.github.io/images/compressed.jpeg" alt="Ilia Ilmer" title="Ilia Ilmer">
+      </a>
+
+      <h1>
+        <a href="https://iliailmer.github.io/">Ilia Ilmer</a>
+      </h1>
+
+<p>Algorithms and Coffee</p>
+      <form class="navbar-search" action="https://iliailmer.github.io/search.html" role="search">
+        <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+      </form>
+
+      <nav>
+        <ul class="list">
+
+
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/about.html#about">
+              About
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/publications.html#publications">
+              Publications
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/software.html#software">
+              Software
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/talks.html#talks">
+              Talks
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li>
+          <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
+            <i class="fab fa-gitlab"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://iliailmer.github.io/">Home</a>
+
+      <a href="/files/resume.pdf">CV</a>
+
+      <a href="https://iliailmer.github.io/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+    
+    <h1 id="final-results">Final Results</h1>
+    <p>
+      Posted on Sun 25 July 2021 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
+
+    </p>
+  </header>
+
+
+  <nav class="toc">
+    <div class="toc">
+<ul>
+<li><a href="#contributions">Contributions</a><ul>
+<li><a href="#closed-prs">Closed PRs</a></li>
+<li><a href="#open-prs">Open PRs</a></li>
+</ul>
+</li>
+<li><a href="#future-work">Future work</a></li>
+<li><a href="#final-thoughts">Final Thoughts</a></li>
+</ul>
+</div>
+  </nav>
+  <div>
+    
+<p>Over the course of the summer, my work resulted in successfully ported code of <code>StructuralIdentifiability.jl</code>, a package that can help researchers who use ordinary differential equations in their work. The package allows answering queries about individual identifiability of parameters and their combinations. </p>
+<p>The <code>StructuralIdentifiability.jl</code> package is ready to use! 🥳 🎊 😄</p>
+<p>You can install from source:</p>
+<p>```julia</p>
+<blockquote>
+<p>]add https://github.com/SciML/StructuralIdentifiability.jl
+```</p>
+</blockquote>
+<p>or via <code>Pkg</code>:</p>
+<p>```julia</p>
+<blockquote>
+<p>]add StructuralIdentifiability
+```</p>
+</blockquote>
+<p>You can check the documentation at <a href="https://si.sciml.ai/dev/">this link</a>. To get started, I recommend checking out <a href="https://si.sciml.ai/dev/tutorials/local_identifiability/">this tutorial</a> on local identifiability. </p>
+<p>Some repo stats: </p>
+<p><a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/releases/"><img alt="GitHub release" src="https://img.shields.io/github/release/SciML/StructuralIdentifiability.jl.svg"/></a> <a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/stargazers/"><img alt="GitHub stars" src="https://img.shields.io/github/stars/SciML/StructuralIdentifiability.jl.svg?style=social&amp;label=Star&amp;maxAge=2592000"/></a> </p>
+<h2 id="contributions">Contributions</h2>
+<p>Over the course of the summer, my contributions ranged from tutorials to compatibility with broader <code>SciML</code> infrastructure. Here is a list of my contributions with links to relevant Pull Requests (PRs).</p>
+<h3 id="closed-prs">Closed PRs</h3>
+<ul>
+<li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/13">#13</a>: update dependencies of the code to be compatible with <code>ModelingToolkit.jl</code>.</li>
+<li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/17">#17</a>: add documentation to core functions with examples.</li>
+<li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/19">#19</a>: some small optimizations to the code</li>
+<li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/20">#20</a>: fix a small issue in matrix invertibility for a test</li>
+<li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/22">#22</a> and <a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/23">#23</a>: Adding tutorials on how to use the package.</li>
+<li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/25">#25</a>: adding <code>julia</code> to the compatibility list and finally registering the package 🎉</li>
+<li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/30">#30</a>: adding compatibility with <code>ODESystem</code> objects. Now there are two ways of running <code>StructuralIdenifiability.jl</code>: via <code>ODE</code> class that comes with the package as well as the <code>ODESystem</code> of <code>ModelingToolkit.jl</code>.</li>
+</ul>
+<h3 id="open-prs">Open PRs</h3>
+<p>There are some PRs that remain open for now as of writing this. They focus on minor things like warnings for particular input types (non-integer coefficients, special functions, etc.) for which the identifiability solution is not defined.</p>
+<ul>
+<li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/26">#26</a>: this pr is an attempt to investigate an issue which occurs with one of our dependencies.</li>
+<li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/32">#32</a>: replacing deprecated functions from our package dependency</li>
+<li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/34">#34</a>: check for non-integer coefficients in the input system of the <code>ODESystem</code> object. This PR will also include checks for presence of special functions and functions in the numerator. The latter are, as of writing this post, only supported via <code>ODE</code> class of <code>StructuralIdentifiability.jl</code></li>
+</ul>
+<h2 id="future-work">Future work</h2>
+<p>Current challenge is PR <a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/34">#34</a> after which we will release the changes. There will probably be a separate PR to resolve support for rational functions with <code>ODESystem</code>.</p>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>I am extremely grateful to my mentors, <a href="https://www.chrisrackauckas.com/">Christopher Rackauckas</a>, <a href="https://yingboma.github.io">Yingbo Ma</a> as well as <a href="http://shashi.biz/">Shashi Gowda</a> for their help during this summer.</p>
+<p>Huge shout out goes also to my colleague <a href="https://pogudingleb.github.io/">Gleb Pogudin</a> who is the original package developer.</p>
+<p>This was a great experience learning about Julia language and open source in general, it motivates me to contribute to open source much more!</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://iliailmer.github.io/tag/julia.html">Julia</a>
+      <a href="https://iliailmer.github.io/tag/gsoc.html">GSoC</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+  <span class="footer-separator">|</span>
+  Switch to the <a href="javascript:void(0)" onclick="theme.switch(`dark`)">dark</a> | <a href="javascript:void(0)" onclick="theme.switch(`light`)">light</a> | <a href="javascript:void(0)" onclick="theme.switch(`browser`)">browser</a> theme
+  <script id="dark-theme-script"
+          src="https://iliailmer.github.io/theme/dark-theme/dark-theme.min.js"
+          data-enable-auto-detect-theme="True"
+          data-default-theme="light"
+          type="text/javascript">
+  </script>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Ilia Ilmer ",
+  "url" : "https://iliailmer.github.io",
+  "image": "https://iliailmer.github.io/images/compressed.jpeg",
+  "description": ""
+}
+</script>
+
+</body>
+
+</html>

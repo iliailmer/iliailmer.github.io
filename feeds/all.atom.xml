@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia Ilmer</title><link href="https://iliailmer.github.io/" rel="alternate"></link><link href="https://iliailmer.github.io/feeds/all.atom.xml" rel="self"></link><id>https://iliailmer.github.io/</id><updated>2021-07-25T00:00:00-04:00</updated><subtitle>Algorithms and Coffee</subtitle><subtitle>Algorithms and Coffee</subtitle><entry><title>First Month In GSoC</title><link href="https://iliailmer.github.io/2021/07/first-month-in-gsoc.html" rel="alternate"></link><published>2021-07-25T00:00:00-04:00</published><updated>2021-07-25T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-07-25:/2021/07/first-month-in-gsoc.html</id><summary type="html">&lt;h1 id="project-updates"&gt;Project Updates&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia Ilmer</title><link href="https://iliailmer.github.io/" rel="alternate"></link><link href="https://iliailmer.github.io/feeds/all.atom.xml" rel="self"></link><id>https://iliailmer.github.io/</id><updated>2021-07-25T00:00:00-04:00</updated><subtitle>Algorithms and Coffee</subtitle><subtitle>Algorithms and Coffee</subtitle><entry><title>Final Results</title><link href="https://iliailmer.github.io/2021/07/final-results.html" rel="alternate"></link><published>2021-07-25T00:00:00-04:00</published><updated>2021-07-25T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-07-25:/2021/07/final-results.html</id><summary type="html">
+&lt;p&gt;Over the course of the summer, my work resulted in successfully ported code of &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt;, a package that can help researchers who use ordinary differential equations in their work. The package allows answering queries about individual identifiability of parameters and their combinations. &lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; package is ready to …&lt;/p&gt;</summary><content type="html">
+&lt;p&gt;Over the course of the summer, my work resulted in successfully ported code of &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt;, a package that can help researchers who use ordinary differential equations in their work. The package allows answering queries about individual identifiability of parameters and their combinations. &lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; package is ready to use! 🥳 🎊 😄&lt;/p&gt;
+&lt;p&gt;You can install from source:&lt;/p&gt;
+&lt;p&gt;```julia&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;]add https://github.com/SciML/StructuralIdentifiability.jl
+```&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;or via &lt;code&gt;Pkg&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;```julia&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;]add StructuralIdentifiability
+```&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You can check the documentation at &lt;a href="https://si.sciml.ai/dev/"&gt;this link&lt;/a&gt;. To get started, I recommend checking out &lt;a href="https://si.sciml.ai/dev/tutorials/local_identifiability/"&gt;this tutorial&lt;/a&gt; on local identifiability. &lt;/p&gt;
+&lt;p&gt;Some repo stats: &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/releases/"&gt;&lt;img alt="GitHub release" src="https://img.shields.io/github/release/SciML/StructuralIdentifiability.jl.svg"/&gt;&lt;/a&gt; &lt;a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/stargazers/"&gt;&lt;img alt="GitHub stars" src="https://img.shields.io/github/stars/SciML/StructuralIdentifiability.jl.svg?style=social&amp;amp;label=Star&amp;amp;maxAge=2592000"/&gt;&lt;/a&gt; &lt;/p&gt;
+&lt;h2 id="contributions"&gt;Contributions&lt;/h2&gt;
+&lt;p&gt;Over the course of the summer, my contributions ranged from tutorials to compatibility with broader &lt;code&gt;SciML&lt;/code&gt; infrastructure. Here is a list of my contributions with links to relevant Pull Requests (PRs).&lt;/p&gt;
+&lt;h3 id="closed-prs"&gt;Closed PRs&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/13"&gt;#13&lt;/a&gt;: update dependencies of the code to be compatible with &lt;code&gt;ModelingToolkit.jl&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/17"&gt;#17&lt;/a&gt;: add documentation to core functions with examples.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/19"&gt;#19&lt;/a&gt;: some small optimizations to the code&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/20"&gt;#20&lt;/a&gt;: fix a small issue in matrix invertibility for a test&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/22"&gt;#22&lt;/a&gt; and &lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/23"&gt;#23&lt;/a&gt;: Adding tutorials on how to use the package.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/25"&gt;#25&lt;/a&gt;: adding &lt;code&gt;julia&lt;/code&gt; to the compatibility list and finally registering the package 🎉&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/30"&gt;#30&lt;/a&gt;: adding compatibility with &lt;code&gt;ODESystem&lt;/code&gt; objects. Now there are two ways of running &lt;code&gt;StructuralIdenifiability.jl&lt;/code&gt;: via &lt;code&gt;ODE&lt;/code&gt; class that comes with the package as well as the &lt;code&gt;ODESystem&lt;/code&gt; of &lt;code&gt;ModelingToolkit.jl&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="open-prs"&gt;Open PRs&lt;/h3&gt;
+&lt;p&gt;There are some PRs that remain open for now as of writing this. They focus on minor things like warnings for particular input types (non-integer coefficients, special functions, etc.) for which the identifiability solution is not defined.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/26"&gt;#26&lt;/a&gt;: this pr is an attempt to investigate an issue which occurs with one of our dependencies.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/32"&gt;#32&lt;/a&gt;: replacing deprecated functions from our package dependency&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/34"&gt;#34&lt;/a&gt;: check for non-integer coefficients in the input system of the &lt;code&gt;ODESystem&lt;/code&gt; object. This PR will also include checks for presence of special functions and functions in the numerator. The latter are, as of writing this post, only supported via &lt;code&gt;ODE&lt;/code&gt; class of &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="future-work"&gt;Future work&lt;/h2&gt;
+&lt;p&gt;Current challenge is PR &lt;a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/34"&gt;#34&lt;/a&gt; after which we will release the changes. There will probably be a separate PR to resolve support for rational functions with &lt;code&gt;ODESystem&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id="final-thoughts"&gt;Final Thoughts&lt;/h2&gt;
+&lt;p&gt;I am extremely grateful to my mentors, &lt;a href="https://www.chrisrackauckas.com/"&gt;Christopher Rackauckas&lt;/a&gt;, &lt;a href="https://yingboma.github.io"&gt;Yingbo Ma&lt;/a&gt; as well as &lt;a href="http://shashi.biz/"&gt;Shashi Gowda&lt;/a&gt; for their help during this summer.&lt;/p&gt;
+&lt;p&gt;Huge shout out goes also to my colleague &lt;a href="https://pogudingleb.github.io/"&gt;Gleb Pogudin&lt;/a&gt; who is the original package developer.&lt;/p&gt;
+&lt;p&gt;This was a great experience learning about Julia language and open source in general, it motivates me to contribute to open source much more!&lt;/p&gt;</content><category term="Posts"></category><category term="Julia"></category><category term="GSoC"></category></entry><entry><title>First Month In GSoC</title><link href="https://iliailmer.github.io/2021/07/first-month-in-gsoc.html" rel="alternate"></link><published>2021-07-25T00:00:00-04:00</published><updated>2021-07-25T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-07-25:/2021/07/first-month-in-gsoc.html</id><summary type="html">&lt;h1 id="project-updates"&gt;Project Updates&lt;/h1&gt;
 &lt;p&gt;We slightly churned our project idea from the original algorithm implementation into an inclusion of a &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; package develop by my colleague &lt;a href="https://pogudingleb.github.io/"&gt;Gleb Pogudin&lt;/a&gt;. The package is currently part of SciML with more updates to come!&lt;/p&gt;
 &lt;p&gt;Here is a list of things it can do:&lt;/p&gt;
 &lt;ul&gt;
