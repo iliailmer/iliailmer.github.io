@@ -183,9 +183,8 @@
 <div class="math">$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp}+1)}{\min(W_{lp}+1)}.$$</div>
 <p>The addition <span class="math">\(W_{lp}+1\)</span> implies that we add 1 to all elements in the window <span class="math">\(W_{lp}\)</span>.</p>
 <p>I prefer to scale image to have intensities between 0 and 1, but it really is not important, you can use any range as long as it is <code>float</code> type. This is because of the nature of the division and <span class="math">\(\log\)</span> operators.</p>
-<p>And here's the code for this function:
-<code>python
-def EME(image, window_width, window_height):
+<p>And here's the code for this function:</p>
+<pre><code class="language-python">def EME(image, window_width, window_height):
   height, width = image.shape
   sum_ = 0
   k = 0                                    # I just decided not to keep
@@ -204,24 +203,25 @@ def EME(image, window_width, window_height):
           D = 0.02
         k += 1
         sum_ += 20 * np.log(D)
-      return sum_ / k</code></p>
+      return sum_ / k
+</code></pre>
 <h1 id="examples">Examples</h1>
 <p>Let's try it out on some examples. What I am going to do here is, I will use the <code>skimage</code> library to obtain the data first.</p>
-<p><code>py
-from skimage.data import camera() # my favourite at this point</code></p>
+<pre><code class="language-py">from skimage.data import camera() # my favourite at this point
+</code></pre>
 <figure>
   <img src="https://iliailmer.github.io/images/enhancement-measure/camera.png?raw=true" alt="original"/>
   <figcaption>My favourite sample image.</figcaption>
 </figure>
-<p>And then lets use simple histogram equalization for image enhancement. This function will enhance the contrast of the image and will bring some details (but also noise! Don't 100% rely on it!)
-```py
-from skimage.data import camera
-from skimage.restoration import denoise_bilateral, denoise_wavelet</p>
-<p>original = camera()
+<p>And then lets use simple histogram equalization for image enhancement. This function will enhance the contrast of the image and will bring some details (but also noise! Don't 100% rely on it!)</p>
+<pre><code class="language-py">from skimage.data import camera
+from skimage.restoration import denoise_bilateral, denoise_wavelet
+
+original = camera()
 enhanced = equalize_hist(original)
-image = rescale(enhanced, 0, 255).astype("uint8")
-```
-And the result is pretty evident</p>
+image = rescale(enhanced, 0, 255).astype(&quot;uint8&quot;)
+</code></pre>
+<p>And the result is pretty evident</p>
 <figure>
   <img src="https://iliailmer.github.io/images/enhancement-measure/camera_enh.png?raw=true" alt="comparison"/>
   <figcaption>Quality comparison.</figcaption>

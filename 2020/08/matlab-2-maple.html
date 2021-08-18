@@ -177,101 +177,104 @@
 <h2 id="the-original-code">The original code</h2>
 <p>The original *.m files were pulled from <a href="https://www.ebi.ac.uk/biomodels/">this</a> webpage using <code>wget</code> and their own API. Ordingary differential equation (ODE) models in those files contain a special function called <code>xdot</code>. It returns an array of <code>n</code> elements, which form right-hand side of an ODE.</p>
 <p>The function is usually defined in the form</p>
-<p><code>m
-function xdot=f(x,t)
+<pre><code class="language-m">function xdot=f(x,t)
     % define parameters as
     C = 1.0;
     % ...
     xdot = zeros(..., ...);
     % define each xdot(i) separately
-end</code></p>
+end
+</code></pre>
 <p>What I wanted to see in the maple code was the following:</p>
-<p>```py</p>
-<h1 id="define-parameters-as-symbolic-constants">define parameters as symbolic constants</h1>
-<p>C := C:</p>
-<h1 id="define-system-of-odes-as-array">define system of odes as array</h1>
-<p>sigma := [
+<pre><code class="language-py">#  define parameters as symbolic constants
+C := C:
+
+#  define system of odes as array
+
+sigma := [
     diff(x1(t), t) = &lt;...&gt;,
     &lt;...&gt;
     diff(xn(t), t) = &lt;...&gt;
 ]:
-```</p>
+</code></pre>
 <p>The best way to solve it I saw was to use regular expressions.</p>
 <h2 id="step-by-step">Step by step</h2>
 <p>Firstly, I had to get rid of Matlab comment and turn them into Maple compatible ones, hence the line</p>
-<p><code>py
-out_program = re.findall(
-                r"function xdot=f\(x,t\)(.*?)end", content, re.DOTALL
-            )[0].replace("%", "#")</code></p>
+<pre><code class="language-py">out_program = re.findall(
+                r&quot;function xdot=f\(x,t\)(.*?)end&quot;, content, re.DOTALL
+            )[0].replace(&quot;%&quot;, &quot;#&quot;)
+</code></pre>
 <p>After that, we want to look at <code>if</code> statements. In Maple, conditional structure like <code>if</code> statements are written as</p>
-<p><code>pascal
-if &lt;condition&gt; then &lt;code&gt; end:</code></p>
+<pre><code class="language-pascal">if &lt;condition&gt; then &lt;code&gt; end:
+</code></pre>
 <p>To do that, we utilize groups: <code>(..)</code>. The regex is</p>
-<p><code>py
-out_program = re.sub(
-                r"if(\(\w*\))(.*;)end",
-                r"if \1 then \2\nend if:",
+<pre><code class="language-py">out_program = re.sub(
+                r&quot;if(\(\w*\))(.*;)end&quot;,
+                r&quot;if \1 then \2\nend if:&quot;,
                 out_program,
                 flags=re.DOTALL,
-            )</code></p>
+            )
+</code></pre>
 <p>The <code>if(\(\w*\))(.*;)end</code> regex gets the condition <code>\(\w*\)</code> and the code (.*;) between <code>if</code> / <code>end</code> to place those between <code>if</code>, <code>then</code>, <code>end</code> in positions marked by <code>\1</code> and <code>\2</code>.</p>
 <p>Remeber, that we do not want to have <code>xdot(i)=...</code> assigned manually anymore in Maple, we want to see Maple syntax: <code>diff(x(t),t) = ...</code>, so we do the following regex:</p>
-<p><code>py
-out_program = re.sub(
-                r"xdot\((\d+)\) \=( .*);", r"\ndiff(x\1(t), t) = \2,", out_program
-            )</code></p>
+<pre><code class="language-py">out_program = re.sub(
+                r&quot;xdot\((\d+)\) \=( .*);&quot;, r&quot;\ndiff(x\1(t), t) = \2,&quot;, out_program
+            )
+</code></pre>
 <p>Again, notice the groups that capture stuff we want to preserve, namely the index of <code>xdot</code> and the right-hand sides.</p>
 <p>Next few lines do some cosmetic work, namely, rename any <code>x(i)</code> appearance into <code>xi(t)</code>, then make all variable assingments symbolic constants (i.e. if we have <code>c=0</code> we want to have <code>c:=c</code>). Finally, if we have Matlab assignments that do not use constants (i.e. <code>c=0; x = c+x;</code>) we want to keep them (i.e. <code>c:=c: x:=c+x:</code>).</p>
-<p><code>py
-out_program = re.sub(r"x\((\d+)\)", r"x\1(t)", out_program) # x(i) -&gt; xi(t)
-out_program = re.sub(r"(\w+)\=\d*\..*", r"\1:=\1:", out_program) # c=NUMBER -&gt; c:=c:
-out_program = re.sub(r"(\w+)\=(.*);", r"\1:=\2:", out_program) # Left-side = ANYTHING NOT METNIONED ABOVE -&gt; same but with := sign</code></p>
+<pre><code class="language-py">out_program = re.sub(r&quot;x\((\d+)\)&quot;, r&quot;x\1(t)&quot;, out_program) # x(i) -&gt; xi(t)
+out_program = re.sub(r&quot;(\w+)\=\d*\..*&quot;, r&quot;\1:=\1:&quot;, out_program) # c=NUMBER -&gt; c:=c:
+out_program = re.sub(r&quot;(\w+)\=(.*);&quot;, r&quot;\1:=\2:&quot;, out_program) # Left-side = ANYTHING NOT METNIONED ABOVE -&gt; same but with := sign
+</code></pre>
 <p>Finally, putting it all together we can run:</p>
-<p>```py
-import re
+<pre><code class="language-py">import re
 from glob import glob
-from tqdm.auto import tqdm</p>
-<p>files = glob("files/<em>/</em>/*.m")</p>
-<p>for i in tqdm(range(len(files))):
-    with open(files[i], "r") as f:
+from tqdm.auto import tqdm
+
+files = glob(&quot;files/*/*/*.m&quot;)
+
+for i in tqdm(range(len(files))):
+    with open(files[i], &quot;r&quot;) as f:
         try:
             content = f.read()
         except:
-            print(files[i], "could not read")
+            print(files[i], &quot;could not read&quot;)
         try:
             out_program = re.findall(
-                r"function xdot=f(x,t)(.<em>?)end", content, re.DOTALL
-            )[0].replace("%", "#")
+                r&quot;function xdot=f\(x,t\)(.*?)end&quot;, content, re.DOTALL
+            )[0].replace(&quot;%&quot;, &quot;#&quot;)
             out_program = re.sub(
-                r"if((\w</em>))(.<em>;)end",
-                r"if \1 then \2\nend if:",
+                r&quot;if(\(\w*\))(.*;)end&quot;,
+                r&quot;if \1 then \2\nend if:&quot;,
                 out_program,
                 flags=re.DOTALL,
             )
             out_program = re.sub(
-                r"xdot((\d+)) \=( .</em>);", r"\ndiff(x\1(t), t) = \2,", out_program
+                r&quot;xdot\((\d+)\) \=( .*);&quot;, r&quot;\ndiff(x\1(t), t) = \2,&quot;, out_program
             )
-            out_program = re.sub(r"(xdot=zeros.*)", r"# \1", out_program) # comment out declaration of xdot</p>
-<pre><code>        out_program = re.sub(r"x\((\d+)\)", r"x\1(t)", out_program)
-        out_program = re.sub(r"(\w+)\=\d*\..*", r"\1:=\1:", out_program)
-        out_program = re.sub(r"(\w+)\=(.*);", r"\1:=\2:", out_program)
-        # cosmetic work to make maple run and not complain about trailing comma
-        out_program = re.sub(
-            r"(diff.*)", r"sigma := [\n\1]:", out_program, flags=re.DOTALL
-        ).replace(",\n]", "\n]")
+            out_program = re.sub(r&quot;(xdot=zeros.*)&quot;, r&quot;# \1&quot;, out_program) # comment out declaration of xdot
 
-        outname = files[i].split(".")[0] + ".mpl"
+            out_program = re.sub(r&quot;x\((\d+)\)&quot;, r&quot;x\1(t)&quot;, out_program)
+            out_program = re.sub(r&quot;(\w+)\=\d*\..*&quot;, r&quot;\1:=\1:&quot;, out_program)
+            out_program = re.sub(r&quot;(\w+)\=(.*);&quot;, r&quot;\1:=\2:&quot;, out_program)
+            # cosmetic work to make maple run and not complain about trailing comma
+            out_program = re.sub(
+                r&quot;(diff.*)&quot;, r&quot;sigma := [\n\1]:&quot;, out_program, flags=re.DOTALL
+            ).replace(&quot;,\n]&quot;, &quot;\n]&quot;)
 
-        with open(outname, "w") as output:
-            output.write(out_program)
-        import os
+            outname = files[i].split(&quot;.&quot;)[0] + &quot;.mpl&quot;
 
-        os.system("mkdir -p new_examples")
-        os.system(f"cp {outname} new_examples")
-    except:
-        print(files[i], "Index not Found.")
+            with open(outname, &quot;w&quot;) as output:
+                output.write(out_program)
+            import os
+
+            os.system(&quot;mkdir -p new_examples&quot;)
+            os.system(f&quot;cp {outname} new_examples&quot;)
+        except:
+            print(files[i], &quot;Index not Found.&quot;)
+
 </code></pre>
-<p>```</p>
 <p>Some stuff really specific to our project was omitted for brevity, but one can definitely add any other Maple/Matlab interaction here.</p>
   </div>
   <div class="tag-cloud">

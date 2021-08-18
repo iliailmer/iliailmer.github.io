@@ -189,8 +189,7 @@
 6. Apply the best model to `df_test` and compute the **confusion matrix**, **precision score**, and **recall score**. Are the results similar to those from `df_validation`? -->
 
 <p>We will dive into the solution, but first, some imports:</p>
-<p><code>python
-import pandas as pd
+<pre><code class="language-python">import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 %matplotlib inline
@@ -199,40 +198,41 @@ import gc
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, precision_score, recall_score
 from sklearn.linear_model import LogisticRegressionCV, LogisticRegression
-plt.style.use('fivethirtyeight')</code></p>
+plt.style.use('fivethirtyeight')
+</code></pre>
 <p>A plotting helper:</p>
-<p><code>py
-def plot_cm(y_pred, y_true):
-    """Plot confusion matrix based on
-       true vs. predicted values."""
+<pre><code class="language-py">def plot_cm(y_pred, y_true):
+    &quot;&quot;&quot;Plot confusion matrix based on
+       true vs. predicted values.&quot;&quot;&quot;
     cm = confusion_matrix(y_true=y_true, y_pred=y_pred)
     prec = precision_score(y_true=y_true, y_pred=y_pred)
     rec = recall_score(y_true=y_true, y_pred=y_pred)
     sns.heatmap(cm, annot=True)
-    plt.title(f"Precision: {prec:.2f}, Recall: {rec:.2f}")</code></p>
+    plt.title(f&quot;Precision: {prec:.2f}, Recall: {rec:.2f}&quot;)
+</code></pre>
 <p>Finally, reading the <a href="https://github.com/JWarmenhoven/ISLR-python/blob/master/Notebooks/Data/Default.xlsx?raw=true">data</a>:</p>
-<p>```python
-df = pd.read_excel("Default.xlsx", header=0).iloc[:, 1:]</p>
-<h1 id="convert-strings-to-binary-int32-01-values">convert strings to binary int32 0,1 values</h1>
-<p>df['default'] = df['default'].apply(lambda x: 0 if x == 'No' else 1).astype(
+<pre><code class="language-python">df = pd.read_excel(&quot;Default.xlsx&quot;, header=0).iloc[:, 1:]
+
+# convert strings to binary int32 0,1 values
+
+df['default'] = df['default'].apply(lambda x: 0 if x == 'No' else 1).astype(
     np.int32)
 df['student'] = df['student'].apply(lambda x: 0 if x == 'No' else 1).astype(
     np.int32)
 X = df.drop(['default'], axis=1)
 y = df['default']
-```</p>
+</code></pre>
 <p>To save memory: convert applicable columns from float64(double) to float32(float). This may help with much bigger datasets, this one is relatively small, though. Applicable here means max value of a column falls within the limits of the float32 range:</p>
-<p>```py
-for column in df.columns:
+<pre><code class="language-py">for column in df.columns:
     if df[column].values.max() &lt; np.finfo(np.float32).max:
         if df[column].values.min() &gt; np.finfo(np.float32).min:
-            df[column] = df[column].values.astype(np.float32)</p>
-<h1 id="garbage-collector">garbage collector</h1>
-<p>gc.collect()
-```</p>
+            df[column] = df[column].values.astype(np.float32)
+# garbage collector
+gc.collect()
+</code></pre>
 <p>Let's look at the distribution of the target value:</p>
-<p><code>python
-ax = sns.countplot(data=df, x='default')</code></p>
+<pre><code class="language-python">ax = sns.countplot(data=df, x='default')
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_5_0.png" /></p>
 <p>The histogram above verifies the problem: the data is highly imbalanced. To train a linear regression classifier, we will try to remedy the issue with three approaches:</p>
 <ol>
@@ -242,34 +242,35 @@ ax = sns.countplot(data=df, x='default')</code></p>
 </ol>
 <h2 id="stratified-sampling">Stratified Sampling</h2>
 <p>To sample in a way that the imbalance is preserved (stratified) we will pass an argument <code>stratify</code> to the <code>train_test_split</code> function from <code>sklearn</code>. Specifically, we will pass the column of labels <code>df['default']</code> so that the function determines the exact distribution.</p>
-<p>```python
-df_train, df_test, y_train, y_test = train_test_split(X,
+<pre><code class="language-python">df_train, df_test, y_train, y_test = train_test_split(X,
                                                       y,
                                                       random_state=42,
                                                       stratify=df['default'],
-                                                      train_size=0.6)</p>
-<p>df_val, df_test, y_val, y_test = train_test_split(df_test,
+                                                      train_size=0.6)
+
+df_val, df_test, y_val, y_test = train_test_split(df_test,
                                                   y_test,
                                                   random_state=42,
                                                   stratify=y_test,
                                                   train_size=0.5)
-```</p>
+</code></pre>
 <p>The plot below will illustrate the distribution of labels in the sampled data.</p>
-<p><code>python
-fig, ax = plt.subplots(ncols=3, figsize=(12, 4))
-fig.suptitle("Left to right: train, val, test label counts.")
+<pre><code class="language-python">fig, ax = plt.subplots(ncols=3, figsize=(12, 4))
+fig.suptitle(&quot;Left to right: train, val, test label counts.&quot;)
 for i, data in zip(range(3), (y_train, y_val, y_test)):
-    sns.countplot(x=data, ax=ax[i])</code></p>
+    sns.countplot(x=data, ax=ax[i])
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_11_0.png" /></p>
-<p>```python
-print(f'Train data to original dataset: {len(df_train)/len(X) * 100}%')
+<pre><code class="language-python">print(f'Train data to original dataset: {len(df_train)/len(X) * 100}%')
 print(f'Validation data to original dataset: {len(df_val)/len(X) * 100}%')
-print(f'Test data to original dataset: {len(df_test)/len(X) * 100}%')</p>
-<p>print(f'\nNegative labels in original data: {len(X[y==0])/len(X) * 100 :.3}%')
+print(f'Test data to original dataset: {len(df_test)/len(X) * 100}%')
+
+print(f'\nNegative labels in original data: {len(X[y==0])/len(X) * 100 :.3}%')
 print(f'Negative labels in train data: {(len(df_train[y_train==0])/len(df_train) * 100) :.3}%')
 print(f'Negative labels in validation data: {(len(df_val[y_val==0])/len(df_val) * 100) :.3}%')
-print(f'Negative labels in test data: {(len(df_test[y_test==0])/len(df_test) * 100) :.3}%')</p>
-<p>```</p>
+print(f'Negative labels in test data: {(len(df_test[y_test==0])/len(df_test) * 100) :.3}%')
+
+</code></pre>
 <pre><code>Train data to original dataset: 60.0%
 Validation data to original dataset: 20.0%
 Test data to original dataset: 20.0%
@@ -282,75 +283,75 @@ Negative labels in test data: 96.7%
 <h2 id="oversampling">Oversampling</h2>
 <p>For oversampling we will use a package called <code>imbalanced-learn</code> available <a href="https://pypi.org/project/imbalanced-learn/">from PyPI</a>. It has built-in classes for various over- and under-sampling methods. We will use basic <code>RandomOverSampler</code> and <code>RandomUnderSampler</code> classes.</p>
 <p>The package is built with similarities to other <code>sklearn</code> conventions, so calling <code>fit</code> methods will give us the necessary results.</p>
-<p>```python
-from imblearn.over_sampling import RandomOverSampler</p>
-<p>ros = RandomOverSampler(random_state=42)  # initialize
+<pre><code class="language-python">from imblearn.over_sampling import RandomOverSampler
+
+ros = RandomOverSampler(random_state=42)  # initialize
 df_train_over, y_train_over = ros.fit_sample(
     df_train, y=y_train)  # resample training data
 ax = sns.countplot(x=y_train_over)  # plot value counts for the labels
-t = plt.suptitle("Oversampled value counts.")
-```</p>
+t = plt.suptitle(&quot;Oversampled value counts.&quot;)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_15_0.png" /></p>
 <h2 id="underspamling">Underspamling</h2>
-<p>```python
-from imblearn.under_sampling import RandomUnderSampler</p>
-<p>rus = RandomUnderSampler(random_state=42, )  # initialize
+<pre><code class="language-python">from imblearn.under_sampling import RandomUnderSampler
+
+rus = RandomUnderSampler(random_state=42, )  # initialize
 df_train_under, y_train_under = rus.fit_sample(df_train, y=y_train)  # resample
 ax = sns.countplot(x=y_train_under)  # plot
-t = plt.suptitle("Undersampled value counts.")
-```</p>
+t = plt.suptitle(&quot;Undersampled value counts.&quot;)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_17_0.png" /></p>
 <h2 id="train-naively-without-stratification">Train naively without stratification</h2>
 <p>Let us first train logistic regression model on a similarly split data without stratification.</p>
-<p>```python
-df_train_naive, df_test_naive, y_train_naive, y_test_naive = train_test_split(
-    X, y, random_state=42, train_size=0.6)</p>
-<p>df_val_naive, df_test_naive, y_val_naive, y_test_naive = train_test_split(
+<pre><code class="language-python">df_train_naive, df_test_naive, y_train_naive, y_test_naive = train_test_split(
+    X, y, random_state=42, train_size=0.6)
+
+df_val_naive, df_test_naive, y_val_naive, y_test_naive = train_test_split(
     df_test_naive, y_test_naive, random_state=42, train_size=0.6)
-```</p>
-<p>```python
-logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
+</code></pre>
+<pre><code class="language-python">logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
 logreg.fit(df_train_naive, y_train_naive)
-y_pred = logreg.predict(df_val_naive)</p>
-<p>plot_cm(y_val_naive, y_pred)
-```</p>
+y_pred = logreg.predict(df_val_naive)
+
+plot_cm(y_val_naive, y_pred)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_21_0.png" /></p>
 <p>We observe zero precision and zero recall scores and the model overfits on the '0' class, which is expected and is bad.</p>
 <h2 id="train-on-stratified">Train on Stratified</h2>
 <p>Below we train on the stratified data. We observe a better recall and precision scores and the predicted result on validation data follows the distribution of labels as in the training data (note that this heuristic is absolutely non-strict and does not necessarily indicate whether a model is good or bad).</p>
-<p>```python
-logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
+<pre><code class="language-python">logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
 logreg.fit(df_train, y_train)
-y_pred = logreg.predict(df_val)</p>
-<p>plot_cm(y_val, y_pred)
-```</p>
+y_pred = logreg.predict(df_val)
+
+plot_cm(y_val, y_pred)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_25_0.png" /></p>
-<p><code>python
-ax = plt.subplot()
-ax = sns.countplot(y_pred, ax=ax)</code></p>
+<pre><code class="language-python">ax = plt.subplot()
+ax = sns.countplot(y_pred, ax=ax)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_26_0.png" /></p>
 <h2 id="train-on-oversampled">Train on Oversampled</h2>
 <p>When training on Oversampled data we get a very high precision score but lose the recall score.</p>
-<p>```python
-logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
+<pre><code class="language-python">logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
 logreg.fit(df_train_over, y_train_over)
-y_pred = logreg.predict(df_val)</p>
-<p>plot_cm(y_val, y_pred)
-```</p>
+y_pred = logreg.predict(df_val)
+
+plot_cm(y_val, y_pred)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_29_0.png" /></p>
-<p>```python
-y_pred = logreg.predict(df_test)</p>
-<p>plot_cm(y_test, y_pred)
-```</p>
+<pre><code class="language-python">y_pred = logreg.predict(df_test)
+
+plot_cm(y_test, y_pred)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_30_0.png" /></p>
 <h2 id="train-on-undersampled">Train on Undersampled</h2>
 <p>A similar behavior occurs in the undersampled case, we see increase in Precision compared to naive and stratified cases, but both precision and recall are a bit lower that oversampled case.</p>
-<p>```python
-logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
+<pre><code class="language-python">logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
 logreg.fit(df_train_under, y_train_under)
-y_pred = logreg.predict(df_val)</p>
-<p>plot_cm(y_val, y_pred)
-```</p>
+y_pred = logreg.predict(df_val)
+
+plot_cm(y_val, y_pred)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_33_0.png" /></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>In this assignment, we considered a problem of default prediction for a credit card holder. We omitted most of preliminary data analysis and instead focused on basic model building for a highly imbalanced dataset. The proportion of negative labels is 97% out of all given data. Let us briefly outline meaning behind precision and recall scores.</p>
@@ -358,17 +359,17 @@ y_pred = logreg.predict(df_val)</p>
 <p><strong>Recall score</strong>, on the other hand, shows the ratio of true positives versus the sum of true positive and false negative predictions. That is, if the prediction's number of true positive cases is trumped by the number of false negative cases, the recall score will be higher.</p>
 <p>Card default is essentially the inability to pay off the card's balance. In this case, we are not willing to accept a false negative prediction: if we forecast that the default does not happen and in reality it does then we (the bank) are in the losing position. On the other hand, the false positive case does not affect us because in the worst case the cardholder pays off their debt and the default does not happen.</p>
 <p>Since we want to be as effective as possible in our prediction, we must recommend a model with a higher recall score, which in this case is a stratified logistic recall score model.</p>
-<p>```python
-logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
+<pre><code class="language-python">logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
 logreg.fit(df_train, y_train)
-y_pred = logreg.predict(df_val)</p>
-<p>plot_cm(y_val, y_pred)
-```</p>
+y_pred = logreg.predict(df_val)
+
+plot_cm(y_val, y_pred)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_36_0.png" /></p>
-<p>```python
-y_pred = logreg.predict(df_test)</p>
-<p>plot_cm(y_test, y_pred)
-```</p>
+<pre><code class="language-python">y_pred = logreg.predict(df_test)
+
+plot_cm(y_test, y_pred)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_37_0.png" /></p>
   </div>
   <div class="tag-cloud">

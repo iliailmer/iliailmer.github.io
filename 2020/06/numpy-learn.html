@@ -186,9 +186,9 @@
 <li>How a stochastic gradient descent optimizer was built</li>
 </ul>
 <p>After that, we introduce the class for building the neural net itself and explain how everything ties together. We conclude by performance analysis on a simple MNIST program.</p>
-<p>Let us agree on convention similar to that of PyTorch library: we will call the main datatype <code>Tensor</code> instead of <code>array</code>, as follows:
-<code>py
-from numpy import ndarray as Tensor</code></p>
+<p>Let us agree on convention similar to that of PyTorch library: we will call the main datatype <code>Tensor</code> instead of <code>array</code>, as follows:</p>
+<pre><code class="language-py">from numpy import ndarray as Tensor
+</code></pre>
 <p>This is to adhere to accepted aesthetics of most modern neural network libraries and nothing more. All methods are purely using <code>numpy</code> or <code>scipy</code>.</p>
 <h3 id="linear-layer">Linear Layer</h3>
 <p>Inspired by PyTorch, the naming convention here is the preserved. The design of the layer is also similar to PyTorch: the class <code>Linear</code> will have a <code>forward</code> and a <code>backward</code> methods. The former will represent the forward pass, that is, the passing of the input data through the layer towards the next. The latter is responsible for backward propagation of the gradient.</p>
@@ -197,10 +197,10 @@ from numpy import ndarray as Tensor</code></p>
 <div class="math">$$\mathrm{L}(x) = xW + b.$$</div>
 <p>We require that the size of the input data was of the format <span class="math">\(batch\times input~features\)</span>, for instance if the input data has 784 pixel values, for a batch of 100 images the size of <span class="math">\(x\)</span> would be <span class="math">\(100\times 784\)</span> and the size of <span class="math">\(W\)</span> would be <span class="math">\(784\times out~features\)</span>, while <span class="math">\(b\)</span> is of the shape <span class="math">\(out~features\times 1\)</span>. Here we rely on <code>numpy</code> broadcasting the value of bias onto the resulting matrix <span class="math">\(xW\)</span> when adding <span class="math">\(b\)</span>.</p>
 <p>In code, we define it as follows:</p>
-<p><code>py
-def forward(self, x: Tensor) -&gt; Tensor:
+<pre><code class="language-py">def forward(self, x: Tensor) -&gt; Tensor:
         self.input = x
-        return x @ self.W + self.b</code></p>
+        return x @ self.W + self.b
+</code></pre>
 <h4 id="gradient">Gradient</h4>
 <p>In the forward pass, we computed the matrix product. Next, we need to evaluate the rate of change of the output of the current layer with respect to the input. Note, that due to the chain rule, the gradient flows from right (output) to left (input) as a product.</p>
 <p>The <code>backward</code> method utilizes chainrule. It accepts the gradient from the layer <span class="math">\(l+1\)</span>, uses it to find the derivatives of the current layer's output with respect to <span class="math">\(W\)</span> and <span class="math">\(b\)</span> and finally, passes it along multiplying by the derivative of its output w.r.t. <span class="math">\(x\)</span>, the input.</p>
@@ -210,70 +210,71 @@ def forward(self, x: Tensor) -&gt; Tensor:
 <li>Here, <span class="math">\(\delta^l_i\)</span> is the error of the <span class="math">\(l\)</span>th layer for <span class="math">\(i\)</span>th node: <div class="math">$$\delta^l_i=g'_{out}(a_i^l)\sum\limits_k W^{l+1}_{ik}\delta^{l+1}_{k}$$</div>, where <span class="math">\(g\)</span> is the activation function.</li>
 </ul>
 <p>These equations are written in a different shape convention, but we can take care of that in the code.</p>
-<p>The derivative of <span class="math">\(xW+b\)</span> w.r.t. <span class="math">\(W\)</span> is <span class="math">\(x^T\)</span>. The derivative of <span class="math">\(xW+b\)</span> w.r.t. to <span class="math">\(b\)</span> is an identity matrix. Therefore, let <code>grad</code> be the gradient (error) received from <span class="math">\((l+1)\)</span>th layer, then we can define the <code>backward</code> method as below:
-<code>py
-def backward(self, grad: Tensor) -&gt; Tensor:
+<p>The derivative of <span class="math">\(xW+b\)</span> w.r.t. <span class="math">\(W\)</span> is <span class="math">\(x^T\)</span>. The derivative of <span class="math">\(xW+b\)</span> w.r.t. to <span class="math">\(b\)</span> is an identity matrix. Therefore, let <code>grad</code> be the gradient (error) received from <span class="math">\((l+1)\)</span>th layer, then we can define the <code>backward</code> method as below:</p>
+<pre><code class="language-py">def backward(self, grad: Tensor) -&gt; Tensor:
         # input_feat by batch_size @ batch_size by out_features
         self.dydw = self.input.T @ grad
         # we sum across batches and get shape (out_features)
         self.dydb = grad.sum(axis=0)
         # output must be of shape (batch_size, out_features)
-        return grad @ self.W.T</code></p>
-<p>Now we are ready to present the fully defined Linear Layer code below:</p>
-<p>```python
-import numpy as np
-from numpy import ndarray as Tensor</p>
-<p>class Linear:
-    """A linear layer."""</p>
-<pre><code>def __init__(self, in_features: int, out_features: int):
-    """Initialize a linear layer with weights and biases."""
-    self.W = np.random.randn(in_features, out_features)
-
-    self.b = np.random.randn(out_features)
-
-def forward(self, x: Tensor) -&gt; Tensor:
-    """Compute forward pass, return W @ x + b.
-
-    Arguments:
-        W: the weight Tensor of shape (in_featuers, out_features)
-        b: the bias vector of shape (out_features,)
-        x: the input of shape (batch_size, in_features)
-
-    Returns:
-        A tensor of shape (batch_size, out_features)
-
-    """
-    self.input = x
-    return x @ self.W + self.b
-
-def backward(self, grad: Tensor) -&gt; Tensor:
-    """Propagate the gradient from the l+1 layer to l-1 layer.
-
-    Arguments:
-        grad: the tensor gradients from the l+1 layer to be
-              propagated, shape: (batch_size, out_features).
-
-    References:
-        http://home.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html
-
-    """
-    # in_feat by batch_size @ batch_size by out_feat
-    self.dydw = self.input.T @ grad
-    # we sum across batches and get shape (out_features)
-    self.dydb = grad.sum(axis=0)
-    # output must be of shape (batch_size, out_features)
-    return grad @ self.W.T
-
-def __call__(self, x: Tensor) -&gt; Tensor:
-    """Peform forward pass on `__call__`."""
-    return self.forward(x)
-
-def __repr__(self) -&gt; str:
-    """Print a representation for Jupyter/IPython."""
-    return f"""Linear Layer:\n\tWeight: {self.W.shape}"""\
-        + f"""\n\tBias: {self.b.shape}"""
+        return grad @ self.W.T
 </code></pre>
-<p>```</p>
+<p>Now we are ready to present the fully defined Linear Layer code below:</p>
+<pre><code class="language-python">import numpy as np
+from numpy import ndarray as Tensor
+
+class Linear:
+    &quot;&quot;&quot;A linear layer.&quot;&quot;&quot;
+
+    def __init__(self, in_features: int, out_features: int):
+        &quot;&quot;&quot;Initialize a linear layer with weights and biases.&quot;&quot;&quot;
+        self.W = np.random.randn(in_features, out_features)
+
+        self.b = np.random.randn(out_features)
+
+    def forward(self, x: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Compute forward pass, return W @ x + b.
+
+        Arguments:
+            W: the weight Tensor of shape (in_featuers, out_features)
+            b: the bias vector of shape (out_features,)
+            x: the input of shape (batch_size, in_features)
+
+        Returns:
+            A tensor of shape (batch_size, out_features)
+
+        &quot;&quot;&quot;
+        self.input = x
+        return x @ self.W + self.b
+
+    def backward(self, grad: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Propagate the gradient from the l+1 layer to l-1 layer.
+
+        Arguments:
+            grad: the tensor gradients from the l+1 layer to be
+                  propagated, shape: (batch_size, out_features).
+
+        References:
+            http://home.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html
+
+        &quot;&quot;&quot;
+        # in_feat by batch_size @ batch_size by out_feat
+        self.dydw = self.input.T @ grad
+        # we sum across batches and get shape (out_features)
+        self.dydb = grad.sum(axis=0)
+        # output must be of shape (batch_size, out_features)
+        return grad @ self.W.T
+
+    def __call__(self, x: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Peform forward pass on `__call__`.&quot;&quot;&quot;
+        return self.forward(x)
+
+    def __repr__(self) -&gt; str:
+        &quot;&quot;&quot;Print a representation for Jupyter/IPython.&quot;&quot;&quot;
+        return f&quot;&quot;&quot;Linear Layer:\n\tWeight: {self.W.shape}&quot;&quot;&quot;\
+            + f&quot;&quot;&quot;\n\tBias: {self.b.shape}&quot;&quot;&quot;
+
+</code></pre>
 <h3 id="layers-with-activation-functions">Layers with Activation Functions</h3>
 <p>We define separate layers for activation functions, similarly to the way PyTorch handles those. We only define two here: ReLU and Sigmoid.</p>
 <p>ReLU is defined as </p>
@@ -284,103 +285,108 @@ def __repr__(self) -&gt; str:
 <div class="math">$$(\nabla f)(t) = 0 \text{ if } t=0\text{, else }t$$</div>
 <div class="math">$$(\nabla \sigma)(t) = \sigma(t)(1-\sigma(t))$$</div>
 <p>The respective classes are defined below</p>
-<p>```python
-def sigmoid(x: Tensor) -&gt; Tensor:
-    """Calculate the sigmoid function of x."""
-    return 1/(1+np.exp(-x))</p>
-<p>def sigmoid_prime(x: Tensor) -&gt; Tensor:
-    """Calculate the d/dx of sigmoid function of x."""
-    return sigmoid(x)*(1-sigmoid(x))</p>
-<p>class ReLU:
-    """ReLU class."""</p>
-<pre><code>def __init__(self):
-    """Initialize the ReLU instance."""
+<pre><code class="language-python">def sigmoid(x: Tensor) -&gt; Tensor:
+    &quot;&quot;&quot;Calculate the sigmoid function of x.&quot;&quot;&quot;
+    return 1/(1+np.exp(-x))
 
-def forward(self, x: Tensor) -&gt; Tensor:
-    """Compute the activation in the forward pass.
 
-    Arguments:
-        x: Tensor of inputs, shape (batch_size, in_features)
+def sigmoid_prime(x: Tensor) -&gt; Tensor:
+    &quot;&quot;&quot;Calculate the d/dx of sigmoid function of x.&quot;&quot;&quot;
+    return sigmoid(x)*(1-sigmoid(x))
 
-    Returns:
-        Tensor of shape (batch_size, in_features)
+class ReLU:
+    &quot;&quot;&quot;ReLU class.&quot;&quot;&quot;
 
-    """
-    return np.maximum(x, 0)
+    def __init__(self):
+        &quot;&quot;&quot;Initialize the ReLU instance.&quot;&quot;&quot;
 
-def backward(self, grad: Tensor) -&gt; Tensor:
-    """Compute the gradient and pass it backwards.
+    def forward(self, x: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Compute the activation in the forward pass.
 
-    Arguments:
-        grad: Tensor of gradients of shape (batch_size, out_features)
+        Arguments:
+            x: Tensor of inputs, shape (batch_size, in_features)
 
-    Returns:
-        Tensor of shape (batch_size, out_features)
+        Returns:
+            Tensor of shape (batch_size, in_features)
 
-    """
-    return np.maximum(grad, 0)
+        &quot;&quot;&quot;
+        return np.maximum(x, 0)
 
-def __call__(self, x: Tensor) -&gt; Tensor:
-    """Peform forward pass on `__call__`."""
-    return self.forward(x)
+    def backward(self, grad: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Compute the gradient and pass it backwards.
 
-def __repr__(self) -&gt; str:
-    """Print a representation of ReLU for Jupyter/IPython."""
-    return """ReLU()"""
+        Arguments:
+            grad: Tensor of gradients of shape (batch_size, out_features)
+
+        Returns:
+            Tensor of shape (batch_size, out_features)
+
+        &quot;&quot;&quot;
+        return np.maximum(grad, 0)
+
+    def __call__(self, x: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Peform forward pass on `__call__`.&quot;&quot;&quot;
+        return self.forward(x)
+
+    def __repr__(self) -&gt; str:
+        &quot;&quot;&quot;Print a representation of ReLU for Jupyter/IPython.&quot;&quot;&quot;
+        return &quot;&quot;&quot;ReLU()&quot;&quot;&quot;
+
+
+class Sigmoid:
+    &quot;&quot;&quot;Sigmoid class.&quot;&quot;&quot;
+
+    def __init__(self):
+        &quot;&quot;&quot;Initialize the instance.
+
+        We add the main function for activation and its derivative function.
+        &quot;&quot;&quot;
+        self.sigmoid = sigmoid
+        self.sigmoid_prime = sigmoid_prime
+
+    def forward(self, x: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Compute the activation in the forward pass.
+
+        Arguments:
+            x: Tensor of inputs with shape(batch_size, in_features)
+
+        Returns:
+            Tensor of shape(batch_size, in_features)
+
+        &quot;&quot;&quot;
+        self.input = x
+        return self.sigmoid(x)
+
+    def backward(self, grad: Tensor):
+        &quot;&quot;&quot;Compute the gradient and pass it backwards.
+
+        Arguments:
+            grad: Tensor of gradients with shape(batch_size, out_features)
+
+        Returns:
+            Tensor of shape(in_features, out_features)
+
+        &quot;&quot;&quot;
+        return self.sigmoid_prime(self.input) * grad
+
+    def __call__(self, x: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Peform forward pass on `__call__`.&quot;&quot;&quot;
+        return self.forward(x)
+
+    def __repr__(self) -&gt; str:
+        &quot;&quot;&quot;Print a representation of Sigmoid for Jupyter/IPython.&quot;&quot;&quot;
+        return &quot;&quot;&quot;Sigmoid()&quot;&quot;&quot;
+
 </code></pre>
-<p>class Sigmoid:
-    """Sigmoid class."""</p>
-<pre><code>def __init__(self):
-    """Initialize the instance.
-
-    We add the main function for activation and its derivative function.
-    """
-    self.sigmoid = sigmoid
-    self.sigmoid_prime = sigmoid_prime
-
-def forward(self, x: Tensor) -&gt; Tensor:
-    """Compute the activation in the forward pass.
-
-    Arguments:
-        x: Tensor of inputs with shape(batch_size, in_features)
-
-    Returns:
-        Tensor of shape(batch_size, in_features)
-
-    """
-    self.input = x
-    return self.sigmoid(x)
-
-def backward(self, grad: Tensor):
-    """Compute the gradient and pass it backwards.
-
-    Arguments:
-        grad: Tensor of gradients with shape(batch_size, out_features)
-
-    Returns:
-        Tensor of shape(in_features, out_features)
-
-    """
-    return self.sigmoid_prime(self.input) * grad
-
-def __call__(self, x: Tensor) -&gt; Tensor:
-    """Peform forward pass on `__call__`."""
-    return self.forward(x)
-
-def __repr__(self) -&gt; str:
-    """Print a representation of Sigmoid for Jupyter/IPython."""
-    return """Sigmoid()"""
-</code></pre>
-<p>```</p>
 <p>In addition to Sigmoid and ReLU, we also import <code>softmax</code> activation function from <code>scipy</code>. In my experiments, I found that this is the most stable implementation, so I did not want to run into <a href="https://en.wikipedia.org/wiki/Not_invented_here">"not invented here"</a> problem.</p>
 <p><code>softmax</code> is defined as follows:</p>
 <div class="math">$$\mathcal{S}(x)=\left[\frac{\exp(x_i)}{\sum\limits_{k}\exp(x_k)}\right], i=1..n,~x=[x_1, ... , x_n]$$</div>
 <p>Softmax accepts a vector of network's output and converts it to a vector of probability values. For this function we need to use one-hot encoding.</p>
-<p><code>python
-from scipy.special import softmax as s
+<pre><code class="language-python">from scipy.special import softmax as s
 def softmax(x: Tensor) -&gt; Tensor:
-    """Calculate softmax using scipy."""
-    return s(x, axis=1)</code></p>
+    &quot;&quot;&quot;Calculate softmax using scipy.&quot;&quot;&quot;
+    return s(x, axis=1)
+</code></pre>
 <h3 id="loss-functions">Loss Functions</h3>
 <p>We implement two loss functions here. We will implement Mean Squared Error Loss class and a Cross Entropy Loss class.</p>
 <h4 id="mean-squared-error-loss">Mean Squared Error Loss</h4>
@@ -410,188 +416,204 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <div class="math">$$\nabla{\mathcal{L}}(y, \hat{y}) = -\sum\limits_i y_i \frac{1}{p_i}p_i(\delta_{ij}-p_j) = - y_j  + p_j\sum\limits_i y_i.$$</div>
 <p>Recall, that the vector <span class="math">\(y\)</span> is one-hot encoded, therefore, the sum of its components <span class="math">\(\sum\limits_i y_i=1\)</span>. Hence, we obtain</p>
 <div class="math">$$\nabla{\mathcal{L}}(y, \hat{y}) =p_j - y_j.$$</div>
-<p>```python
-class Loss:
-    """Placeholder class for losses."""</p>
-<pre><code>def __init__(self):
-    """Initialize the class with 0 gradient."""
-    self.grad = 0.
+<pre><code class="language-python">class Loss:
+    &quot;&quot;&quot;Placeholder class for losses.&quot;&quot;&quot;
 
-def grad_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
-    """Create placeholder for the gradient funtion."""
-    pass
+    def __init__(self):
+        &quot;&quot;&quot;Initialize the class with 0 gradient.&quot;&quot;&quot;
+        self.grad = 0.
 
-def loss_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
-    """Create placeholder for the loss funtion."""
-    pass
+    def grad_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Create placeholder for the gradient funtion.&quot;&quot;&quot;
+        pass
 
-def __call__(self, pred: Tensor, true: Tensor):
-    """Calculate gradient and loss on call."""
-    self.grad = self.grad_fn(pred, true)
-    return self.loss_fn(pred, true)
+    def loss_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Create placeholder for the loss funtion.&quot;&quot;&quot;
+        pass
+
+    def __call__(self, pred: Tensor, true: Tensor):
+        &quot;&quot;&quot;Calculate gradient and loss on call.&quot;&quot;&quot;
+        self.grad = self.grad_fn(pred, true)
+        return self.loss_fn(pred, true)
+
+
+class MSE(Loss):
+    &quot;&quot;&quot;Mean squared error loss.&quot;&quot;&quot;
+
+    def __init__(self):
+        &quot;&quot;&quot;Initialize via superclass.&quot;&quot;&quot;
+        super().__init__()
+
+    def grad_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Calculate the gradient of MSE.
+
+        Args:
+            pred: Tensor of predictions (raw output),
+            shape (batch, )
+            true: Tensor of true labels,
+            shape (batch, )
+
+        &quot;&quot;&quot;
+        return (pred - true)/true.shape[0]
+
+    def loss_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Calculate the MSE.
+
+        Args:
+            pred: Tensor of predictions (raw output),
+            shape (batch,)
+            true: Tensor of true labels (raw output),
+            shape (batch,)
+
+        &quot;&quot;&quot;
+        return 0.5*np.sum((pred - true)**2)/true.shape[0]
+
+    def __repr__(self):
+        &quot;&quot;&quot;Put pretty representation in Jupyter/IPython.&quot;&quot;&quot;
+        return &quot;&quot;&quot;Mean Squared Error loss (pred: Tensor, true: Tensor)&quot;&quot;&quot;
+
+
+class CrossEntropyLoss(Loss):
+    &quot;&quot;&quot;CrossEntropyLoss class.&quot;&quot;&quot;
+
+    def __init__(self) -&gt; None:
+        &quot;&quot;&quot;Initialize via superclass.&quot;&quot;&quot;
+        super().__init__()
+
+    def loss_fn(self, logits: Tensor, true: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Calculate loss.
+
+        Args:
+            logits: Tensor of shape (batch size, number of classes),
+            raw output of a neural network
+
+            true: Tensor of shape (batch size,),
+            a one-hot encoded vector
+
+        &quot;&quot;&quot;
+        p = softmax(logits)
+        return -np.mean(true * np.log(p))
+
+    def grad_fn(self, logits: Tensor, true: Tensor) -&gt; Tensor:
+        &quot;&quot;&quot;Calculate the gradient.
+
+        Args:
+            logits: Tensor of shape (batch size, number of classes),
+            raw output of a neural network
+
+            true: Tensor of shape (batch size, number of classes),
+            a one-hot encoded vector
+
+        &quot;&quot;&quot;
+        self.probabilities = softmax(logits)
+        return self.probabilities - true
+
 </code></pre>
-<p>class MSE(Loss):
-    """Mean squared error loss."""</p>
-<pre><code>def __init__(self):
-    """Initialize via superclass."""
-    super().__init__()
-
-def grad_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
-    """Calculate the gradient of MSE.
-
-    Args:
-        pred: Tensor of predictions (raw output),
-        shape (batch, )
-        true: Tensor of true labels,
-        shape (batch, )
-
-    """
-    return (pred - true)/true.shape[0]
-
-def loss_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
-    """Calculate the MSE.
-
-    Args:
-        pred: Tensor of predictions (raw output),
-        shape (batch,)
-        true: Tensor of true labels (raw output),
-        shape (batch,)
-
-    """
-    return 0.5*np.sum((pred - true)**2)/true.shape[0]
-
-def __repr__(self):
-    """Put pretty representation in Jupyter/IPython."""
-    return """Mean Squared Error loss (pred: Tensor, true: Tensor)"""
-</code></pre>
-<p>class CrossEntropyLoss(Loss):
-    """CrossEntropyLoss class."""</p>
-<pre><code>def __init__(self) -&gt; None:
-    """Initialize via superclass."""
-    super().__init__()
-
-def loss_fn(self, logits: Tensor, true: Tensor) -&gt; Tensor:
-    """Calculate loss.
-
-    Args:
-        logits: Tensor of shape (batch size, number of classes),
-        raw output of a neural network
-
-        true: Tensor of shape (batch size,),
-        a one-hot encoded vector
-
-    """
-    p = softmax(logits)
-    return -np.mean(true * np.log(p))
-
-def grad_fn(self, logits: Tensor, true: Tensor) -&gt; Tensor:
-    """Calculate the gradient.
-
-    Args:
-        logits: Tensor of shape (batch size, number of classes),
-        raw output of a neural network
-
-        true: Tensor of shape (batch size, number of classes),
-        a one-hot encoded vector
-
-    """
-    self.probabilities = softmax(logits)
-    return self.probabilities - true
-</code></pre>
-<p>```</p>
 <h2 id="building-the-network">Building the Network</h2>
 <p>Here we describe the main class for our neural network. The main principle is simple, we pass a list of layers and initialize a class <code>Network</code> with two methods: <code>forward</code> and <code>backward</code>. The <code>forward</code> method performs the forward pass, that is, sends the input data through each layer. The <code>backward</code> method calls <code>backward</code> from each layer in the opposite direction (starting with the last layer). It uses the gradient of the lost function as its input.</p>
-<p>```python
-from typing import List, Union</p>
-<p>Layer = Union[Linear, ReLU, Sigmoid]</p>
-<p>class Network:
-    """Basic Neural Network Class."""</p>
-<pre><code>def __init__(self, layers: List[Layer]):
-    """Initialize the Netowrk with a list of layers."""
-    self.layers = layers[:]
+<pre><code class="language-python">from typing import List, Union
 
-def forward(self, x: Tensor):
-    """Run the forward pass."""
-    for l in self.layers:
-        x = l(x)
-    return x
+Layer = Union[Linear, ReLU, Sigmoid]
 
-def backward(self, grad: Tensor):
-    """Run the backward pass."""
-    for l in self.layers[::-1]:
-        grad = l.backward(grad)
-    return grad
 
-def __call__(self, x: Tensor):
-    """Run the forward pass on __call__."""
-    return self.forward(x)
+class Network:
+    &quot;&quot;&quot;Basic Neural Network Class.&quot;&quot;&quot;
 
-def __repr__(self) -&gt; str:
-    """Print the representation for the network."""
-    return "\n".join(l.__repr__() for l in self.layers)
+    def __init__(self, layers: List[Layer]):
+        &quot;&quot;&quot;Initialize the Netowrk with a list of layers.&quot;&quot;&quot;
+        self.layers = layers[:]
+
+    def forward(self, x: Tensor):
+        &quot;&quot;&quot;Run the forward pass.&quot;&quot;&quot;
+        for l in self.layers:
+            x = l(x)
+        return x
+
+    def backward(self, grad: Tensor):
+        &quot;&quot;&quot;Run the backward pass.&quot;&quot;&quot;
+        for l in self.layers[::-1]:
+            grad = l.backward(grad)
+        return grad
+
+    def __call__(self, x: Tensor):
+        &quot;&quot;&quot;Run the forward pass on __call__.&quot;&quot;&quot;
+        return self.forward(x)
+
+    def __repr__(self) -&gt; str:
+        &quot;&quot;&quot;Print the representation for the network.&quot;&quot;&quot;
+        return &quot;\n&quot;.join(l.__repr__() for l in self.layers)
 </code></pre>
-<p>```</p>
 <h3 id="optimizers">Optimizers</h3>
 <p>Our main optimizer here is going to be Stochastic Gradient Descent. After we computed the backpropagation, for every layer in the network, we are going to update the weights. If the gradient is <span class="math">\(\Delta w\)</span> then the update rule is </p>
 <div class="math">$$w = w - \eta \Delta w - 2*\alpha w,$$</div>
 <p>where <span class="math">\(\eta\)</span> is the learning rate and <span class="math">\(\alpha\)</span> is the <span class="math">\(L^2\)</span> regularization parameter. The code is presented below.</p>
-<p>```python
-class SGD:
-    """Stochastic Gradient Descent class."""</p>
-<pre><code>def __init__(self, lr: float, l2: float = 0.):
-    """Initialize with learning rate and l2-regularization parameter."""
-    self.lr = lr
-    self.l2 = l2
+<pre><code class="language-python">class SGD:
+    &quot;&quot;&quot;Stochastic Gradient Descent class.&quot;&quot;&quot;
 
-def step(self, net: Network):
-    """Perform optimization step."""
-    for l in net.layers:
-        if hasattr(l, 'dydw'):
-            l.W = l.W - self.lr*l.dydw - 2 * self.l2 * l.W
-        if hasattr(l, 'dydb'):
-            l.b = l.b - self.lr*l.dydb - 2 * self.l2 * l.b
+    def __init__(self, lr: float, l2: float = 0.):
+        &quot;&quot;&quot;Initialize with learning rate and l2-regularization parameter.&quot;&quot;&quot;
+        self.lr = lr
+        self.l2 = l2
+
+    def step(self, net: Network):
+        &quot;&quot;&quot;Perform optimization step.&quot;&quot;&quot;
+        for l in net.layers:
+            if hasattr(l, 'dydw'):
+                l.W = l.W - self.lr*l.dydw - 2 * self.l2 * l.W
+            if hasattr(l, 'dydb'):
+                l.b = l.b - self.lr*l.dydb - 2 * self.l2 * l.b
+
 </code></pre>
-<p>```</p>
 <h2 id="training-mnist-in-batches-using-mse">Training MNIST in Batches using MSE</h2>
 <p>In the code below, we create a training/validation loop. Each important point is commented. </p>
-<p>```python
-from tqdm import auto
+<pre><code class="language-python">from tqdm import auto
 import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split</p>
-<p>def to_one_hot(vector: Tensor) -&gt; Tensor:
-    """Create one hot encoding of a vector."""
+from sklearn.model_selection import train_test_split
+
+
+def to_one_hot(vector: Tensor) -&gt; Tensor:
+    &quot;&quot;&quot;Create one hot encoding of a vector.&quot;&quot;&quot;
     oh = np.zeros((vector.shape[0], vector.max()+1))
     oh[np.arange(vector.shape[0]), vector] = 1
-    return oh</p>
-<h1 id="load-training-data">Load training data</h1>
-<p>train = pd.read_csv('mnist_train.csv', header=None).values[:, 1:]
+    return oh
+
+
+# Load training data
+
+train = pd.read_csv('mnist_train.csv', header=None).values[:, 1:]
 train_label = pd.read_csv(
-    'mnist_train.csv', header=None).values[:, 0]</p>
-<h1 id="create-the-basic-network">Create the basic network</h1>
-<p>net = Network(layers=[
+    'mnist_train.csv', header=None).values[:, 0]
+
+# Create the basic network
+net = Network(layers=[
     Linear(784, 128),
     ReLU(),
     Linear(128, 10),
-])</p>
-<h1 id="initialize-loss-class">Initialize loss class</h1>
-<p>loss = MSE()</p>
-<h1 id="initialize-the-optimizer-learning-rate-is-00001">Initialize the optimizer, learning rate is 0.0001</h1>
-<p>optim = SGD(1e-4)</p>
-<h1 id="permform-the-trainval-split">permform the train/val split</h1>
-<p>x_train, x_val, y_train, y_val = train_test_split(
+])
+# Initialize loss class
+loss = MSE()
+
+# Initialize the optimizer, learning rate is 0.0001
+optim = SGD(1e-4)
+
+# permform the train/val split
+x_train, x_val, y_train, y_val = train_test_split(
     train.astype(np.float32) / 255,
     train_label.astype(np.int32),
-    test_size=0.2, random_state=42)  # to_one_hot</p>
-<h1 id="convert-labels-to-one-hot-encodings">Convert labels to one-hot encodings</h1>
-<p>y_train = to_one_hot(y_train)
-y_val = to_one_hot(y_val)</p>
-<h1 id="batch-size">batch size</h1>
-<p>batch_size = 100</p>
-<h1 id="progress-bar-may-not-be-visible-in-pdf-mode-but-it-works-in-notebook-or-terminal-mode">progress bar may not be visible in PDF mode, but it works in notebook or terminal mode</h1>
-<h1 id="we-set-it-to-100-epochs-here">we set it to 100 epochs here</h1>
-<p>progress_bar = auto.tqdm(range(100))
+    test_size=0.2, random_state=42)  # to_one_hot
+
+# Convert labels to one-hot encodings
+y_train = to_one_hot(y_train)
+y_val = to_one_hot(y_val)
+
+# batch size
+batch_size = 100
+
+# progress bar may not be visible in PDF mode, but it works in notebook or terminal mode
+# we set it to 100 epochs here
+progress_bar = auto.tqdm(range(100))
 for epoch in progress_bar:
     # offset to iterate through batches
     offset = 0
@@ -626,16 +648,16 @@ for epoch in progress_bar:
         offset += batch_size
         if (epoch) % 2 == 0:
             # update progress bar info
-            progress_bar.set_postfix({"Mean_loss_train": err,
-                                      "Mean_loss_val": val_err})
-```</p>
-<p>```python</p>
-<h1 id="load-test-data-and-convert-to-one-hot">Load test data and convert to one-hot</h1>
-<p>test = pd.read_csv('mnist_test.csv', header=None).values[:, 1:]
+            progress_bar.set_postfix({&quot;Mean_loss_train&quot;: err,
+                                      &quot;Mean_loss_val&quot;: val_err})
+</code></pre>
+<pre><code class="language-python"># Load test data and convert to one-hot
+test = pd.read_csv('mnist_test.csv', header=None).values[:, 1:]
 test_label = pd.read_csv('mnist_test.csv', header=None).values[:, 0]
-test_label = to_one_hot(test_label)</p>
-<h1 id="place-offset-and-initialize-error-to-0">place offset and initialize error to 0</h1>
-<p>offset = 0
+test_label = to_one_hot(test_label)
+
+# place offset and initialize error to 0
+offset = 0
 test_err = 0.
 while (offset+batch_size &lt;= len(test)):
     # get data batch
@@ -645,75 +667,85 @@ while (offset+batch_size &lt;= len(test)):
     pred = net(data)
     # get error
     test_err += loss(pred, label)/(len(test)/batch_size)
-    offset += batch_size</p>
-<p>print(f"Test Error is {test_err:.2f} ...")
-```</p>
+    offset += batch_size
+
+
+print(f&quot;Test Error is {test_err:.2f} ...&quot;)
+</code></pre>
 <pre><code>Test Error is 2643.26 ...
 </code></pre>
-<p>```python
-from sklearn.metrics import confusion_matrix
+<pre><code class="language-python">from sklearn.metrics import confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
 from IPython.display import set_matplotlib_formats
 set_matplotlib_formats('retina')
 plt.style.use('ggplot')
-%matplotlib inline</p>
-<p>y_true = test_label.argmax(1)
+%matplotlib inline
+
+y_true = test_label.argmax(1)
 y_pred = net(test).argmax(1)
 ax = plt.figure(figsize=(15, 7))
-ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=".3f")
-ax.set_xlabel("True")
-ax.set_ylabel("Predicted")
-```</p>
+ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=&quot;.3f&quot;)
+ax.set_xlabel(&quot;True&quot;)
+ax.set_ylabel(&quot;Predicted&quot;)
+</code></pre>
 <pre><code>Text(114.0, 0.5, 'Predicted')
 </code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_17_1.png" /></p>
 <p>We can see from the confusion matrix above that the model performs poorly if the training is based on MSE. Let us try a different loss function: Cross Entropy loss.</p>
 <h2 id="cross-entropy-training">Cross Entropy Training</h2>
-<p>```python
-"""Training example for a simple network with MNIST Dataset."""
+<pre><code class="language-python">&quot;&quot;&quot;Training example for a simple network with MNIST Dataset.&quot;&quot;&quot;
 from tqdm import auto
 import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-from datatype import Tensor</p>
-<p>def to_one_hot(vector: Tensor) -&gt; Tensor:
-    """Create one hot encoding of a vector."""
+from datatype import Tensor
+
+
+def to_one_hot(vector: Tensor) -&gt; Tensor:
+    &quot;&quot;&quot;Create one hot encoding of a vector.&quot;&quot;&quot;
     oh = np.zeros((vector.shape[0], vector.max()+1))
     oh[np.arange(vector.shape[0]), vector] = 1
-    return oh</p>
-<h1 id="load-training-data_1">Load training data</h1>
-<p>train = pd.read_csv('mnist_train.csv', header=None).values[:, 1:]
+    return oh
+
+# Load training data
+train = pd.read_csv('mnist_train.csv', header=None).values[:, 1:]
 train_label = pd.read_csv(
-    'mnist_train.csv', header=None).values[:, 0]</p>
-<h1 id="create-the-network">Create the network</h1>
-<p>net = Network(layers=[
+    'mnist_train.csv', header=None).values[:, 0]
+
+# Create the network
+net = Network(layers=[
     Linear(784, 128),
     Sigmoid(),
     Linear(128, 10),
-])</p>
-<h1 id="initialize-loss-class_1">Initialize loss class</h1>
-<p>loss = CrossEntropyLoss()</p>
-<h1 id="initialize-optimizer-with-regularization">Initialize optimizer with regularization</h1>
-<p>optim = SGD(5e-2, 0.0001)</p>
-<h1 id="split">split</h1>
-<p>x_train, x_val, y_train, y_val = train_test_split(
+])
+# Initialize loss class
+loss = CrossEntropyLoss()
+
+# Initialize optimizer with regularization
+optim = SGD(5e-2, 0.0001)
+
+# split
+x_train, x_val, y_train, y_val = train_test_split(
     train.astype(np.float32) / 255,
     train_label.astype(np.int32),
-    test_size=0.2, random_state=42)  # to_one_hot</p>
-<h1 id="to-one-hot">to one-hot</h1>
-<p>y_train = to_one_hot(y_train)
+    test_size=0.2, random_state=42)  # to_one_hot
+
+# to one-hot
+y_train = to_one_hot(y_train)
 y_val = to_one_hot(y_val)
 batch_size = 100
-progress_bar = auto.tqdm(range(200))</p>
-<h1 id="this-will-be-used-later">this will be used later</h1>
-<p>accuracies: dict = {"train": [],
-                    "val": [],
-                    "test": []}
+progress_bar = auto.tqdm(range(200))
+
+# this will be used later
+accuracies: dict = {&quot;train&quot;: [],
+                    &quot;val&quot;: [],
+                    &quot;test&quot;: []}
 acc_train: list = []
-acc_val: list = []</p>
-<p>for epoch in progress_bar:
+acc_val: list = []
+
+for epoch in progress_bar:
     offset = 0
     val_err = 0
     err = 0
@@ -725,7 +757,7 @@ acc_val: list = []</p>
         try:
             pred = net(data)
         except RuntimeWarning:
-            print(f"Runtime warning on {offset}")
+            print(f&quot;Runtime warning on {offset}&quot;)
         # get loss
         err += loss(pred, label)/(len(x_train)/batch_size)
         # backprop
@@ -757,20 +789,23 @@ acc_val: list = []</p>
         ))
     if (epoch) % 2 == 0:
         # update progress bar
-        progress_bar.set_postfix({"loss_train": err,
-                                  "loss_val": val_err,
-                                  "acc_val": np.mean(acc_val)})
+        progress_bar.set_postfix({&quot;loss_train&quot;: err,
+                                  &quot;loss_val&quot;: val_err,
+                                  &quot;acc_val&quot;: np.mean(acc_val)})
     # keep scores for visualization
     accuracies['train'].append(np.mean(acc_train))
     accuracies['val'].append(np.mean(acc_val))
     acc_train = []
-    acc_val = []</p>
-<h1 id="load-test-data-and-convert-to-one-hot_1">Load test data and convert to one-hot</h1>
-<p>test = pd.read_csv('mnist_test.csv', header=None).values[:, 1:]
+    acc_val = []
+
+# Load test data and convert to one-hot
+test = pd.read_csv('mnist_test.csv', header=None).values[:, 1:]
 test_label = to_one_hot(pd.read_csv(
     'mnist_test.csv',
-    header=None).values[:, 0])</p>
-<p>offset = 0
+    header=None).values[:, 0])
+
+
+offset = 0
 test_err = 0.
 while (offset+batch_size &lt;= len(test)):
     # get batch
@@ -786,29 +821,31 @@ while (offset+batch_size &lt;= len(test)):
     accuracies['test'].append(accuracy_score(
         label.argmax(axis=1),
         pred.argmax(axis=1)
-    ))</p>
-<p>print(f"Average Test Accuracy: {np.mean(accuracies['test']):.2f}")</p>
-<p>```</p>
+    ))
+
+print(f&quot;Average Test Accuracy: {np.mean(accuracies['test']):.2f}&quot;)
+
+</code></pre>
 <pre><code>Average Test Accuracy: 0.95
 </code></pre>
 <p>Let us plot the evolution of accuracies during testing and confusion matrix. For a higher performing model we expect to see the confusion matrix consolidate results on the diagonal:</p>
-<p><code>python
-fig = plt.figure(figsize=(15, 6))
-_ = plt.plot(accuracies['train'], label="Training score")
-_ = plt.plot(accuracies['val'], label="Validation score")
-_ = plt.xlabel("Epoch")
-_ = plt.ylabel("Accuracy")
-_ = plt.title("Accuracy per epoch")
-_ = plt.legend()</code></p>
+<pre><code class="language-python">fig = plt.figure(figsize=(15, 6))
+_ = plt.plot(accuracies['train'], label=&quot;Training score&quot;)
+_ = plt.plot(accuracies['val'], label=&quot;Validation score&quot;)
+_ = plt.xlabel(&quot;Epoch&quot;)
+_ = plt.ylabel(&quot;Accuracy&quot;)
+_ = plt.title(&quot;Accuracy per epoch&quot;)
+_ = plt.legend()
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_22_0.png" /></p>
-<p>```python
-y_true = test_label.argmax(1)
+<pre><code class="language-python">y_true = test_label.argmax(1)
 y_pred = net(test).argmax(1)
 _ = plt.figure(figsize=(15, 7))
-ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=".3f")</p>
-<p><em>=ax.set_xlabel("True")
-</em>=ax.set_ylabel("Predicted")
-```</p>
+ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=&quot;.3f&quot;)
+
+_=ax.set_xlabel(&quot;True&quot;)
+_=ax.set_ylabel(&quot;Predicted&quot;)
+</code></pre>
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_23_1.png" /></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>We implemented a neural network class that supports several activation functions. We followed here a design pattern based on PyTorch deep learning package. We implemented linear (fully-connected) layer, ReLU and Sigmoid layer. Each layer includes a backpropagation function <code>backward</code> that sends the gradient from the output back to input. As a result we were able to use a Cross Entropy Loss function to train a handwritten digit classifier with 95% accuracy on the test set. Notice that on the graph we observe a pattern of periodically dropping accuracy. I assume this is due to internal structure of the loss landscape: we repeatedly "walk" out of the minimum region and then "walk" back in during the SGD.</p>

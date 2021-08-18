@@ -5,17 +5,11 @@
 &lt;p&gt;Over the course of the summer, my work resulted in successfully ported code of &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt;, a package that can help researchers who use ordinary differential equations in their work. The package allows answering queries about individual identifiability of parameters and their combinations. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; package is ready to use! 🥳 🎊 😄&lt;/p&gt;
 &lt;p&gt;You can install from source:&lt;/p&gt;
-&lt;p&gt;```julia&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;]add https://github.com/SciML/StructuralIdentifiability.jl
-```&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class="language-julia"&gt;&amp;gt; ]add https://github.com/SciML/StructuralIdentifiability.jl
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;or via &lt;code&gt;Pkg&lt;/code&gt;:&lt;/p&gt;
-&lt;p&gt;```julia&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;]add StructuralIdentifiability
-```&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class="language-julia"&gt;&amp;gt; ]add StructuralIdentifiability
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You can check the documentation at &lt;a href="https://si.sciml.ai/dev/"&gt;this link&lt;/a&gt;. To get started, I recommend checking out &lt;a href="https://si.sciml.ai/dev/tutorials/local_identifiability/"&gt;this tutorial&lt;/a&gt; on local identifiability. &lt;/p&gt;
 &lt;p&gt;Some repo stats: &lt;/p&gt;
 &lt;p&gt;&lt;a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/releases/"&gt;&lt;img alt="GitHub release" src="https://img.shields.io/github/release/SciML/StructuralIdentifiability.jl.svg"/&gt;&lt;/a&gt; &lt;a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/stargazers/"&gt;&lt;img alt="GitHub stars" src="https://img.shields.io/github/stars/SciML/StructuralIdentifiability.jl.svg?style=social&amp;amp;label=Star&amp;amp;maxAge=2592000"/&gt;&lt;/a&gt; &lt;/p&gt;
@@ -100,101 +94,104 @@
 &lt;h2 id="the-original-code"&gt;The original code&lt;/h2&gt;
 &lt;p&gt;The original *.m files were pulled from &lt;a href="https://www.ebi.ac.uk/biomodels/"&gt;this&lt;/a&gt; webpage using &lt;code&gt;wget&lt;/code&gt; and their own API. Ordingary differential equation (ODE) models in those files contain a special function called &lt;code&gt;xdot&lt;/code&gt;. It returns an array of &lt;code&gt;n&lt;/code&gt; elements, which form right-hand side of an ODE.&lt;/p&gt;
 &lt;p&gt;The function is usually defined in the form&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;m
-function xdot=f(x,t)
+&lt;pre&gt;&lt;code class="language-m"&gt;function xdot=f(x,t)
     % define parameters as
     C = 1.0;
     % ...
     xdot = zeros(..., ...);
     % define each xdot(i) separately
-end&lt;/code&gt;&lt;/p&gt;
+end
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;What I wanted to see in the maple code was the following:&lt;/p&gt;
-&lt;p&gt;```py&lt;/p&gt;
-&lt;h1 id="define-parameters-as-symbolic-constants"&gt;define parameters as symbolic constants&lt;/h1&gt;
-&lt;p&gt;C := C:&lt;/p&gt;
-&lt;h1 id="define-system-of-odes-as-array"&gt;define system of odes as array&lt;/h1&gt;
-&lt;p&gt;sigma := [
+&lt;pre&gt;&lt;code class="language-py"&gt;#  define parameters as symbolic constants
+C := C:
+
+#  define system of odes as array
+
+sigma := [
     diff(x1(t), t) = &amp;lt;...&amp;gt;,
     &amp;lt;...&amp;gt;
     diff(xn(t), t) = &amp;lt;...&amp;gt;
 ]:
-```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The best way to solve it I saw was to use regular expressions.&lt;/p&gt;
 &lt;h2 id="step-by-step"&gt;Step by step&lt;/h2&gt;
 &lt;p&gt;Firstly, I had to get rid of Matlab comment and turn them into Maple compatible ones, hence the line&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;py
-out_program = re.findall(
-                r"function xdot=f\(x,t\)(.*?)end", content, re.DOTALL
-            )[0].replace("%", "#")&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-py"&gt;out_program = re.findall(
+                r&amp;quot;function xdot=f\(x,t\)(.*?)end&amp;quot;, content, re.DOTALL
+            )[0].replace(&amp;quot;%&amp;quot;, &amp;quot;#&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;After that, we want to look at &lt;code&gt;if&lt;/code&gt; statements. In Maple, conditional structure like &lt;code&gt;if&lt;/code&gt; statements are written as&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;pascal
-if &amp;lt;condition&amp;gt; then &amp;lt;code&amp;gt; end:&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-pascal"&gt;if &amp;lt;condition&amp;gt; then &amp;lt;code&amp;gt; end:
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;To do that, we utilize groups: &lt;code&gt;(..)&lt;/code&gt;. The regex is&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;py
-out_program = re.sub(
-                r"if(\(\w*\))(.*;)end",
-                r"if \1 then \2\nend if:",
+&lt;pre&gt;&lt;code class="language-py"&gt;out_program = re.sub(
+                r&amp;quot;if(\(\w*\))(.*;)end&amp;quot;,
+                r&amp;quot;if \1 then \2\nend if:&amp;quot;,
                 out_program,
                 flags=re.DOTALL,
-            )&lt;/code&gt;&lt;/p&gt;
+            )
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The &lt;code&gt;if(\(\w*\))(.*;)end&lt;/code&gt; regex gets the condition &lt;code&gt;\(\w*\)&lt;/code&gt; and the code (.*;) between &lt;code&gt;if&lt;/code&gt; / &lt;code&gt;end&lt;/code&gt; to place those between &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;then&lt;/code&gt;, &lt;code&gt;end&lt;/code&gt; in positions marked by &lt;code&gt;\1&lt;/code&gt; and &lt;code&gt;\2&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Remeber, that we do not want to have &lt;code&gt;xdot(i)=...&lt;/code&gt; assigned manually anymore in Maple, we want to see Maple syntax: &lt;code&gt;diff(x(t),t) = ...&lt;/code&gt;, so we do the following regex:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;py
-out_program = re.sub(
-                r"xdot\((\d+)\) \=( .*);", r"\ndiff(x\1(t), t) = \2,", out_program
-            )&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-py"&gt;out_program = re.sub(
+                r&amp;quot;xdot\((\d+)\) \=( .*);&amp;quot;, r&amp;quot;\ndiff(x\1(t), t) = \2,&amp;quot;, out_program
+            )
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Again, notice the groups that capture stuff we want to preserve, namely the index of &lt;code&gt;xdot&lt;/code&gt; and the right-hand sides.&lt;/p&gt;
 &lt;p&gt;Next few lines do some cosmetic work, namely, rename any &lt;code&gt;x(i)&lt;/code&gt; appearance into &lt;code&gt;xi(t)&lt;/code&gt;, then make all variable assingments symbolic constants (i.e. if we have &lt;code&gt;c=0&lt;/code&gt; we want to have &lt;code&gt;c:=c&lt;/code&gt;). Finally, if we have Matlab assignments that do not use constants (i.e. &lt;code&gt;c=0; x = c+x;&lt;/code&gt;) we want to keep them (i.e. &lt;code&gt;c:=c: x:=c+x:&lt;/code&gt;).&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;py
-out_program = re.sub(r"x\((\d+)\)", r"x\1(t)", out_program) # x(i) -&amp;gt; xi(t)
-out_program = re.sub(r"(\w+)\=\d*\..*", r"\1:=\1:", out_program) # c=NUMBER -&amp;gt; c:=c:
-out_program = re.sub(r"(\w+)\=(.*);", r"\1:=\2:", out_program) # Left-side = ANYTHING NOT METNIONED ABOVE -&amp;gt; same but with := sign&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-py"&gt;out_program = re.sub(r&amp;quot;x\((\d+)\)&amp;quot;, r&amp;quot;x\1(t)&amp;quot;, out_program) # x(i) -&amp;gt; xi(t)
+out_program = re.sub(r&amp;quot;(\w+)\=\d*\..*&amp;quot;, r&amp;quot;\1:=\1:&amp;quot;, out_program) # c=NUMBER -&amp;gt; c:=c:
+out_program = re.sub(r&amp;quot;(\w+)\=(.*);&amp;quot;, r&amp;quot;\1:=\2:&amp;quot;, out_program) # Left-side = ANYTHING NOT METNIONED ABOVE -&amp;gt; same but with := sign
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Finally, putting it all together we can run:&lt;/p&gt;
-&lt;p&gt;```py
-import re
+&lt;pre&gt;&lt;code class="language-py"&gt;import re
 from glob import glob
-from tqdm.auto import tqdm&lt;/p&gt;
-&lt;p&gt;files = glob("files/&lt;em&gt;/&lt;/em&gt;/*.m")&lt;/p&gt;
-&lt;p&gt;for i in tqdm(range(len(files))):
-    with open(files[i], "r") as f:
+from tqdm.auto import tqdm
+
+files = glob(&amp;quot;files/*/*/*.m&amp;quot;)
+
+for i in tqdm(range(len(files))):
+    with open(files[i], &amp;quot;r&amp;quot;) as f:
         try:
             content = f.read()
         except:
-            print(files[i], "could not read")
+            print(files[i], &amp;quot;could not read&amp;quot;)
         try:
             out_program = re.findall(
-                r"function xdot=f(x,t)(.&lt;em&gt;?)end", content, re.DOTALL
-            )[0].replace("%", "#")
+                r&amp;quot;function xdot=f\(x,t\)(.*?)end&amp;quot;, content, re.DOTALL
+            )[0].replace(&amp;quot;%&amp;quot;, &amp;quot;#&amp;quot;)
             out_program = re.sub(
-                r"if((\w&lt;/em&gt;))(.&lt;em&gt;;)end",
-                r"if \1 then \2\nend if:",
+                r&amp;quot;if(\(\w*\))(.*;)end&amp;quot;,
+                r&amp;quot;if \1 then \2\nend if:&amp;quot;,
                 out_program,
                 flags=re.DOTALL,
             )
             out_program = re.sub(
-                r"xdot((\d+)) \=( .&lt;/em&gt;);", r"\ndiff(x\1(t), t) = \2,", out_program
+                r&amp;quot;xdot\((\d+)\) \=( .*);&amp;quot;, r&amp;quot;\ndiff(x\1(t), t) = \2,&amp;quot;, out_program
             )
-            out_program = re.sub(r"(xdot=zeros.*)", r"# \1", out_program) # comment out declaration of xdot&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;        out_program = re.sub(r"x\((\d+)\)", r"x\1(t)", out_program)
-        out_program = re.sub(r"(\w+)\=\d*\..*", r"\1:=\1:", out_program)
-        out_program = re.sub(r"(\w+)\=(.*);", r"\1:=\2:", out_program)
-        # cosmetic work to make maple run and not complain about trailing comma
-        out_program = re.sub(
-            r"(diff.*)", r"sigma := [\n\1]:", out_program, flags=re.DOTALL
-        ).replace(",\n]", "\n]")
+            out_program = re.sub(r&amp;quot;(xdot=zeros.*)&amp;quot;, r&amp;quot;# \1&amp;quot;, out_program) # comment out declaration of xdot
 
-        outname = files[i].split(".")[0] + ".mpl"
+            out_program = re.sub(r&amp;quot;x\((\d+)\)&amp;quot;, r&amp;quot;x\1(t)&amp;quot;, out_program)
+            out_program = re.sub(r&amp;quot;(\w+)\=\d*\..*&amp;quot;, r&amp;quot;\1:=\1:&amp;quot;, out_program)
+            out_program = re.sub(r&amp;quot;(\w+)\=(.*);&amp;quot;, r&amp;quot;\1:=\2:&amp;quot;, out_program)
+            # cosmetic work to make maple run and not complain about trailing comma
+            out_program = re.sub(
+                r&amp;quot;(diff.*)&amp;quot;, r&amp;quot;sigma := [\n\1]:&amp;quot;, out_program, flags=re.DOTALL
+            ).replace(&amp;quot;,\n]&amp;quot;, &amp;quot;\n]&amp;quot;)
 
-        with open(outname, "w") as output:
-            output.write(out_program)
-        import os
+            outname = files[i].split(&amp;quot;.&amp;quot;)[0] + &amp;quot;.mpl&amp;quot;
 
-        os.system("mkdir -p new_examples")
-        os.system(f"cp {outname} new_examples")
-    except:
-        print(files[i], "Index not Found.")
+            with open(outname, &amp;quot;w&amp;quot;) as output:
+                output.write(out_program)
+            import os
+
+            os.system(&amp;quot;mkdir -p new_examples&amp;quot;)
+            os.system(f&amp;quot;cp {outname} new_examples&amp;quot;)
+        except:
+            print(files[i], &amp;quot;Index not Found.&amp;quot;)
+
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;```&lt;/p&gt;
 &lt;p&gt;Some stuff really specific to our project was omitted for brevity, but one can definitely add any other Maple/Matlab interaction here.&lt;/p&gt;</content><category term="Posts"></category><category term="python"></category><category term="regular expressions"></category><category term="matlab"></category><category term="maple"></category></entry><entry><title>NumPy-Learn, A Homemade Machine Learning Library</title><link href="https://iliailmer.github.io/2020/06/numpy-learn.html" rel="alternate"></link><published>2020-06-14T00:00:00-04:00</published><updated>2020-06-14T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2020-06-14:/2020/06/numpy-learn.html</id><summary type="html">&lt;p&gt;In this post, I expand on a little class/self-teaching project that I did during the Spring 2020 semester.&lt;/p&gt;
 &lt;h1 id="numpy-learn-a-homemade-machine-learning-library"&gt;NumPy-Learn: A Homemade Machine Learning Library&lt;/h1&gt;
 &lt;h2 id="organization"&gt;Organization&lt;/h2&gt;
@@ -212,9 +209,9 @@ from tqdm.auto import tqdm&lt;/p&gt;
 &lt;li&gt;How a stochastic gradient descent optimizer was built&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;After that, we introduce the class for building the neural net itself and explain how everything ties together. We conclude by performance analysis on a simple MNIST program.&lt;/p&gt;
-&lt;p&gt;Let us agree on convention similar to that of PyTorch library: we will call the main datatype &lt;code&gt;Tensor&lt;/code&gt; instead of &lt;code&gt;array&lt;/code&gt;, as follows:
-&lt;code&gt;py
-from numpy import ndarray as Tensor&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Let us agree on convention similar to that of PyTorch library: we will call the main datatype &lt;code&gt;Tensor&lt;/code&gt; instead of &lt;code&gt;array&lt;/code&gt;, as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-py"&gt;from numpy import ndarray as Tensor
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This is to adhere to accepted aesthetics of most modern neural network libraries and nothing more. All methods are purely using &lt;code&gt;numpy&lt;/code&gt; or &lt;code&gt;scipy&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id="linear-layer"&gt;Linear Layer&lt;/h3&gt;
 &lt;p&gt;Inspired by PyTorch, the naming convention here is the preserved. The design of the layer is also similar to PyTorch: the class &lt;code&gt;Linear&lt;/code&gt; will have a &lt;code&gt;forward&lt;/code&gt; and a &lt;code&gt;backward&lt;/code&gt; methods. The former will represent the forward pass, that is, the passing of the input data through the layer towards the next. The latter is responsible for backward propagation of the gradient.&lt;/p&gt;
@@ -223,10 +220,10 @@ from numpy import ndarray as Tensor&lt;/code&gt;&lt;/p&gt;
 &lt;div class="math"&gt;$$\mathrm{L}(x) = xW + b.$$&lt;/div&gt;
 &lt;p&gt;We require that the size of the input data was of the format &lt;span class="math"&gt;\(batch\times input~features\)&lt;/span&gt;, for instance if the input data has 784 pixel values, for a batch of 100 images the size of &lt;span class="math"&gt;\(x\)&lt;/span&gt; would be &lt;span class="math"&gt;\(100\times 784\)&lt;/span&gt; and the size of &lt;span class="math"&gt;\(W\)&lt;/span&gt; would be &lt;span class="math"&gt;\(784\times out~features\)&lt;/span&gt;, while &lt;span class="math"&gt;\(b\)&lt;/span&gt; is of the shape &lt;span class="math"&gt;\(out~features\times 1\)&lt;/span&gt;. Here we rely on &lt;code&gt;numpy&lt;/code&gt; broadcasting the value of bias onto the resulting matrix &lt;span class="math"&gt;\(xW\)&lt;/span&gt; when adding &lt;span class="math"&gt;\(b\)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;In code, we define it as follows:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;py
-def forward(self, x: Tensor) -&amp;gt; Tensor:
+&lt;pre&gt;&lt;code class="language-py"&gt;def forward(self, x: Tensor) -&amp;gt; Tensor:
         self.input = x
-        return x @ self.W + self.b&lt;/code&gt;&lt;/p&gt;
+        return x @ self.W + self.b
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id="gradient"&gt;Gradient&lt;/h4&gt;
 &lt;p&gt;In the forward pass, we computed the matrix product. Next, we need to evaluate the rate of change of the output of the current layer with respect to the input. Note, that due to the chain rule, the gradient flows from right (output) to left (input) as a product.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;backward&lt;/code&gt; method utilizes chainrule. It accepts the gradient from the layer &lt;span class="math"&gt;\(l+1\)&lt;/span&gt;, uses it to find the derivatives of the current layer's output with respect to &lt;span class="math"&gt;\(W\)&lt;/span&gt; and &lt;span class="math"&gt;\(b\)&lt;/span&gt; and finally, passes it along multiplying by the derivative of its output w.r.t. &lt;span class="math"&gt;\(x\)&lt;/span&gt;, the input.&lt;/p&gt;
@@ -236,70 +233,71 @@ def forward(self, x: Tensor) -&amp;gt; Tensor:
 &lt;li&gt;Here, &lt;span class="math"&gt;\(\delta^l_i\)&lt;/span&gt; is the error of the &lt;span class="math"&gt;\(l\)&lt;/span&gt;th layer for &lt;span class="math"&gt;\(i\)&lt;/span&gt;th node: &lt;div class="math"&gt;$$\delta^l_i=g'_{out}(a_i^l)\sum\limits_k W^{l+1}_{ik}\delta^{l+1}_{k}$$&lt;/div&gt;, where &lt;span class="math"&gt;\(g\)&lt;/span&gt; is the activation function.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;These equations are written in a different shape convention, but we can take care of that in the code.&lt;/p&gt;
-&lt;p&gt;The derivative of &lt;span class="math"&gt;\(xW+b\)&lt;/span&gt; w.r.t. &lt;span class="math"&gt;\(W\)&lt;/span&gt; is &lt;span class="math"&gt;\(x^T\)&lt;/span&gt;. The derivative of &lt;span class="math"&gt;\(xW+b\)&lt;/span&gt; w.r.t. to &lt;span class="math"&gt;\(b\)&lt;/span&gt; is an identity matrix. Therefore, let &lt;code&gt;grad&lt;/code&gt; be the gradient (error) received from &lt;span class="math"&gt;\((l+1)\)&lt;/span&gt;th layer, then we can define the &lt;code&gt;backward&lt;/code&gt; method as below:
-&lt;code&gt;py
-def backward(self, grad: Tensor) -&amp;gt; Tensor:
+&lt;p&gt;The derivative of &lt;span class="math"&gt;\(xW+b\)&lt;/span&gt; w.r.t. &lt;span class="math"&gt;\(W\)&lt;/span&gt; is &lt;span class="math"&gt;\(x^T\)&lt;/span&gt;. The derivative of &lt;span class="math"&gt;\(xW+b\)&lt;/span&gt; w.r.t. to &lt;span class="math"&gt;\(b\)&lt;/span&gt; is an identity matrix. Therefore, let &lt;code&gt;grad&lt;/code&gt; be the gradient (error) received from &lt;span class="math"&gt;\((l+1)\)&lt;/span&gt;th layer, then we can define the &lt;code&gt;backward&lt;/code&gt; method as below:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-py"&gt;def backward(self, grad: Tensor) -&amp;gt; Tensor:
         # input_feat by batch_size @ batch_size by out_features
         self.dydw = self.input.T @ grad
         # we sum across batches and get shape (out_features)
         self.dydb = grad.sum(axis=0)
         # output must be of shape (batch_size, out_features)
-        return grad @ self.W.T&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Now we are ready to present the fully defined Linear Layer code below:&lt;/p&gt;
-&lt;p&gt;```python
-import numpy as np
-from numpy import ndarray as Tensor&lt;/p&gt;
-&lt;p&gt;class Linear:
-    """A linear layer."""&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;def __init__(self, in_features: int, out_features: int):
-    """Initialize a linear layer with weights and biases."""
-    self.W = np.random.randn(in_features, out_features)
-
-    self.b = np.random.randn(out_features)
-
-def forward(self, x: Tensor) -&amp;gt; Tensor:
-    """Compute forward pass, return W @ x + b.
-
-    Arguments:
-        W: the weight Tensor of shape (in_featuers, out_features)
-        b: the bias vector of shape (out_features,)
-        x: the input of shape (batch_size, in_features)
-
-    Returns:
-        A tensor of shape (batch_size, out_features)
-
-    """
-    self.input = x
-    return x @ self.W + self.b
-
-def backward(self, grad: Tensor) -&amp;gt; Tensor:
-    """Propagate the gradient from the l+1 layer to l-1 layer.
-
-    Arguments:
-        grad: the tensor gradients from the l+1 layer to be
-              propagated, shape: (batch_size, out_features).
-
-    References:
-        http://home.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html
-
-    """
-    # in_feat by batch_size @ batch_size by out_feat
-    self.dydw = self.input.T @ grad
-    # we sum across batches and get shape (out_features)
-    self.dydb = grad.sum(axis=0)
-    # output must be of shape (batch_size, out_features)
-    return grad @ self.W.T
-
-def __call__(self, x: Tensor) -&amp;gt; Tensor:
-    """Peform forward pass on `__call__`."""
-    return self.forward(x)
-
-def __repr__(self) -&amp;gt; str:
-    """Print a representation for Jupyter/IPython."""
-    return f"""Linear Layer:\n\tWeight: {self.W.shape}"""\
-        + f"""\n\tBias: {self.b.shape}"""
+        return grad @ self.W.T
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;```&lt;/p&gt;
+&lt;p&gt;Now we are ready to present the fully defined Linear Layer code below:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;import numpy as np
+from numpy import ndarray as Tensor
+
+class Linear:
+    &amp;quot;&amp;quot;&amp;quot;A linear layer.&amp;quot;&amp;quot;&amp;quot;
+
+    def __init__(self, in_features: int, out_features: int):
+        &amp;quot;&amp;quot;&amp;quot;Initialize a linear layer with weights and biases.&amp;quot;&amp;quot;&amp;quot;
+        self.W = np.random.randn(in_features, out_features)
+
+        self.b = np.random.randn(out_features)
+
+    def forward(self, x: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Compute forward pass, return W @ x + b.
+
+        Arguments:
+            W: the weight Tensor of shape (in_featuers, out_features)
+            b: the bias vector of shape (out_features,)
+            x: the input of shape (batch_size, in_features)
+
+        Returns:
+            A tensor of shape (batch_size, out_features)
+
+        &amp;quot;&amp;quot;&amp;quot;
+        self.input = x
+        return x @ self.W + self.b
+
+    def backward(self, grad: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Propagate the gradient from the l+1 layer to l-1 layer.
+
+        Arguments:
+            grad: the tensor gradients from the l+1 layer to be
+                  propagated, shape: (batch_size, out_features).
+
+        References:
+            http://home.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html
+
+        &amp;quot;&amp;quot;&amp;quot;
+        # in_feat by batch_size @ batch_size by out_feat
+        self.dydw = self.input.T @ grad
+        # we sum across batches and get shape (out_features)
+        self.dydb = grad.sum(axis=0)
+        # output must be of shape (batch_size, out_features)
+        return grad @ self.W.T
+
+    def __call__(self, x: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Peform forward pass on `__call__`.&amp;quot;&amp;quot;&amp;quot;
+        return self.forward(x)
+
+    def __repr__(self) -&amp;gt; str:
+        &amp;quot;&amp;quot;&amp;quot;Print a representation for Jupyter/IPython.&amp;quot;&amp;quot;&amp;quot;
+        return f&amp;quot;&amp;quot;&amp;quot;Linear Layer:\n\tWeight: {self.W.shape}&amp;quot;&amp;quot;&amp;quot;\
+            + f&amp;quot;&amp;quot;&amp;quot;\n\tBias: {self.b.shape}&amp;quot;&amp;quot;&amp;quot;
+
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="layers-with-activation-functions"&gt;Layers with Activation Functions&lt;/h3&gt;
 &lt;p&gt;We define separate layers for activation functions, similarly to the way PyTorch handles those. We only define two here: ReLU and Sigmoid.&lt;/p&gt;
 &lt;p&gt;ReLU is defined as &lt;/p&gt;
@@ -310,103 +308,108 @@ def __repr__(self) -&amp;gt; str:
 &lt;div class="math"&gt;$$(\nabla f)(t) = 0 \text{ if } t=0\text{, else }t$$&lt;/div&gt;
 &lt;div class="math"&gt;$$(\nabla \sigma)(t) = \sigma(t)(1-\sigma(t))$$&lt;/div&gt;
 &lt;p&gt;The respective classes are defined below&lt;/p&gt;
-&lt;p&gt;```python
-def sigmoid(x: Tensor) -&amp;gt; Tensor:
-    """Calculate the sigmoid function of x."""
-    return 1/(1+np.exp(-x))&lt;/p&gt;
-&lt;p&gt;def sigmoid_prime(x: Tensor) -&amp;gt; Tensor:
-    """Calculate the d/dx of sigmoid function of x."""
-    return sigmoid(x)*(1-sigmoid(x))&lt;/p&gt;
-&lt;p&gt;class ReLU:
-    """ReLU class."""&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;def __init__(self):
-    """Initialize the ReLU instance."""
+&lt;pre&gt;&lt;code class="language-python"&gt;def sigmoid(x: Tensor) -&amp;gt; Tensor:
+    &amp;quot;&amp;quot;&amp;quot;Calculate the sigmoid function of x.&amp;quot;&amp;quot;&amp;quot;
+    return 1/(1+np.exp(-x))
 
-def forward(self, x: Tensor) -&amp;gt; Tensor:
-    """Compute the activation in the forward pass.
 
-    Arguments:
-        x: Tensor of inputs, shape (batch_size, in_features)
+def sigmoid_prime(x: Tensor) -&amp;gt; Tensor:
+    &amp;quot;&amp;quot;&amp;quot;Calculate the d/dx of sigmoid function of x.&amp;quot;&amp;quot;&amp;quot;
+    return sigmoid(x)*(1-sigmoid(x))
 
-    Returns:
-        Tensor of shape (batch_size, in_features)
+class ReLU:
+    &amp;quot;&amp;quot;&amp;quot;ReLU class.&amp;quot;&amp;quot;&amp;quot;
 
-    """
-    return np.maximum(x, 0)
+    def __init__(self):
+        &amp;quot;&amp;quot;&amp;quot;Initialize the ReLU instance.&amp;quot;&amp;quot;&amp;quot;
 
-def backward(self, grad: Tensor) -&amp;gt; Tensor:
-    """Compute the gradient and pass it backwards.
+    def forward(self, x: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Compute the activation in the forward pass.
 
-    Arguments:
-        grad: Tensor of gradients of shape (batch_size, out_features)
+        Arguments:
+            x: Tensor of inputs, shape (batch_size, in_features)
 
-    Returns:
-        Tensor of shape (batch_size, out_features)
+        Returns:
+            Tensor of shape (batch_size, in_features)
 
-    """
-    return np.maximum(grad, 0)
+        &amp;quot;&amp;quot;&amp;quot;
+        return np.maximum(x, 0)
 
-def __call__(self, x: Tensor) -&amp;gt; Tensor:
-    """Peform forward pass on `__call__`."""
-    return self.forward(x)
+    def backward(self, grad: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Compute the gradient and pass it backwards.
 
-def __repr__(self) -&amp;gt; str:
-    """Print a representation of ReLU for Jupyter/IPython."""
-    return """ReLU()"""
+        Arguments:
+            grad: Tensor of gradients of shape (batch_size, out_features)
+
+        Returns:
+            Tensor of shape (batch_size, out_features)
+
+        &amp;quot;&amp;quot;&amp;quot;
+        return np.maximum(grad, 0)
+
+    def __call__(self, x: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Peform forward pass on `__call__`.&amp;quot;&amp;quot;&amp;quot;
+        return self.forward(x)
+
+    def __repr__(self) -&amp;gt; str:
+        &amp;quot;&amp;quot;&amp;quot;Print a representation of ReLU for Jupyter/IPython.&amp;quot;&amp;quot;&amp;quot;
+        return &amp;quot;&amp;quot;&amp;quot;ReLU()&amp;quot;&amp;quot;&amp;quot;
+
+
+class Sigmoid:
+    &amp;quot;&amp;quot;&amp;quot;Sigmoid class.&amp;quot;&amp;quot;&amp;quot;
+
+    def __init__(self):
+        &amp;quot;&amp;quot;&amp;quot;Initialize the instance.
+
+        We add the main function for activation and its derivative function.
+        &amp;quot;&amp;quot;&amp;quot;
+        self.sigmoid = sigmoid
+        self.sigmoid_prime = sigmoid_prime
+
+    def forward(self, x: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Compute the activation in the forward pass.
+
+        Arguments:
+            x: Tensor of inputs with shape(batch_size, in_features)
+
+        Returns:
+            Tensor of shape(batch_size, in_features)
+
+        &amp;quot;&amp;quot;&amp;quot;
+        self.input = x
+        return self.sigmoid(x)
+
+    def backward(self, grad: Tensor):
+        &amp;quot;&amp;quot;&amp;quot;Compute the gradient and pass it backwards.
+
+        Arguments:
+            grad: Tensor of gradients with shape(batch_size, out_features)
+
+        Returns:
+            Tensor of shape(in_features, out_features)
+
+        &amp;quot;&amp;quot;&amp;quot;
+        return self.sigmoid_prime(self.input) * grad
+
+    def __call__(self, x: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Peform forward pass on `__call__`.&amp;quot;&amp;quot;&amp;quot;
+        return self.forward(x)
+
+    def __repr__(self) -&amp;gt; str:
+        &amp;quot;&amp;quot;&amp;quot;Print a representation of Sigmoid for Jupyter/IPython.&amp;quot;&amp;quot;&amp;quot;
+        return &amp;quot;&amp;quot;&amp;quot;Sigmoid()&amp;quot;&amp;quot;&amp;quot;
+
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;class Sigmoid:
-    """Sigmoid class."""&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;def __init__(self):
-    """Initialize the instance.
-
-    We add the main function for activation and its derivative function.
-    """
-    self.sigmoid = sigmoid
-    self.sigmoid_prime = sigmoid_prime
-
-def forward(self, x: Tensor) -&amp;gt; Tensor:
-    """Compute the activation in the forward pass.
-
-    Arguments:
-        x: Tensor of inputs with shape(batch_size, in_features)
-
-    Returns:
-        Tensor of shape(batch_size, in_features)
-
-    """
-    self.input = x
-    return self.sigmoid(x)
-
-def backward(self, grad: Tensor):
-    """Compute the gradient and pass it backwards.
-
-    Arguments:
-        grad: Tensor of gradients with shape(batch_size, out_features)
-
-    Returns:
-        Tensor of shape(in_features, out_features)
-
-    """
-    return self.sigmoid_prime(self.input) * grad
-
-def __call__(self, x: Tensor) -&amp;gt; Tensor:
-    """Peform forward pass on `__call__`."""
-    return self.forward(x)
-
-def __repr__(self) -&amp;gt; str:
-    """Print a representation of Sigmoid for Jupyter/IPython."""
-    return """Sigmoid()"""
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;```&lt;/p&gt;
 &lt;p&gt;In addition to Sigmoid and ReLU, we also import &lt;code&gt;softmax&lt;/code&gt; activation function from &lt;code&gt;scipy&lt;/code&gt;. In my experiments, I found that this is the most stable implementation, so I did not want to run into &lt;a href="https://en.wikipedia.org/wiki/Not_invented_here"&gt;"not invented here"&lt;/a&gt; problem.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;softmax&lt;/code&gt; is defined as follows:&lt;/p&gt;
 &lt;div class="math"&gt;$$\mathcal{S}(x)=\left[\frac{\exp(x_i)}{\sum\limits_{k}\exp(x_k)}\right], i=1..n,~x=[x_1, ... , x_n]$$&lt;/div&gt;
 &lt;p&gt;Softmax accepts a vector of network's output and converts it to a vector of probability values. For this function we need to use one-hot encoding.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-from scipy.special import softmax as s
+&lt;pre&gt;&lt;code class="language-python"&gt;from scipy.special import softmax as s
 def softmax(x: Tensor) -&amp;gt; Tensor:
-    """Calculate softmax using scipy."""
-    return s(x, axis=1)&lt;/code&gt;&lt;/p&gt;
+    &amp;quot;&amp;quot;&amp;quot;Calculate softmax using scipy.&amp;quot;&amp;quot;&amp;quot;
+    return s(x, axis=1)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="loss-functions"&gt;Loss Functions&lt;/h3&gt;
 &lt;p&gt;We implement two loss functions here. We will implement Mean Squared Error Loss class and a Cross Entropy Loss class.&lt;/p&gt;
 &lt;h4 id="mean-squared-error-loss"&gt;Mean Squared Error Loss&lt;/h4&gt;
@@ -436,188 +439,204 @@ where &lt;span class="math"&gt;\(x\)&lt;/span&gt; is the network's output. Conti
 &lt;div class="math"&gt;$$\nabla{\mathcal{L}}(y, \hat{y}) = -\sum\limits_i y_i \frac{1}{p_i}p_i(\delta_{ij}-p_j) = - y_j  + p_j\sum\limits_i y_i.$$&lt;/div&gt;
 &lt;p&gt;Recall, that the vector &lt;span class="math"&gt;\(y\)&lt;/span&gt; is one-hot encoded, therefore, the sum of its components &lt;span class="math"&gt;\(\sum\limits_i y_i=1\)&lt;/span&gt;. Hence, we obtain&lt;/p&gt;
 &lt;div class="math"&gt;$$\nabla{\mathcal{L}}(y, \hat{y}) =p_j - y_j.$$&lt;/div&gt;
-&lt;p&gt;```python
-class Loss:
-    """Placeholder class for losses."""&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;def __init__(self):
-    """Initialize the class with 0 gradient."""
-    self.grad = 0.
+&lt;pre&gt;&lt;code class="language-python"&gt;class Loss:
+    &amp;quot;&amp;quot;&amp;quot;Placeholder class for losses.&amp;quot;&amp;quot;&amp;quot;
 
-def grad_fn(self, pred: Tensor, true: Tensor) -&amp;gt; Tensor:
-    """Create placeholder for the gradient funtion."""
-    pass
+    def __init__(self):
+        &amp;quot;&amp;quot;&amp;quot;Initialize the class with 0 gradient.&amp;quot;&amp;quot;&amp;quot;
+        self.grad = 0.
 
-def loss_fn(self, pred: Tensor, true: Tensor) -&amp;gt; Tensor:
-    """Create placeholder for the loss funtion."""
-    pass
+    def grad_fn(self, pred: Tensor, true: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Create placeholder for the gradient funtion.&amp;quot;&amp;quot;&amp;quot;
+        pass
 
-def __call__(self, pred: Tensor, true: Tensor):
-    """Calculate gradient and loss on call."""
-    self.grad = self.grad_fn(pred, true)
-    return self.loss_fn(pred, true)
+    def loss_fn(self, pred: Tensor, true: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Create placeholder for the loss funtion.&amp;quot;&amp;quot;&amp;quot;
+        pass
+
+    def __call__(self, pred: Tensor, true: Tensor):
+        &amp;quot;&amp;quot;&amp;quot;Calculate gradient and loss on call.&amp;quot;&amp;quot;&amp;quot;
+        self.grad = self.grad_fn(pred, true)
+        return self.loss_fn(pred, true)
+
+
+class MSE(Loss):
+    &amp;quot;&amp;quot;&amp;quot;Mean squared error loss.&amp;quot;&amp;quot;&amp;quot;
+
+    def __init__(self):
+        &amp;quot;&amp;quot;&amp;quot;Initialize via superclass.&amp;quot;&amp;quot;&amp;quot;
+        super().__init__()
+
+    def grad_fn(self, pred: Tensor, true: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Calculate the gradient of MSE.
+
+        Args:
+            pred: Tensor of predictions (raw output),
+            shape (batch, )
+            true: Tensor of true labels,
+            shape (batch, )
+
+        &amp;quot;&amp;quot;&amp;quot;
+        return (pred - true)/true.shape[0]
+
+    def loss_fn(self, pred: Tensor, true: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Calculate the MSE.
+
+        Args:
+            pred: Tensor of predictions (raw output),
+            shape (batch,)
+            true: Tensor of true labels (raw output),
+            shape (batch,)
+
+        &amp;quot;&amp;quot;&amp;quot;
+        return 0.5*np.sum((pred - true)**2)/true.shape[0]
+
+    def __repr__(self):
+        &amp;quot;&amp;quot;&amp;quot;Put pretty representation in Jupyter/IPython.&amp;quot;&amp;quot;&amp;quot;
+        return &amp;quot;&amp;quot;&amp;quot;Mean Squared Error loss (pred: Tensor, true: Tensor)&amp;quot;&amp;quot;&amp;quot;
+
+
+class CrossEntropyLoss(Loss):
+    &amp;quot;&amp;quot;&amp;quot;CrossEntropyLoss class.&amp;quot;&amp;quot;&amp;quot;
+
+    def __init__(self) -&amp;gt; None:
+        &amp;quot;&amp;quot;&amp;quot;Initialize via superclass.&amp;quot;&amp;quot;&amp;quot;
+        super().__init__()
+
+    def loss_fn(self, logits: Tensor, true: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Calculate loss.
+
+        Args:
+            logits: Tensor of shape (batch size, number of classes),
+            raw output of a neural network
+
+            true: Tensor of shape (batch size,),
+            a one-hot encoded vector
+
+        &amp;quot;&amp;quot;&amp;quot;
+        p = softmax(logits)
+        return -np.mean(true * np.log(p))
+
+    def grad_fn(self, logits: Tensor, true: Tensor) -&amp;gt; Tensor:
+        &amp;quot;&amp;quot;&amp;quot;Calculate the gradient.
+
+        Args:
+            logits: Tensor of shape (batch size, number of classes),
+            raw output of a neural network
+
+            true: Tensor of shape (batch size, number of classes),
+            a one-hot encoded vector
+
+        &amp;quot;&amp;quot;&amp;quot;
+        self.probabilities = softmax(logits)
+        return self.probabilities - true
+
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;class MSE(Loss):
-    """Mean squared error loss."""&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;def __init__(self):
-    """Initialize via superclass."""
-    super().__init__()
-
-def grad_fn(self, pred: Tensor, true: Tensor) -&amp;gt; Tensor:
-    """Calculate the gradient of MSE.
-
-    Args:
-        pred: Tensor of predictions (raw output),
-        shape (batch, )
-        true: Tensor of true labels,
-        shape (batch, )
-
-    """
-    return (pred - true)/true.shape[0]
-
-def loss_fn(self, pred: Tensor, true: Tensor) -&amp;gt; Tensor:
-    """Calculate the MSE.
-
-    Args:
-        pred: Tensor of predictions (raw output),
-        shape (batch,)
-        true: Tensor of true labels (raw output),
-        shape (batch,)
-
-    """
-    return 0.5*np.sum((pred - true)**2)/true.shape[0]
-
-def __repr__(self):
-    """Put pretty representation in Jupyter/IPython."""
-    return """Mean Squared Error loss (pred: Tensor, true: Tensor)"""
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;class CrossEntropyLoss(Loss):
-    """CrossEntropyLoss class."""&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;def __init__(self) -&amp;gt; None:
-    """Initialize via superclass."""
-    super().__init__()
-
-def loss_fn(self, logits: Tensor, true: Tensor) -&amp;gt; Tensor:
-    """Calculate loss.
-
-    Args:
-        logits: Tensor of shape (batch size, number of classes),
-        raw output of a neural network
-
-        true: Tensor of shape (batch size,),
-        a one-hot encoded vector
-
-    """
-    p = softmax(logits)
-    return -np.mean(true * np.log(p))
-
-def grad_fn(self, logits: Tensor, true: Tensor) -&amp;gt; Tensor:
-    """Calculate the gradient.
-
-    Args:
-        logits: Tensor of shape (batch size, number of classes),
-        raw output of a neural network
-
-        true: Tensor of shape (batch size, number of classes),
-        a one-hot encoded vector
-
-    """
-    self.probabilities = softmax(logits)
-    return self.probabilities - true
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;```&lt;/p&gt;
 &lt;h2 id="building-the-network"&gt;Building the Network&lt;/h2&gt;
 &lt;p&gt;Here we describe the main class for our neural network. The main principle is simple, we pass a list of layers and initialize a class &lt;code&gt;Network&lt;/code&gt; with two methods: &lt;code&gt;forward&lt;/code&gt; and &lt;code&gt;backward&lt;/code&gt;. The &lt;code&gt;forward&lt;/code&gt; method performs the forward pass, that is, sends the input data through each layer. The &lt;code&gt;backward&lt;/code&gt; method calls &lt;code&gt;backward&lt;/code&gt; from each layer in the opposite direction (starting with the last layer). It uses the gradient of the lost function as its input.&lt;/p&gt;
-&lt;p&gt;```python
-from typing import List, Union&lt;/p&gt;
-&lt;p&gt;Layer = Union[Linear, ReLU, Sigmoid]&lt;/p&gt;
-&lt;p&gt;class Network:
-    """Basic Neural Network Class."""&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;def __init__(self, layers: List[Layer]):
-    """Initialize the Netowrk with a list of layers."""
-    self.layers = layers[:]
+&lt;pre&gt;&lt;code class="language-python"&gt;from typing import List, Union
 
-def forward(self, x: Tensor):
-    """Run the forward pass."""
-    for l in self.layers:
-        x = l(x)
-    return x
+Layer = Union[Linear, ReLU, Sigmoid]
 
-def backward(self, grad: Tensor):
-    """Run the backward pass."""
-    for l in self.layers[::-1]:
-        grad = l.backward(grad)
-    return grad
 
-def __call__(self, x: Tensor):
-    """Run the forward pass on __call__."""
-    return self.forward(x)
+class Network:
+    &amp;quot;&amp;quot;&amp;quot;Basic Neural Network Class.&amp;quot;&amp;quot;&amp;quot;
 
-def __repr__(self) -&amp;gt; str:
-    """Print the representation for the network."""
-    return "\n".join(l.__repr__() for l in self.layers)
+    def __init__(self, layers: List[Layer]):
+        &amp;quot;&amp;quot;&amp;quot;Initialize the Netowrk with a list of layers.&amp;quot;&amp;quot;&amp;quot;
+        self.layers = layers[:]
+
+    def forward(self, x: Tensor):
+        &amp;quot;&amp;quot;&amp;quot;Run the forward pass.&amp;quot;&amp;quot;&amp;quot;
+        for l in self.layers:
+            x = l(x)
+        return x
+
+    def backward(self, grad: Tensor):
+        &amp;quot;&amp;quot;&amp;quot;Run the backward pass.&amp;quot;&amp;quot;&amp;quot;
+        for l in self.layers[::-1]:
+            grad = l.backward(grad)
+        return grad
+
+    def __call__(self, x: Tensor):
+        &amp;quot;&amp;quot;&amp;quot;Run the forward pass on __call__.&amp;quot;&amp;quot;&amp;quot;
+        return self.forward(x)
+
+    def __repr__(self) -&amp;gt; str:
+        &amp;quot;&amp;quot;&amp;quot;Print the representation for the network.&amp;quot;&amp;quot;&amp;quot;
+        return &amp;quot;\n&amp;quot;.join(l.__repr__() for l in self.layers)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;```&lt;/p&gt;
 &lt;h3 id="optimizers"&gt;Optimizers&lt;/h3&gt;
 &lt;p&gt;Our main optimizer here is going to be Stochastic Gradient Descent. After we computed the backpropagation, for every layer in the network, we are going to update the weights. If the gradient is &lt;span class="math"&gt;\(\Delta w\)&lt;/span&gt; then the update rule is &lt;/p&gt;
 &lt;div class="math"&gt;$$w = w - \eta \Delta w - 2*\alpha w,$$&lt;/div&gt;
 &lt;p&gt;where &lt;span class="math"&gt;\(\eta\)&lt;/span&gt; is the learning rate and &lt;span class="math"&gt;\(\alpha\)&lt;/span&gt; is the &lt;span class="math"&gt;\(L^2\)&lt;/span&gt; regularization parameter. The code is presented below.&lt;/p&gt;
-&lt;p&gt;```python
-class SGD:
-    """Stochastic Gradient Descent class."""&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;def __init__(self, lr: float, l2: float = 0.):
-    """Initialize with learning rate and l2-regularization parameter."""
-    self.lr = lr
-    self.l2 = l2
+&lt;pre&gt;&lt;code class="language-python"&gt;class SGD:
+    &amp;quot;&amp;quot;&amp;quot;Stochastic Gradient Descent class.&amp;quot;&amp;quot;&amp;quot;
 
-def step(self, net: Network):
-    """Perform optimization step."""
-    for l in net.layers:
-        if hasattr(l, 'dydw'):
-            l.W = l.W - self.lr*l.dydw - 2 * self.l2 * l.W
-        if hasattr(l, 'dydb'):
-            l.b = l.b - self.lr*l.dydb - 2 * self.l2 * l.b
+    def __init__(self, lr: float, l2: float = 0.):
+        &amp;quot;&amp;quot;&amp;quot;Initialize with learning rate and l2-regularization parameter.&amp;quot;&amp;quot;&amp;quot;
+        self.lr = lr
+        self.l2 = l2
+
+    def step(self, net: Network):
+        &amp;quot;&amp;quot;&amp;quot;Perform optimization step.&amp;quot;&amp;quot;&amp;quot;
+        for l in net.layers:
+            if hasattr(l, 'dydw'):
+                l.W = l.W - self.lr*l.dydw - 2 * self.l2 * l.W
+            if hasattr(l, 'dydb'):
+                l.b = l.b - self.lr*l.dydb - 2 * self.l2 * l.b
+
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;```&lt;/p&gt;
 &lt;h2 id="training-mnist-in-batches-using-mse"&gt;Training MNIST in Batches using MSE&lt;/h2&gt;
 &lt;p&gt;In the code below, we create a training/validation loop. Each important point is commented. &lt;/p&gt;
-&lt;p&gt;```python
-from tqdm import auto
+&lt;pre&gt;&lt;code class="language-python"&gt;from tqdm import auto
 import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split&lt;/p&gt;
-&lt;p&gt;def to_one_hot(vector: Tensor) -&amp;gt; Tensor:
-    """Create one hot encoding of a vector."""
+from sklearn.model_selection import train_test_split
+
+
+def to_one_hot(vector: Tensor) -&amp;gt; Tensor:
+    &amp;quot;&amp;quot;&amp;quot;Create one hot encoding of a vector.&amp;quot;&amp;quot;&amp;quot;
     oh = np.zeros((vector.shape[0], vector.max()+1))
     oh[np.arange(vector.shape[0]), vector] = 1
-    return oh&lt;/p&gt;
-&lt;h1 id="load-training-data"&gt;Load training data&lt;/h1&gt;
-&lt;p&gt;train = pd.read_csv('mnist_train.csv', header=None).values[:, 1:]
+    return oh
+
+
+# Load training data
+
+train = pd.read_csv('mnist_train.csv', header=None).values[:, 1:]
 train_label = pd.read_csv(
-    'mnist_train.csv', header=None).values[:, 0]&lt;/p&gt;
-&lt;h1 id="create-the-basic-network"&gt;Create the basic network&lt;/h1&gt;
-&lt;p&gt;net = Network(layers=[
+    'mnist_train.csv', header=None).values[:, 0]
+
+# Create the basic network
+net = Network(layers=[
     Linear(784, 128),
     ReLU(),
     Linear(128, 10),
-])&lt;/p&gt;
-&lt;h1 id="initialize-loss-class"&gt;Initialize loss class&lt;/h1&gt;
-&lt;p&gt;loss = MSE()&lt;/p&gt;
-&lt;h1 id="initialize-the-optimizer-learning-rate-is-00001"&gt;Initialize the optimizer, learning rate is 0.0001&lt;/h1&gt;
-&lt;p&gt;optim = SGD(1e-4)&lt;/p&gt;
-&lt;h1 id="permform-the-trainval-split"&gt;permform the train/val split&lt;/h1&gt;
-&lt;p&gt;x_train, x_val, y_train, y_val = train_test_split(
+])
+# Initialize loss class
+loss = MSE()
+
+# Initialize the optimizer, learning rate is 0.0001
+optim = SGD(1e-4)
+
+# permform the train/val split
+x_train, x_val, y_train, y_val = train_test_split(
     train.astype(np.float32) / 255,
     train_label.astype(np.int32),
-    test_size=0.2, random_state=42)  # to_one_hot&lt;/p&gt;
-&lt;h1 id="convert-labels-to-one-hot-encodings"&gt;Convert labels to one-hot encodings&lt;/h1&gt;
-&lt;p&gt;y_train = to_one_hot(y_train)
-y_val = to_one_hot(y_val)&lt;/p&gt;
-&lt;h1 id="batch-size"&gt;batch size&lt;/h1&gt;
-&lt;p&gt;batch_size = 100&lt;/p&gt;
-&lt;h1 id="progress-bar-may-not-be-visible-in-pdf-mode-but-it-works-in-notebook-or-terminal-mode"&gt;progress bar may not be visible in PDF mode, but it works in notebook or terminal mode&lt;/h1&gt;
-&lt;h1 id="we-set-it-to-100-epochs-here"&gt;we set it to 100 epochs here&lt;/h1&gt;
-&lt;p&gt;progress_bar = auto.tqdm(range(100))
+    test_size=0.2, random_state=42)  # to_one_hot
+
+# Convert labels to one-hot encodings
+y_train = to_one_hot(y_train)
+y_val = to_one_hot(y_val)
+
+# batch size
+batch_size = 100
+
+# progress bar may not be visible in PDF mode, but it works in notebook or terminal mode
+# we set it to 100 epochs here
+progress_bar = auto.tqdm(range(100))
 for epoch in progress_bar:
     # offset to iterate through batches
     offset = 0
@@ -652,16 +671,16 @@ for epoch in progress_bar:
         offset += batch_size
         if (epoch) % 2 == 0:
             # update progress bar info
-            progress_bar.set_postfix({"Mean_loss_train": err,
-                                      "Mean_loss_val": val_err})
-```&lt;/p&gt;
-&lt;p&gt;```python&lt;/p&gt;
-&lt;h1 id="load-test-data-and-convert-to-one-hot"&gt;Load test data and convert to one-hot&lt;/h1&gt;
-&lt;p&gt;test = pd.read_csv('mnist_test.csv', header=None).values[:, 1:]
+            progress_bar.set_postfix({&amp;quot;Mean_loss_train&amp;quot;: err,
+                                      &amp;quot;Mean_loss_val&amp;quot;: val_err})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# Load test data and convert to one-hot
+test = pd.read_csv('mnist_test.csv', header=None).values[:, 1:]
 test_label = pd.read_csv('mnist_test.csv', header=None).values[:, 0]
-test_label = to_one_hot(test_label)&lt;/p&gt;
-&lt;h1 id="place-offset-and-initialize-error-to-0"&gt;place offset and initialize error to 0&lt;/h1&gt;
-&lt;p&gt;offset = 0
+test_label = to_one_hot(test_label)
+
+# place offset and initialize error to 0
+offset = 0
 test_err = 0.
 while (offset+batch_size &amp;lt;= len(test)):
     # get data batch
@@ -671,75 +690,85 @@ while (offset+batch_size &amp;lt;= len(test)):
     pred = net(data)
     # get error
     test_err += loss(pred, label)/(len(test)/batch_size)
-    offset += batch_size&lt;/p&gt;
-&lt;p&gt;print(f"Test Error is {test_err:.2f} ...")
-```&lt;/p&gt;
+    offset += batch_size
+
+
+print(f&amp;quot;Test Error is {test_err:.2f} ...&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Test Error is 2643.26 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;```python
-from sklearn.metrics import confusion_matrix
+&lt;pre&gt;&lt;code class="language-python"&gt;from sklearn.metrics import confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
 from IPython.display import set_matplotlib_formats
 set_matplotlib_formats('retina')
 plt.style.use('ggplot')
-%matplotlib inline&lt;/p&gt;
-&lt;p&gt;y_true = test_label.argmax(1)
+%matplotlib inline
+
+y_true = test_label.argmax(1)
 y_pred = net(test).argmax(1)
 ax = plt.figure(figsize=(15, 7))
-ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=".3f")
-ax.set_xlabel("True")
-ax.set_ylabel("Predicted")
-```&lt;/p&gt;
+ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=&amp;quot;.3f&amp;quot;)
+ax.set_xlabel(&amp;quot;True&amp;quot;)
+ax.set_ylabel(&amp;quot;Predicted&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Text(114.0, 0.5, 'Predicted')
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_17_1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;We can see from the confusion matrix above that the model performs poorly if the training is based on MSE. Let us try a different loss function: Cross Entropy loss.&lt;/p&gt;
 &lt;h2 id="cross-entropy-training"&gt;Cross Entropy Training&lt;/h2&gt;
-&lt;p&gt;```python
-"""Training example for a simple network with MNIST Dataset."""
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;quot;&amp;quot;&amp;quot;Training example for a simple network with MNIST Dataset.&amp;quot;&amp;quot;&amp;quot;
 from tqdm import auto
 import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-from datatype import Tensor&lt;/p&gt;
-&lt;p&gt;def to_one_hot(vector: Tensor) -&amp;gt; Tensor:
-    """Create one hot encoding of a vector."""
+from datatype import Tensor
+
+
+def to_one_hot(vector: Tensor) -&amp;gt; Tensor:
+    &amp;quot;&amp;quot;&amp;quot;Create one hot encoding of a vector.&amp;quot;&amp;quot;&amp;quot;
     oh = np.zeros((vector.shape[0], vector.max()+1))
     oh[np.arange(vector.shape[0]), vector] = 1
-    return oh&lt;/p&gt;
-&lt;h1 id="load-training-data_1"&gt;Load training data&lt;/h1&gt;
-&lt;p&gt;train = pd.read_csv('mnist_train.csv', header=None).values[:, 1:]
+    return oh
+
+# Load training data
+train = pd.read_csv('mnist_train.csv', header=None).values[:, 1:]
 train_label = pd.read_csv(
-    'mnist_train.csv', header=None).values[:, 0]&lt;/p&gt;
-&lt;h1 id="create-the-network"&gt;Create the network&lt;/h1&gt;
-&lt;p&gt;net = Network(layers=[
+    'mnist_train.csv', header=None).values[:, 0]
+
+# Create the network
+net = Network(layers=[
     Linear(784, 128),
     Sigmoid(),
     Linear(128, 10),
-])&lt;/p&gt;
-&lt;h1 id="initialize-loss-class_1"&gt;Initialize loss class&lt;/h1&gt;
-&lt;p&gt;loss = CrossEntropyLoss()&lt;/p&gt;
-&lt;h1 id="initialize-optimizer-with-regularization"&gt;Initialize optimizer with regularization&lt;/h1&gt;
-&lt;p&gt;optim = SGD(5e-2, 0.0001)&lt;/p&gt;
-&lt;h1 id="split"&gt;split&lt;/h1&gt;
-&lt;p&gt;x_train, x_val, y_train, y_val = train_test_split(
+])
+# Initialize loss class
+loss = CrossEntropyLoss()
+
+# Initialize optimizer with regularization
+optim = SGD(5e-2, 0.0001)
+
+# split
+x_train, x_val, y_train, y_val = train_test_split(
     train.astype(np.float32) / 255,
     train_label.astype(np.int32),
-    test_size=0.2, random_state=42)  # to_one_hot&lt;/p&gt;
-&lt;h1 id="to-one-hot"&gt;to one-hot&lt;/h1&gt;
-&lt;p&gt;y_train = to_one_hot(y_train)
+    test_size=0.2, random_state=42)  # to_one_hot
+
+# to one-hot
+y_train = to_one_hot(y_train)
 y_val = to_one_hot(y_val)
 batch_size = 100
-progress_bar = auto.tqdm(range(200))&lt;/p&gt;
-&lt;h1 id="this-will-be-used-later"&gt;this will be used later&lt;/h1&gt;
-&lt;p&gt;accuracies: dict = {"train": [],
-                    "val": [],
-                    "test": []}
+progress_bar = auto.tqdm(range(200))
+
+# this will be used later
+accuracies: dict = {&amp;quot;train&amp;quot;: [],
+                    &amp;quot;val&amp;quot;: [],
+                    &amp;quot;test&amp;quot;: []}
 acc_train: list = []
-acc_val: list = []&lt;/p&gt;
-&lt;p&gt;for epoch in progress_bar:
+acc_val: list = []
+
+for epoch in progress_bar:
     offset = 0
     val_err = 0
     err = 0
@@ -751,7 +780,7 @@ acc_val: list = []&lt;/p&gt;
         try:
             pred = net(data)
         except RuntimeWarning:
-            print(f"Runtime warning on {offset}")
+            print(f&amp;quot;Runtime warning on {offset}&amp;quot;)
         # get loss
         err += loss(pred, label)/(len(x_train)/batch_size)
         # backprop
@@ -783,20 +812,23 @@ acc_val: list = []&lt;/p&gt;
         ))
     if (epoch) % 2 == 0:
         # update progress bar
-        progress_bar.set_postfix({"loss_train": err,
-                                  "loss_val": val_err,
-                                  "acc_val": np.mean(acc_val)})
+        progress_bar.set_postfix({&amp;quot;loss_train&amp;quot;: err,
+                                  &amp;quot;loss_val&amp;quot;: val_err,
+                                  &amp;quot;acc_val&amp;quot;: np.mean(acc_val)})
     # keep scores for visualization
     accuracies['train'].append(np.mean(acc_train))
     accuracies['val'].append(np.mean(acc_val))
     acc_train = []
-    acc_val = []&lt;/p&gt;
-&lt;h1 id="load-test-data-and-convert-to-one-hot_1"&gt;Load test data and convert to one-hot&lt;/h1&gt;
-&lt;p&gt;test = pd.read_csv('mnist_test.csv', header=None).values[:, 1:]
+    acc_val = []
+
+# Load test data and convert to one-hot
+test = pd.read_csv('mnist_test.csv', header=None).values[:, 1:]
 test_label = to_one_hot(pd.read_csv(
     'mnist_test.csv',
-    header=None).values[:, 0])&lt;/p&gt;
-&lt;p&gt;offset = 0
+    header=None).values[:, 0])
+
+
+offset = 0
 test_err = 0.
 while (offset+batch_size &amp;lt;= len(test)):
     # get batch
@@ -812,29 +844,31 @@ while (offset+batch_size &amp;lt;= len(test)):
     accuracies['test'].append(accuracy_score(
         label.argmax(axis=1),
         pred.argmax(axis=1)
-    ))&lt;/p&gt;
-&lt;p&gt;print(f"Average Test Accuracy: {np.mean(accuracies['test']):.2f}")&lt;/p&gt;
-&lt;p&gt;```&lt;/p&gt;
+    ))
+
+print(f&amp;quot;Average Test Accuracy: {np.mean(accuracies['test']):.2f}&amp;quot;)
+
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Average Test Accuracy: 0.95
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let us plot the evolution of accuracies during testing and confusion matrix. For a higher performing model we expect to see the confusion matrix consolidate results on the diagonal:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-fig = plt.figure(figsize=(15, 6))
-_ = plt.plot(accuracies['train'], label="Training score")
-_ = plt.plot(accuracies['val'], label="Validation score")
-_ = plt.xlabel("Epoch")
-_ = plt.ylabel("Accuracy")
-_ = plt.title("Accuracy per epoch")
-_ = plt.legend()&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;fig = plt.figure(figsize=(15, 6))
+_ = plt.plot(accuracies['train'], label=&amp;quot;Training score&amp;quot;)
+_ = plt.plot(accuracies['val'], label=&amp;quot;Validation score&amp;quot;)
+_ = plt.xlabel(&amp;quot;Epoch&amp;quot;)
+_ = plt.ylabel(&amp;quot;Accuracy&amp;quot;)
+_ = plt.title(&amp;quot;Accuracy per epoch&amp;quot;)
+_ = plt.legend()
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_22_0.png" /&gt;&lt;/p&gt;
-&lt;p&gt;```python
-y_true = test_label.argmax(1)
+&lt;pre&gt;&lt;code class="language-python"&gt;y_true = test_label.argmax(1)
 y_pred = net(test).argmax(1)
 _ = plt.figure(figsize=(15, 7))
-ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=".3f")&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;=ax.set_xlabel("True")
-&lt;/em&gt;=ax.set_ylabel("Predicted")
-```&lt;/p&gt;
+ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=&amp;quot;.3f&amp;quot;)
+
+_=ax.set_xlabel(&amp;quot;True&amp;quot;)
+_=ax.set_ylabel(&amp;quot;Predicted&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_23_1.png" /&gt;&lt;/p&gt;
 &lt;h2 id="conclusion"&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;We implemented a neural network class that supports several activation functions. We followed here a design pattern based on PyTorch deep learning package. We implemented linear (fully-connected) layer, ReLU and Sigmoid layer. Each layer includes a backpropagation function &lt;code&gt;backward&lt;/code&gt; that sends the gradient from the output back to input. As a result we were able to use a Cross Entropy Loss function to train a handwritten digit classifier with 95% accuracy on the test set. Notice that on the graph we observe a pattern of periodically dropping accuracy. I assume this is due to internal structure of the loss landscape: we repeatedly "walk" out of the minimum region and then "walk" back in during the SGD.&lt;/p&gt;
@@ -915,8 +949,7 @@ ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=".3f")&lt;/p&
 6. Apply the best model to `df_test` and compute the **confusion matrix**, **precision score**, and **recall score**. Are the results similar to those from `df_validation`? --&gt;
 
 &lt;p&gt;We will dive into the solution, but first, some imports:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-import pandas as pd
+&lt;pre&gt;&lt;code class="language-python"&gt;import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 %matplotlib inline
@@ -925,40 +958,41 @@ import gc
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, precision_score, recall_score
 from sklearn.linear_model import LogisticRegressionCV, LogisticRegression
-plt.style.use('fivethirtyeight')&lt;/code&gt;&lt;/p&gt;
+plt.style.use('fivethirtyeight')
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;A plotting helper:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;py
-def plot_cm(y_pred, y_true):
-    """Plot confusion matrix based on
-       true vs. predicted values."""
+&lt;pre&gt;&lt;code class="language-py"&gt;def plot_cm(y_pred, y_true):
+    &amp;quot;&amp;quot;&amp;quot;Plot confusion matrix based on
+       true vs. predicted values.&amp;quot;&amp;quot;&amp;quot;
     cm = confusion_matrix(y_true=y_true, y_pred=y_pred)
     prec = precision_score(y_true=y_true, y_pred=y_pred)
     rec = recall_score(y_true=y_true, y_pred=y_pred)
     sns.heatmap(cm, annot=True)
-    plt.title(f"Precision: {prec:.2f}, Recall: {rec:.2f}")&lt;/code&gt;&lt;/p&gt;
+    plt.title(f&amp;quot;Precision: {prec:.2f}, Recall: {rec:.2f}&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Finally, reading the &lt;a href="https://github.com/JWarmenhoven/ISLR-python/blob/master/Notebooks/Data/Default.xlsx?raw=true"&gt;data&lt;/a&gt;:&lt;/p&gt;
-&lt;p&gt;```python
-df = pd.read_excel("Default.xlsx", header=0).iloc[:, 1:]&lt;/p&gt;
-&lt;h1 id="convert-strings-to-binary-int32-01-values"&gt;convert strings to binary int32 0,1 values&lt;/h1&gt;
-&lt;p&gt;df['default'] = df['default'].apply(lambda x: 0 if x == 'No' else 1).astype(
+&lt;pre&gt;&lt;code class="language-python"&gt;df = pd.read_excel(&amp;quot;Default.xlsx&amp;quot;, header=0).iloc[:, 1:]
+
+# convert strings to binary int32 0,1 values
+
+df['default'] = df['default'].apply(lambda x: 0 if x == 'No' else 1).astype(
     np.int32)
 df['student'] = df['student'].apply(lambda x: 0 if x == 'No' else 1).astype(
     np.int32)
 X = df.drop(['default'], axis=1)
 y = df['default']
-```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;To save memory: convert applicable columns from float64(double) to float32(float). This may help with much bigger datasets, this one is relatively small, though. Applicable here means max value of a column falls within the limits of the float32 range:&lt;/p&gt;
-&lt;p&gt;```py
-for column in df.columns:
+&lt;pre&gt;&lt;code class="language-py"&gt;for column in df.columns:
     if df[column].values.max() &amp;lt; np.finfo(np.float32).max:
         if df[column].values.min() &amp;gt; np.finfo(np.float32).min:
-            df[column] = df[column].values.astype(np.float32)&lt;/p&gt;
-&lt;h1 id="garbage-collector"&gt;garbage collector&lt;/h1&gt;
-&lt;p&gt;gc.collect()
-```&lt;/p&gt;
+            df[column] = df[column].values.astype(np.float32)
+# garbage collector
+gc.collect()
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let's look at the distribution of the target value:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-ax = sns.countplot(data=df, x='default')&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;ax = sns.countplot(data=df, x='default')
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_5_0.png" /&gt;&lt;/p&gt;
 &lt;p&gt;The histogram above verifies the problem: the data is highly imbalanced. To train a linear regression classifier, we will try to remedy the issue with three approaches:&lt;/p&gt;
 &lt;ol&gt;
@@ -968,34 +1002,35 @@ ax = sns.countplot(data=df, x='default')&lt;/code&gt;&lt;/p&gt;
 &lt;/ol&gt;
 &lt;h2 id="stratified-sampling"&gt;Stratified Sampling&lt;/h2&gt;
 &lt;p&gt;To sample in a way that the imbalance is preserved (stratified) we will pass an argument &lt;code&gt;stratify&lt;/code&gt; to the &lt;code&gt;train_test_split&lt;/code&gt; function from &lt;code&gt;sklearn&lt;/code&gt;. Specifically, we will pass the column of labels &lt;code&gt;df['default']&lt;/code&gt; so that the function determines the exact distribution.&lt;/p&gt;
-&lt;p&gt;```python
-df_train, df_test, y_train, y_test = train_test_split(X,
+&lt;pre&gt;&lt;code class="language-python"&gt;df_train, df_test, y_train, y_test = train_test_split(X,
                                                       y,
                                                       random_state=42,
                                                       stratify=df['default'],
-                                                      train_size=0.6)&lt;/p&gt;
-&lt;p&gt;df_val, df_test, y_val, y_test = train_test_split(df_test,
+                                                      train_size=0.6)
+
+df_val, df_test, y_val, y_test = train_test_split(df_test,
                                                   y_test,
                                                   random_state=42,
                                                   stratify=y_test,
                                                   train_size=0.5)
-```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The plot below will illustrate the distribution of labels in the sampled data.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-fig, ax = plt.subplots(ncols=3, figsize=(12, 4))
-fig.suptitle("Left to right: train, val, test label counts.")
+&lt;pre&gt;&lt;code class="language-python"&gt;fig, ax = plt.subplots(ncols=3, figsize=(12, 4))
+fig.suptitle(&amp;quot;Left to right: train, val, test label counts.&amp;quot;)
 for i, data in zip(range(3), (y_train, y_val, y_test)):
-    sns.countplot(x=data, ax=ax[i])&lt;/code&gt;&lt;/p&gt;
+    sns.countplot(x=data, ax=ax[i])
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_11_0.png" /&gt;&lt;/p&gt;
-&lt;p&gt;```python
-print(f'Train data to original dataset: {len(df_train)/len(X) * 100}%')
+&lt;pre&gt;&lt;code class="language-python"&gt;print(f'Train data to original dataset: {len(df_train)/len(X) * 100}%')
 print(f'Validation data to original dataset: {len(df_val)/len(X) * 100}%')
-print(f'Test data to original dataset: {len(df_test)/len(X) * 100}%')&lt;/p&gt;
-&lt;p&gt;print(f'\nNegative labels in original data: {len(X[y==0])/len(X) * 100 :.3}%')
+print(f'Test data to original dataset: {len(df_test)/len(X) * 100}%')
+
+print(f'\nNegative labels in original data: {len(X[y==0])/len(X) * 100 :.3}%')
 print(f'Negative labels in train data: {(len(df_train[y_train==0])/len(df_train) * 100) :.3}%')
 print(f'Negative labels in validation data: {(len(df_val[y_val==0])/len(df_val) * 100) :.3}%')
-print(f'Negative labels in test data: {(len(df_test[y_test==0])/len(df_test) * 100) :.3}%')&lt;/p&gt;
-&lt;p&gt;```&lt;/p&gt;
+print(f'Negative labels in test data: {(len(df_test[y_test==0])/len(df_test) * 100) :.3}%')
+
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Train data to original dataset: 60.0%
 Validation data to original dataset: 20.0%
 Test data to original dataset: 20.0%
@@ -1008,75 +1043,75 @@ Negative labels in test data: 96.7%
 &lt;h2 id="oversampling"&gt;Oversampling&lt;/h2&gt;
 &lt;p&gt;For oversampling we will use a package called &lt;code&gt;imbalanced-learn&lt;/code&gt; available &lt;a href="https://pypi.org/project/imbalanced-learn/"&gt;from PyPI&lt;/a&gt;. It has built-in classes for various over- and under-sampling methods. We will use basic &lt;code&gt;RandomOverSampler&lt;/code&gt; and &lt;code&gt;RandomUnderSampler&lt;/code&gt; classes.&lt;/p&gt;
 &lt;p&gt;The package is built with similarities to other &lt;code&gt;sklearn&lt;/code&gt; conventions, so calling &lt;code&gt;fit&lt;/code&gt; methods will give us the necessary results.&lt;/p&gt;
-&lt;p&gt;```python
-from imblearn.over_sampling import RandomOverSampler&lt;/p&gt;
-&lt;p&gt;ros = RandomOverSampler(random_state=42)  # initialize
+&lt;pre&gt;&lt;code class="language-python"&gt;from imblearn.over_sampling import RandomOverSampler
+
+ros = RandomOverSampler(random_state=42)  # initialize
 df_train_over, y_train_over = ros.fit_sample(
     df_train, y=y_train)  # resample training data
 ax = sns.countplot(x=y_train_over)  # plot value counts for the labels
-t = plt.suptitle("Oversampled value counts.")
-```&lt;/p&gt;
+t = plt.suptitle(&amp;quot;Oversampled value counts.&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_15_0.png" /&gt;&lt;/p&gt;
 &lt;h2 id="underspamling"&gt;Underspamling&lt;/h2&gt;
-&lt;p&gt;```python
-from imblearn.under_sampling import RandomUnderSampler&lt;/p&gt;
-&lt;p&gt;rus = RandomUnderSampler(random_state=42, )  # initialize
+&lt;pre&gt;&lt;code class="language-python"&gt;from imblearn.under_sampling import RandomUnderSampler
+
+rus = RandomUnderSampler(random_state=42, )  # initialize
 df_train_under, y_train_under = rus.fit_sample(df_train, y=y_train)  # resample
 ax = sns.countplot(x=y_train_under)  # plot
-t = plt.suptitle("Undersampled value counts.")
-```&lt;/p&gt;
+t = plt.suptitle(&amp;quot;Undersampled value counts.&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_17_0.png" /&gt;&lt;/p&gt;
 &lt;h2 id="train-naively-without-stratification"&gt;Train naively without stratification&lt;/h2&gt;
 &lt;p&gt;Let us first train logistic regression model on a similarly split data without stratification.&lt;/p&gt;
-&lt;p&gt;```python
-df_train_naive, df_test_naive, y_train_naive, y_test_naive = train_test_split(
-    X, y, random_state=42, train_size=0.6)&lt;/p&gt;
-&lt;p&gt;df_val_naive, df_test_naive, y_val_naive, y_test_naive = train_test_split(
+&lt;pre&gt;&lt;code class="language-python"&gt;df_train_naive, df_test_naive, y_train_naive, y_test_naive = train_test_split(
+    X, y, random_state=42, train_size=0.6)
+
+df_val_naive, df_test_naive, y_val_naive, y_test_naive = train_test_split(
     df_test_naive, y_test_naive, random_state=42, train_size=0.6)
-```&lt;/p&gt;
-&lt;p&gt;```python
-logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
 logreg.fit(df_train_naive, y_train_naive)
-y_pred = logreg.predict(df_val_naive)&lt;/p&gt;
-&lt;p&gt;plot_cm(y_val_naive, y_pred)
-```&lt;/p&gt;
+y_pred = logreg.predict(df_val_naive)
+
+plot_cm(y_val_naive, y_pred)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_21_0.png" /&gt;&lt;/p&gt;
 &lt;p&gt;We observe zero precision and zero recall scores and the model overfits on the '0' class, which is expected and is bad.&lt;/p&gt;
 &lt;h2 id="train-on-stratified"&gt;Train on Stratified&lt;/h2&gt;
 &lt;p&gt;Below we train on the stratified data. We observe a better recall and precision scores and the predicted result on validation data follows the distribution of labels as in the training data (note that this heuristic is absolutely non-strict and does not necessarily indicate whether a model is good or bad).&lt;/p&gt;
-&lt;p&gt;```python
-logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
+&lt;pre&gt;&lt;code class="language-python"&gt;logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
 logreg.fit(df_train, y_train)
-y_pred = logreg.predict(df_val)&lt;/p&gt;
-&lt;p&gt;plot_cm(y_val, y_pred)
-```&lt;/p&gt;
+y_pred = logreg.predict(df_val)
+
+plot_cm(y_val, y_pred)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_25_0.png" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-ax = plt.subplot()
-ax = sns.countplot(y_pred, ax=ax)&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;ax = plt.subplot()
+ax = sns.countplot(y_pred, ax=ax)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_26_0.png" /&gt;&lt;/p&gt;
 &lt;h2 id="train-on-oversampled"&gt;Train on Oversampled&lt;/h2&gt;
 &lt;p&gt;When training on Oversampled data we get a very high precision score but lose the recall score.&lt;/p&gt;
-&lt;p&gt;```python
-logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
+&lt;pre&gt;&lt;code class="language-python"&gt;logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
 logreg.fit(df_train_over, y_train_over)
-y_pred = logreg.predict(df_val)&lt;/p&gt;
-&lt;p&gt;plot_cm(y_val, y_pred)
-```&lt;/p&gt;
+y_pred = logreg.predict(df_val)
+
+plot_cm(y_val, y_pred)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_29_0.png" /&gt;&lt;/p&gt;
-&lt;p&gt;```python
-y_pred = logreg.predict(df_test)&lt;/p&gt;
-&lt;p&gt;plot_cm(y_test, y_pred)
-```&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;y_pred = logreg.predict(df_test)
+
+plot_cm(y_test, y_pred)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_30_0.png" /&gt;&lt;/p&gt;
 &lt;h2 id="train-on-undersampled"&gt;Train on Undersampled&lt;/h2&gt;
 &lt;p&gt;A similar behavior occurs in the undersampled case, we see increase in Precision compared to naive and stratified cases, but both precision and recall are a bit lower that oversampled case.&lt;/p&gt;
-&lt;p&gt;```python
-logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
+&lt;pre&gt;&lt;code class="language-python"&gt;logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
 logreg.fit(df_train_under, y_train_under)
-y_pred = logreg.predict(df_val)&lt;/p&gt;
-&lt;p&gt;plot_cm(y_val, y_pred)
-```&lt;/p&gt;
+y_pred = logreg.predict(df_val)
+
+plot_cm(y_val, y_pred)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_33_0.png" /&gt;&lt;/p&gt;
 &lt;h2 id="conclusion"&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;In this assignment, we considered a problem of default prediction for a credit card holder. We omitted most of preliminary data analysis and instead focused on basic model building for a highly imbalanced dataset. The proportion of negative labels is 97% out of all given data. Let us briefly outline meaning behind precision and recall scores.&lt;/p&gt;
@@ -1084,60 +1119,60 @@ y_pred = logreg.predict(df_val)&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Recall score&lt;/strong&gt;, on the other hand, shows the ratio of true positives versus the sum of true positive and false negative predictions. That is, if the prediction's number of true positive cases is trumped by the number of false negative cases, the recall score will be higher.&lt;/p&gt;
 &lt;p&gt;Card default is essentially the inability to pay off the card's balance. In this case, we are not willing to accept a false negative prediction: if we forecast that the default does not happen and in reality it does then we (the bank) are in the losing position. On the other hand, the false positive case does not affect us because in the worst case the cardholder pays off their debt and the default does not happen.&lt;/p&gt;
 &lt;p&gt;Since we want to be as effective as possible in our prediction, we must recommend a model with a higher recall score, which in this case is a stratified logistic recall score model.&lt;/p&gt;
-&lt;p&gt;```python
-logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
+&lt;pre&gt;&lt;code class="language-python"&gt;logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
 logreg.fit(df_train, y_train)
-y_pred = logreg.predict(df_val)&lt;/p&gt;
-&lt;p&gt;plot_cm(y_val, y_pred)
-```&lt;/p&gt;
+y_pred = logreg.predict(df_val)
+
+plot_cm(y_val, y_pred)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_36_0.png" /&gt;&lt;/p&gt;
-&lt;p&gt;```python
-y_pred = logreg.predict(df_test)&lt;/p&gt;
-&lt;p&gt;plot_cm(y_test, y_pred)
-```&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;y_pred = logreg.predict(df_test)
+
+plot_cm(y_test, y_pred)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_37_0.png" /&gt;&lt;/p&gt;</content><category term="Posts"></category><category term="machine learning"></category><category term="logistic regression"></category><category term="python"></category><category term="scikit-learn"></category><category term="statistical learning"></category></entry><entry><title>Linear Regression as the Simplest Classifier</title><link href="https://iliailmer.github.io/2020/02/data-explore.html" rel="alternate"></link><published>2020-02-24T00:00:00-05:00</published><updated>2020-02-24T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2020-02-24:/2020/02/data-explore.html</id><summary type="html">&lt;p&gt;In this post I wanted to describe a simple application of a linear least squares method to a problem of data classification. It is a naive approach and is unlikely to beat more sophisticated techniques like &lt;a href="https://en.wikipedia.org/wiki/Logistic_regression"&gt;Logistic Regression&lt;/a&gt;, for instance.&lt;/p&gt;
 &lt;h3 id="imports"&gt;Imports&lt;/h3&gt;
 &lt;p&gt;Some imports we are going to need for this …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post I wanted to describe a simple application of a linear least squares method to a problem of data classification. It is a naive approach and is unlikely to beat more sophisticated techniques like &lt;a href="https://en.wikipedia.org/wiki/Logistic_regression"&gt;Logistic Regression&lt;/a&gt;, for instance.&lt;/p&gt;
 &lt;h3 id="imports"&gt;Imports&lt;/h3&gt;
 &lt;p&gt;Some imports we are going to need for this piece.&lt;/p&gt;
-&lt;p&gt;```python
-import numpy as np
+&lt;pre&gt;&lt;code class="language-python"&gt;import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
-%matplotlib inline&lt;/p&gt;
-&lt;p&gt;plt.style.use("ggplot")
-```&lt;/p&gt;
+%matplotlib inline
+
+plt.style.use(&amp;quot;ggplot&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="prepare-the-data"&gt;Prepare the data&lt;/h3&gt;
 &lt;p&gt;Data can be found &lt;a href="https://web.stanford.edu/~hastie/ElemStatLearn/"&gt;here&lt;/a&gt;. The link also has information about the textbook with excellent theoretical background on much of Machine Learning (and Computational Statistics).&lt;/p&gt;
 &lt;p&gt;The data is a collection of hand-written digits. Each row of the data represents pixels of the image. For simplicity, we discard all labels except 2 and 3 making the problem a binary classification one (since only two labels are involved).&lt;/p&gt;
 &lt;p&gt;We load files with space character as a separator and no header&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-train = pd.read_csv('zip.train', sep=' ', header=None).drop(257, axis=1)
-test = pd.read_csv('zip.test', sep=' ', header=None)&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;train = pd.read_csv('zip.train', sep=' ', header=None).drop(257, axis=1)
+test = pd.read_csv('zip.test', sep=' ', header=None)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Select only required labels: (by default labels are read as &lt;code&gt;float64&lt;/code&gt; but we won't worry about that) &lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-train = train.loc[train[0].isin([2.0, 3.0])].reset_index(drop=True)
-test = test.loc[test[0].isin([2.0, 3.0])].reset_index(drop=True)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;```python&lt;/p&gt;
-&lt;h1 id="convert-types-to-int32-and-replace-labels-with-0-and-1"&gt;convert types to int32 and replace labels with 0 and 1&lt;/h1&gt;
-&lt;p&gt;train[0] = train[0].astype(np.int32).map({2: 0, 3: 1})
-test[0] = test[0].astype(np.int32).map({2: 0, 3: 1})&lt;/p&gt;
-&lt;p&gt;X, y = train.iloc[:, 1:], train.iloc[:, 0]
+&lt;pre&gt;&lt;code class="language-python"&gt;train = train.loc[train[0].isin([2.0, 3.0])].reset_index(drop=True)
+test = test.loc[test[0].isin([2.0, 3.0])].reset_index(drop=True)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# convert types to int32 and replace labels with 0 and 1
+train[0] = train[0].astype(np.int32).map({2: 0, 3: 1})
+test[0] = test[0].astype(np.int32).map({2: 0, 3: 1})
+
+X, y = train.iloc[:, 1:], train.iloc[:, 0]
 X_test, y_test = test.iloc[:, 1:], test.iloc[:, 0]
-```&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-X.info()&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;X.info()
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;class 'pandas.core.frame.DataFrame'&amp;gt;
 RangeIndex: 1389 entries, 0 to 1388
 Columns: 256 entries, 1 to 256
 dtypes: float64(256)
 memory usage: 2.7 MB
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;python
-y.describe()&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;y.describe()
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;count    1389.000000
 mean        0.473722
 std         0.499489
@@ -1148,16 +1183,16 @@ min         0.000000
 max         1.000000
 Name: 0, dtype: float64
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;python
-X_test.info()&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;X_test.info()
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;class 'pandas.core.frame.DataFrame'&amp;gt;
 RangeIndex: 364 entries, 0 to 363
 Columns: 256 entries, 1 to 256
 dtypes: float64(256)
 memory usage: 728.1 KB
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;python
-y_test.describe()&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;y_test.describe()
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;count    364.000000
 mean       0.456044
 std        0.498750
@@ -1169,9 +1204,8 @@ max        1.000000
 Name: 0, dtype: float64
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id="some-helper-functions"&gt;Some helper functions&lt;/h4&gt;
-&lt;p&gt;```python
-def show_sample(data: pd.DataFrame):
-    """Show 4 images from the dataset (random)."""
+&lt;pre&gt;&lt;code class="language-python"&gt;def show_sample(data: pd.DataFrame):
+    &amp;quot;&amp;quot;&amp;quot;Show 4 images from the dataset (random).&amp;quot;&amp;quot;&amp;quot;
     sample = data.sample(4)
     fig, ax = plt.subplots(2, 2, figsize=(10, 8))
     for i in range(2):
@@ -1179,13 +1213,15 @@ def show_sample(data: pd.DataFrame):
             ax[i, j].imshow(sample.iloc[2 * i + j, 1:].values.reshape(16, 16))
             ax[i, j].axis('off')
             ax[i, j].set_title(f'Label: {sample.iloc[2*i+j, 0]}')
-    plt.show()&lt;/p&gt;
-&lt;p&gt;def raw2label(y_pred, threshold=0):
-    """Convert raw label into a int label with a threshold."""
+    plt.show()
+
+
+def raw2label(y_pred, threshold=0):
+    &amp;quot;&amp;quot;&amp;quot;Convert raw label into a int label with a threshold.&amp;quot;&amp;quot;&amp;quot;
     return np.int32(y_pred &amp;gt; threshold)
-```&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-show_sample(test)&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;show_sample(test)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_18_0.png" /&gt;&lt;/p&gt;
 &lt;h3 id="linear-regression-fitting"&gt;Linear Regression fitting&lt;/h3&gt;
 &lt;p&gt;We will approach the solution in the following way. Firstly, we will train a linear regression model on the available data (256 pixel intensity values). Note that the problem is high-dimensional and therefore it is impossible to visualize all of it at once.&lt;/p&gt;
@@ -1200,29 +1236,28 @@ show_sample(test)&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;where &lt;span class="math"&gt;\(\hat{\beta}\)&lt;/span&gt; is given by &lt;/p&gt;
 &lt;div class="math"&gt;$$ \hat{\beta} = (X^TX)^{-1}X^Ty.$$&lt;/div&gt;
 &lt;p&gt;We are projecting our training set &lt;span class="math"&gt;\(\mathbf{X}\)&lt;/span&gt; orthogonally onto the hyperplane defined by &lt;span class="math"&gt;\(\hat\beta\)&lt;/span&gt;. We can then derive a classifier from there as follows: let us set up the threshold &lt;span class="math"&gt;\(t\)&lt;/span&gt; such that if for a given unseen feature vector &lt;span class="math"&gt;\(X_{test}\)&lt;/span&gt; the value &lt;span class="math"&gt;\(y_{test}=X_{test}^T\hat\beta=\hat\beta_0+\sum\limits_{i=1}^p (X_{test})_i\hat\beta_i\)&lt;/span&gt; is greater than &lt;span class="math"&gt;\(t\)&lt;/span&gt;, we assign label 1, otherwise 0.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-linreg = LinearRegression()
-linreg.fit(X, y)&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;linreg = LinearRegression()
+linreg.fit(X, y)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id="train-set-predictions"&gt;Train set predictions&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;python
-y_true = y.copy().values
-y_pred = linreg.predict(X)&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;y_true = y.copy().values
+y_pred = linreg.predict(X)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We select the threshold range between the minimum and maximum value of the predicted &lt;span class="math"&gt;\(y\)&lt;/span&gt; with a step 0.1 and then check the accuracy for each threshold.&lt;/p&gt;
-&lt;p&gt;```python
-thresh_range = np.arange(y_pred.min(), y_pred.max(), 0.1)
-train_acc_scores = []&lt;/p&gt;
-&lt;p&gt;for t in thresh_range:
+&lt;pre&gt;&lt;code class="language-python"&gt;thresh_range = np.arange(y_pred.min(), y_pred.max(), 0.1)
+train_acc_scores = []
+
+for t in thresh_range:
     train_acc_scores.append(
         accuracy_score(y_pred=raw2label(y_pred, t), y_true=y_true))
-```&lt;/p&gt;
-&lt;p&gt;```python
-fig, ax = plt.subplots(ncols=2, figsize=(24, 4))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;fig, ax = plt.subplots(ncols=2, figsize=(24, 4))
 ax[0].plot(thresh_range, train_acc_scores, '-o')
-ax[0].set_title("Accuracy on Train Set")
-ax[0].set_xlabel("Threshold")
-ax[0].set_ylabel("Accuracy score")
+ax[0].set_title(&amp;quot;Accuracy on Train Set&amp;quot;)
+ax[0].set_xlabel(&amp;quot;Threshold&amp;quot;)
+ax[0].set_ylabel(&amp;quot;Accuracy score&amp;quot;)
 ax[0].set_ylim([0.4, 1.05])
 max_score = max(train_acc_scores)
 max_loc = np.argmax(train_acc_scores)
@@ -1231,11 +1266,12 @@ ax[0].annotate(
     xy=(thresh_range[max_loc], max_score),
     xytext=(thresh_range[max_loc], max_score + 0.025),
     arrowprops=dict(facecolor='black', shrink=0.01),
-)&lt;/p&gt;
-&lt;p&gt;ax[1].plot(thresh_range, 1 - np.array(train_acc_scores), '-o')
-ax[1].set_title("Error Train Set")
-ax[1].set_xlabel("Threshold")
-ax[1].set_ylabel("Error")
+)
+
+ax[1].plot(thresh_range, 1 - np.array(train_acc_scores), '-o')
+ax[1].set_title(&amp;quot;Error Train Set&amp;quot;)
+ax[1].set_xlabel(&amp;quot;Threshold&amp;quot;)
+ax[1].set_ylabel(&amp;quot;Error&amp;quot;)
 min_score = min(1 - np.array(train_acc_scores))
 min_loc = np.argmin(1 - np.array(train_acc_scores))
 ax[1].annotate(
@@ -1243,45 +1279,48 @@ ax[1].annotate(
     xy=(thresh_range[min_loc], min_score),
     xytext=(thresh_range[min_loc], min_score + 0.025),
     arrowprops=dict(facecolor='black', shrink=0.01),
-)&lt;/p&gt;
-&lt;p&gt;fig.text(
+)
+
+fig.text(
     0.5,
     -0.1,
     'As the threshold increases we observe simultaneous increase in accuracy.\n'+\
     'As we cross the maximum accuracy, we essentially shift the hyperplane away from the data and thus see the decrease.',
     ha='center',
-    fontsize=16);&lt;/p&gt;
-&lt;p&gt;```&lt;/p&gt;
+    fontsize=16);
+
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_26_0.png" /&gt;&lt;/p&gt;
 &lt;h4 id="test-set-predictions"&gt;Test set predictions&lt;/h4&gt;
 &lt;p&gt;We can do similar analysis on the testing set.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-y_true = y_test.copy().values
+&lt;pre&gt;&lt;code class="language-python"&gt;y_true = y_test.copy().values
 y_pred = linreg.predict(X_test)
 test_acc_scores = []
 for t in thresh_range:
     test_acc_scores.append(
-        accuracy_score(y_pred=raw2label(y_pred, t), y_true=y_true))&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;```python
-fig, ax = plt.subplots(ncols=2, figsize=(24, 6))
+        accuracy_score(y_pred=raw2label(y_pred, t), y_true=y_true))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;fig, ax = plt.subplots(ncols=2, figsize=(24, 6))
 ax[0].plot(thresh_range, test_acc_scores, '-o')
-ax[0].set_title("Accuracy on Test Set")
-ax[0].set_ylim([0.4, 1.05])&lt;/p&gt;
-&lt;h1 id="ax0set_xticksthresh_range"&gt;ax[0].set_xticks(thresh_range)&lt;/h1&gt;
-&lt;p&gt;ax[0].set_xlabel("Threshold")
-ax[0].set_ylabel("Accuracy score")&lt;/p&gt;
-&lt;p&gt;max_score = max(test_acc_scores)
+ax[0].set_title(&amp;quot;Accuracy on Test Set&amp;quot;)
+ax[0].set_ylim([0.4, 1.05])
+# ax[0].set_xticks(thresh_range)
+ax[0].set_xlabel(&amp;quot;Threshold&amp;quot;)
+ax[0].set_ylabel(&amp;quot;Accuracy score&amp;quot;)
+
+max_score = max(test_acc_scores)
 max_loc = np.argmax(test_acc_scores)
 ax[0].annotate(
     f'Max Accuracy: {max_score:.3f}',
     xy=(thresh_range[max_loc], max_score),
     xytext=(thresh_range[max_loc] + 0.05, max_score + 0.05),
     arrowprops=dict(facecolor='black', shrink=0.01),
-)&lt;/p&gt;
-&lt;p&gt;ax[1].plot(thresh_range, 1 - np.array(test_acc_scores), '-o')
-ax[1].set_title("Error Test Set")
-ax[1].set_xlabel("Threshold")
-ax[1].set_ylabel("Error")
+)
+
+ax[1].plot(thresh_range, 1 - np.array(test_acc_scores), '-o')
+ax[1].set_title(&amp;quot;Error Test Set&amp;quot;)
+ax[1].set_xlabel(&amp;quot;Threshold&amp;quot;)
+ax[1].set_ylabel(&amp;quot;Error&amp;quot;)
 ax[1].set_ylim([0, 0.55])
 min_score = min(1 - np.array(test_acc_scores))
 min_loc = np.argmin(1 - np.array(test_acc_scores))
@@ -1290,8 +1329,9 @@ ax[1].annotate(
     xy=(thresh_range[min_loc], min_score),
     xytext=(thresh_range[min_loc] - 0.15, min_score - 0.03),
     arrowprops=dict(facecolor='black', shrink=0.01),
-)&lt;/p&gt;
-&lt;p&gt;fig.text(
+)
+
+fig.text(
     0.5,
     -0.1,
     'We observe a similar behaviour as the threshold increases.\n'+\
@@ -1299,19 +1339,19 @@ ax[1].annotate(
     'The graphs converge around random guesses.',
     ha='center',
     fontsize=16);
-```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_30_0.png" /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-percentage = np.unique(y_test, return_counts=True)[1]/len(y_test) # proportion of each label in the training set
-print(f'Minimal accuracy on the left: {min(test_acc_scores)}, proportion of "0" labels in the data: {percentage[0]}')
-print(f'Minimal accuracy on the right: {test_acc_scores[-1]}, proportion of "1" labels in the data: {percentage[1]}')&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;percentage = np.unique(y_test, return_counts=True)[1]/len(y_test) # proportion of each label in the training set
+print(f'Minimal accuracy on the left: {min(test_acc_scores)}, proportion of &amp;quot;0&amp;quot; labels in the data: {percentage[0]}')
+print(f'Minimal accuracy on the right: {test_acc_scores[-1]}, proportion of &amp;quot;1&amp;quot; labels in the data: {percentage[1]}')
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Minimal accuracy on the left: 0.46153846153846156, proportion of "0" labels in the data: 0.5439560439560439
 Minimal accuracy on the right: 0.5467032967032966, proportion of "1" labels in the data: 0.45604395604395603
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;From the information above we learn that the model start to approximately randomly guess once the thresholds are too big or too small. On the left in is closer to guessing ones, on the right - zeros.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-print(f"Labels from leftmost threshold:\n{raw2label(y_pred, threshold=thresh_range[0])}")
-print(f"\n\nLabels from rightmost threshold:\n{raw2label(y_pred, threshold=thresh_range[-1])}")&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;print(f&amp;quot;Labels from leftmost threshold:\n{raw2label(y_pred, threshold=thresh_range[0])}&amp;quot;)
+print(f&amp;quot;\n\nLabels from rightmost threshold:\n{raw2label(y_pred, threshold=thresh_range[-1])}&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Labels from leftmost threshold:
 [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -1338,34 +1378,35 @@ Labels from rightmost threshold:
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let us use different thresholds for the testing set:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-y_true = y_test.copy().values
+&lt;pre&gt;&lt;code class="language-python"&gt;y_true = y_test.copy().values
 y_pred = linreg.predict(X_test)
 thresh_range = np.arange(y_pred.min(), y_pred.max(), 0.1)
 test_acc_scores = []
 for t in thresh_range:
     test_acc_scores.append(
-        accuracy_score(y_pred=raw2label(y_pred, t), y_true=y_true))&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;```python
-fig, ax = plt.subplots(ncols=2, figsize=(24, 6))
+        accuracy_score(y_pred=raw2label(y_pred, t), y_true=y_true))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;fig, ax = plt.subplots(ncols=2, figsize=(24, 6))
 ax[0].plot(thresh_range, test_acc_scores, '-o')
-ax[0].set_title("Accuracy on Test Set")
-ax[0].set_ylim([0.4, 1.05])&lt;/p&gt;
-&lt;h1 id="ax0set_xticksthresh_range_1"&gt;ax[0].set_xticks(thresh_range)&lt;/h1&gt;
-&lt;p&gt;ax[0].set_xlabel("Threshold")
-ax[0].set_ylabel("Accuracy score")&lt;/p&gt;
-&lt;p&gt;max_score = max(test_acc_scores)
+ax[0].set_title(&amp;quot;Accuracy on Test Set&amp;quot;)
+ax[0].set_ylim([0.4, 1.05])
+# ax[0].set_xticks(thresh_range)
+ax[0].set_xlabel(&amp;quot;Threshold&amp;quot;)
+ax[0].set_ylabel(&amp;quot;Accuracy score&amp;quot;)
+
+max_score = max(test_acc_scores)
 max_loc = np.argmax(test_acc_scores)
 ax[0].annotate(
     f'Max Accuracy: {max_score:.3f}',
     xy=(thresh_range[max_loc], max_score),
     xytext=(thresh_range[max_loc] + 0.05, max_score + 0.05),
     arrowprops=dict(facecolor='black', shrink=0.01),
-)&lt;/p&gt;
-&lt;p&gt;ax[1].plot(thresh_range, 1 - np.array(test_acc_scores), '-o')
-ax[1].set_title("Error Test Set")
-ax[1].set_xlabel("Threshold")
-ax[1].set_ylabel("Error")
+)
+
+ax[1].plot(thresh_range, 1 - np.array(test_acc_scores), '-o')
+ax[1].set_title(&amp;quot;Error Test Set&amp;quot;)
+ax[1].set_xlabel(&amp;quot;Threshold&amp;quot;)
+ax[1].set_ylabel(&amp;quot;Error&amp;quot;)
 ax[1].set_ylim([0, 0.55])
 min_score = min(1 - np.array(test_acc_scores))
 min_loc = np.argmin(1 - np.array(test_acc_scores))
@@ -1374,8 +1415,9 @@ ax[1].annotate(
     xy=(thresh_range[min_loc], min_score),
     xytext=(thresh_range[min_loc] - 0.15, min_score - 0.03),
     arrowprops=dict(facecolor='black', shrink=0.01),
-)&lt;/p&gt;
-&lt;p&gt;fig.text(
+)
+
+fig.text(
     0.5,
     -0.1,
     'We observe a similar behaviour as the threshold increases.\n'+\
@@ -1383,26 +1425,26 @@ ax[1].annotate(
     'This is due to the threshold being intrinsic to the test set.',
     ha='center',
     fontsize=16);
-```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_36_0.png" /&gt;&lt;/p&gt;
-&lt;p&gt;```python
-percentage = np.unique(y_test, return_counts=True)[1] / len(
+&lt;pre&gt;&lt;code class="language-python"&gt;percentage = np.unique(y_test, return_counts=True)[1] / len(
     y_test)  # proportion of each label in the training set
 print(
     f'Minimal accuracy on the left: {min(test_acc_scores)},'
-    + f' proportion of "0" labels in the data: {percentage[0]}'
+    + f' proportion of &amp;quot;0&amp;quot; labels in the data: {percentage[0]}'
 )
 print(
-    f"Labels from leftmost threshold:\n{raw2label(y_pred, threshold=thresh_range[0])}"
-)&lt;/p&gt;
-&lt;p&gt;print(
+    f&amp;quot;Labels from leftmost threshold:\n{raw2label(y_pred, threshold=thresh_range[0])}&amp;quot;
+)
+
+print(
     f'\n\nMinimal accuracy on the right: {test_acc_scores[-1]},' +
-    f' proportion of "1" labels in the data: {percentage[1]}'
+    f' proportion of &amp;quot;1&amp;quot; labels in the data: {percentage[1]}'
 )
 print(
-    f"Labels from rightmost threshold: \n{raw2label(y_pred, threshold=thresh_range[-1])}"
+    f&amp;quot;Labels from rightmost threshold: \n{raw2label(y_pred, threshold=thresh_range[-1])}&amp;quot;
 )
-```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Minimal accuracy on the left: 0.45879120879120877, proportion of "0" labels in the data: 0.5439560439560439
 Labels from leftmost threshold:
 [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -1433,39 +1475,40 @@ Labels from rightmost threshold:
 &lt;h3 id="k-nearest-neighbors"&gt;K-Nearest Neighbors&lt;/h3&gt;
 &lt;p&gt;For this method, we consider different values of neighbors in each case. We begin with 1 neighbor per training point, which we expect to give a high accuracy since each point will roughly be each own neighborhood.&lt;/p&gt;
 &lt;p&gt;As the number of neighbors increases we will see a slight decrease in accuracy.&lt;/p&gt;
-&lt;p&gt;```python
-train_err_scores = []
-test_err_scores = []&lt;/p&gt;
-&lt;p&gt;for k in [1, 3, 5, 7, 15]:
+&lt;pre&gt;&lt;code class="language-python"&gt;train_err_scores = []
+test_err_scores = []
+
+for k in [1, 3, 5, 7, 15]:
     knn = KNeighborsClassifier(n_neighbors=k)
-    knn.fit(X, y)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;y_true = y.copy().values
-y_pred = knn.predict(X)
+    knn.fit(X, y)
 
-train_err_scores.append(1 - accuracy_score(y_pred=y_pred, y_true=y_true))
+    y_true = y.copy().values
+    y_pred = knn.predict(X)
 
-y_true = y_test.copy().values
-y_pred = knn.predict(X_test)
-test_err_scores.append(1 - accuracy_score(y_pred=y_pred, y_true=y_true))
+    train_err_scores.append(1 - accuracy_score(y_pred=y_pred, y_true=y_true))
+
+    y_true = y_test.copy().values
+    y_pred = knn.predict(X_test)
+    test_err_scores.append(1 - accuracy_score(y_pred=y_pred, y_true=y_true))
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;p&gt;```python
-fig, ax = plt.subplots(ncols=2, figsize=(24, 6))
+&lt;pre&gt;&lt;code class="language-python"&gt;fig, ax = plt.subplots(ncols=2, figsize=(24, 6))
 ax[1].plot([1, 3, 5, 7, 15], train_err_scores, '-o')
-ax[1].set_title("Error on Train Set")
-ax[1].set_xlabel("Neighbors")
-ax[1].set_ylabel("Error score")&lt;/p&gt;
-&lt;p&gt;ax[0].plot([1, 3, 5, 7, 15], test_err_scores, '-o')
-ax[0].set_title("Error on Test Set")
-ax[0].set_xlabel("Neighbors")
-ax[0].set_ylabel("Error score")&lt;/p&gt;
-&lt;p&gt;fig.text(
+ax[1].set_title(&amp;quot;Error on Train Set&amp;quot;)
+ax[1].set_xlabel(&amp;quot;Neighbors&amp;quot;)
+ax[1].set_ylabel(&amp;quot;Error score&amp;quot;)
+
+ax[0].plot([1, 3, 5, 7, 15], test_err_scores, '-o')
+ax[0].set_title(&amp;quot;Error on Test Set&amp;quot;)
+ax[0].set_xlabel(&amp;quot;Neighbors&amp;quot;)
+ax[0].set_ylabel(&amp;quot;Error score&amp;quot;)
+
+fig.text(
     0.5,
     -0.1,
     'As the number of neighbors increases, so does the error score of the model on the training data.',
     ha='center',
     fontsize=16);
-```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_41_0.png" /&gt;&lt;/p&gt;
 &lt;h2 id="conclusion"&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;We applied two different classification methods for the data. Method 1 was based on the linear regression using least squares method. The second method was based on 5 different Nearest neighbor classifiers.&lt;/p&gt;
@@ -1552,8 +1595,7 @@ ax[0].set_ylabel("Error score")&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;This last step we acknowledge that the method for optimization of our model is based on a gradient descent. It can be eqither Adam, SGD, or any other (RAdam is the brand new one which seems to beat state of the art).&lt;/p&gt;
 &lt;p&gt;In code, we can put it in the form like this:&lt;/p&gt;
-&lt;p&gt;```python
-def train(epoch):
+&lt;pre&gt;&lt;code class="language-python"&gt;def train(epoch):
   model.train()  # preparing model for training
   for batch in training_set:
     x, y = batch  # unpack the batch
@@ -1566,12 +1608,12 @@ def train(epoch):
     # calculate the gradient using backpropagation
     loss.backward()
     # take a step with the optimizer
-    optimizer.step()&lt;/p&gt;
-&lt;p&gt;```&lt;/p&gt;
+    optimizer.step()
+
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="a-trick-for-better-training-with-lower-memory"&gt;A Trick for Better Training with Lower Memory&lt;/h3&gt;
 &lt;p&gt;A small batch can result in a small gradient. This, in turn, leads to a problem called &lt;a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem"&gt;vanishing gradient problem&lt;/a&gt;: the value is so small, computer simple treats it as zero (underflow). To avoid it, a trick of accumulating gradient as you iterate through the dataset. I saw a practical implementation in this &lt;a href="https://www.kaggle.com/c/understanding_cloud_organization/discussion/105614#latest-662360"&gt;discussion&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-def train_accumulate(epoch, accumulation_step = 1):
+&lt;pre&gt;&lt;code class="language-python"&gt;def train_accumulate(epoch, accumulation_step = 1):
   model.eval()  # preparing model for training
   for idx, batch in enumerate(training_set):
     x, y = batch  # unpack the batch
@@ -1585,7 +1627,8 @@ def train_accumulate(epoch, accumulation_step = 1):
       # take a step with the optimizer once
       # we accumulated enough gradients
       optimizer.step()
-      optimizer.zero_grad()&lt;/code&gt;&lt;/p&gt;
+      optimizer.zero_grad()
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id="in-closing-abstracting-training-loop"&gt;In Closing: abstracting training loop&lt;/h2&gt;
 &lt;p&gt;In this post I summarized my experience in building a training loop for PyTorch. Lately, I have been using a more abstracted way of training through &lt;a href="https://catalyst-team.github.io/catalyst/"&gt;Catalyst&lt;/a&gt;. It is a great tool for higher level abstraction during training and a lot of hardwork has been done to take away the hard part of training.&lt;/p&gt;
 &lt;p&gt;Nevertheless, both, I believe, are equally important: the abstract and the explicit methods.&lt;/p&gt;
@@ -1658,8 +1701,7 @@ Kaggle, FastAI, and Python (which quite a lot of them are already familiar with!
 &lt;p&gt;&lt;span class="math"&gt;\(\hat X_{u,v} = \sum_{ii=0}^{N-1}\left[\sum_{jj=0}^{N-1} x_{ii,jj} \cos\left(\frac{\pi}{N}\left(ii+0.5\right) u \right)\right] \cos\left(\frac{\pi}{N}\left(jj+0.5\right) v \right).\)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;So the approach is to use a separate kernel for each combination of &lt;span class="math"&gt;\((u,~v)\)&lt;/span&gt; indices. They will implicitly represent the direction in which our filter is looking at the image.&lt;/p&gt;
 &lt;p&gt;So, if our sliding convolution window is &lt;span class="math"&gt;\(N\times N\)&lt;/span&gt; then we need &lt;span class="math"&gt;\(N^2\)&lt;/span&gt; filters, &lt;span class="math"&gt;\(N\times N\)&lt;/span&gt; each:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;py
-import torch
+&lt;pre&gt;&lt;code class="language-py"&gt;import torch
 import numpy as np
 PI = np.pi
 def fltr(u, v, N, k): # note, that I will always use N=k and N=K in where
@@ -1667,18 +1709,19 @@ def fltr(u, v, N, k): # note, that I will always use N=k and N=K in where
                       # it'd be pretty cool to try that as well
   return torch.as_tensor([[torch.cos(torch.as_tensor(v*PI/N*(ii+0.5)))
                            * torch.cos(torch.as_tensor(u*PI/N*(jj+0.5)))
-                           for ii in range(k)] for jj in range(k)])&lt;/code&gt;&lt;/p&gt;
+                           for ii in range(k)] for jj in range(k)])
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;So, once we get the necessary filters, we need to properly collect them into the so-called &lt;em&gt;filter bank&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;```py
-import torch
-def get_filter_bank(input_channels, N, K):&lt;/p&gt;
-&lt;p&gt;filter_bank = torch.stack([torch.stack([fltr(j, i, N, K)
+&lt;pre&gt;&lt;code class="language-py"&gt;import torch
+def get_filter_bank(input_channels, N, K):
+
+  filter_bank = torch.stack([torch.stack([fltr(j, i, N, K)
                                           for i in range(K)]) for j in range(K)])
   filter_bank = filter_bank.reshape([-1, 1, K, K])
   filter_bank = torch.cat([filter_bank]*input_channels, dim=1)
   filter_bank = filter_bank.to('cuda')
   return filter_bank
-```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Great, the filters are collected. The cool thing with PyTorch is that by default these tensors will not be updated in the backwards pass. This is because the property called &lt;code&gt;requires_grad&lt;/code&gt; is initialized to &lt;code&gt;False&lt;/code&gt; automatically. (I should probably add that it can always be manipulated manually, but we will not worry about that here.)&lt;/p&gt;
 &lt;h2 id="further-processing-of-harmonic-blocks"&gt;Further processing of harmonic blocks&lt;/h2&gt;
 &lt;p&gt;One convolution with kernels is not enough. The authors propose a way of combining them linearly through &lt;span class="math"&gt;\(1\times1\)&lt;/span&gt; convolution. That way each consequent layer is a linear combination of the previous one. This convolution &lt;strong&gt;is&lt;/strong&gt; affected by the backwards pass. The linear combination occurs across the result of convolution with DCT filters.&lt;/p&gt;
@@ -1686,11 +1729,11 @@ def get_filter_bank(input_channels, N, K):&lt;/p&gt;
 then we get the output shape after the harmonic block as (3,9,W,H) where W and H are width and height respectively. The linear combination than happens across the &lt;strong&gt;9&lt;/strong&gt; outputs for each channel. That's it!&lt;/p&gt;
 &lt;h2 id="sending-to-gpu-device-using-torchcuda"&gt;Sending to GPU device using &lt;code&gt;torch.cuda()&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;A problem I encountered while implementing the Harmonic block of the network was that just sending the model to GPU using&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;py
-model.cuda()&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-py"&gt;model.cuda()
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;is not enough. I had to "manually" send the convolution weights. Note that it's not really manually as in "low-level" but rather this line of code from before:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;py
-filter_bank = filter_bank.to('cuda')&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-py"&gt;filter_bank = filter_bank.to('cuda')
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Not sure why the model does not send the DCT filters upon regular GPU sending but manually it all works.&lt;/p&gt;
 &lt;h2 id="selecting-learning-rate"&gt;Selecting learning rate&lt;/h2&gt;
 &lt;p&gt;Another problem was the learning rate. From lessons on &lt;a href="https://fast.ai"&gt;FastAI&lt;/a&gt; I learned that trying the learning rate of 0.01 is quite common (the amazing function for finding a proper learning rate consistently recommends doing so across multiple CNN models). However, in here, we get quite rapid loss increase!&lt;/p&gt;
@@ -1788,9 +1831,8 @@ filter_bank = filter_bank.to('cuda')&lt;/code&gt;&lt;/p&gt;
 &lt;div class="math"&gt;$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp}+1)}{\min(W_{lp}+1)}.$$&lt;/div&gt;
 &lt;p&gt;The addition &lt;span class="math"&gt;\(W_{lp}+1\)&lt;/span&gt; implies that we add 1 to all elements in the window &lt;span class="math"&gt;\(W_{lp}\)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;I prefer to scale image to have intensities between 0 and 1, but it really is not important, you can use any range as long as it is &lt;code&gt;float&lt;/code&gt; type. This is because of the nature of the division and &lt;span class="math"&gt;\(\log\)&lt;/span&gt; operators.&lt;/p&gt;
-&lt;p&gt;And here's the code for this function:
-&lt;code&gt;python
-def EME(image, window_width, window_height):
+&lt;p&gt;And here's the code for this function:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def EME(image, window_width, window_height):
   height, width = image.shape
   sum_ = 0
   k = 0                                    # I just decided not to keep
@@ -1809,24 +1851,25 @@ def EME(image, window_width, window_height):
           D = 0.02
         k += 1
         sum_ += 20 * np.log(D)
-      return sum_ / k&lt;/code&gt;&lt;/p&gt;
+      return sum_ / k
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id="examples"&gt;Examples&lt;/h1&gt;
 &lt;p&gt;Let's try it out on some examples. What I am going to do here is, I will use the &lt;code&gt;skimage&lt;/code&gt; library to obtain the data first.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;py
-from skimage.data import camera() # my favourite at this point&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-py"&gt;from skimage.data import camera() # my favourite at this point
+&lt;/code&gt;&lt;/pre&gt;
 &lt;figure&gt;
   &lt;img src="https://iliailmer.github.io/images/enhancement-measure/camera.png?raw=true" alt="original"/&gt;
   &lt;figcaption&gt;My favourite sample image.&lt;/figcaption&gt;
 &lt;/figure&gt;
-&lt;p&gt;And then lets use simple histogram equalization for image enhancement. This function will enhance the contrast of the image and will bring some details (but also noise! Don't 100% rely on it!)
-```py
-from skimage.data import camera
-from skimage.restoration import denoise_bilateral, denoise_wavelet&lt;/p&gt;
-&lt;p&gt;original = camera()
+&lt;p&gt;And then lets use simple histogram equalization for image enhancement. This function will enhance the contrast of the image and will bring some details (but also noise! Don't 100% rely on it!)&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-py"&gt;from skimage.data import camera
+from skimage.restoration import denoise_bilateral, denoise_wavelet
+
+original = camera()
 enhanced = equalize_hist(original)
-image = rescale(enhanced, 0, 255).astype("uint8")
-```
-And the result is pretty evident&lt;/p&gt;
+image = rescale(enhanced, 0, 255).astype(&amp;quot;uint8&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And the result is pretty evident&lt;/p&gt;
 &lt;figure&gt;
   &lt;img src="https://iliailmer.github.io/images/enhancement-measure/camera_enh.png?raw=true" alt="comparison"/&gt;
   &lt;figcaption&gt;Quality comparison.&lt;/figcaption&gt;
@@ -1920,56 +1963,59 @@ And the result is pretty evident&lt;/p&gt;
 &lt;p&gt;Enhancement of images is an important preprocessing step in any image related system. Getting rid of noise, brightening, extraction of details - all of this helps in future steps, like feature extraction/engineering. There are many image enhancement techniques out there, let us look at one that uses a function which commonly is seen in neural networks&lt;/p&gt;
 &lt;h1 id="sigmoid-function"&gt;Sigmoid function&lt;/h1&gt;
 &lt;p&gt;For all code below we will need &lt;code&gt;matplotlib.pyplot, skimage&lt;/code&gt; and &lt;code&gt;numpy&lt;/code&gt;. &lt;code&gt;skimage&lt;/code&gt; is my preference of image processing library, I find it easy to understand and, if you want to modify something, you can always look under the hood of any function.&lt;/p&gt;
-&lt;p&gt;So, we will need
-&lt;code&gt;python
-from matplotlib import pyplot as plt
-%matplotlib inline&lt;/code&gt;
-for plotting,
-```python
-from skimage.data import astronaut
-image = astronaut()&lt;/p&gt;
-&lt;p&gt;from skimage.util import img_as_float64  # make image in range [0..255], 8-bit integers
-```
-for image, image datatype adjustment and for some feature visualization, respectively.&lt;/p&gt;
-&lt;p&gt;Now, time for some visualization.
-&lt;code&gt;python
-plt.figure(figsize=(10,9))
+&lt;p&gt;So, we will need&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from matplotlib import pyplot as plt
+%matplotlib inline
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;for plotting,&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from skimage.data import astronaut
+image = astronaut()
+
+from skimage.util import img_as_float64  # make image in range [0..255], 8-bit integers
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;for image, image datatype adjustment and for some feature visualization, respectively.&lt;/p&gt;
+&lt;p&gt;Now, time for some visualization.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;plt.figure(figsize=(10,9))
 plt.imshow(image)
-plt.axis('off');&lt;/code&gt;&lt;/p&gt;
+plt.axis('off');
+&lt;/code&gt;&lt;/pre&gt;
 &lt;figure&gt;
   &lt;img src="https://iliailmer.github.io/images/enhancement-images/astronaut.png?raw=true" alt="astronaut"/&gt;
   &lt;figcaption&gt;Our base image, astronaut.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;Let's make sure we have our sigmoid function correctly defined:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;python
-def sigmoid(x):
-    return 1/(1+np.exp(-x))&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def sigmoid(x):
+    return 1/(1+np.exp(-x))
+&lt;/code&gt;&lt;/pre&gt;
 &lt;figure&gt;
   &lt;img src="https://iliailmer.github.io/images/enhancement-images/sigmoid.png" alt="sigmoid"/&gt;
   &lt;figcaption&gt;A simple sigmoid.&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;!--![](/assets/post_imgs/enhancement-images/sigmoid.png?raw=true)--&gt;
 
-&lt;p&gt;So, how do we use it to enhance the image? Well, let's look at the code:
-```python
-image = astronaut()&lt;/p&gt;
-&lt;p&gt;image_ = np.zeros_like(image, dtype="float64")
+&lt;p&gt;So, how do we use it to enhance the image? Well, let's look at the code:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;image = astronaut()
+
+image_ = np.zeros_like(image, dtype=&amp;quot;float64&amp;quot;)
 def sigmoid(x):
-    return 1/(1+np.exp(-x))&lt;/p&gt;
-&lt;p&gt;def sigm_enh(I, alpha, beta):
+    return 1/(1+np.exp(-x))
+
+def sigm_enh(I, alpha, beta):
     I = img_as_float64(I)
-    I_out = I&lt;em&gt;sigmoid(alpha&lt;/em&gt;(I-beta))#
-    return I_out&lt;/p&gt;
-&lt;p&gt;for i in range(3):
-    image_[...,i] = sigm_enh(image[...,i],  2, 50)#float(image.mean()))&lt;/p&gt;
-&lt;p&gt;fig, ax = plt.subplots(nrows=1, ncols = 2, figsize=(20,9))
-ax[0].axis("off")
+    I_out = I*sigmoid(alpha*(I-beta))#
+    return I_out
+
+for i in range(3):
+    image_[...,i] = sigm_enh(image[...,i],  2, 50)#float(image.mean()))
+
+fig, ax = plt.subplots(nrows=1, ncols = 2, figsize=(20,9))
+ax[0].axis(&amp;quot;off&amp;quot;)
 ax[0].imshow(astronaut())
-ax[1].axis("off")
+ax[1].axis(&amp;quot;off&amp;quot;)
 ax[1].imshow(rescale(image_,255))
-```
-and the result:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and the result:&lt;/p&gt;
 &lt;figure&gt;
   &lt;img src="https://iliailmer.github.io/images/enhancement-images/astro_sigmoid_dark.png?raw=true" alt="sigmoid_enh1"/&gt;
   &lt;figcaption&gt;Application of the code above.&lt;/figcaption&gt;
@@ -1983,32 +2029,39 @@ and the result:&lt;/p&gt;
 &lt;p&gt;This is a simple way to bring image brightness up or down, especially comparing the results to some sort of metric (say, signal-to-noise ratio, or mean-squared error). In a different post, I will show a measure of image quality that our computer vision prof showed us (it's pretty cool, but has its own quirks).&lt;/p&gt;
 &lt;p&gt;We should try to do a little better/advanced with image enhancement. A function introduced in &lt;a href="https://www.researchgate.net/profile/Vikrant_Bhateja2/publication/267338917_Mammographic_Image_Enhancement_using_Double_Sigmoid_Transformation_Function/links/544de7cb0cf2d6347f45d0d0/Mammographic-Image-Enhancement-using-Double-Sigmoid-Transformation-Function.pdf"&gt;this paper&lt;/a&gt; dubbed "double sigmoid" looks something like this&lt;/p&gt;
 &lt;p&gt;&lt;span class="math"&gt;\( \sigma_{double} = \mathrm{sign}(x-x_1) \exp \left(1- \frac{(x-x_1)^2}{s}\right)\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;And the plot of it
-&lt;code&gt;python
-x = np.linspace(-10, 10, num=100)
-plt.plot(x, double_sigmoid(x,0,2))&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And the plot of it&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;x = np.linspace(-10, 10, num=100)
+plt.plot(x, double_sigmoid(x,0,2))
+&lt;/code&gt;&lt;/pre&gt;
 &lt;figure&gt;
   &lt;img src="https://iliailmer.github.io/images/enhancement-images/double_sigmoid_sample.png" alt="sigmoid_enh2"/&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;which is similar to two sigmoids complementing each other. Using the technique from the paper on a colored image, we need to be careful because this method is very sensitive to input parameters.
-```python
-image = astronaut()&lt;/p&gt;
-&lt;p&gt;image_ = np.zeros_like(image, dtype="float64")&lt;/p&gt;
-&lt;p&gt;def double_sigmoid(x, x_1, s):
-    return np.sign(x - x_1) * (1 - np.exp(-((x - x_1) / s) ** 2))&lt;/p&gt;
-&lt;p&gt;def double_sigm_enh(I, x_1, k, s, b):
+&lt;p&gt;which is similar to two sigmoids complementing each other. Using the technique from the paper on a colored image, we need to be careful because this method is very sensitive to input parameters.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;image = astronaut()
+
+image_ = np.zeros_like(image, dtype=&amp;quot;float64&amp;quot;)
+
+def double_sigmoid(x, x_1, s):
+    return np.sign(x - x_1) * (1 - np.exp(-((x - x_1) / s) ** 2))
+
+
+def double_sigm_enh(I, x_1, k, s, b):
     a = 1 / (double_sigmoid(k * (1 - b), x_1, s) - double_sigmoid(-k * (1 + b), x_1, s))
     I_out = a * (double_sigmoid(k * (I - b), x_1, s) - double_sigmoid(-k * (I + b), x_1, s))
-    return I_out&lt;/p&gt;
-&lt;p&gt;for i in range(3):
-    image_[...,i] = double_sigm_enh(image[...,i].astype("float64"), k=0.9, b=0.0, x_1=0, s=100)&lt;/p&gt;
-&lt;p&gt;fig, ax = plt.subplots(nrows=1, ncols = 2, figsize=(20,9))
-ax[0].axis("off")
+    return I_out
+
+
+for i in range(3):
+    image_[...,i] = double_sigm_enh(image[...,i].astype(&amp;quot;float64&amp;quot;), k=0.9, b=0.0, x_1=0, s=100)
+
+
+fig, ax = plt.subplots(nrows=1, ncols = 2, figsize=(20,9))
+ax[0].axis(&amp;quot;off&amp;quot;)
 ax[0].imshow(astronaut())
-ax[1].axis("off")
+ax[1].axis(&amp;quot;off&amp;quot;)
 ax[1].imshow(rescale(image_,255))
-```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This can also be applied to grey-level images. The problem with this method of enhancement is that it heavily relies on a careful choice of parameters and is very sensitive to their values.&lt;/p&gt;
 &lt;p&gt;I really like that we can always find interesting applications of mathematical functions for image quality enhancement. In the next post I plan to talk about a measure that can be used to describe image quality.&lt;/p&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {

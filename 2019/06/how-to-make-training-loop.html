@@ -187,8 +187,7 @@
 </ul>
 <p>This last step we acknowledge that the method for optimization of our model is based on a gradient descent. It can be eqither Adam, SGD, or any other (RAdam is the brand new one which seems to beat state of the art).</p>
 <p>In code, we can put it in the form like this:</p>
-<p>```python
-def train(epoch):
+<pre><code class="language-python">def train(epoch):
   model.train()  # preparing model for training
   for batch in training_set:
     x, y = batch  # unpack the batch
@@ -201,12 +200,12 @@ def train(epoch):
     # calculate the gradient using backpropagation
     loss.backward()
     # take a step with the optimizer
-    optimizer.step()</p>
-<p>```</p>
+    optimizer.step()
+
+</code></pre>
 <h3 id="a-trick-for-better-training-with-lower-memory">A Trick for Better Training with Lower Memory</h3>
 <p>A small batch can result in a small gradient. This, in turn, leads to a problem called <a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem">vanishing gradient problem</a>: the value is so small, computer simple treats it as zero (underflow). To avoid it, a trick of accumulating gradient as you iterate through the dataset. I saw a practical implementation in this <a href="https://www.kaggle.com/c/understanding_cloud_organization/discussion/105614#latest-662360">discussion</a>.</p>
-<p><code>python
-def train_accumulate(epoch, accumulation_step = 1):
+<pre><code class="language-python">def train_accumulate(epoch, accumulation_step = 1):
   model.eval()  # preparing model for training
   for idx, batch in enumerate(training_set):
     x, y = batch  # unpack the batch
@@ -220,7 +219,8 @@ def train_accumulate(epoch, accumulation_step = 1):
       # take a step with the optimizer once
       # we accumulated enough gradients
       optimizer.step()
-      optimizer.zero_grad()</code></p>
+      optimizer.zero_grad()
+</code></pre>
 <h2 id="in-closing-abstracting-training-loop">In Closing: abstracting training loop</h2>
 <p>In this post I summarized my experience in building a training loop for PyTorch. Lately, I have been using a more abstracted way of training through <a href="https://catalyst-team.github.io/catalyst/">Catalyst</a>. It is a great tool for higher level abstraction during training and a lot of hardwork has been done to take away the hard part of training.</p>
 <p>Nevertheless, both, I believe, are equally important: the abstract and the explicit methods.</p>
