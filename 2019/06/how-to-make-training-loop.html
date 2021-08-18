@@ -187,40 +187,41 @@
 </ul>
 <p>This last step we acknowledge that the method for optimization of our model is based on a gradient descent. It can be eqither Adam, SGD, or any other (RAdam is the brand new one which seems to beat state of the art).</p>
 <p>In code, we can put it in the form like this:</p>
-<pre><code class="language-python">def train(epoch):
-  model.train()  # preparing model for training
-  for batch in training_set:
-    x, y = batch  # unpack the batch
-    # the step below is necessary so that we update the gradient only pertinent to the current batch
-    optimizer.zero_grad()
-    # compute the output
-    output = model(x.cuda())
-    # calculate the loss function
-    loss = criterion(output, y.cuda())
-    # calculate the gradient using backpropagation
-    loss.backward()
-    # take a step with the optimizer
-    optimizer.step()
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>  <span class="c1"># preparing model for training</span>
+  <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">training_set</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>  <span class="c1"># unpack the batch</span>
+    <span class="c1"># the step below is necessary so that we update the gradient only pertinent to the current batch</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="c1"># compute the output</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
+    <span class="c1"># calculate the loss function</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
+    <span class="c1"># calculate the gradient using backpropagation</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="c1"># take a step with the optimizer</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</code></pre></div>
 
-</code></pre>
 <h3 id="a-trick-for-better-training-with-lower-memory">A Trick for Better Training with Lower Memory</h3>
 <p>A small batch can result in a small gradient. This, in turn, leads to a problem called <a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem">vanishing gradient problem</a>: the value is so small, computer simple treats it as zero (underflow). To avoid it, a trick of accumulating gradient as you iterate through the dataset. I saw a practical implementation in this <a href="https://www.kaggle.com/c/understanding_cloud_organization/discussion/105614#latest-662360">discussion</a>.</p>
-<pre><code class="language-python">def train_accumulate(epoch, accumulation_step = 1):
-  model.eval()  # preparing model for training
-  for idx, batch in enumerate(training_set):
-    x, y = batch  # unpack the batch
-    # compute the output
-    output = model(x.cuda())
-    # calculate the loss function
-    loss = criterion(output, y.cuda())
-    # calculate the gradient using backpropagation
-    loss.backward()
-    if idx%accumulation_step==0:
-      # take a step with the optimizer once
-      # we accumulated enough gradients
-      optimizer.step()
-      optimizer.zero_grad()
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">train_accumulate</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">accumulation_step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>  <span class="c1"># preparing model for training</span>
+  <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">training_set</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>  <span class="c1"># unpack the batch</span>
+    <span class="c1"># compute the output</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
+    <span class="c1"># calculate the loss function</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
+    <span class="c1"># calculate the gradient using backpropagation</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">idx</span><span class="o">%</span><span class="n">accumulation_step</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+      <span class="c1"># take a step with the optimizer once</span>
+      <span class="c1"># we accumulated enough gradients</span>
+      <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+      <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</code></pre></div>
+
 <h2 id="in-closing-abstracting-training-loop">In Closing: abstracting training loop</h2>
 <p>In this post I summarized my experience in building a training loop for PyTorch. Lately, I have been using a more abstracted way of training through <a href="https://catalyst-team.github.io/catalyst/">Catalyst</a>. It is a great tool for higher level abstraction during training and a lot of hardwork has been done to take away the hard part of training.</p>
 <p>Nevertheless, both, I believe, are equally important: the abstract and the explicit methods.</p>

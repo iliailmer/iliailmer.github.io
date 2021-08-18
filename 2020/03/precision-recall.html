@@ -189,50 +189,55 @@
 6. Apply the best model to `df_test` and compute the **confusion matrix**, **precision score**, and **recall score**. Are the results similar to those from `df_validation`? -->
 
 <p>We will dive into the solution, but first, some imports:</p>
-<pre><code class="language-python">import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-%matplotlib inline
-import numpy as np
-import gc
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, precision_score, recall_score
-from sklearn.linear_model import LogisticRegressionCV, LogisticRegression
-plt.style.use('fivethirtyeight')
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">gc</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegressionCV</span><span class="p">,</span> <span class="n">LogisticRegression</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+</code></pre></div>
+
 <p>A plotting helper:</p>
-<pre><code class="language-py">def plot_cm(y_pred, y_true):
-    &quot;&quot;&quot;Plot confusion matrix based on
-       true vs. predicted values.&quot;&quot;&quot;
-    cm = confusion_matrix(y_true=y_true, y_pred=y_pred)
-    prec = precision_score(y_true=y_true, y_pred=y_pred)
-    rec = recall_score(y_true=y_true, y_pred=y_pred)
-    sns.heatmap(cm, annot=True)
-    plt.title(f&quot;Precision: {prec:.2f}, Recall: {rec:.2f}&quot;)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_cm</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plot confusion matrix based on</span>
+<span class="sd">       true vs. predicted values.&quot;&quot;&quot;</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">prec</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">rec</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precision: </span><span class="si">{</span><span class="n">prec</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Recall: </span><span class="si">{</span><span class="n">rec</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
 <p>Finally, reading the <a href="https://github.com/JWarmenhoven/ISLR-python/blob/master/Notebooks/Data/Default.xlsx?raw=true">data</a>:</p>
-<pre><code class="language-python">df = pd.read_excel(&quot;Default.xlsx&quot;, header=0).iloc[:, 1:]
+<div class="codehilite"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;Default.xlsx&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
 
-# convert strings to binary int32 0,1 values
+<span class="c1"># convert strings to binary int32 0,1 values</span>
 
-df['default'] = df['default'].apply(lambda x: 0 if x == 'No' else 1).astype(
-    np.int32)
-df['student'] = df['student'].apply(lambda x: 0 if x == 'No' else 1).astype(
-    np.int32)
-X = df.drop(['default'], axis=1)
-y = df['default']
-</code></pre>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;student&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;student&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;default&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span>
+</code></pre></div>
+
 <p>To save memory: convert applicable columns from float64(double) to float32(float). This may help with much bigger datasets, this one is relatively small, though. Applicable here means max value of a column falls within the limits of the float32 range:</p>
-<pre><code class="language-py">for column in df.columns:
-    if df[column].values.max() &lt; np.finfo(np.float32).max:
-        if df[column].values.min() &gt; np.finfo(np.float32).min:
-            df[column] = df[column].values.astype(np.float32)
-# garbage collector
-gc.collect()
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="c1"># garbage collector</span>
+<span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+
 <p>Let's look at the distribution of the target value:</p>
-<pre><code class="language-python">ax = sns.countplot(data=df, x='default')
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_5_0.png" /></p>
 <p>The histogram above verifies the problem: the data is highly imbalanced. To train a linear regression classifier, we will try to remedy the issue with three approaches:</p>
 <ol>
@@ -242,36 +247,38 @@ gc.collect()
 </ol>
 <h2 id="stratified-sampling">Stratified Sampling</h2>
 <p>To sample in a way that the imbalance is preserved (stratified) we will pass an argument <code>stratify</code> to the <code>train_test_split</code> function from <code>sklearn</code>. Specifically, we will pass the column of labels <code>df['default']</code> so that the function determines the exact distribution.</p>
-<pre><code class="language-python">df_train, df_test, y_train, y_test = train_test_split(X,
-                                                      y,
-                                                      random_state=42,
-                                                      stratify=df['default'],
-                                                      train_size=0.6)
+<div class="codehilite"><pre><span></span><code><span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span>
+                                                      <span class="n">y</span><span class="p">,</span>
+                                                      <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                                                      <span class="n">stratify</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">],</span>
+                                                      <span class="n">train_size</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 
-df_val, df_test, y_val, y_test = train_test_split(df_test,
-                                                  y_test,
-                                                  random_state=42,
-                                                  stratify=y_test,
-                                                  train_size=0.5)
-</code></pre>
+<span class="n">df_val</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span>
+                                                  <span class="n">y_test</span><span class="p">,</span>
+                                                  <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                                                  <span class="n">stratify</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span>
+                                                  <span class="n">train_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</code></pre></div>
+
 <p>The plot below will illustrate the distribution of labels in the sampled data.</p>
-<pre><code class="language-python">fig, ax = plt.subplots(ncols=3, figsize=(12, 4))
-fig.suptitle(&quot;Left to right: train, val, test label counts.&quot;)
-for i, data in zip(range(3), (y_train, y_val, y_test)):
-    sns.countplot(x=data, ax=ax[i])
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Left to right: train, val, test label counts.&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_11_0.png" /></p>
-<pre><code class="language-python">print(f'Train data to original dataset: {len(df_train)/len(X) * 100}%')
-print(f'Validation data to original dataset: {len(df_val)/len(X) * 100}%')
-print(f'Test data to original dataset: {len(df_test)/len(X) * 100}%')
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Train data to original dataset: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Validation data to original dataset: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_val</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test data to original dataset: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
 
-print(f'\nNegative labels in original data: {len(X[y==0])/len(X) * 100 :.3}%')
-print(f'Negative labels in train data: {(len(df_train[y_train==0])/len(df_train) * 100) :.3}%')
-print(f'Negative labels in validation data: {(len(df_val[y_val==0])/len(df_val) * 100) :.3}%')
-print(f'Negative labels in test data: {(len(df_test[y_test==0])/len(df_test) * 100) :.3}%')
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Negative labels in original data: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span> <span class="si">:</span><span class="s1">.3</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Negative labels in train data: </span><span class="si">{</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="n">y_train</span><span class="o">==</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="si">:</span><span class="s1">.3</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Negative labels in validation data: </span><span class="si">{</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_val</span><span class="p">[</span><span class="n">y_val</span><span class="o">==</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df_val</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="si">:</span><span class="s1">.3</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Negative labels in test data: </span><span class="si">{</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="n">y_test</span><span class="o">==</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="si">:</span><span class="s1">.3</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+</code></pre></div>
 
-</code></pre>
-<pre><code>Train data to original dataset: 60.0%
+<div class="codehilite"><pre><span></span><code>Train data to original dataset: 60.0%
 Validation data to original dataset: 20.0%
 Test data to original dataset: 20.0%
 
@@ -279,79 +286,89 @@ Negative labels in original data: 96.7%
 Negative labels in train data: 96.7%
 Negative labels in validation data: 96.7%
 Negative labels in test data: 96.7%
-</code></pre>
+</code></pre></div>
+
 <h2 id="oversampling">Oversampling</h2>
 <p>For oversampling we will use a package called <code>imbalanced-learn</code> available <a href="https://pypi.org/project/imbalanced-learn/">from PyPI</a>. It has built-in classes for various over- and under-sampling methods. We will use basic <code>RandomOverSampler</code> and <code>RandomUnderSampler</code> classes.</p>
 <p>The package is built with similarities to other <code>sklearn</code> conventions, so calling <code>fit</code> methods will give us the necessary results.</p>
-<pre><code class="language-python">from imblearn.over_sampling import RandomOverSampler
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <span class="n">RandomOverSampler</span>
 
-ros = RandomOverSampler(random_state=42)  # initialize
-df_train_over, y_train_over = ros.fit_sample(
-    df_train, y=y_train)  # resample training data
-ax = sns.countplot(x=y_train_over)  # plot value counts for the labels
-t = plt.suptitle(&quot;Oversampled value counts.&quot;)
-</code></pre>
+<span class="n">ros</span> <span class="o">=</span> <span class="n">RandomOverSampler</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># initialize</span>
+<span class="n">df_train_over</span><span class="p">,</span> <span class="n">y_train_over</span> <span class="o">=</span> <span class="n">ros</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span>
+    <span class="n">df_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>  <span class="c1"># resample training data</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y_train_over</span><span class="p">)</span>  <span class="c1"># plot value counts for the labels</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Oversampled value counts.&quot;</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_15_0.png" /></p>
 <h2 id="underspamling">Underspamling</h2>
-<pre><code class="language-python">from imblearn.under_sampling import RandomUnderSampler
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">imblearn.under_sampling</span> <span class="kn">import</span> <span class="n">RandomUnderSampler</span>
 
-rus = RandomUnderSampler(random_state=42, )  # initialize
-df_train_under, y_train_under = rus.fit_sample(df_train, y=y_train)  # resample
-ax = sns.countplot(x=y_train_under)  # plot
-t = plt.suptitle(&quot;Undersampled value counts.&quot;)
-</code></pre>
+<span class="n">rus</span> <span class="o">=</span> <span class="n">RandomUnderSampler</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="p">)</span>  <span class="c1"># initialize</span>
+<span class="n">df_train_under</span><span class="p">,</span> <span class="n">y_train_under</span> <span class="o">=</span> <span class="n">rus</span><span class="o">.</span><span class="n">fit_sample</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>  <span class="c1"># resample</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y_train_under</span><span class="p">)</span>  <span class="c1"># plot</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Undersampled value counts.&quot;</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_17_0.png" /></p>
 <h2 id="train-naively-without-stratification">Train naively without stratification</h2>
 <p>Let us first train logistic regression model on a similarly split data without stratification.</p>
-<pre><code class="language-python">df_train_naive, df_test_naive, y_train_naive, y_test_naive = train_test_split(
-    X, y, random_state=42, train_size=0.6)
+<div class="codehilite"><pre><span></span><code><span class="n">df_train_naive</span><span class="p">,</span> <span class="n">df_test_naive</span><span class="p">,</span> <span class="n">y_train_naive</span><span class="p">,</span> <span class="n">y_test_naive</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 
-df_val_naive, df_test_naive, y_val_naive, y_test_naive = train_test_split(
-    df_test_naive, y_test_naive, random_state=42, train_size=0.6)
-</code></pre>
-<pre><code class="language-python">logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
-logreg.fit(df_train_naive, y_train_naive)
-y_pred = logreg.predict(df_val_naive)
+<span class="n">df_val_naive</span><span class="p">,</span> <span class="n">df_test_naive</span><span class="p">,</span> <span class="n">y_val_naive</span><span class="p">,</span> <span class="n">y_test_naive</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">df_test_naive</span><span class="p">,</span> <span class="n">y_test_naive</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+</code></pre></div>
 
-plot_cm(y_val_naive, y_pred)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">logreg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">logreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train_naive</span><span class="p">,</span> <span class="n">y_train_naive</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_val_naive</span><span class="p">)</span>
+
+<span class="n">plot_cm</span><span class="p">(</span><span class="n">y_val_naive</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_21_0.png" /></p>
 <p>We observe zero precision and zero recall scores and the model overfits on the '0' class, which is expected and is bad.</p>
 <h2 id="train-on-stratified">Train on Stratified</h2>
 <p>Below we train on the stratified data. We observe a better recall and precision scores and the predicted result on validation data follows the distribution of labels as in the training data (note that this heuristic is absolutely non-strict and does not necessarily indicate whether a model is good or bad).</p>
-<pre><code class="language-python">logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
-logreg.fit(df_train, y_train)
-y_pred = logreg.predict(df_val)
+<div class="codehilite"><pre><span></span><code><span class="n">logreg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">logreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_val</span><span class="p">)</span>
 
-plot_cm(y_val, y_pred)
-</code></pre>
+<span class="n">plot_cm</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_25_0.png" /></p>
-<pre><code class="language-python">ax = plt.subplot()
-ax = sns.countplot(y_pred, ax=ax)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_26_0.png" /></p>
 <h2 id="train-on-oversampled">Train on Oversampled</h2>
 <p>When training on Oversampled data we get a very high precision score but lose the recall score.</p>
-<pre><code class="language-python">logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
-logreg.fit(df_train_over, y_train_over)
-y_pred = logreg.predict(df_val)
+<div class="codehilite"><pre><span></span><code><span class="n">logreg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">logreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train_over</span><span class="p">,</span> <span class="n">y_train_over</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_val</span><span class="p">)</span>
 
-plot_cm(y_val, y_pred)
-</code></pre>
+<span class="n">plot_cm</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_29_0.png" /></p>
-<pre><code class="language-python">y_pred = logreg.predict(df_test)
+<div class="codehilite"><pre><span></span><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
 
-plot_cm(y_test, y_pred)
-</code></pre>
+<span class="n">plot_cm</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_30_0.png" /></p>
 <h2 id="train-on-undersampled">Train on Undersampled</h2>
 <p>A similar behavior occurs in the undersampled case, we see increase in Precision compared to naive and stratified cases, but both precision and recall are a bit lower that oversampled case.</p>
-<pre><code class="language-python">logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
-logreg.fit(df_train_under, y_train_under)
-y_pred = logreg.predict(df_val)
+<div class="codehilite"><pre><span></span><code><span class="n">logreg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">logreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train_under</span><span class="p">,</span> <span class="n">y_train_under</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_val</span><span class="p">)</span>
 
-plot_cm(y_val, y_pred)
-</code></pre>
+<span class="n">plot_cm</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_33_0.png" /></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>In this assignment, we considered a problem of default prediction for a credit card holder. We omitted most of preliminary data analysis and instead focused on basic model building for a highly imbalanced dataset. The proportion of negative labels is 97% out of all given data. Let us briefly outline meaning behind precision and recall scores.</p>
@@ -359,17 +376,19 @@ plot_cm(y_val, y_pred)
 <p><strong>Recall score</strong>, on the other hand, shows the ratio of true positives versus the sum of true positive and false negative predictions. That is, if the prediction's number of true positive cases is trumped by the number of false negative cases, the recall score will be higher.</p>
 <p>Card default is essentially the inability to pay off the card's balance. In this case, we are not willing to accept a false negative prediction: if we forecast that the default does not happen and in reality it does then we (the bank) are in the losing position. On the other hand, the false positive case does not affect us because in the worst case the cardholder pays off their debt and the default does not happen.</p>
 <p>Since we want to be as effective as possible in our prediction, we must recommend a model with a higher recall score, which in this case is a stratified logistic recall score model.</p>
-<pre><code class="language-python">logreg = LogisticRegression(penalty='none', max_iter=1e4, random_state=42)
-logreg.fit(df_train, y_train)
-y_pred = logreg.predict(df_val)
+<div class="codehilite"><pre><span></span><code><span class="n">logreg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">logreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_val</span><span class="p">)</span>
 
-plot_cm(y_val, y_pred)
-</code></pre>
+<span class="n">plot_cm</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_36_0.png" /></p>
-<pre><code class="language-python">y_pred = logreg.predict(df_test)
+<div class="codehilite"><pre><span></span><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
 
-plot_cm(y_test, y_pred)
-</code></pre>
+<span class="n">plot_cm</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="https://iliailmer.github.io/images/2020-03-02-precision-recall/output_37_0.png" /></p>
   </div>
   <div class="tag-cloud">

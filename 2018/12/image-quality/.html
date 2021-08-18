@@ -184,43 +184,46 @@
 <p>The addition <span class="math">\(W_{lp}+1\)</span> implies that we add 1 to all elements in the window <span class="math">\(W_{lp}\)</span>.</p>
 <p>I prefer to scale image to have intensities between 0 and 1, but it really is not important, you can use any range as long as it is <code>float</code> type. This is because of the nature of the division and <span class="math">\(\log\)</span> operators.</p>
 <p>And here's the code for this function:</p>
-<pre><code class="language-python">def EME(image, window_width, window_height):
-  height, width = image.shape
-  sum_ = 0
-  k = 0                                    # I just decided not to keep
-                                           # track of the blocks
-  # window_height/ window_width variables take care of number of blocks
-  H = np.int(np.floor(window_height / 2))  # range in height, distance from the
-                                           # center of the window
-  W = np.int(np.floor(window_width / 2))   # range in width, same as above
-  for row in range(0 + H, height - H + 1, window_height):
-      for column in range(0 + W, width - W + 1, window_width):
-        window = image[row - H:row + H + 1, column - W:column + W + 1]
-        I_max = window.max()
-        I_min = window.min()
-        D = (I_max + 1) / (I_min + 1)
-        if D &lt; 0.02: # this is also an underflow precaution
-          D = 0.02
-        k += 1
-        sum_ += 20 * np.log(D)
-      return sum_ / k
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">EME</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">window_width</span><span class="p">,</span> <span class="n">window_height</span><span class="p">):</span>
+  <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>
+  <span class="n">sum_</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>                                    <span class="c1"># I just decided not to keep</span>
+                                           <span class="c1"># track of the blocks</span>
+  <span class="c1"># window_height/ window_width variables take care of number of blocks</span>
+  <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">window_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># range in height, distance from the</span>
+                                           <span class="c1"># center of the window</span>
+  <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">window_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>   <span class="c1"># range in width, same as above</span>
+  <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span> <span class="o">+</span> <span class="n">H</span><span class="p">,</span> <span class="n">height</span> <span class="o">-</span> <span class="n">H</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">window_height</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span> <span class="o">+</span> <span class="n">W</span><span class="p">,</span> <span class="n">width</span> <span class="o">-</span> <span class="n">W</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">window_width</span><span class="p">):</span>
+        <span class="n">window</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="n">row</span> <span class="o">-</span> <span class="n">H</span><span class="p">:</span><span class="n">row</span> <span class="o">+</span> <span class="n">H</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">column</span> <span class="o">-</span> <span class="n">W</span><span class="p">:</span><span class="n">column</span> <span class="o">+</span> <span class="n">W</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">I_max</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">I_min</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="p">(</span><span class="n">I_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">I_min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">D</span> <span class="o">&lt;</span> <span class="mf">0.02</span><span class="p">:</span> <span class="c1"># this is also an underflow precaution</span>
+          <span class="n">D</span> <span class="o">=</span> <span class="mf">0.02</span>
+        <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">sum_</span> <span class="o">+=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">sum_</span> <span class="o">/</span> <span class="n">k</span>
+</code></pre></div>
+
 <h1 id="examples">Examples</h1>
 <p>Let's try it out on some examples. What I am going to do here is, I will use the <code>skimage</code> library to obtain the data first.</p>
-<pre><code class="language-py">from skimage.data import camera() # my favourite at this point
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">camera</span><span class="p">()</span> <span class="c1"># my favourite at this point</span>
+</code></pre></div>
+
 <figure>
   <img src="https://iliailmer.github.io/images/enhancement-measure/camera.png?raw=true" alt="original"/>
   <figcaption>My favourite sample image.</figcaption>
 </figure>
 <p>And then lets use simple histogram equalization for image enhancement. This function will enhance the contrast of the image and will bring some details (but also noise! Don't 100% rely on it!)</p>
-<pre><code class="language-py">from skimage.data import camera
-from skimage.restoration import denoise_bilateral, denoise_wavelet
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">camera</span>
+<span class="kn">from</span> <span class="nn">skimage.restoration</span> <span class="kn">import</span> <span class="n">denoise_bilateral</span><span class="p">,</span> <span class="n">denoise_wavelet</span>
 
-original = camera()
-enhanced = equalize_hist(original)
-image = rescale(enhanced, 0, 255).astype(&quot;uint8&quot;)
-</code></pre>
+<span class="n">original</span> <span class="o">=</span> <span class="n">camera</span><span class="p">()</span>
+<span class="n">enhanced</span> <span class="o">=</span> <span class="n">equalize_hist</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">rescale</span><span class="p">(</span><span class="n">enhanced</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;uint8&quot;</span><span class="p">)</span>
+</code></pre></div>
+
 <p>And the result is pretty evident</p>
 <figure>
   <img src="https://iliailmer.github.io/images/enhancement-measure/camera_enh.png?raw=true" alt="comparison"/>

@@ -177,104 +177,111 @@
 <h2 id="the-original-code">The original code</h2>
 <p>The original *.m files were pulled from <a href="https://www.ebi.ac.uk/biomodels/">this</a> webpage using <code>wget</code> and their own API. Ordingary differential equation (ODE) models in those files contain a special function called <code>xdot</code>. It returns an array of <code>n</code> elements, which form right-hand side of an ODE.</p>
 <p>The function is usually defined in the form</p>
-<pre><code class="language-m">function xdot=f(x,t)
-    % define parameters as
-    C = 1.0;
-    % ...
-    xdot = zeros(..., ...);
-    % define each xdot(i) separately
-end
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">function</span><span class="w"> </span>xdot<span class="p">=</span><span class="nf">f</span><span class="p">(</span>x,t<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c">% define parameters as</span><span class="w"></span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="c">% ...</span><span class="w"></span>
+<span class="w">    </span><span class="n">xdot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">zeros</span><span class="p">(</span><span class="k">...</span><span class="c">, ...);</span><span class="w"></span>
+<span class="w">    </span><span class="c">% define each xdot(i) separately</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</code></pre></div>
+
 <p>What I wanted to see in the maple code was the following:</p>
-<pre><code class="language-py">#  define parameters as symbolic constants
-C := C:
+<div class="codehilite"><pre><span></span><code><span class="c1">#  define parameters as symbolic constants</span>
+<span class="n">C</span> <span class="o">:=</span> <span class="n">C</span><span class="p">:</span>
 
-#  define system of odes as array
+<span class="c1">#  define system of odes as array</span>
 
-sigma := [
-    diff(x1(t), t) = &lt;...&gt;,
-    &lt;...&gt;
-    diff(xn(t), t) = &lt;...&gt;
-]:
-</code></pre>
+<span class="n">sigma</span> <span class="o">:=</span> <span class="p">[</span>
+    <span class="n">diff</span><span class="p">(</span><span class="n">x1</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="o">&lt;...&gt;</span><span class="p">,</span>
+    <span class="o">&lt;...&gt;</span>
+    <span class="n">diff</span><span class="p">(</span><span class="n">xn</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="o">&lt;...&gt;</span>
+<span class="p">]:</span>
+</code></pre></div>
+
 <p>The best way to solve it I saw was to use regular expressions.</p>
 <h2 id="step-by-step">Step by step</h2>
 <p>Firstly, I had to get rid of Matlab comment and turn them into Maple compatible ones, hence the line</p>
-<pre><code class="language-py">out_program = re.findall(
-                r&quot;function xdot=f\(x,t\)(.*?)end&quot;, content, re.DOTALL
-            )[0].replace(&quot;%&quot;, &quot;#&quot;)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;function xdot=f\(x,t\)(.*?)end&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span><span class="p">)</span>
+</code></pre></div>
+
 <p>After that, we want to look at <code>if</code> statements. In Maple, conditional structure like <code>if</code> statements are written as</p>
-<pre><code class="language-pascal">if &lt;condition&gt; then &lt;code&gt; end:
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span> <span class="k">then</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span> <span class="k">end</span><span class="o">:</span>
+</code></pre></div>
+
 <p>To do that, we utilize groups: <code>(..)</code>. The regex is</p>
-<pre><code class="language-py">out_program = re.sub(
-                r&quot;if(\(\w*\))(.*;)end&quot;,
-                r&quot;if \1 then \2\nend if:&quot;,
-                out_program,
-                flags=re.DOTALL,
-            )
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;if(\(\w*\))(.*;)end&quot;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s2">&quot;if \1 then \2\nend if:&quot;</span><span class="p">,</span>
+                <span class="n">out_program</span><span class="p">,</span>
+                <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">,</span>
+            <span class="p">)</span>
+</code></pre></div>
+
 <p>The <code>if(\(\w*\))(.*;)end</code> regex gets the condition <code>\(\w*\)</code> and the code (.*;) between <code>if</code> / <code>end</code> to place those between <code>if</code>, <code>then</code>, <code>end</code> in positions marked by <code>\1</code> and <code>\2</code>.</p>
 <p>Remeber, that we do not want to have <code>xdot(i)=...</code> assigned manually anymore in Maple, we want to see Maple syntax: <code>diff(x(t),t) = ...</code>, so we do the following regex:</p>
-<pre><code class="language-py">out_program = re.sub(
-                r&quot;xdot\((\d+)\) \=( .*);&quot;, r&quot;\ndiff(x\1(t), t) = \2,&quot;, out_program
-            )
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;xdot\((\d+)\) \=( .*);&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\ndiff(x\1(t), t) = \2,&quot;</span><span class="p">,</span> <span class="n">out_program</span>
+            <span class="p">)</span>
+</code></pre></div>
+
 <p>Again, notice the groups that capture stuff we want to preserve, namely the index of <code>xdot</code> and the right-hand sides.</p>
 <p>Next few lines do some cosmetic work, namely, rename any <code>x(i)</code> appearance into <code>xi(t)</code>, then make all variable assingments symbolic constants (i.e. if we have <code>c=0</code> we want to have <code>c:=c</code>). Finally, if we have Matlab assignments that do not use constants (i.e. <code>c=0; x = c+x;</code>) we want to keep them (i.e. <code>c:=c: x:=c+x:</code>).</p>
-<pre><code class="language-py">out_program = re.sub(r&quot;x\((\d+)\)&quot;, r&quot;x\1(t)&quot;, out_program) # x(i) -&gt; xi(t)
-out_program = re.sub(r&quot;(\w+)\=\d*\..*&quot;, r&quot;\1:=\1:&quot;, out_program) # c=NUMBER -&gt; c:=c:
-out_program = re.sub(r&quot;(\w+)\=(.*);&quot;, r&quot;\1:=\2:&quot;, out_program) # Left-side = ANYTHING NOT METNIONED ABOVE -&gt; same but with := sign
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;x\((\d+)\)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;x\1(t)&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># x(i) -&gt; xi(t)</span>
+<span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)\=\d*\..*&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1:=\1:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># c=NUMBER -&gt; c:=c:</span>
+<span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)\=(.*);&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1:=\2:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># Left-side = ANYTHING NOT METNIONED ABOVE -&gt; same but with := sign</span>
+</code></pre></div>
+
 <p>Finally, putting it all together we can run:</p>
-<pre><code class="language-py">import re
-from glob import glob
-from tqdm.auto import tqdm
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">tqdm.auto</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
-files = glob(&quot;files/*/*/*.m&quot;)
+<span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;files/*/*/*.m&quot;</span><span class="p">)</span>
 
-for i in tqdm(range(len(files))):
-    with open(files[i], &quot;r&quot;) as f:
-        try:
-            content = f.read()
-        except:
-            print(files[i], &quot;could not read&quot;)
-        try:
-            out_program = re.findall(
-                r&quot;function xdot=f\(x,t\)(.*?)end&quot;, content, re.DOTALL
-            )[0].replace(&quot;%&quot;, &quot;#&quot;)
-            out_program = re.sub(
-                r&quot;if(\(\w*\))(.*;)end&quot;,
-                r&quot;if \1 then \2\nend if:&quot;,
-                out_program,
-                flags=re.DOTALL,
-            )
-            out_program = re.sub(
-                r&quot;xdot\((\d+)\) \=( .*);&quot;, r&quot;\ndiff(x\1(t), t) = \2,&quot;, out_program
-            )
-            out_program = re.sub(r&quot;(xdot=zeros.*)&quot;, r&quot;# \1&quot;, out_program) # comment out declaration of xdot
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">))):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;could not read&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;function xdot=f\(x,t\)(.*?)end&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span><span class="p">)</span>
+            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;if(\(\w*\))(.*;)end&quot;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s2">&quot;if \1 then \2\nend if:&quot;</span><span class="p">,</span>
+                <span class="n">out_program</span><span class="p">,</span>
+                <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;xdot\((\d+)\) \=( .*);&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\ndiff(x\1(t), t) = \2,&quot;</span><span class="p">,</span> <span class="n">out_program</span>
+            <span class="p">)</span>
+            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(xdot=zeros.*)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;# \1&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># comment out declaration of xdot</span>
 
-            out_program = re.sub(r&quot;x\((\d+)\)&quot;, r&quot;x\1(t)&quot;, out_program)
-            out_program = re.sub(r&quot;(\w+)\=\d*\..*&quot;, r&quot;\1:=\1:&quot;, out_program)
-            out_program = re.sub(r&quot;(\w+)\=(.*);&quot;, r&quot;\1:=\2:&quot;, out_program)
-            # cosmetic work to make maple run and not complain about trailing comma
-            out_program = re.sub(
-                r&quot;(diff.*)&quot;, r&quot;sigma := [\n\1]:&quot;, out_program, flags=re.DOTALL
-            ).replace(&quot;,\n]&quot;, &quot;\n]&quot;)
+            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;x\((\d+)\)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;x\1(t)&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span>
+            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)\=\d*\..*&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1:=\1:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span>
+            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)\=(.*);&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1:=\2:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span>
+            <span class="c1"># cosmetic work to make maple run and not complain about trailing comma</span>
+            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;(diff.*)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;sigma := [\n\1]:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,</span><span class="se">\n</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">]&quot;</span><span class="p">)</span>
 
-            outname = files[i].split(&quot;.&quot;)[0] + &quot;.mpl&quot;
+            <span class="n">outname</span> <span class="o">=</span> <span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.mpl&quot;</span>
 
-            with open(outname, &quot;w&quot;) as output:
-                output.write(out_program)
-            import os
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outname</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+                <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">out_program</span><span class="p">)</span>
+            <span class="kn">import</span> <span class="nn">os</span>
 
-            os.system(&quot;mkdir -p new_examples&quot;)
-            os.system(f&quot;cp {outname} new_examples&quot;)
-        except:
-            print(files[i], &quot;Index not Found.&quot;)
+            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;mkdir -p new_examples&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cp </span><span class="si">{</span><span class="n">outname</span><span class="si">}</span><span class="s2"> new_examples&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;Index not Found.&quot;</span><span class="p">)</span>
+</code></pre></div>
 
-</code></pre>
 <p>Some stuff really specific to our project was omitted for brevity, but one can definitely add any other Maple/Matlab interaction here.</p>
   </div>
   <div class="tag-cloud">
