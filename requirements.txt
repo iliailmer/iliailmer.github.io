@@ -1,3 +1,5 @@
 pelican
 pip
 markdown
+beautifulsoup4
+html5lib

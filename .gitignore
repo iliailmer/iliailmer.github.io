@@ -1,4 +1,3 @@
-
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
@@ -147,11 +146,12 @@ output
 pelican-plugins
 pelican-themes
 
-
 !pelican-themes/Flex
-!pelican-themes/bootstrap2-dark
 !pelican-plugins/i18n_subsites
 !pelican-plugins/render_math
+!pelican-plugins/tipue_search
+!pelican-plugins/simple_footnotes
+!pelican-plugins/extract_toc
 .vscode
 # content
 .DS_Store
