@@ -18,7 +18,7 @@
   <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
   <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
 
   <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
@@ -174,10 +174,10 @@
 
   <div>
     <p>In this short post, I wanted to point out one interesting application of regular expressions I had to work on for my PhD research project. The code was meant as a technical tool to help tranlate some ordingary differential equation models from numerical (Matlab) to symbolic (Maple) code.</p>
-<h2 id="the-original-code">The original code</h2>
+<h2>The original code</h2>
 <p>The original *.m files were pulled from <a href="https://www.ebi.ac.uk/biomodels/">this</a> webpage using <code>wget</code> and their own API. Ordingary differential equation (ODE) models in those files contain a special function called <code>xdot</code>. It returns an array of <code>n</code> elements, which form right-hand side of an ODE.</p>
 <p>The function is usually defined in the form</p>
-<div class="codehilite"><pre><span></span><code><span class="k">function</span><span class="w"> </span>xdot<span class="p">=</span><span class="nf">f</span><span class="p">(</span>x,t<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span>xdot<span class="p">=</span><span class="nf">f</span><span class="p">(</span>x,t<span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="c">% define parameters as</span><span class="w"></span>
 <span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="c">% ...</span><span class="w"></span>
@@ -187,7 +187,7 @@
 </code></pre></div>
 
 <p>What I wanted to see in the maple code was the following:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">#  define parameters as symbolic constants</span>
+<div class="highlight"><pre><span></span><code><span class="c1">#  define parameters as symbolic constants</span>
 <span class="n">C</span> <span class="o">:=</span> <span class="n">C</span><span class="p">:</span>
 
 <span class="c1">#  define system of odes as array</span>
@@ -200,19 +200,19 @@
 </code></pre></div>
 
 <p>The best way to solve it I saw was to use regular expressions.</p>
-<h2 id="step-by-step">Step by step</h2>
+<h2>Step by step</h2>
 <p>Firstly, I had to get rid of Matlab comment and turn them into Maple compatible ones, hence the line</p>
-<div class="codehilite"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
                 <span class="sa">r</span><span class="s2">&quot;function xdot=f\(x,t\)(.*?)end&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
             <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>After that, we want to look at <code>if</code> statements. In Maple, conditional structure like <code>if</code> statements are written as</p>
-<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span> <span class="k">then</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span> <span class="k">end</span><span class="o">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span> <span class="k">then</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span> <span class="k">end</span><span class="o">:</span>
 </code></pre></div>
 
 <p>To do that, we utilize groups: <code>(..)</code>. The regex is</p>
-<div class="codehilite"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
                 <span class="sa">r</span><span class="s2">&quot;if(\(\w*\))(.*;)end&quot;</span><span class="p">,</span>
                 <span class="sa">r</span><span class="s2">&quot;if \1 then \2\nend if:&quot;</span><span class="p">,</span>
                 <span class="n">out_program</span><span class="p">,</span>
@@ -222,20 +222,20 @@
 
 <p>The <code>if(\(\w*\))(.*;)end</code> regex gets the condition <code>\(\w*\)</code> and the code (.*;) between <code>if</code> / <code>end</code> to place those between <code>if</code>, <code>then</code>, <code>end</code> in positions marked by <code>\1</code> and <code>\2</code>.</p>
 <p>Remeber, that we do not want to have <code>xdot(i)=...</code> assigned manually anymore in Maple, we want to see Maple syntax: <code>diff(x(t),t) = ...</code>, so we do the following regex:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
                 <span class="sa">r</span><span class="s2">&quot;xdot\((\d+)\) \=( .*);&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\ndiff(x\1(t), t) = \2,&quot;</span><span class="p">,</span> <span class="n">out_program</span>
             <span class="p">)</span>
 </code></pre></div>
 
 <p>Again, notice the groups that capture stuff we want to preserve, namely the index of <code>xdot</code> and the right-hand sides.</p>
 <p>Next few lines do some cosmetic work, namely, rename any <code>x(i)</code> appearance into <code>xi(t)</code>, then make all variable assingments symbolic constants (i.e. if we have <code>c=0</code> we want to have <code>c:=c</code>). Finally, if we have Matlab assignments that do not use constants (i.e. <code>c=0; x = c+x;</code>) we want to keep them (i.e. <code>c:=c: x:=c+x:</code>).</p>
-<div class="codehilite"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;x\((\d+)\)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;x\1(t)&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># x(i) -&gt; xi(t)</span>
+<div class="highlight"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;x\((\d+)\)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;x\1(t)&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># x(i) -&gt; xi(t)</span>
 <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)\=\d*\..*&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1:=\1:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># c=NUMBER -&gt; c:=c:</span>
 <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)\=(.*);&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1:=\2:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># Left-side = ANYTHING NOT METNIONED ABOVE -&gt; same but with := sign</span>
 </code></pre></div>
 
 <p>Finally, putting it all together we can run:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 <span class="kn">from</span> <span class="nn">tqdm.auto</span> <span class="kn">import</span> <span class="n">tqdm</span>
 

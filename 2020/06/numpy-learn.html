@@ -18,7 +18,7 @@
   <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
   <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
 
   <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
@@ -177,8 +177,8 @@
   </nav>
   <div>
     <p>In this post, I expand on a little class/self-teaching project that I did during the Spring 2020 semester.</p>
-<h1 id="numpy-learn-a-homemade-machine-learning-library">NumPy-Learn: A Homemade Machine Learning Library</h1>
-<h2 id="organization">Organization</h2>
+<h1>NumPy-Learn: A Homemade Machine Learning Library</h1>
+<h2>Organization</h2>
 <p>In this section we will discuss the main organization of the library:</p>
 <ul>
 <li>How the layers are built</li>
@@ -187,23 +187,23 @@
 </ul>
 <p>After that, we introduce the class for building the neural net itself and explain how everything ties together. We conclude by performance analysis on a simple MNIST program.</p>
 <p>Let us agree on convention similar to that of PyTorch library: we will call the main datatype <code>Tensor</code> instead of <code>array</code>, as follows:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span> <span class="k">as</span> <span class="n">Tensor</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span> <span class="k">as</span> <span class="n">Tensor</span>
 </code></pre></div>
 
 <p>This is to adhere to accepted aesthetics of most modern neural network libraries and nothing more. All methods are purely using <code>numpy</code> or <code>scipy</code>.</p>
-<h3 id="linear-layer">Linear Layer</h3>
+<h3>Linear Layer</h3>
 <p>Inspired by PyTorch, the naming convention here is the preserved. The design of the layer is also similar to PyTorch: the class <code>Linear</code> will have a <code>forward</code> and a <code>backward</code> methods. The former will represent the forward pass, that is, the passing of the input data through the layer towards the next. The latter is responsible for backward propagation of the gradient.</p>
-<h4 id="forward-pass">Forward Pass</h4>
+<h4>Forward Pass</h4>
 <p>Linear layer essentially represents matrix multiplication of the input data <span class="math">\(x\)</span> by a weight matrix <span class="math">\(W\)</span> with addition of bias <span class="math">\(b\)</span>:</p>
 <div class="math">$$\mathrm{L}(x) = xW + b.$$</div>
 <p>We require that the size of the input data was of the format <span class="math">\(batch\times input~features\)</span>, for instance if the input data has 784 pixel values, for a batch of 100 images the size of <span class="math">\(x\)</span> would be <span class="math">\(100\times 784\)</span> and the size of <span class="math">\(W\)</span> would be <span class="math">\(784\times out~features\)</span>, while <span class="math">\(b\)</span> is of the shape <span class="math">\(out~features\times 1\)</span>. Here we rely on <code>numpy</code> broadcasting the value of bias onto the resulting matrix <span class="math">\(xW\)</span> when adding <span class="math">\(b\)</span>.</p>
 <p>In code, we define it as follows:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">x</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
 </code></pre></div>
 
-<h4 id="gradient">Gradient</h4>
+<h4>Gradient</h4>
 <p>In the forward pass, we computed the matrix product. Next, we need to evaluate the rate of change of the output of the current layer with respect to the input. Note, that due to the chain rule, the gradient flows from right (output) to left (input) as a product.</p>
 <p>The <code>backward</code> method utilizes chainrule. It accepts the gradient from the layer <span class="math">\(l+1\)</span>, uses it to find the derivatives of the current layer's output with respect to <span class="math">\(W\)</span> and <span class="math">\(b\)</span> and finally, passes it along multiplying by the derivative of its output w.r.t. <span class="math">\(x\)</span>, the input.</p>
 <p>Mathematically, this is the following:</p>
@@ -213,7 +213,7 @@
 </ul>
 <p>These equations are written in a different shape convention, but we can take care of that in the code.</p>
 <p>The derivative of <span class="math">\(xW+b\)</span> w.r.t. <span class="math">\(W\)</span> is <span class="math">\(x^T\)</span>. The derivative of <span class="math">\(xW+b\)</span> w.r.t. to <span class="math">\(b\)</span> is an identity matrix. Therefore, let <code>grad</code> be the gradient (error) received from <span class="math">\((l+1)\)</span>th layer, then we can define the <code>backward</code> method as below:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
         <span class="c1"># input_feat by batch_size @ batch_size by out_features</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dydw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">grad</span>
         <span class="c1"># we sum across batches and get shape (out_features)</span>
@@ -223,7 +223,7 @@
 </code></pre></div>
 
 <p>Now we are ready to present the fully defined Linear Layer code below:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span> <span class="k">as</span> <span class="n">Tensor</span>
 
 <span class="k">class</span> <span class="nc">Linear</span><span class="p">:</span>
@@ -278,7 +278,7 @@
             <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\n\t</span><span class="s2">Bias: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span>
 </code></pre></div>
 
-<h3 id="layers-with-activation-functions">Layers with Activation Functions</h3>
+<h3>Layers with Activation Functions</h3>
 <p>We define separate layers for activation functions, similarly to the way PyTorch handles those. We only define two here: ReLU and Sigmoid.</p>
 <p>ReLU is defined as </p>
 <div class="math">$$f(x) = \max\{0, x\}$$</div>
@@ -288,7 +288,7 @@
 <div class="math">$$(\nabla f)(t) = 0 \text{ if } t=0\text{, else }t$$</div>
 <div class="math">$$(\nabla \sigma)(t) = \sigma(t)(1-\sigma(t))$$</div>
 <p>The respective classes are defined below</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Calculate the sigmoid function of x.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
 
@@ -385,15 +385,15 @@
 <p><code>softmax</code> is defined as follows:</p>
 <div class="math">$$\mathcal{S}(x)=\left[\frac{\exp(x_i)}{\sum\limits_{k}\exp(x_k)}\right], i=1..n,~x=[x_1, ... , x_n]$$</div>
 <p>Softmax accepts a vector of network's output and converts it to a vector of probability values. For this function we need to use one-hot encoding.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">softmax</span> <span class="k">as</span> <span class="n">s</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">softmax</span> <span class="k">as</span> <span class="n">s</span>
 <span class="k">def</span> <span class="nf">softmax</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Calculate softmax using scipy.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">s</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="loss-functions">Loss Functions</h3>
+<h3>Loss Functions</h3>
 <p>We implement two loss functions here. We will implement Mean Squared Error Loss class and a Cross Entropy Loss class.</p>
-<h4 id="mean-squared-error-loss">Mean Squared Error Loss</h4>
+<h4>Mean Squared Error Loss</h4>
 <p>This is a very straight-forward loss function, it takes the output of the last layer of the neural network <span class="math">\(\hat{y}\)</span> and ccomputes:</p>
 <div class="math">$$\mathcal{L}(y, \hat{y}) = \frac{1}{2m}||y-\hat{y}||^2,$$</div>
 <p>where <span class="math">\(m\)</span> is the size of <span class="math">\(y\)</span> and </p>
@@ -402,7 +402,7 @@
 <div class="math">$$\vert\vert...\vert\vert$$</div>
 <p> represents the vector norm (sum of squared component-wise differences). The gradient of this function for backpropagation is computed as</p>
 <div class="math">$$\nabla{\mathcal{L}}=\frac{1}{m}(y-\hat{y})$$</div>
-<h4 id="cross-entropy-loss">Cross Entropy Loss</h4>
+<h4>Cross Entropy Loss</h4>
 <p>Cross entropy loss function is defined as follows. Let <span class="math">\(\hat{y}\)</span> be the so-called <span class="math">\({logits}\)</span>, the outputs of the neural network. Then, we use softmax to calculate the probabilities <span class="math">\(p=\mathcal{S}\left(\hat{y}\right)\)</span>. The cross entropy is</p>
 <div class="math">$$\mathcal{L}(y, \hat{y}) = -\sum\limits_{i} y_i \log p_i,$$</div>
 <p>
@@ -420,7 +420,7 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <div class="math">$$\nabla{\mathcal{L}}(y, \hat{y}) = -\sum\limits_i y_i \frac{1}{p_i}p_i(\delta_{ij}-p_j) = - y_j  + p_j\sum\limits_i y_i.$$</div>
 <p>Recall, that the vector <span class="math">\(y\)</span> is one-hot encoded, therefore, the sum of its components <span class="math">\(\sum\limits_i y_i=1\)</span>. Hence, we obtain</p>
 <div class="math">$$\nabla{\mathcal{L}}(y, \hat{y}) =p_j - y_j.$$</div>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Loss</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Loss</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Placeholder class for losses.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -513,9 +513,9 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">probabilities</span> <span class="o">-</span> <span class="n">true</span>
 </code></pre></div>
 
-<h2 id="building-the-network">Building the Network</h2>
+<h2>Building the Network</h2>
 <p>Here we describe the main class for our neural network. The main principle is simple, we pass a list of layers and initialize a class <code>Network</code> with two methods: <code>forward</code> and <code>backward</code>. The <code>forward</code> method performs the forward pass, that is, sends the input data through each layer. The <code>backward</code> method calls <code>backward</code> from each layer in the opposite direction (starting with the last layer). It uses the gradient of the lost function as its input.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="n">Layer</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Linear</span><span class="p">,</span> <span class="n">ReLU</span><span class="p">,</span> <span class="n">Sigmoid</span><span class="p">]</span>
 
@@ -548,11 +548,11 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="optimizers">Optimizers</h3>
+<h3>Optimizers</h3>
 <p>Our main optimizer here is going to be Stochastic Gradient Descent. After we computed the backpropagation, for every layer in the network, we are going to update the weights. If the gradient is <span class="math">\(\Delta w\)</span> then the update rule is </p>
 <div class="math">$$w = w - \eta \Delta w - 2*\alpha w,$$</div>
 <p>where <span class="math">\(\eta\)</span> is the learning rate and <span class="math">\(\alpha\)</span> is the <span class="math">\(L^2\)</span> regularization parameter. The code is presented below.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">SGD</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">SGD</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Stochastic Gradient Descent class.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">l2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">):</span>
@@ -569,9 +569,9 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
                 <span class="n">l</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">b</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="o">*</span><span class="n">l</span><span class="o">.</span><span class="n">dydb</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">l2</span> <span class="o">*</span> <span class="n">l</span><span class="o">.</span><span class="n">b</span>
 </code></pre></div>
 
-<h2 id="training-mnist-in-batches-using-mse">Training MNIST in Batches using MSE</h2>
+<h2>Training MNIST in Batches using MSE</h2>
 <p>In the code below, we create a training/validation loop. Each important point is commented. </p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">auto</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">auto</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
@@ -657,7 +657,7 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
                                       <span class="s2">&quot;Mean_loss_val&quot;</span><span class="p">:</span> <span class="n">val_err</span><span class="p">})</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># Load test data and convert to one-hot</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Load test data and convert to one-hot</span>
 <span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;mnist_test.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
 <span class="n">test_label</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;mnist_test.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="n">test_label</span> <span class="o">=</span> <span class="n">to_one_hot</span><span class="p">(</span><span class="n">test_label</span><span class="p">)</span>
@@ -679,10 +679,10 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test Error is </span><span class="si">{</span><span class="n">test_err</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>Test Error is 2643.26 ...
+<div class="highlight"><pre><span></span><code>Test Error is 2643.26 ...
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span>
@@ -698,13 +698,13 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>Text(114.0, 0.5, &#39;Predicted&#39;)
+<div class="highlight"><pre><span></span><code>Text(114.0, 0.5, &#39;Predicted&#39;)
 </code></pre></div>
 
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_17_1.png" /></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_17_1.png"></p>
 <p>We can see from the confusion matrix above that the model performs poorly if the training is based on MSE. Let us try a different loss function: Cross Entropy loss.</p>
-<h2 id="cross-entropy-training">Cross Entropy Training</h2>
-<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;Training example for a simple network with MNIST Dataset.&quot;&quot;&quot;</span>
+<h2>Cross Entropy Training</h2>
+<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;Training example for a simple network with MNIST Dataset.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">auto</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -836,11 +836,11 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Test Accuracy: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accuracies</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>Average Test Accuracy: 0.95
+<div class="highlight"><pre><span></span><code>Average Test Accuracy: 0.95
 </code></pre></div>
 
 <p>Let us plot the evolution of accuracies during testing and confusion matrix. For a higher performing model we expect to see the confusion matrix consolidate results on the diagonal:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">accuracies</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training score&quot;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">accuracies</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation score&quot;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">)</span>
@@ -849,8 +849,8 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </code></pre></div>
 
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_22_0.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">test_label</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_22_0.png"></p>
+<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">test_label</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.3f&quot;</span><span class="p">)</span>
@@ -859,8 +859,8 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <span class="n">_</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_23_1.png" /></p>
-<h2 id="conclusion">Conclusion</h2>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_23_1.png"></p>
+<h2>Conclusion</h2>
 <p>We implemented a neural network class that supports several activation functions. We followed here a design pattern based on PyTorch deep learning package. We implemented linear (fully-connected) layer, ReLU and Sigmoid layer. Each layer includes a backpropagation function <code>backward</code> that sends the gradient from the output back to input. As a result we were able to use a Cross Entropy Loss function to train a handwritten digit classifier with 95% accuracy on the test set. Notice that on the graph we observe a pattern of periodically dropping accuracy. I assume this is due to internal structure of the loss landscape: we repeatedly "walk" out of the minimum region and then "walk" back in during the SGD.</p>
 <p>Using the Mean Squared Error loss function did not yield a productive result here, however, while developing this library, I observed that if I train on a small sample of data (i.e. 50 items or less), the model was able to learn the underlying data representations very well and was able to over fit. This is one the tests usually performed on new architectures in order to check if the model can learn at all. This, unfortunately, did not scale in case of MSE but it did for Cross Entropy Loss.</p>
 <p>The overall structure of the project is posted on my github <a href="https://github.com/iliailmer/numpy_learn">page</a></p>

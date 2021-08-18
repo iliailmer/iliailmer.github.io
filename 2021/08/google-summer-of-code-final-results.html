@@ -18,7 +18,7 @@
   <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
   <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
 
   <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
@@ -170,36 +170,24 @@
   </header>
 
 
-  <nav class="toc">
-    <div class="toc">
-<ul>
-<li><a href="#contributions">Contributions</a><ul>
-<li><a href="#closed-prs">Closed PRs</a></li>
-<li><a href="#open-prs">Open PRs</a></li>
-</ul>
-</li>
-<li><a href="#future-work">Future work</a></li>
-<li><a href="#final-thoughts">Final Thoughts</a></li>
-</ul>
-</div>
-  </nav>
   <div>
-    
-<p>Over the course of the summer, my work resulted in successfully ported code of <code>StructuralIdentifiability.jl</code>, a package that can help researchers who use ordinary differential equations in their work. The package allows answering queries about individual identifiability of parameters and their combinations. </p>
+    <p>Over the course of the summer, my work resulted in successfully ported code of <code>StructuralIdentifiability.jl</code>, a package that can help researchers who use ordinary differential equations in their work. The package allows answering queries about individual identifiability of parameters and their combinations. </p>
 <p>The <code>StructuralIdentifiability.jl</code> package is ready to use! 🥳 🎊 😄</p>
-<p>You can install from source:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&gt;</span> <span class="p">]</span><span class="n">add</span> <span class="n">https</span><span class="o">://</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">SciML</span><span class="o">/</span><span class="n">StructuralIdentifiability</span><span class="o">.</span><span class="n">jl</span>
+<p>You can install from source or via registry:</p>
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="n">Pkg</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;StructuralIdentifiability&quot;</span><span class="p">)</span>
+
+<span class="c"># or</span>
+
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;https://github.com/SciML/StructuralIdentifiability.jl&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p>or via <code>Pkg</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&gt;</span> <span class="k">using</span> <span class="n">Pkg</span>
-<span class="o">&gt;</span> <span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">"StructuralIdentifiability"</span><span class="p">)</span>
-</code></pre></div>
+
 <p>You can check the documentation at <a href="https://si.sciml.ai/dev/">this link</a>. To get started, I recommend checking out <a href="https://si.sciml.ai/dev/tutorials/local_identifiability/">this tutorial</a> on local identifiability. </p>
 <p>Some repo stats: </p>
-<p><a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/releases/"><img alt="GitHub release" src="https://img.shields.io/github/release/SciML/StructuralIdentifiability.jl.svg"/></a> <a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/stargazers/"><img alt="GitHub stars" src="https://img.shields.io/github/stars/SciML/StructuralIdentifiability.jl.svg?style=social&amp;label=Star&amp;maxAge=2592000"/></a> </p>
-<h2 id="contributions">Contributions</h2>
+<p><a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/releases/"><img alt="GitHub release" src="https://img.shields.io/github/release/SciML/StructuralIdentifiability.jl.svg"></a> <a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/stargazers/"><img alt="GitHub stars" src="https://img.shields.io/github/stars/SciML/StructuralIdentifiability.jl.svg?style=social&amp;label=Star&amp;maxAge=2592000"></a> </p>
+<h2>Contributions</h2>
 <p>Over the course of the summer, my contributions ranged from tutorials to compatibility with broader <code>SciML</code> infrastructure. Here is a list of my contributions with links to relevant Pull Requests (PRs).</p>
-<h3 id="closed-prs">Closed PRs</h3>
+<h3>Closed PRs</h3>
 <ul>
 <li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/13">#13</a>: update dependencies of the code to be compatible with <code>ModelingToolkit.jl</code>.</li>
 <li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/17">#17</a>: add documentation to core functions with examples.</li>
@@ -209,18 +197,18 @@
 <li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/25">#25</a>: adding <code>julia</code> to the compatibility list and finally registering the package 🎉</li>
 <li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/30">#30</a>: adding compatibility with <code>ODESystem</code> objects. Now there are two ways of running <code>StructuralIdenifiability.jl</code>: via <code>ODE</code> class that comes with the package as well as the <code>ODESystem</code> of <code>ModelingToolkit.jl</code>.</li>
 </ul>
-<h3 id="open-prs">Open PRs</h3>
+<h3>Open PRs</h3>
 <p>There are some PRs that remain open for now as of writing this. They focus on minor things like warnings for particular input types (non-integer coefficients, special functions, etc.) for which the identifiability solution is not defined.</p>
 <ul>
 <li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/26">#26</a>: this pr is an attempt to investigate an issue which occurs with one of our dependencies.</li>
 <li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/32">#32</a>: replacing deprecated functions from our package dependency</li>
 <li><a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/34">#34</a>: check for non-integer coefficients in the input system of the <code>ODESystem</code> object. This PR will also include checks for presence of special functions and functions in the numerator. The latter are, as of writing this post, only supported via <code>ODE</code> class of <code>StructuralIdentifiability.jl</code></li>
 </ul>
-<h2 id="future-work">Future work</h2>
+<h2>Future work</h2>
 <p>Current challenge is PR <a href="https://github.com/SciML/StructuralIdentifiability.jl/pull/34">#34</a> after which we will release the changes. There will probably be a separate PR to resolve support for rational functions with <code>ODESystem</code>.</p>
-<h2 id="final-thoughts">Final Thoughts</h2>
+<h2>Final Thoughts</h2>
 <p>I am extremely grateful to my mentors, <a href="https://www.chrisrackauckas.com/">Christopher Rackauckas</a>, <a href="https://yingboma.github.io">Yingbo Ma</a> as well as <a href="http://shashi.biz/">Shashi Gowda</a> for their help during this summer.</p>
-<p>Huge shout out goes also to my colleague <a href="https://pogudingleb.github.io/">Gleb Pogudin</a> who is the original package developer.</p>
+<p>Huge shout out and thanks to my colleague <a href="https://pogudingleb.github.io/">Gleb Pogudin</a> who is the original package developer.</p>
 <p>This was a great experience learning about Julia language and open source in general, it motivates me to contribute to open source much more!</p>
   </div>
   <div class="tag-cloud">

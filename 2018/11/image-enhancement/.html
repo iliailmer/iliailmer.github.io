@@ -18,7 +18,7 @@
   <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
   <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
 
   <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
@@ -171,17 +171,17 @@
 
   <div>
     <p>Let's talk about all things image enhancement, what it is, why it is necessary and how do wavelets play a big part in it!</p>
-<h1 id="introduction">Introduction</h1>
+<h1>Introduction</h1>
 <p>Enhancement of images is an important preprocessing step in any image related system. Getting rid of noise, brightening, extraction of details - all of this helps in future steps, like feature extraction/engineering. There are many image enhancement techniques out there, let us look at one that uses a function which commonly is seen in neural networks</p>
-<h1 id="sigmoid-function">Sigmoid function</h1>
+<h1>Sigmoid function</h1>
 <p>For all code below we will need <code>matplotlib.pyplot, skimage</code> and <code>numpy</code>. <code>skimage</code> is my preference of image processing library, I find it easy to understand and, if you want to modify something, you can always look under the hood of any function.</p>
 <p>So, we will need</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </code></pre></div>
 
 <p>for plotting,</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">astronaut</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">astronaut</span>
 <span class="n">image</span> <span class="o">=</span> <span class="n">astronaut</span><span class="p">()</span>
 
 <span class="kn">from</span> <span class="nn">skimage.util</span> <span class="kn">import</span> <span class="n">img_as_float64</span>  <span class="c1"># make image in range [0..255], 8-bit integers</span>
@@ -189,7 +189,7 @@
 
 <p>for image, image datatype adjustment and for some feature visualization, respectively.</p>
 <p>Now, time for some visualization.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">);</span>
 </code></pre></div>
@@ -200,7 +200,7 @@
 </figure>
 
 <p>Let's make sure we have our sigmoid function correctly defined:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
 </code></pre></div>
 
@@ -211,7 +211,7 @@
 <!--![](/assets/post_imgs/enhancement-images/sigmoid.png?raw=true)-->
 
 <p>So, how do we use it to enhance the image? Well, let's look at the code:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">image</span> <span class="o">=</span> <span class="n">astronaut</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">image</span> <span class="o">=</span> <span class="n">astronaut</span><span class="p">()</span>
 
 <span class="n">image_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -247,7 +247,7 @@
 <p>We should try to do a little better/advanced with image enhancement. A function introduced in <a href="https://www.researchgate.net/profile/Vikrant_Bhateja2/publication/267338917_Mammographic_Image_Enhancement_using_Double_Sigmoid_Transformation_Function/links/544de7cb0cf2d6347f45d0d0/Mammographic-Image-Enhancement-using-Double-Sigmoid-Transformation-Function.pdf">this paper</a> dubbed "double sigmoid" looks something like this</p>
 <p><span class="math">\( \sigma_{double} = \mathrm{sign}(x-x_1) \exp \left(1- \frac{(x-x_1)^2}{s}\right)\)</span></p>
 <p>And the plot of it</p>
-<div class="codehilite"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">double_sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 </code></pre></div>
 
@@ -256,7 +256,7 @@
 </figure>
 
 <p>which is similar to two sigmoids complementing each other. Using the technique from the paper on a colored image, we need to be careful because this method is very sensitive to input parameters.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">image</span> <span class="o">=</span> <span class="n">astronaut</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">image</span> <span class="o">=</span> <span class="n">astronaut</span><span class="p">()</span>
 
 <span class="n">image_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
 

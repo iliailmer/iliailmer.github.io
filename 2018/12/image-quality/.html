@@ -18,7 +18,7 @@
   <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
   <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
 
   <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
@@ -172,10 +172,10 @@
 
   <div>
     <p>A simple function that can be used to justify image quality and control enhancement.</p>
-<h1 id="introduction">Introduction</h1>
+<h1>Introduction</h1>
 <p>One difficult thing about image enhancement is to actually measure the level of image quality which is quite a subjective task. On the one hand, each individual can perceive the image quality according to their own tastes and preferences. On the other hand, our visual system is the same for all of us, no matter what tastes you have.</p>
 <p>An interesting measure that goes forward to unify the subjectivity of human taste and the visual system based perspective was introduced in <a href="https://pdfs.semanticscholar.org/5ada/c5932775f089eaace7ebc45a6cba89809134.pdf">this paper</a>. Let's try it out!</p>
-<h1 id="code">Code</h1>
+<h1>Code</h1>
 <p>Well, the essential idea of this measure is that we focus our attention on the image in a blockwise manner. Splitting the image into blocks and then finding the maximal value of the pixel intensity per each block is fairly straightforward and simple to code.</p>
 <p>We split the <span class="math">\(M\times N\)</span> image, which in computer memory is represented as a matrix of pixel intensities, into submatrices each of size <span class="math">\(n\times n\)</span>. This results in <span class="math">\(k_1\)</span> blocks along the vertical axis of the image and <span class="math">\(k_2\)</span> along the horizontal one. The quality measure can be used</p>
 <div class="math">$$\sum_{l=1}^{k_1}\sum_{p=1}^{k_2}\frac{\max(W_{lp})}{\min(W_{lp})}.$$</div>
@@ -184,7 +184,7 @@
 <p>The addition <span class="math">\(W_{lp}+1\)</span> implies that we add 1 to all elements in the window <span class="math">\(W_{lp}\)</span>.</p>
 <p>I prefer to scale image to have intensities between 0 and 1, but it really is not important, you can use any range as long as it is <code>float</code> type. This is because of the nature of the division and <span class="math">\(\log\)</span> operators.</p>
 <p>And here's the code for this function:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">EME</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">window_width</span><span class="p">,</span> <span class="n">window_height</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">EME</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">window_width</span><span class="p">,</span> <span class="n">window_height</span><span class="p">):</span>
   <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>
   <span class="n">sum_</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>                                    <span class="c1"># I just decided not to keep</span>
@@ -206,9 +206,9 @@
       <span class="k">return</span> <span class="n">sum_</span> <span class="o">/</span> <span class="n">k</span>
 </code></pre></div>
 
-<h1 id="examples">Examples</h1>
+<h1>Examples</h1>
 <p>Let's try it out on some examples. What I am going to do here is, I will use the <code>skimage</code> library to obtain the data first.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">camera</span><span class="p">()</span> <span class="c1"># my favourite at this point</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">camera</span><span class="p">()</span> <span class="c1"># my favourite at this point</span>
 </code></pre></div>
 
 <figure>
@@ -216,7 +216,7 @@
   <figcaption>My favourite sample image.</figcaption>
 </figure>
 <p>And then lets use simple histogram equalization for image enhancement. This function will enhance the contrast of the image and will bring some details (but also noise! Don't 100% rely on it!)</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">camera</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">camera</span>
 <span class="kn">from</span> <span class="nn">skimage.restoration</span> <span class="kn">import</span> <span class="n">denoise_bilateral</span><span class="p">,</span> <span class="n">denoise_wavelet</span>
 
 <span class="n">original</span> <span class="o">=</span> <span class="n">camera</span><span class="p">()</span>
@@ -231,9 +231,9 @@
 </figure>
 
 <p>Of course, histogram equalization produces artifacts, but visually the image is more detailed than originally which corresponds to increase in the measure, which is what we wanted from it in the first place!</p>
-<h1 id="question">Question</h1>
+<h1>Question</h1>
 <p>A question that I have for EME, so far just one, but I feel like it's important.</p>
-<h3 id="how-can-we-make-it-more-resistant-to-noise">How can we make it more resistant to noise?</h3>
+<h3>How can we make it more resistant to noise?</h3>
 <p>It does decrease for small amounts of noise:</p>
 <figure>
   <img src="https://iliailmer.github.io/images/enhancement-measure/camera_noise_sigma_1.png?raw=true" alt="comparison"/>

@@ -18,7 +18,7 @@
   <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
   <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
 
   <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
@@ -175,9 +175,9 @@
 
   <div>
     <p>In this post I wanted to describe a simple application of a linear least squares method to a problem of data classification. It is a naive approach and is unlikely to beat more sophisticated techniques like <a href="https://en.wikipedia.org/wiki/Logistic_regression">Logistic Regression</a>, for instance.</p>
-<h3 id="imports">Imports</h3>
+<h3>Imports</h3>
 <p>Some imports we are going to need for this piece.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
@@ -188,20 +188,20 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;ggplot&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="prepare-the-data">Prepare the data</h3>
+<h3>Prepare the data</h3>
 <p>Data can be found <a href="https://web.stanford.edu/~hastie/ElemStatLearn/">here</a>. The link also has information about the textbook with excellent theoretical background on much of Machine Learning (and Computational Statistics).</p>
 <p>The data is a collection of hand-written digits. Each row of the data represents pixels of the image. For simplicity, we discard all labels except 2 and 3 making the problem a binary classification one (since only two labels are involved).</p>
 <p>We load files with space character as a separator and no header</p>
-<div class="codehilite"><pre><span></span><code><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;zip.train&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">257</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;zip.train&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">257</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;zip.test&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Select only required labels: (by default labels are read as <code>float64</code> but we won't worry about that) </p>
-<div class="codehilite"><pre><span></span><code><span class="n">train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">test</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># convert types to int32 and replace labels with 0 and 1</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># convert types to int32 and replace labels with 0 and 1</span>
 <span class="n">train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
 <span class="n">test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
 
@@ -209,20 +209,20 @@
 <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">X</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">X</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+<div class="highlight"><pre><span></span><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 RangeIndex: 1389 entries, 0 to 1388
 Columns: 256 entries, 1 to 256
 dtypes: float64(256)
 memory usage: 2.7 MB
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">y</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">y</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>count    1389.000000
+<div class="highlight"><pre><span></span><code>count    1389.000000
 mean        0.473722
 std         0.499489
 min         0.000000
@@ -233,20 +233,20 @@ max         1.000000
 Name: 0, dtype: float64
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">X_test</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">X_test</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+<div class="highlight"><pre><span></span><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 RangeIndex: 364 entries, 0 to 363
 Columns: 256 entries, 1 to 256
 dtypes: float64(256)
 memory usage: 728.1 KB
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">y_test</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">y_test</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>count    364.000000
+<div class="highlight"><pre><span></span><code>count    364.000000
 mean       0.456044
 std        0.498750
 min        0.000000
@@ -257,8 +257,8 @@ max        1.000000
 Name: 0, dtype: float64
 </code></pre></div>
 
-<h4 id="some-helper-functions">Some helper functions</h4>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">show_sample</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<h4>Some helper functions</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">show_sample</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Show 4 images from the dataset (random).&quot;&quot;&quot;</span>
     <span class="n">sample</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -275,11 +275,11 @@ Name: 0, dtype: float64
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">show_sample</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">show_sample</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_18_0.png" /></p>
-<h3 id="linear-regression-fitting">Linear Regression fitting</h3>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_18_0.png"></p>
+<h3>Linear Regression fitting</h3>
 <p>We will approach the solution in the following way. Firstly, we will train a linear regression model on the available data (256 pixel intensity values). Note that the problem is high-dimensional and therefore it is impossible to visualize all of it at once.</p>
 <p>However, the main idea of the linear regression based classifier remains simple: we find a hyperplane in the <span class="math">\(p+1=257\)</span> dimensional space that fits the training data perfectly:</p>
 <div class="math">$$ \hat{y}=\mathbf{X}\hat{\beta},$$</div>
@@ -292,20 +292,20 @@ Name: 0, dtype: float64
 <p>where <span class="math">\(\hat{\beta}\)</span> is given by </p>
 <div class="math">$$ \hat{\beta} = (X^TX)^{-1}X^Ty.$$</div>
 <p>We are projecting our training set <span class="math">\(\mathbf{X}\)</span> orthogonally onto the hyperplane defined by <span class="math">\(\hat\beta\)</span>. We can then derive a classifier from there as follows: let us set up the threshold <span class="math">\(t\)</span> such that if for a given unseen feature vector <span class="math">\(X_{test}\)</span> the value <span class="math">\(y_{test}=X_{test}^T\hat\beta=\hat\beta_0+\sum\limits_{i=1}^p (X_{test})_i\hat\beta_i\)</span> is greater than <span class="math">\(t\)</span>, we assign label 1, otherwise 0.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">linreg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">linreg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">linreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False)
+<div class="highlight"><pre><span></span><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False)
 </code></pre></div>
 
-<h4 id="train-set-predictions">Train set predictions</h4>
-<div class="codehilite"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+<h4>Train set predictions</h4>
+<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </code></pre></div>
 
 <p>We select the threshold range between the minimum and maximum value of the predicted <span class="math">\(y\)</span> with a step 0.1 and then check the accuracy for each threshold.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">thresh_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mf">0.1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">thresh_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mf">0.1</span><span class="p">)</span>
 <span class="n">train_acc_scores</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresh_range</span><span class="p">:</span>
@@ -313,7 +313,7 @@ Name: 0, dtype: float64
         <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">))</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">,</span> <span class="n">train_acc_scores</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Accuracy on Train Set&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Threshold&quot;</span><span class="p">)</span>
@@ -350,10 +350,10 @@ Name: 0, dtype: float64
     <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
 </code></pre></div>
 
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_26_0.png" /></p>
-<h4 id="test-set-predictions">Test set predictions</h4>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_26_0.png"></p>
+<h4>Test set predictions</h4>
 <p>We can do similar analysis on the testing set.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">test_acc_scores</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresh_range</span><span class="p">:</span>
@@ -361,7 +361,7 @@ Name: 0, dtype: float64
         <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">))</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">,</span> <span class="n">test_acc_scores</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Accuracy on Test Set&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
@@ -402,22 +402,22 @@ Name: 0, dtype: float64
     <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
 </code></pre></div>
 
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_30_0.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="n">percentage</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span> <span class="c1"># proportion of each label in the training set</span>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_30_0.png"></p>
+<div class="highlight"><pre><span></span><code><span class="n">percentage</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span> <span class="c1"># proportion of each label in the training set</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Minimal accuracy on the left: </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">)</span><span class="si">}</span><span class="s1">, proportion of &quot;0&quot; labels in the data: </span><span class="si">{</span><span class="n">percentage</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Minimal accuracy on the right: </span><span class="si">{</span><span class="n">test_acc_scores</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">, proportion of &quot;1&quot; labels in the data: </span><span class="si">{</span><span class="n">percentage</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>Minimal accuracy on the left: 0.46153846153846156, proportion of &quot;0&quot; labels in the data: 0.5439560439560439
+<div class="highlight"><pre><span></span><code>Minimal accuracy on the left: 0.46153846153846156, proportion of &quot;0&quot; labels in the data: 0.5439560439560439
 Minimal accuracy on the right: 0.5467032967032966, proportion of &quot;1&quot; labels in the data: 0.45604395604395603
 </code></pre></div>
 
 <p>From the information above we learn that the model start to approximately randomly guess once the thresholds are too big or too small. On the left in is closer to guessing ones, on the right - zeros.</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Labels from leftmost threshold:</span><span class="se">\n</span><span class="si">{</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">thresh_range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Labels from leftmost threshold:</span><span class="se">\n</span><span class="si">{</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">thresh_range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Labels from rightmost threshold:</span><span class="se">\n</span><span class="si">{</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">thresh_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>Labels from leftmost threshold:
+<div class="highlight"><pre><span></span><code>Labels from leftmost threshold:
 [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1
@@ -444,7 +444,7 @@ Labels from rightmost threshold:
 </code></pre></div>
 
 <p>Let us use different thresholds for the testing set:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">thresh_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mf">0.1</span><span class="p">)</span>
 <span class="n">test_acc_scores</span> <span class="o">=</span> <span class="p">[]</span>
@@ -453,7 +453,7 @@ Labels from rightmost threshold:
         <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">))</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">,</span> <span class="n">test_acc_scores</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Accuracy on Test Set&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
@@ -494,8 +494,8 @@ Labels from rightmost threshold:
     <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
 </code></pre></div>
 
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_36_0.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="n">percentage</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_36_0.png"></p>
+<div class="highlight"><pre><span></span><code><span class="n">percentage</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span>
     <span class="n">y_test</span><span class="p">)</span>  <span class="c1"># proportion of each label in the training set</span>
 <span class="nb">print</span><span class="p">(</span>
     <span class="sa">f</span><span class="s1">&#39;Minimal accuracy on the left: </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">)</span><span class="si">}</span><span class="s1">,&#39;</span>
@@ -514,7 +514,7 @@ Labels from rightmost threshold:
 <span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>Minimal accuracy on the left: 0.45879120879120877, proportion of &quot;0&quot; labels in the data: 0.5439560439560439
+<div class="highlight"><pre><span></span><code>Minimal accuracy on the left: 0.45879120879120877, proportion of &quot;0&quot; labels in the data: 0.5439560439560439
 Labels from leftmost threshold:
 [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -542,10 +542,10 @@ Labels from rightmost threshold:
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0]
 </code></pre></div>
 
-<h3 id="k-nearest-neighbors">K-Nearest Neighbors</h3>
+<h3>K-Nearest Neighbors</h3>
 <p>For this method, we consider different values of neighbors in each case. We begin with 1 neighbor per training point, which we expect to give a high accuracy since each point will roughly be each own neighborhood.</p>
 <p>As the number of neighbors increases we will see a slight decrease in accuracy.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">train_err_scores</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="highlight"><pre><span></span><code><span class="n">train_err_scores</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">test_err_scores</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">]:</span>
@@ -562,7 +562,7 @@ Labels from rightmost threshold:
     <span class="n">test_err_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">))</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span> <span class="n">train_err_scores</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Error on Train Set&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Neighbors&quot;</span><span class="p">)</span>
@@ -581,8 +581,8 @@ Labels from rightmost threshold:
     <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
 </code></pre></div>
 
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_41_0.png" /></p>
-<h2 id="conclusion">Conclusion</h2>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_41_0.png"></p>
+<h2>Conclusion</h2>
 <p>We applied two different classification methods for the data. Method 1 was based on the linear regression using least squares method. The second method was based on 5 different Nearest neighbor classifiers.</p>
 <p>Each approach showed different results specific to assumptions underlying each model. Linear model assumes that the relationship between the label and pixel intensities is a high-dimensional linear function. Using various threshold we were able to show the change in hyperplane location relative to test and train data and how the accuracy scores (error scores) reflect this change.</p>
 <p>For the k-NN model, we observed a similar behavior: going from few neighbors to more, we saw that the model is prone to the larger error. This is to be expected but not to say that 1 neighbor is necessarily better than 15 neighbors, since 1 neighbor case is <em>overfitting</em> the data. The data is very high-dimensional so it is harder to evaluate how many neighbors we should aim for here.</p>

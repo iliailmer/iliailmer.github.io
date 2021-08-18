@@ -18,7 +18,7 @@
   <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
   <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
 
   <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
@@ -171,23 +171,32 @@
 
 
   <div>
-    <h1 id="introduction">Introduction</h1>
+    <h1>Introduction</h1>
 <p>In this repository, I will describe our recently-released Structural Identifiability Toolbox, a web-based application for assessing parameter identifiability of differential models.</p>
 <p><a href="https://maple.cloud/app/6509768948056064/">Click here</a> to checkout the application! Read on to learn more.</p>
-<h1 id="why-is-it-better">Why is it better?</h1>
+<h1>Why is it better?</h1>
 <p>The program is fast, free, and is available in <em>any</em> web-browser, including mobile. We take care of a lot stuff in the background letting the user worry only about their model definition without any technicalities.</p>
-<h1 id="who-is-it-designed-for">Who is it designed for?</h1>
+<h1>Who is it designed for?</h1>
 <p>Simply put, if you are working with models based on ordinary differential equations and you wish to know structural identifiability properties of your models' parameters then this app is built for you!</p>
 <p>Knowing structural identifiability properties will help one set up better experiments to obtain data for the underlying process and extract parameter values correctly.</p>
-<h1 id="what-can-it-do">What can it do?</h1>
-<h2 id="individual-parameters">Individual Parameters</h2>
-<p>The application can answer questions about local or global identifiability parameters (including initial conditions): you provide the input system, choose the probability of correctness and, optionally, specify which parameter to check (by default it checks for all possible parameters). For this, the app is using SIAN algorithm[^1][^2] for details) which is fast, robust, and is correct with user-specified probability.</p>
-<h2 id="parameter-combinations">Parameter Combinations</h2>
+<h1>What can it do?</h1>
+<h2>Individual Parameters</h2>
+<p>The application can answer questions about local or global identifiability parameters (including initial conditions): you provide the input system, choose the probability of correctness and, optionally, specify which parameter to check (by default it checks for all possible parameters). For this, the app is using SIAN algorithm<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> for details) which is fast, robust, and is correct with user-specified probability.</p>
+<h2>Parameter Combinations</h2>
 <p>If a parameter is <em>non</em>-identifiable, one may wish to seek an identifiable function that contains this parameter (and, possibly, others). Built with a brand new algorithm[^3], the app can quickly assess generators for all such functions. Moreover, we provide a way to assess whether 1 or more experiments are required to do so, this is called multi-experiment identifiability.</p>
-<h1 id="references">References</h1>
-<p>[^1]: H. Hong, A. Ovchinnikov, G. Pogudin, C. Yap, <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/cpa.21921">Global Identifiability of Differential Models</a>, Communications on Pure and Applied Mathematics, Volume 73, Issue 9, Pages 1831-1879, 2020</p>
-<p>[^2]: H. Hong, A. Ovchinnikov, G. Pogudin, C. Yap, <a href="https://doi.org/10.1093/bioinformatics/bty1069">SIAN: Software for Structural Identifiability Analysis of ODE Models</a> Bioinformatics, Volume 35, Issue 16, Pages 2873–2874, 2019</p>
+<h1>References</h1>
 <p>[3]: <a href="https://arxiv.org/abs/2004.07774">Computing All Identifiable Functions of ODE Models</a>, arXiv:2004.07774</p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>H. Hong, A. Ovchinnikov, G. Pogudin, C. Yap, <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/cpa.21921">Global Identifiability of Differential Models</a>, Communications on Pure and Applied Mathematics, Volume 73, Issue 9, Pages 1831-1879, 2020&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>H. Hong, A. Ovchinnikov, G. Pogudin, C. Yap, <a href="https://doi.org/10.1093/bioinformatics/bty1069">SIAN: Software for Structural Identifiability Analysis of ODE Models</a> Bioinformatics, Volume 35, Issue 16, Pages 2873–2874, 2019&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
   </div>
   <div class="tag-cloud">
     <p>
