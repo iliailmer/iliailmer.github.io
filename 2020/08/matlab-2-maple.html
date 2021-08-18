@@ -1,39 +1,38 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
 
-    <link id="dark-theme-style" rel="stylesheet" type="text/css"
-          media="(prefers-color-scheme: dark)"
-    href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
+  <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
-    <link id="pygments-dark-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: dark)"
-          href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
-          href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
 
+  <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
 
-    <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
+  <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+    title="Ilia Ilmer Atom">
 
 
-    <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -45,19 +44,18 @@
   ga('create', 'UA-131502498-2', 'auto');
   ga('send', 'pageview');
 </script>
-<!-- End Google Analytics -->  
+<!-- End Google Analytics -->
 
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#333">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#333">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Microsoft EDGE -->
-    <meta name="msapplication-TileColor" content="#333">
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333">
 
- 
 
 <meta name="author" content="Ilia Ilmer" />
 <meta name="description" content="In this short post, I wanted to point out one interesting application of regular expressions I had to work on for my PhD research project. The code was meant as a technical tool to help tranlate some ordingary differential equation models from numerical (Matlab) to symbolic (Maple) code. The original …" />
@@ -83,6 +81,7 @@
   <title>Ilia Ilmer &ndash; How I had to translate Matlab code into Maple</title>
 
 </head>
+
 <body >
   <aside>
     <div>
@@ -95,55 +94,58 @@
       </h1>
 
 <p>Algorithms and Coffee</p>
+      <form class="navbar-search" action="https://iliailmer.github.io/search.html" role="search">
+        <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+      </form>
 
       <nav>
         <ul class="list">
 
 
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/about.html#about">
-                  About
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/publications.html#publications">
-                  Publications
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/software.html#software">
-                  Software
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/talks.html#talks">
-                  Talks
-                </a>
-              </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/about.html#about">
+              About
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/publications.html#publications">
+              Publications
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/software.html#software">
+              Software
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/talks.html#talks">
+              Talks
+            </a>
+          </li>
 
         </ul>
       </nav>
 
       <ul class="social">
-          <li>
-            <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
-              <i class="fab fa-gitlab"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
+        <li>
+          <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
+            <i class="fab fa-gitlab"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -161,7 +163,7 @@
 
 <article class="single">
   <header>
-      
+    
     <h1 id="matlab-2-maple">How I had to translate Matlab code into Maple</h1>
     <p>
       Posted on Tue 18 August 2020 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
@@ -172,114 +174,104 @@
 
   <div>
     <p>In this short post, I wanted to point out one interesting application of regular expressions I had to work on for my PhD research project. The code was meant as a technical tool to help tranlate some ordingary differential equation models from numerical (Matlab) to symbolic (Maple) code.</p>
-<h2>The original code</h2>
+<h2 id="the-original-code">The original code</h2>
 <p>The original *.m files were pulled from <a href="https://www.ebi.ac.uk/biomodels/">this</a> webpage using <code>wget</code> and their own API. Ordingary differential equation (ODE) models in those files contain a special function called <code>xdot</code>. It returns an array of <code>n</code> elements, which form right-hand side of an ODE.</p>
 <p>The function is usually defined in the form</p>
-<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span>xdot<span class="p">=</span><span class="nf">f</span><span class="p">(</span>x,t<span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="c">% define parameters as</span><span class="w"></span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="c">% ...</span><span class="w"></span>
-<span class="w">    </span><span class="n">xdot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">zeros</span><span class="p">(</span><span class="k">...</span><span class="c">, ...);</span><span class="w"></span>
-<span class="w">    </span><span class="c">% define each xdot(i) separately</span><span class="w"></span>
-<span class="k">end</span><span class="w"></span>
-</code></pre></div>
-
+<p><code>m
+function xdot=f(x,t)
+    % define parameters as
+    C = 1.0;
+    % ...
+    xdot = zeros(..., ...);
+    % define each xdot(i) separately
+end</code></p>
 <p>What I wanted to see in the maple code was the following:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">#  define parameters as symbolic constants</span>
-<span class="n">C</span> <span class="o">:=</span> <span class="n">C</span><span class="p">:</span>
-
-<span class="c1">#  define system of odes as array</span>
-
-<span class="n">sigma</span> <span class="o">:=</span> <span class="p">[</span>
-    <span class="n">diff</span><span class="p">(</span><span class="n">x1</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="o">&lt;...&gt;</span><span class="p">,</span>
-    <span class="o">&lt;...&gt;</span>
-    <span class="n">diff</span><span class="p">(</span><span class="n">xn</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="o">&lt;...&gt;</span>
-<span class="p">]:</span>
-</code></pre></div>
-
+<p>```py</p>
+<h1 id="define-parameters-as-symbolic-constants">define parameters as symbolic constants</h1>
+<p>C := C:</p>
+<h1 id="define-system-of-odes-as-array">define system of odes as array</h1>
+<p>sigma := [
+    diff(x1(t), t) = &lt;...&gt;,
+    &lt;...&gt;
+    diff(xn(t), t) = &lt;...&gt;
+]:
+```</p>
 <p>The best way to solve it I saw was to use regular expressions.</p>
-<h2>Step by step</h2>
+<h2 id="step-by-step">Step by step</h2>
 <p>Firstly, I had to get rid of Matlab comment and turn them into Maple compatible ones, hence the line</p>
-<div class="highlight"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;function xdot=f\(x,t\)(.*?)end&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
-            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span><span class="p">)</span>
-</code></pre></div>
-
+<p><code>py
+out_program = re.findall(
+                r"function xdot=f\(x,t\)(.*?)end", content, re.DOTALL
+            )[0].replace("%", "#")</code></p>
 <p>After that, we want to look at <code>if</code> statements. In Maple, conditional structure like <code>if</code> statements are written as</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span> <span class="k">then</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span> <span class="k">end</span><span class="o">:</span>
-</code></pre></div>
-
+<p><code>pascal
+if &lt;condition&gt; then &lt;code&gt; end:</code></p>
 <p>To do that, we utilize groups: <code>(..)</code>. The regex is</p>
-<div class="highlight"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;if(\(\w*\))(.*;)end&quot;</span><span class="p">,</span>
-                <span class="sa">r</span><span class="s2">&quot;if \1 then \2\nend if:&quot;</span><span class="p">,</span>
-                <span class="n">out_program</span><span class="p">,</span>
-                <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">,</span>
-            <span class="p">)</span>
-</code></pre></div>
-
+<p><code>py
+out_program = re.sub(
+                r"if(\(\w*\))(.*;)end",
+                r"if \1 then \2\nend if:",
+                out_program,
+                flags=re.DOTALL,
+            )</code></p>
 <p>The <code>if(\(\w*\))(.*;)end</code> regex gets the condition <code>\(\w*\)</code> and the code (.*;) between <code>if</code> / <code>end</code> to place those between <code>if</code>, <code>then</code>, <code>end</code> in positions marked by <code>\1</code> and <code>\2</code>.</p>
 <p>Remeber, that we do not want to have <code>xdot(i)=...</code> assigned manually anymore in Maple, we want to see Maple syntax: <code>diff(x(t),t) = ...</code>, so we do the following regex:</p>
-<div class="highlight"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;xdot\((\d+)\) \=( .*);&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\ndiff(x\1(t), t) = \2,&quot;</span><span class="p">,</span> <span class="n">out_program</span>
-            <span class="p">)</span>
-</code></pre></div>
-
+<p><code>py
+out_program = re.sub(
+                r"xdot\((\d+)\) \=( .*);", r"\ndiff(x\1(t), t) = \2,", out_program
+            )</code></p>
 <p>Again, notice the groups that capture stuff we want to preserve, namely the index of <code>xdot</code> and the right-hand sides.</p>
 <p>Next few lines do some cosmetic work, namely, rename any <code>x(i)</code> appearance into <code>xi(t)</code>, then make all variable assingments symbolic constants (i.e. if we have <code>c=0</code> we want to have <code>c:=c</code>). Finally, if we have Matlab assignments that do not use constants (i.e. <code>c=0; x = c+x;</code>) we want to keep them (i.e. <code>c:=c: x:=c+x:</code>).</p>
-<div class="highlight"><pre><span></span><code><span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;x\((\d+)\)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;x\1(t)&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># x(i) -&gt; xi(t)</span>
-<span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)\=\d*\..*&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1:=\1:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># c=NUMBER -&gt; c:=c:</span>
-<span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)\=(.*);&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1:=\2:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># Left-side = ANYTHING NOT METNIONED ABOVE -&gt; same but with := sign</span>
-</code></pre></div>
-
+<p><code>py
+out_program = re.sub(r"x\((\d+)\)", r"x\1(t)", out_program) # x(i) -&gt; xi(t)
+out_program = re.sub(r"(\w+)\=\d*\..*", r"\1:=\1:", out_program) # c=NUMBER -&gt; c:=c:
+out_program = re.sub(r"(\w+)\=(.*);", r"\1:=\2:", out_program) # Left-side = ANYTHING NOT METNIONED ABOVE -&gt; same but with := sign</code></p>
 <p>Finally, putting it all together we can run:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
-<span class="kn">from</span> <span class="nn">tqdm.auto</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<p>```py
+import re
+from glob import glob
+from tqdm.auto import tqdm</p>
+<p>files = glob("files/<em>/</em>/*.m")</p>
+<p>for i in tqdm(range(len(files))):
+    with open(files[i], "r") as f:
+        try:
+            content = f.read()
+        except:
+            print(files[i], "could not read")
+        try:
+            out_program = re.findall(
+                r"function xdot=f(x,t)(.<em>?)end", content, re.DOTALL
+            )[0].replace("%", "#")
+            out_program = re.sub(
+                r"if((\w</em>))(.<em>;)end",
+                r"if \1 then \2\nend if:",
+                out_program,
+                flags=re.DOTALL,
+            )
+            out_program = re.sub(
+                r"xdot((\d+)) \=( .</em>);", r"\ndiff(x\1(t), t) = \2,", out_program
+            )
+            out_program = re.sub(r"(xdot=zeros.*)", r"# \1", out_program) # comment out declaration of xdot</p>
+<pre><code>        out_program = re.sub(r"x\((\d+)\)", r"x\1(t)", out_program)
+        out_program = re.sub(r"(\w+)\=\d*\..*", r"\1:=\1:", out_program)
+        out_program = re.sub(r"(\w+)\=(.*);", r"\1:=\2:", out_program)
+        # cosmetic work to make maple run and not complain about trailing comma
+        out_program = re.sub(
+            r"(diff.*)", r"sigma := [\n\1]:", out_program, flags=re.DOTALL
+        ).replace(",\n]", "\n]")
 
-<span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;files/*/*/*.m&quot;</span><span class="p">)</span>
+        outname = files[i].split(".")[0] + ".mpl"
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">))):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;could not read&quot;</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;function xdot=f\(x,t\)(.*?)end&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
-            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span><span class="p">)</span>
-            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;if(\(\w*\))(.*;)end&quot;</span><span class="p">,</span>
-                <span class="sa">r</span><span class="s2">&quot;if \1 then \2\nend if:&quot;</span><span class="p">,</span>
-                <span class="n">out_program</span><span class="p">,</span>
-                <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;xdot\((\d+)\) \=( .*);&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\ndiff(x\1(t), t) = \2,&quot;</span><span class="p">,</span> <span class="n">out_program</span>
-            <span class="p">)</span>
-            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(xdot=zeros.*)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;# \1&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span> <span class="c1"># comment out declaration of xdot</span>
+        with open(outname, "w") as output:
+            output.write(out_program)
+        import os
 
-            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;x\((\d+)\)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;x\1(t)&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span>
-            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)\=\d*\..*&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1:=\1:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span>
-            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)\=(.*);&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1:=\2:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">)</span>
-            <span class="c1"># cosmetic work to make maple run and not complain about trailing comma</span>
-            <span class="n">out_program</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;(diff.*)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;sigma := [\n\1]:&quot;</span><span class="p">,</span> <span class="n">out_program</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,</span><span class="se">\n</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">]&quot;</span><span class="p">)</span>
-
-            <span class="n">outname</span> <span class="o">=</span> <span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.mpl&quot;</span>
-
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outname</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
-                <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">out_program</span><span class="p">)</span>
-            <span class="kn">import</span> <span class="nn">os</span>
-
-            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;mkdir -p new_examples&quot;</span><span class="p">)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cp </span><span class="si">{</span><span class="n">outname</span><span class="si">}</span><span class="s2"> new_examples&quot;</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;Index not Found.&quot;</span><span class="p">)</span>
-</code></pre></div>
-
+        os.system("mkdir -p new_examples")
+        os.system(f"cp {outname} new_examples")
+    except:
+        print(files[i], "Index not Found.")
+</code></pre>
+<p>```</p>
 <p>Some stuff really specific to our project was omitted for brevity, but one can definitely add any other Maple/Matlab interaction here.</p>
   </div>
   <div class="tag-cloud">
@@ -340,4 +332,5 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
 </script>
 
 </body>
+
 </html>

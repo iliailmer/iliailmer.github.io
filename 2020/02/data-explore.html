@@ -1,39 +1,38 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
 
-    <link id="dark-theme-style" rel="stylesheet" type="text/css"
-          media="(prefers-color-scheme: dark)"
-    href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
+  <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
-    <link id="pygments-dark-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: dark)"
-          href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
-          href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
 
+  <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
 
-    <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
+  <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+    title="Ilia Ilmer Atom">
 
 
-    <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -45,19 +44,18 @@
   ga('create', 'UA-131502498-2', 'auto');
   ga('send', 'pageview');
 </script>
-<!-- End Google Analytics -->  
+<!-- End Google Analytics -->
 
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#333">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#333">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Microsoft EDGE -->
-    <meta name="msapplication-TileColor" content="#333">
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333">
 
- 
 
 <meta name="author" content="Ilia Ilmer" />
 <meta name="description" content="In this post I wanted to describe a simple application of a linear least squares method to a problem of data classification. It is a naive approach and is unlikely to beat more sophisticated techniques like Logistic Regression, for instance. Imports Some imports we are going to need for this …" />
@@ -84,6 +82,7 @@
   <title>Ilia Ilmer &ndash; Linear Regression as the Simplest Classifier</title>
 
 </head>
+
 <body >
   <aside>
     <div>
@@ -96,55 +95,58 @@
       </h1>
 
 <p>Algorithms and Coffee</p>
+      <form class="navbar-search" action="https://iliailmer.github.io/search.html" role="search">
+        <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+      </form>
 
       <nav>
         <ul class="list">
 
 
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/about.html#about">
-                  About
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/publications.html#publications">
-                  Publications
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/software.html#software">
-                  Software
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/talks.html#talks">
-                  Talks
-                </a>
-              </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/about.html#about">
+              About
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/publications.html#publications">
+              Publications
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/software.html#software">
+              Software
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/talks.html#talks">
+              Talks
+            </a>
+          </li>
 
         </ul>
       </nav>
 
       <ul class="social">
-          <li>
-            <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
-              <i class="fab fa-gitlab"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
+        <li>
+          <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
+            <i class="fab fa-gitlab"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -162,7 +164,7 @@
 
 <article class="single">
   <header>
-      
+    
     <h1 id="data-explore">Linear Regression as the Simplest Classifier</h1>
     <p>
       Posted on Mon 24 February 2020 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
@@ -173,54 +175,47 @@
 
   <div>
     <p>In this post I wanted to describe a simple application of a linear least squares method to a problem of data classification. It is a naive approach and is unlikely to beat more sophisticated techniques like <a href="https://en.wikipedia.org/wiki/Logistic_regression">Logistic Regression</a>, for instance.</p>
-<h3>Imports</h3>
+<h3 id="imports">Imports</h3>
 <p>Some imports we are going to need for this piece.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;ggplot&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h3>Prepare the data</h3>
+<p>```python
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+%matplotlib inline</p>
+<p>plt.style.use("ggplot")
+```</p>
+<h3 id="prepare-the-data">Prepare the data</h3>
 <p>Data can be found <a href="https://web.stanford.edu/~hastie/ElemStatLearn/">here</a>. The link also has information about the textbook with excellent theoretical background on much of Machine Learning (and Computational Statistics).</p>
 <p>The data is a collection of hand-written digits. Each row of the data represents pixels of the image. For simplicity, we discard all labels except 2 and 3 making the problem a binary classification one (since only two labels are involved).</p>
 <p>We load files with space character as a separator and no header</p>
-<div class="highlight"><pre><span></span><code><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;zip.train&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">257</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;zip.test&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</code></pre></div>
-
+<p><code>python
+train = pd.read_csv('zip.train', sep=' ', header=None).drop(257, axis=1)
+test = pd.read_csv('zip.test', sep=' ', header=None)</code></p>
 <p>Select only required labels: (by default labels are read as <code>float64</code> but we won't worry about that) </p>
-<div class="highlight"><pre><span></span><code><span class="n">train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">test</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># convert types to int32 and replace labels with 0 and 1</span>
-<span class="n">train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
-<span class="n">test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
-
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">X</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+<p><code>python
+train = train.loc[train[0].isin([2.0, 3.0])].reset_index(drop=True)
+test = test.loc[test[0].isin([2.0, 3.0])].reset_index(drop=True)</code></p>
+<p>```python</p>
+<h1 id="convert-types-to-int32-and-replace-labels-with-0-and-1">convert types to int32 and replace labels with 0 and 1</h1>
+<p>train[0] = train[0].astype(np.int32).map({2: 0, 3: 1})
+test[0] = test[0].astype(np.int32).map({2: 0, 3: 1})</p>
+<p>X, y = train.iloc[:, 1:], train.iloc[:, 0]
+X_test, y_test = test.iloc[:, 1:], test.iloc[:, 0]
+```</p>
+<p><code>python
+X.info()</code></p>
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 1389 entries, 0 to 1388
 Columns: 256 entries, 1 to 256
 dtypes: float64(256)
 memory usage: 2.7 MB
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">y</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>count    1389.000000
+</code></pre>
+<p><code>python
+y.describe()</code></p>
+<pre><code>count    1389.000000
 mean        0.473722
 std         0.499489
 min         0.000000
@@ -229,22 +224,18 @@ min         0.000000
 75%         1.000000
 max         1.000000
 Name: 0, dtype: float64
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">X_test</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</code></pre>
+<p><code>python
+X_test.info()</code></p>
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 364 entries, 0 to 363
 Columns: 256 entries, 1 to 256
 dtypes: float64(256)
 memory usage: 728.1 KB
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">y_test</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>count    364.000000
+</code></pre>
+<p><code>python
+y_test.describe()</code></p>
+<pre><code>count    364.000000
 mean       0.456044
 std        0.498750
 min        0.000000
@@ -253,31 +244,27 @@ min        0.000000
 75%        1.000000
 max        1.000000
 Name: 0, dtype: float64
-</code></pre></div>
-
-<h4>Some helper functions</h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">show_sample</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Show 4 images from the dataset (random).&quot;&quot;&quot;</span>
-    <span class="n">sample</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-            <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
-            <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-            <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Label: </span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-
-<span class="k">def</span> <span class="nf">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Convert raw label into a int label with a threshold.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">show_sample</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
-</code></pre></div>
-
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_18_0.png"></p>
-<h3>Linear Regression fitting</h3>
+</code></pre>
+<h4 id="some-helper-functions">Some helper functions</h4>
+<p>```python
+def show_sample(data: pd.DataFrame):
+    """Show 4 images from the dataset (random)."""
+    sample = data.sample(4)
+    fig, ax = plt.subplots(2, 2, figsize=(10, 8))
+    for i in range(2):
+        for j in range(2):
+            ax[i, j].imshow(sample.iloc[2 * i + j, 1:].values.reshape(16, 16))
+            ax[i, j].axis('off')
+            ax[i, j].set_title(f'Label: {sample.iloc[2*i+j, 0]}')
+    plt.show()</p>
+<p>def raw2label(y_pred, threshold=0):
+    """Convert raw label into a int label with a threshold."""
+    return np.int32(y_pred &gt; threshold)
+```</p>
+<p><code>python
+show_sample(test)</code></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_18_0.png" /></p>
+<h3 id="linear-regression-fitting">Linear Regression fitting</h3>
 <p>We will approach the solution in the following way. Firstly, we will train a linear regression model on the available data (256 pixel intensity values). Note that the problem is high-dimensional and therefore it is impossible to visualize all of it at once.</p>
 <p>However, the main idea of the linear regression based classifier remains simple: we find a hyperplane in the <span class="math">\(p+1=257\)</span> dimensional space that fits the training data perfectly:</p>
 <div class="math">$$ \hat{y}=\mathbf{X}\hat{\beta},$$</div>
@@ -290,132 +277,119 @@ Name: 0, dtype: float64
 <p>where <span class="math">\(\hat{\beta}\)</span> is given by </p>
 <div class="math">$$ \hat{\beta} = (X^TX)^{-1}X^Ty.$$</div>
 <p>We are projecting our training set <span class="math">\(\mathbf{X}\)</span> orthogonally onto the hyperplane defined by <span class="math">\(\hat\beta\)</span>. We can then derive a classifier from there as follows: let us set up the threshold <span class="math">\(t\)</span> such that if for a given unseen feature vector <span class="math">\(X_{test}\)</span> the value <span class="math">\(y_{test}=X_{test}^T\hat\beta=\hat\beta_0+\sum\limits_{i=1}^p (X_{test})_i\hat\beta_i\)</span> is greater than <span class="math">\(t\)</span>, we assign label 1, otherwise 0.</p>
-<div class="highlight"><pre><span></span><code><span class="n">linreg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">linreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False)
-</code></pre></div>
-
-<h4>Train set predictions</h4>
-<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</code></pre></div>
-
+<p><code>python
+linreg = LinearRegression()
+linreg.fit(X, y)</code></p>
+<pre><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False)
+</code></pre>
+<h4 id="train-set-predictions">Train set predictions</h4>
+<p><code>python
+y_true = y.copy().values
+y_pred = linreg.predict(X)</code></p>
 <p>We select the threshold range between the minimum and maximum value of the predicted <span class="math">\(y\)</span> with a step 0.1 and then check the accuracy for each threshold.</p>
-<div class="highlight"><pre><span></span><code><span class="n">thresh_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mf">0.1</span><span class="p">)</span>
-<span class="n">train_acc_scores</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresh_range</span><span class="p">:</span>
-    <span class="n">train_acc_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">,</span> <span class="n">train_acc_scores</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Accuracy on Train Set&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Threshold&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Accuracy score&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
-<span class="n">max_score</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">train_acc_scores</span><span class="p">)</span>
-<span class="n">max_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">train_acc_scores</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s1">&#39;Max Accuracy: </span><span class="si">{</span><span class="n">max_score</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">max_loc</span><span class="p">],</span> <span class="n">max_score</span><span class="p">),</span>
-    <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">max_loc</span><span class="p">],</span> <span class="n">max_score</span> <span class="o">+</span> <span class="mf">0.025</span><span class="p">),</span>
-    <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_acc_scores</span><span class="p">),</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Error Train Set&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Threshold&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">)</span>
-<span class="n">min_score</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_acc_scores</span><span class="p">))</span>
-<span class="n">min_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_acc_scores</span><span class="p">))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s1">&#39;Min Error: </span><span class="si">{</span><span class="n">min_score</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">min_loc</span><span class="p">],</span> <span class="n">min_score</span><span class="p">),</span>
-    <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">min_loc</span><span class="p">],</span> <span class="n">min_score</span> <span class="o">+</span> <span class="mf">0.025</span><span class="p">),</span>
-    <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-    <span class="mf">0.5</span><span class="p">,</span>
-    <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span>
-    <span class="s1">&#39;As the threshold increases we observe simultaneous increase in accuracy.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>\
-    <span class="s1">&#39;As we cross the maximum accuracy, we essentially shift the hyperplane away from the data and thus see the decrease.&#39;</span><span class="p">,</span>
-    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
-</code></pre></div>
-
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_26_0.png"></p>
-<h4>Test set predictions</h4>
+<p>```python
+thresh_range = np.arange(y_pred.min(), y_pred.max(), 0.1)
+train_acc_scores = []</p>
+<p>for t in thresh_range:
+    train_acc_scores.append(
+        accuracy_score(y_pred=raw2label(y_pred, t), y_true=y_true))
+```</p>
+<p>```python
+fig, ax = plt.subplots(ncols=2, figsize=(24, 4))
+ax[0].plot(thresh_range, train_acc_scores, '-o')
+ax[0].set_title("Accuracy on Train Set")
+ax[0].set_xlabel("Threshold")
+ax[0].set_ylabel("Accuracy score")
+ax[0].set_ylim([0.4, 1.05])
+max_score = max(train_acc_scores)
+max_loc = np.argmax(train_acc_scores)
+ax[0].annotate(
+    f'Max Accuracy: {max_score:.3f}',
+    xy=(thresh_range[max_loc], max_score),
+    xytext=(thresh_range[max_loc], max_score + 0.025),
+    arrowprops=dict(facecolor='black', shrink=0.01),
+)</p>
+<p>ax[1].plot(thresh_range, 1 - np.array(train_acc_scores), '-o')
+ax[1].set_title("Error Train Set")
+ax[1].set_xlabel("Threshold")
+ax[1].set_ylabel("Error")
+min_score = min(1 - np.array(train_acc_scores))
+min_loc = np.argmin(1 - np.array(train_acc_scores))
+ax[1].annotate(
+    f'Min Error: {min_score:.3f}',
+    xy=(thresh_range[min_loc], min_score),
+    xytext=(thresh_range[min_loc], min_score + 0.025),
+    arrowprops=dict(facecolor='black', shrink=0.01),
+)</p>
+<p>fig.text(
+    0.5,
+    -0.1,
+    'As the threshold increases we observe simultaneous increase in accuracy.\n'+\
+    'As we cross the maximum accuracy, we essentially shift the hyperplane away from the data and thus see the decrease.',
+    ha='center',
+    fontsize=16);</p>
+<p>```</p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_26_0.png" /></p>
+<h4 id="test-set-predictions">Test set predictions</h4>
 <p>We can do similar analysis on the testing set.</p>
-<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">test_acc_scores</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresh_range</span><span class="p">:</span>
-    <span class="n">test_acc_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">,</span> <span class="n">test_acc_scores</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Accuracy on Test Set&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
-<span class="c1"># ax[0].set_xticks(thresh_range)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Threshold&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Accuracy score&quot;</span><span class="p">)</span>
-
-<span class="n">max_score</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">)</span>
-<span class="n">max_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s1">&#39;Max Accuracy: </span><span class="si">{</span><span class="n">max_score</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">max_loc</span><span class="p">],</span> <span class="n">max_score</span><span class="p">),</span>
-    <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">max_loc</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">max_score</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">),</span>
-    <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">),</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Error Test Set&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Threshold&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">])</span>
-<span class="n">min_score</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">))</span>
-<span class="n">min_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s1">&#39;Min Error: </span><span class="si">{</span><span class="n">min_score</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">min_loc</span><span class="p">],</span> <span class="n">min_score</span><span class="p">),</span>
-    <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">min_loc</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">min_score</span> <span class="o">-</span> <span class="mf">0.03</span><span class="p">),</span>
-    <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-    <span class="mf">0.5</span><span class="p">,</span>
-    <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span>
-    <span class="s1">&#39;We observe a similar behaviour as the threshold increases.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>\
-    <span class="s1">&#39;Notice that we use the same threshold as in the test set. &#39;</span><span class="o">+</span>\
-    <span class="s1">&#39;The graphs converge around random guesses.&#39;</span><span class="p">,</span>
-    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
-</code></pre></div>
-
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_30_0.png"></p>
-<div class="highlight"><pre><span></span><code><span class="n">percentage</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span> <span class="c1"># proportion of each label in the training set</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Minimal accuracy on the left: </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">)</span><span class="si">}</span><span class="s1">, proportion of &quot;0&quot; labels in the data: </span><span class="si">{</span><span class="n">percentage</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Minimal accuracy on the right: </span><span class="si">{</span><span class="n">test_acc_scores</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">, proportion of &quot;1&quot; labels in the data: </span><span class="si">{</span><span class="n">percentage</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Minimal accuracy on the left: 0.46153846153846156, proportion of &quot;0&quot; labels in the data: 0.5439560439560439
-Minimal accuracy on the right: 0.5467032967032966, proportion of &quot;1&quot; labels in the data: 0.45604395604395603
-</code></pre></div>
-
+<p><code>python
+y_true = y_test.copy().values
+y_pred = linreg.predict(X_test)
+test_acc_scores = []
+for t in thresh_range:
+    test_acc_scores.append(
+        accuracy_score(y_pred=raw2label(y_pred, t), y_true=y_true))</code></p>
+<p>```python
+fig, ax = plt.subplots(ncols=2, figsize=(24, 6))
+ax[0].plot(thresh_range, test_acc_scores, '-o')
+ax[0].set_title("Accuracy on Test Set")
+ax[0].set_ylim([0.4, 1.05])</p>
+<h1 id="ax0set_xticksthresh_range">ax[0].set_xticks(thresh_range)</h1>
+<p>ax[0].set_xlabel("Threshold")
+ax[0].set_ylabel("Accuracy score")</p>
+<p>max_score = max(test_acc_scores)
+max_loc = np.argmax(test_acc_scores)
+ax[0].annotate(
+    f'Max Accuracy: {max_score:.3f}',
+    xy=(thresh_range[max_loc], max_score),
+    xytext=(thresh_range[max_loc] + 0.05, max_score + 0.05),
+    arrowprops=dict(facecolor='black', shrink=0.01),
+)</p>
+<p>ax[1].plot(thresh_range, 1 - np.array(test_acc_scores), '-o')
+ax[1].set_title("Error Test Set")
+ax[1].set_xlabel("Threshold")
+ax[1].set_ylabel("Error")
+ax[1].set_ylim([0, 0.55])
+min_score = min(1 - np.array(test_acc_scores))
+min_loc = np.argmin(1 - np.array(test_acc_scores))
+ax[1].annotate(
+    f'Min Error: {min_score:.3f}',
+    xy=(thresh_range[min_loc], min_score),
+    xytext=(thresh_range[min_loc] - 0.15, min_score - 0.03),
+    arrowprops=dict(facecolor='black', shrink=0.01),
+)</p>
+<p>fig.text(
+    0.5,
+    -0.1,
+    'We observe a similar behaviour as the threshold increases.\n'+\
+    'Notice that we use the same threshold as in the test set. '+\
+    'The graphs converge around random guesses.',
+    ha='center',
+    fontsize=16);
+```</p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_30_0.png" /></p>
+<p><code>python
+percentage = np.unique(y_test, return_counts=True)[1]/len(y_test) # proportion of each label in the training set
+print(f'Minimal accuracy on the left: {min(test_acc_scores)}, proportion of "0" labels in the data: {percentage[0]}')
+print(f'Minimal accuracy on the right: {test_acc_scores[-1]}, proportion of "1" labels in the data: {percentage[1]}')</code></p>
+<pre><code>Minimal accuracy on the left: 0.46153846153846156, proportion of "0" labels in the data: 0.5439560439560439
+Minimal accuracy on the right: 0.5467032967032966, proportion of "1" labels in the data: 0.45604395604395603
+</code></pre>
 <p>From the information above we learn that the model start to approximately randomly guess once the thresholds are too big or too small. On the left in is closer to guessing ones, on the right - zeros.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Labels from leftmost threshold:</span><span class="se">\n</span><span class="si">{</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">thresh_range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Labels from rightmost threshold:</span><span class="se">\n</span><span class="si">{</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">thresh_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Labels from leftmost threshold:
+<p><code>python
+print(f"Labels from leftmost threshold:\n{raw2label(y_pred, threshold=thresh_range[0])}")
+print(f"\n\nLabels from rightmost threshold:\n{raw2label(y_pred, threshold=thresh_range[-1])}")</code></p>
+<pre><code>Labels from leftmost threshold:
 [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1
@@ -439,80 +413,74 @@ Labels from rightmost threshold:
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0]
-</code></pre></div>
-
+</code></pre>
 <p>Let us use different thresholds for the testing set:</p>
-<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">thresh_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mf">0.1</span><span class="p">)</span>
-<span class="n">test_acc_scores</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresh_range</span><span class="p">:</span>
-    <span class="n">test_acc_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">,</span> <span class="n">test_acc_scores</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Accuracy on Test Set&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
-<span class="c1"># ax[0].set_xticks(thresh_range)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Threshold&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Accuracy score&quot;</span><span class="p">)</span>
-
-<span class="n">max_score</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">)</span>
-<span class="n">max_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s1">&#39;Max Accuracy: </span><span class="si">{</span><span class="n">max_score</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">max_loc</span><span class="p">],</span> <span class="n">max_score</span><span class="p">),</span>
-    <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">max_loc</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">max_score</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">),</span>
-    <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">),</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Error Test Set&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Threshold&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">])</span>
-<span class="n">min_score</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">))</span>
-<span class="n">min_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s1">&#39;Min Error: </span><span class="si">{</span><span class="n">min_score</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">min_loc</span><span class="p">],</span> <span class="n">min_score</span><span class="p">),</span>
-    <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">thresh_range</span><span class="p">[</span><span class="n">min_loc</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">min_score</span> <span class="o">-</span> <span class="mf">0.03</span><span class="p">),</span>
-    <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-    <span class="mf">0.5</span><span class="p">,</span>
-    <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span>
-    <span class="s1">&#39;We observe a similar behaviour as the threshold increases.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span>\
-    <span class="s1">&#39;Notice that we now see convergence to a random guess clearer. &#39;</span><span class="o">+</span>\
-    <span class="s1">&#39;This is due to the threshold being intrinsic to the test set.&#39;</span><span class="p">,</span>
-    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
-</code></pre></div>
-
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_36_0.png"></p>
-<div class="highlight"><pre><span></span><code><span class="n">percentage</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span>
-    <span class="n">y_test</span><span class="p">)</span>  <span class="c1"># proportion of each label in the training set</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s1">&#39;Minimal accuracy on the left: </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">test_acc_scores</span><span class="p">)</span><span class="si">}</span><span class="s1">,&#39;</span>
-    <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; proportion of &quot;0&quot; labels in the data: </span><span class="si">{</span><span class="n">percentage</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Labels from leftmost threshold:</span><span class="se">\n</span><span class="si">{</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">thresh_range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">Minimal accuracy on the right: </span><span class="si">{</span><span class="n">test_acc_scores</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">,&#39;</span> <span class="o">+</span>
-    <span class="sa">f</span><span class="s1">&#39; proportion of &quot;1&quot; labels in the data: </span><span class="si">{</span><span class="n">percentage</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Labels from rightmost threshold: </span><span class="se">\n</span><span class="si">{</span><span class="n">raw2label</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">thresh_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Minimal accuracy on the left: 0.45879120879120877, proportion of &quot;0&quot; labels in the data: 0.5439560439560439
+<p><code>python
+y_true = y_test.copy().values
+y_pred = linreg.predict(X_test)
+thresh_range = np.arange(y_pred.min(), y_pred.max(), 0.1)
+test_acc_scores = []
+for t in thresh_range:
+    test_acc_scores.append(
+        accuracy_score(y_pred=raw2label(y_pred, t), y_true=y_true))</code></p>
+<p>```python
+fig, ax = plt.subplots(ncols=2, figsize=(24, 6))
+ax[0].plot(thresh_range, test_acc_scores, '-o')
+ax[0].set_title("Accuracy on Test Set")
+ax[0].set_ylim([0.4, 1.05])</p>
+<h1 id="ax0set_xticksthresh_range_1">ax[0].set_xticks(thresh_range)</h1>
+<p>ax[0].set_xlabel("Threshold")
+ax[0].set_ylabel("Accuracy score")</p>
+<p>max_score = max(test_acc_scores)
+max_loc = np.argmax(test_acc_scores)
+ax[0].annotate(
+    f'Max Accuracy: {max_score:.3f}',
+    xy=(thresh_range[max_loc], max_score),
+    xytext=(thresh_range[max_loc] + 0.05, max_score + 0.05),
+    arrowprops=dict(facecolor='black', shrink=0.01),
+)</p>
+<p>ax[1].plot(thresh_range, 1 - np.array(test_acc_scores), '-o')
+ax[1].set_title("Error Test Set")
+ax[1].set_xlabel("Threshold")
+ax[1].set_ylabel("Error")
+ax[1].set_ylim([0, 0.55])
+min_score = min(1 - np.array(test_acc_scores))
+min_loc = np.argmin(1 - np.array(test_acc_scores))
+ax[1].annotate(
+    f'Min Error: {min_score:.3f}',
+    xy=(thresh_range[min_loc], min_score),
+    xytext=(thresh_range[min_loc] - 0.15, min_score - 0.03),
+    arrowprops=dict(facecolor='black', shrink=0.01),
+)</p>
+<p>fig.text(
+    0.5,
+    -0.1,
+    'We observe a similar behaviour as the threshold increases.\n'+\
+    'Notice that we now see convergence to a random guess clearer. '+\
+    'This is due to the threshold being intrinsic to the test set.',
+    ha='center',
+    fontsize=16);
+```</p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_36_0.png" /></p>
+<p>```python
+percentage = np.unique(y_test, return_counts=True)[1] / len(
+    y_test)  # proportion of each label in the training set
+print(
+    f'Minimal accuracy on the left: {min(test_acc_scores)},'
+    + f' proportion of "0" labels in the data: {percentage[0]}'
+)
+print(
+    f"Labels from leftmost threshold:\n{raw2label(y_pred, threshold=thresh_range[0])}"
+)</p>
+<p>print(
+    f'\n\nMinimal accuracy on the right: {test_acc_scores[-1]},' +
+    f' proportion of "1" labels in the data: {percentage[1]}'
+)
+print(
+    f"Labels from rightmost threshold: \n{raw2label(y_pred, threshold=thresh_range[-1])}"
+)
+```</p>
+<pre><code>Minimal accuracy on the left: 0.45879120879120877, proportion of "0" labels in the data: 0.5439560439560439
 Labels from leftmost threshold:
 [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -526,7 +494,7 @@ Labels from leftmost threshold:
  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
 
 
-Minimal accuracy on the right: 0.5412087912087912, proportion of &quot;1&quot; labels in the data: 0.45604395604395603
+Minimal accuracy on the right: 0.5412087912087912, proportion of "1" labels in the data: 0.45604395604395603
 Labels from rightmost threshold: 
 [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -538,49 +506,45 @@ Labels from rightmost threshold:
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0]
-</code></pre></div>
-
-<h3>K-Nearest Neighbors</h3>
+</code></pre>
+<h3 id="k-nearest-neighbors">K-Nearest Neighbors</h3>
 <p>For this method, we consider different values of neighbors in each case. We begin with 1 neighbor per training point, which we expect to give a high accuracy since each point will roughly be each own neighborhood.</p>
 <p>As the number of neighbors increases we will see a slight decrease in accuracy.</p>
-<div class="highlight"><pre><span></span><code><span class="n">train_err_scores</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">test_err_scores</span> <span class="o">=</span> <span class="p">[]</span>
+<p>```python
+train_err_scores = []
+test_err_scores = []</p>
+<p>for k in [1, 3, 5, 7, 15]:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X, y)</p>
+<pre><code>y_true = y.copy().values
+y_pred = knn.predict(X)
 
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">]:</span>
-    <span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-    <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+train_err_scores.append(1 - accuracy_score(y_pred=y_pred, y_true=y_true))
 
-    <span class="n">y_true</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-    <span class="n">train_err_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">))</span>
-
-    <span class="n">y_true</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-    <span class="n">test_err_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span> <span class="n">train_err_scores</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Error on Train Set&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Neighbors&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Error score&quot;</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span> <span class="n">test_err_scores</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Error on Test Set&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Neighbors&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Error score&quot;</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-    <span class="mf">0.5</span><span class="p">,</span>
-    <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span>
-    <span class="s1">&#39;As the number of neighbors increases, so does the error score of the model on the training data.&#39;</span><span class="p">,</span>
-    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
-</code></pre></div>
-
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_41_0.png"></p>
-<h2>Conclusion</h2>
+y_true = y_test.copy().values
+y_pred = knn.predict(X_test)
+test_err_scores.append(1 - accuracy_score(y_pred=y_pred, y_true=y_true))
+</code></pre>
+<p>```</p>
+<p>```python
+fig, ax = plt.subplots(ncols=2, figsize=(24, 6))
+ax[1].plot([1, 3, 5, 7, 15], train_err_scores, '-o')
+ax[1].set_title("Error on Train Set")
+ax[1].set_xlabel("Neighbors")
+ax[1].set_ylabel("Error score")</p>
+<p>ax[0].plot([1, 3, 5, 7, 15], test_err_scores, '-o')
+ax[0].set_title("Error on Test Set")
+ax[0].set_xlabel("Neighbors")
+ax[0].set_ylabel("Error score")</p>
+<p>fig.text(
+    0.5,
+    -0.1,
+    'As the number of neighbors increases, so does the error score of the model on the training data.',
+    ha='center',
+    fontsize=16);
+```</p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-02-24-data-explore/output_41_0.png" /></p>
+<h2 id="conclusion">Conclusion</h2>
 <p>We applied two different classification methods for the data. Method 1 was based on the linear regression using least squares method. The second method was based on 5 different Nearest neighbor classifiers.</p>
 <p>Each approach showed different results specific to assumptions underlying each model. Linear model assumes that the relationship between the label and pixel intensities is a high-dimensional linear function. Using various threshold we were able to show the change in hyperplane location relative to test and train data and how the accuracy scores (error scores) reflect this change.</p>
 <p>For the k-NN model, we observed a similar behavior: going from few neighbors to more, we saw that the model is prone to the larger error. This is to be expected but not to say that 1 neighbor is necessarily better than 15 neighbors, since 1 neighbor case is <em>overfitting</em> the data. The data is very high-dimensional so it is harder to evaluate how many neighbors we should aim for here.</p>
@@ -706,4 +670,5 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
 </script>
 
 </body>
+
 </html>

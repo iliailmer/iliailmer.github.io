@@ -1,39 +1,38 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
 
-    <link id="dark-theme-style" rel="stylesheet" type="text/css"
-          media="(prefers-color-scheme: dark)"
-    href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
+  <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
-    <link id="pygments-dark-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: dark)"
-          href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
-          href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
 
+  <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
 
-    <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
+  <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+    title="Ilia Ilmer Atom">
 
 
-    <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -45,19 +44,18 @@
   ga('create', 'UA-131502498-2', 'auto');
   ga('send', 'pageview');
 </script>
-<!-- End Google Analytics -->  
+<!-- End Google Analytics -->
 
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#333">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#333">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Microsoft EDGE -->
-    <meta name="msapplication-TileColor" content="#333">
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333">
 
- 
 
 <meta name="author" content="Ilia Ilmer" />
 <meta name="description" content="In this post, I expand on a little class/self-teaching project that I did during the Spring 2020 semester. NumPy-Learn: A Homemade Machine Learning Library Organization In this section we will discuss the main organization of the library: How the layers are built How loss functions work How a stochastic …" />
@@ -83,6 +81,7 @@
   <title>Ilia Ilmer &ndash; NumPy-Learn, A Homemade Machine Learning Library</title>
 
 </head>
+
 <body >
   <aside>
     <div>
@@ -95,55 +94,58 @@
       </h1>
 
 <p>Algorithms and Coffee</p>
+      <form class="navbar-search" action="https://iliailmer.github.io/search.html" role="search">
+        <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+      </form>
 
       <nav>
         <ul class="list">
 
 
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/about.html#about">
-                  About
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/publications.html#publications">
-                  Publications
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/software.html#software">
-                  Software
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/talks.html#talks">
-                  Talks
-                </a>
-              </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/about.html#about">
+              About
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/publications.html#publications">
+              Publications
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/software.html#software">
+              Software
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/talks.html#talks">
+              Talks
+            </a>
+          </li>
 
         </ul>
       </nav>
 
       <ul class="social">
-          <li>
-            <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
-              <i class="fab fa-gitlab"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
+        <li>
+          <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
+            <i class="fab fa-gitlab"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -161,7 +163,7 @@
 
 <article class="single">
   <header>
-      
+    
     <h1 id="numpy-learn">NumPy-Learn, A Homemade Machine Learning Library</h1>
     <p>
       Posted on Sun 14 June 2020 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
@@ -170,10 +172,13 @@
   </header>
 
 
+  <nav class="toc">
+    true
+  </nav>
   <div>
     <p>In this post, I expand on a little class/self-teaching project that I did during the Spring 2020 semester.</p>
-<h1>NumPy-Learn: A Homemade Machine Learning Library</h1>
-<h2>Organization</h2>
+<h1 id="numpy-learn-a-homemade-machine-learning-library">NumPy-Learn: A Homemade Machine Learning Library</h1>
+<h2 id="organization">Organization</h2>
 <p>In this section we will discuss the main organization of the library:</p>
 <ul>
 <li>How the layers are built</li>
@@ -181,24 +186,22 @@
 <li>How a stochastic gradient descent optimizer was built</li>
 </ul>
 <p>After that, we introduce the class for building the neural net itself and explain how everything ties together. We conclude by performance analysis on a simple MNIST program.</p>
-<p>Let us agree on convention similar to that of PyTorch library: we will call the main datatype <code>Tensor</code> instead of <code>array</code>, as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span> <span class="k">as</span> <span class="n">Tensor</span>
-</code></pre></div>
-
+<p>Let us agree on convention similar to that of PyTorch library: we will call the main datatype <code>Tensor</code> instead of <code>array</code>, as follows:
+<code>py
+from numpy import ndarray as Tensor</code></p>
 <p>This is to adhere to accepted aesthetics of most modern neural network libraries and nothing more. All methods are purely using <code>numpy</code> or <code>scipy</code>.</p>
-<h3>Linear Layer</h3>
+<h3 id="linear-layer">Linear Layer</h3>
 <p>Inspired by PyTorch, the naming convention here is the preserved. The design of the layer is also similar to PyTorch: the class <code>Linear</code> will have a <code>forward</code> and a <code>backward</code> methods. The former will represent the forward pass, that is, the passing of the input data through the layer towards the next. The latter is responsible for backward propagation of the gradient.</p>
-<h4>Forward Pass</h4>
+<h4 id="forward-pass">Forward Pass</h4>
 <p>Linear layer essentially represents matrix multiplication of the input data <span class="math">\(x\)</span> by a weight matrix <span class="math">\(W\)</span> with addition of bias <span class="math">\(b\)</span>:</p>
 <div class="math">$$\mathrm{L}(x) = xW + b.$$</div>
 <p>We require that the size of the input data was of the format <span class="math">\(batch\times input~features\)</span>, for instance if the input data has 784 pixel values, for a batch of 100 images the size of <span class="math">\(x\)</span> would be <span class="math">\(100\times 784\)</span> and the size of <span class="math">\(W\)</span> would be <span class="math">\(784\times out~features\)</span>, while <span class="math">\(b\)</span> is of the shape <span class="math">\(out~features\times 1\)</span>. Here we rely on <code>numpy</code> broadcasting the value of bias onto the resulting matrix <span class="math">\(xW\)</span> when adding <span class="math">\(b\)</span>.</p>
 <p>In code, we define it as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
-</code></pre></div>
-
-<h4>Gradient</h4>
+<p><code>py
+def forward(self, x: Tensor) -&gt; Tensor:
+        self.input = x
+        return x @ self.W + self.b</code></p>
+<h4 id="gradient">Gradient</h4>
 <p>In the forward pass, we computed the matrix product. Next, we need to evaluate the rate of change of the output of the current layer with respect to the input. Note, that due to the chain rule, the gradient flows from right (output) to left (input) as a product.</p>
 <p>The <code>backward</code> method utilizes chainrule. It accepts the gradient from the layer <span class="math">\(l+1\)</span>, uses it to find the derivatives of the current layer's output with respect to <span class="math">\(W\)</span> and <span class="math">\(b\)</span> and finally, passes it along multiplying by the derivative of its output w.r.t. <span class="math">\(x\)</span>, the input.</p>
 <p>Mathematically, this is the following:</p>
@@ -207,73 +210,71 @@
 <li>Here, <span class="math">\(\delta^l_i\)</span> is the error of the <span class="math">\(l\)</span>th layer for <span class="math">\(i\)</span>th node: <div class="math">$$\delta^l_i=g'_{out}(a_i^l)\sum\limits_k W^{l+1}_{ik}\delta^{l+1}_{k}$$</div>, where <span class="math">\(g\)</span> is the activation function.</li>
 </ul>
 <p>These equations are written in a different shape convention, but we can take care of that in the code.</p>
-<p>The derivative of <span class="math">\(xW+b\)</span> w.r.t. <span class="math">\(W\)</span> is <span class="math">\(x^T\)</span>. The derivative of <span class="math">\(xW+b\)</span> w.r.t. to <span class="math">\(b\)</span> is an identity matrix. Therefore, let <code>grad</code> be the gradient (error) received from <span class="math">\((l+1)\)</span>th layer, then we can define the <code>backward</code> method as below:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="c1"># input_feat by batch_size @ batch_size by out_features</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dydw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">grad</span>
-        <span class="c1"># we sum across batches and get shape (out_features)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dydb</span> <span class="o">=</span> <span class="n">grad</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="c1"># output must be of shape (batch_size, out_features)</span>
-        <span class="k">return</span> <span class="n">grad</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">T</span>
-</code></pre></div>
-
+<p>The derivative of <span class="math">\(xW+b\)</span> w.r.t. <span class="math">\(W\)</span> is <span class="math">\(x^T\)</span>. The derivative of <span class="math">\(xW+b\)</span> w.r.t. to <span class="math">\(b\)</span> is an identity matrix. Therefore, let <code>grad</code> be the gradient (error) received from <span class="math">\((l+1)\)</span>th layer, then we can define the <code>backward</code> method as below:
+<code>py
+def backward(self, grad: Tensor) -&gt; Tensor:
+        # input_feat by batch_size @ batch_size by out_features
+        self.dydw = self.input.T @ grad
+        # we sum across batches and get shape (out_features)
+        self.dydb = grad.sum(axis=0)
+        # output must be of shape (batch_size, out_features)
+        return grad @ self.W.T</code></p>
 <p>Now we are ready to present the fully defined Linear Layer code below:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span> <span class="k">as</span> <span class="n">Tensor</span>
+<p>```python
+import numpy as np
+from numpy import ndarray as Tensor</p>
+<p>class Linear:
+    """A linear layer."""</p>
+<pre><code>def __init__(self, in_features: int, out_features: int):
+    """Initialize a linear layer with weights and biases."""
+    self.W = np.random.randn(in_features, out_features)
 
-<span class="k">class</span> <span class="nc">Linear</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A linear layer.&quot;&quot;&quot;</span>
+    self.b = np.random.randn(out_features)
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">out_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize a linear layer with weights and biases.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">)</span>
+def forward(self, x: Tensor) -&gt; Tensor:
+    """Compute forward pass, return W @ x + b.
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">out_features</span><span class="p">)</span>
+    Arguments:
+        W: the weight Tensor of shape (in_featuers, out_features)
+        b: the bias vector of shape (out_features,)
+        x: the input of shape (batch_size, in_features)
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Compute forward pass, return W @ x + b.</span>
+    Returns:
+        A tensor of shape (batch_size, out_features)
 
-<span class="sd">        Arguments:</span>
-<span class="sd">            W: the weight Tensor of shape (in_featuers, out_features)</span>
-<span class="sd">            b: the bias vector of shape (out_features,)</span>
-<span class="sd">            x: the input of shape (batch_size, in_features)</span>
+    """
+    self.input = x
+    return x @ self.W + self.b
 
-<span class="sd">        Returns:</span>
-<span class="sd">            A tensor of shape (batch_size, out_features)</span>
+def backward(self, grad: Tensor) -&gt; Tensor:
+    """Propagate the gradient from the l+1 layer to l-1 layer.
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+    Arguments:
+        grad: the tensor gradients from the l+1 layer to be
+              propagated, shape: (batch_size, out_features).
 
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Propagate the gradient from the l+1 layer to l-1 layer.</span>
+    References:
+        http://home.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html
 
-<span class="sd">        Arguments:</span>
-<span class="sd">            grad: the tensor gradients from the l+1 layer to be</span>
-<span class="sd">                  propagated, shape: (batch_size, out_features).</span>
+    """
+    # in_feat by batch_size @ batch_size by out_feat
+    self.dydw = self.input.T @ grad
+    # we sum across batches and get shape (out_features)
+    self.dydb = grad.sum(axis=0)
+    # output must be of shape (batch_size, out_features)
+    return grad @ self.W.T
 
-<span class="sd">        References:</span>
-<span class="sd">            http://home.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html</span>
+def __call__(self, x: Tensor) -&gt; Tensor:
+    """Peform forward pass on `__call__`."""
+    return self.forward(x)
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># in_feat by batch_size @ batch_size by out_feat</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dydw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">grad</span>
-        <span class="c1"># we sum across batches and get shape (out_features)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dydb</span> <span class="o">=</span> <span class="n">grad</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="c1"># output must be of shape (batch_size, out_features)</span>
-        <span class="k">return</span> <span class="n">grad</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">T</span>
-
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Peform forward pass on `__call__`.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Print a representation for Jupyter/IPython.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Linear Layer:</span><span class="se">\n\t</span><span class="s2">Weight: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span>\
-            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\n\t</span><span class="s2">Bias: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span>
-</code></pre></div>
-
-<h3>Layers with Activation Functions</h3>
+def __repr__(self) -&gt; str:
+    """Print a representation for Jupyter/IPython."""
+    return f"""Linear Layer:\n\tWeight: {self.W.shape}"""\
+        + f"""\n\tBias: {self.b.shape}"""
+</code></pre>
+<p>```</p>
+<h3 id="layers-with-activation-functions">Layers with Activation Functions</h3>
 <p>We define separate layers for activation functions, similarly to the way PyTorch handles those. We only define two here: ReLU and Sigmoid.</p>
 <p>ReLU is defined as </p>
 <div class="math">$$f(x) = \max\{0, x\}$$</div>
@@ -283,112 +284,106 @@
 <div class="math">$$(\nabla f)(t) = 0 \text{ if } t=0\text{, else }t$$</div>
 <div class="math">$$(\nabla \sigma)(t) = \sigma(t)(1-\sigma(t))$$</div>
 <p>The respective classes are defined below</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the sigmoid function of x.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+<p>```python
+def sigmoid(x: Tensor) -&gt; Tensor:
+    """Calculate the sigmoid function of x."""
+    return 1/(1+np.exp(-x))</p>
+<p>def sigmoid_prime(x: Tensor) -&gt; Tensor:
+    """Calculate the d/dx of sigmoid function of x."""
+    return sigmoid(x)*(1-sigmoid(x))</p>
+<p>class ReLU:
+    """ReLU class."""</p>
+<pre><code>def __init__(self):
+    """Initialize the ReLU instance."""
 
+def forward(self, x: Tensor) -&gt; Tensor:
+    """Compute the activation in the forward pass.
 
-<span class="k">def</span> <span class="nf">sigmoid_prime</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the d/dx of sigmoid function of x.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    Arguments:
+        x: Tensor of inputs, shape (batch_size, in_features)
 
-<span class="k">class</span> <span class="nc">ReLU</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;ReLU class.&quot;&quot;&quot;</span>
+    Returns:
+        Tensor of shape (batch_size, in_features)
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the ReLU instance.&quot;&quot;&quot;</span>
+    """
+    return np.maximum(x, 0)
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Compute the activation in the forward pass.</span>
+def backward(self, grad: Tensor) -&gt; Tensor:
+    """Compute the gradient and pass it backwards.
 
-<span class="sd">        Arguments:</span>
-<span class="sd">            x: Tensor of inputs, shape (batch_size, in_features)</span>
+    Arguments:
+        grad: Tensor of gradients of shape (batch_size, out_features)
 
-<span class="sd">        Returns:</span>
-<span class="sd">            Tensor of shape (batch_size, in_features)</span>
+    Returns:
+        Tensor of shape (batch_size, out_features)
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    """
+    return np.maximum(grad, 0)
 
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Compute the gradient and pass it backwards.</span>
+def __call__(self, x: Tensor) -&gt; Tensor:
+    """Peform forward pass on `__call__`."""
+    return self.forward(x)
 
-<span class="sd">        Arguments:</span>
-<span class="sd">            grad: Tensor of gradients of shape (batch_size, out_features)</span>
+def __repr__(self) -&gt; str:
+    """Print a representation of ReLU for Jupyter/IPython."""
+    return """ReLU()"""
+</code></pre>
+<p>class Sigmoid:
+    """Sigmoid class."""</p>
+<pre><code>def __init__(self):
+    """Initialize the instance.
 
-<span class="sd">        Returns:</span>
-<span class="sd">            Tensor of shape (batch_size, out_features)</span>
+    We add the main function for activation and its derivative function.
+    """
+    self.sigmoid = sigmoid
+    self.sigmoid_prime = sigmoid_prime
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+def forward(self, x: Tensor) -&gt; Tensor:
+    """Compute the activation in the forward pass.
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Peform forward pass on `__call__`.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    Arguments:
+        x: Tensor of inputs with shape(batch_size, in_features)
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Print a representation of ReLU for Jupyter/IPython.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;&quot;ReLU()&quot;&quot;&quot;</span>
+    Returns:
+        Tensor of shape(batch_size, in_features)
 
+    """
+    self.input = x
+    return self.sigmoid(x)
 
-<span class="k">class</span> <span class="nc">Sigmoid</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Sigmoid class.&quot;&quot;&quot;</span>
+def backward(self, grad: Tensor):
+    """Compute the gradient and pass it backwards.
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the instance.</span>
+    Arguments:
+        grad: Tensor of gradients with shape(batch_size, out_features)
 
-<span class="sd">        We add the main function for activation and its derivative function.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span> <span class="o">=</span> <span class="n">sigmoid</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid_prime</span> <span class="o">=</span> <span class="n">sigmoid_prime</span>
+    Returns:
+        Tensor of shape(in_features, out_features)
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Compute the activation in the forward pass.</span>
+    """
+    return self.sigmoid_prime(self.input) * grad
 
-<span class="sd">        Arguments:</span>
-<span class="sd">            x: Tensor of inputs with shape(batch_size, in_features)</span>
+def __call__(self, x: Tensor) -&gt; Tensor:
+    """Peform forward pass on `__call__`."""
+    return self.forward(x)
 
-<span class="sd">        Returns:</span>
-<span class="sd">            Tensor of shape(batch_size, in_features)</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Compute the gradient and pass it backwards.</span>
-
-<span class="sd">        Arguments:</span>
-<span class="sd">            grad: Tensor of gradients with shape(batch_size, out_features)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Tensor of shape(in_features, out_features)</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid_prime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">)</span> <span class="o">*</span> <span class="n">grad</span>
-
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Peform forward pass on `__call__`.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Print a representation of Sigmoid for Jupyter/IPython.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;&quot;Sigmoid()&quot;&quot;&quot;</span>
-</code></pre></div>
-
+def __repr__(self) -&gt; str:
+    """Print a representation of Sigmoid for Jupyter/IPython."""
+    return """Sigmoid()"""
+</code></pre>
+<p>```</p>
 <p>In addition to Sigmoid and ReLU, we also import <code>softmax</code> activation function from <code>scipy</code>. In my experiments, I found that this is the most stable implementation, so I did not want to run into <a href="https://en.wikipedia.org/wiki/Not_invented_here">"not invented here"</a> problem.</p>
 <p><code>softmax</code> is defined as follows:</p>
 <div class="math">$$\mathcal{S}(x)=\left[\frac{\exp(x_i)}{\sum\limits_{k}\exp(x_k)}\right], i=1..n,~x=[x_1, ... , x_n]$$</div>
 <p>Softmax accepts a vector of network's output and converts it to a vector of probability values. For this function we need to use one-hot encoding.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">softmax</span> <span class="k">as</span> <span class="n">s</span>
-<span class="k">def</span> <span class="nf">softmax</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate softmax using scipy.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">s</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</code></pre></div>
-
-<h3>Loss Functions</h3>
+<p><code>python
+from scipy.special import softmax as s
+def softmax(x: Tensor) -&gt; Tensor:
+    """Calculate softmax using scipy."""
+    return s(x, axis=1)</code></p>
+<h3 id="loss-functions">Loss Functions</h3>
 <p>We implement two loss functions here. We will implement Mean Squared Error Loss class and a Cross Entropy Loss class.</p>
-<h4>Mean Squared Error Loss</h4>
+<h4 id="mean-squared-error-loss">Mean Squared Error Loss</h4>
 <p>This is a very straight-forward loss function, it takes the output of the last layer of the neural network <span class="math">\(\hat{y}\)</span> and ccomputes:</p>
 <div class="math">$$\mathcal{L}(y, \hat{y}) = \frac{1}{2m}||y-\hat{y}||^2,$$</div>
 <p>where <span class="math">\(m\)</span> is the size of <span class="math">\(y\)</span> and </p>
@@ -397,7 +392,7 @@
 <div class="math">$$\vert\vert...\vert\vert$$</div>
 <p> represents the vector norm (sum of squared component-wise differences). The gradient of this function for backpropagation is computed as</p>
 <div class="math">$$\nabla{\mathcal{L}}=\frac{1}{m}(y-\hat{y})$$</div>
-<h4>Cross Entropy Loss</h4>
+<h4 id="cross-entropy-loss">Cross Entropy Loss</h4>
 <p>Cross entropy loss function is defined as follows. Let <span class="math">\(\hat{y}\)</span> be the so-called <span class="math">\({logits}\)</span>, the outputs of the neural network. Then, we use softmax to calculate the probabilities <span class="math">\(p=\mathcal{S}\left(\hat{y}\right)\)</span>. The cross entropy is</p>
 <div class="math">$$\mathcal{L}(y, \hat{y}) = -\sum\limits_{i} y_i \log p_i,$$</div>
 <p>
@@ -415,447 +410,407 @@ where <span class="math">\(x\)</span> is the network's output. Continuing this, 
 <div class="math">$$\nabla{\mathcal{L}}(y, \hat{y}) = -\sum\limits_i y_i \frac{1}{p_i}p_i(\delta_{ij}-p_j) = - y_j  + p_j\sum\limits_i y_i.$$</div>
 <p>Recall, that the vector <span class="math">\(y\)</span> is one-hot encoded, therefore, the sum of its components <span class="math">\(\sum\limits_i y_i=1\)</span>. Hence, we obtain</p>
 <div class="math">$$\nabla{\mathcal{L}}(y, \hat{y}) =p_j - y_j.$$</div>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Loss</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Placeholder class for losses.&quot;&quot;&quot;</span>
+<p>```python
+class Loss:
+    """Placeholder class for losses."""</p>
+<pre><code>def __init__(self):
+    """Initialize the class with 0 gradient."""
+    self.grad = 0.
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the class with 0 gradient.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="mf">0.</span>
+def grad_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
+    """Create placeholder for the gradient funtion."""
+    pass
 
-    <span class="k">def</span> <span class="nf">grad_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">true</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Create placeholder for the gradient funtion.&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
+def loss_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
+    """Create placeholder for the loss funtion."""
+    pass
 
-    <span class="k">def</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">true</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Create placeholder for the loss funtion.&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
+def __call__(self, pred: Tensor, true: Tensor):
+    """Calculate gradient and loss on call."""
+    self.grad = self.grad_fn(pred, true)
+    return self.loss_fn(pred, true)
+</code></pre>
+<p>class MSE(Loss):
+    """Mean squared error loss."""</p>
+<pre><code>def __init__(self):
+    """Initialize via superclass."""
+    super().__init__()
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">true</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate gradient and loss on call.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_fn</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">true</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_fn</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">true</span><span class="p">)</span>
+def grad_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
+    """Calculate the gradient of MSE.
 
+    Args:
+        pred: Tensor of predictions (raw output),
+        shape (batch, )
+        true: Tensor of true labels,
+        shape (batch, )
 
-<span class="k">class</span> <span class="nc">MSE</span><span class="p">(</span><span class="n">Loss</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Mean squared error loss.&quot;&quot;&quot;</span>
+    """
+    return (pred - true)/true.shape[0]
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize via superclass.&quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+def loss_fn(self, pred: Tensor, true: Tensor) -&gt; Tensor:
+    """Calculate the MSE.
 
-    <span class="k">def</span> <span class="nf">grad_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">true</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate the gradient of MSE.</span>
+    Args:
+        pred: Tensor of predictions (raw output),
+        shape (batch,)
+        true: Tensor of true labels (raw output),
+        shape (batch,)
 
-<span class="sd">        Args:</span>
-<span class="sd">            pred: Tensor of predictions (raw output),</span>
-<span class="sd">            shape (batch, )</span>
-<span class="sd">            true: Tensor of true labels,</span>
-<span class="sd">            shape (batch, )</span>
+    """
+    return 0.5*np.sum((pred - true)**2)/true.shape[0]
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">pred</span> <span class="o">-</span> <span class="n">true</span><span class="p">)</span><span class="o">/</span><span class="n">true</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+def __repr__(self):
+    """Put pretty representation in Jupyter/IPython."""
+    return """Mean Squared Error loss (pred: Tensor, true: Tensor)"""
+</code></pre>
+<p>class CrossEntropyLoss(Loss):
+    """CrossEntropyLoss class."""</p>
+<pre><code>def __init__(self) -&gt; None:
+    """Initialize via superclass."""
+    super().__init__()
 
-    <span class="k">def</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pred</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">true</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate the MSE.</span>
+def loss_fn(self, logits: Tensor, true: Tensor) -&gt; Tensor:
+    """Calculate loss.
 
-<span class="sd">        Args:</span>
-<span class="sd">            pred: Tensor of predictions (raw output),</span>
-<span class="sd">            shape (batch,)</span>
-<span class="sd">            true: Tensor of true labels (raw output),</span>
-<span class="sd">            shape (batch,)</span>
+    Args:
+        logits: Tensor of shape (batch size, number of classes),
+        raw output of a neural network
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">pred</span> <span class="o">-</span> <span class="n">true</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">true</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        true: Tensor of shape (batch size,),
+        a one-hot encoded vector
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Put pretty representation in Jupyter/IPython.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;&quot;Mean Squared Error loss (pred: Tensor, true: Tensor)&quot;&quot;&quot;</span>
+    """
+    p = softmax(logits)
+    return -np.mean(true * np.log(p))
 
+def grad_fn(self, logits: Tensor, true: Tensor) -&gt; Tensor:
+    """Calculate the gradient.
 
-<span class="k">class</span> <span class="nc">CrossEntropyLoss</span><span class="p">(</span><span class="n">Loss</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;CrossEntropyLoss class.&quot;&quot;&quot;</span>
+    Args:
+        logits: Tensor of shape (batch size, number of classes),
+        raw output of a neural network
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Initialize via superclass.&quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        true: Tensor of shape (batch size, number of classes),
+        a one-hot encoded vector
 
-    <span class="k">def</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logits</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">true</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate loss.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            logits: Tensor of shape (batch size, number of classes),</span>
-<span class="sd">            raw output of a neural network</span>
-
-<span class="sd">            true: Tensor of shape (batch size,),</span>
-<span class="sd">            a one-hot encoded vector</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span>
-        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">true</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">grad_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logits</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">true</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate the gradient.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            logits: Tensor of shape (batch size, number of classes),</span>
-<span class="sd">            raw output of a neural network</span>
-
-<span class="sd">            true: Tensor of shape (batch size, number of classes),</span>
-<span class="sd">            a one-hot encoded vector</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">probabilities</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">probabilities</span> <span class="o">-</span> <span class="n">true</span>
-</code></pre></div>
-
-<h2>Building the Network</h2>
+    """
+    self.probabilities = softmax(logits)
+    return self.probabilities - true
+</code></pre>
+<p>```</p>
+<h2 id="building-the-network">Building the Network</h2>
 <p>Here we describe the main class for our neural network. The main principle is simple, we pass a list of layers and initialize a class <code>Network</code> with two methods: <code>forward</code> and <code>backward</code>. The <code>forward</code> method performs the forward pass, that is, sends the input data through each layer. The <code>backward</code> method calls <code>backward</code> from each layer in the opposite direction (starting with the last layer). It uses the gradient of the lost function as its input.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<p>```python
+from typing import List, Union</p>
+<p>Layer = Union[Linear, ReLU, Sigmoid]</p>
+<p>class Network:
+    """Basic Neural Network Class."""</p>
+<pre><code>def __init__(self, layers: List[Layer]):
+    """Initialize the Netowrk with a list of layers."""
+    self.layers = layers[:]
 
-<span class="n">Layer</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Linear</span><span class="p">,</span> <span class="n">ReLU</span><span class="p">,</span> <span class="n">Sigmoid</span><span class="p">]</span>
+def forward(self, x: Tensor):
+    """Run the forward pass."""
+    for l in self.layers:
+        x = l(x)
+    return x
 
+def backward(self, grad: Tensor):
+    """Run the backward pass."""
+    for l in self.layers[::-1]:
+        grad = l.backward(grad)
+    return grad
 
-<span class="k">class</span> <span class="nc">Network</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Basic Neural Network Class.&quot;&quot;&quot;</span>
+def __call__(self, x: Tensor):
+    """Run the forward pass on __call__."""
+    return self.forward(x)
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Layer</span><span class="p">]):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the Netowrk with a list of layers.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[:]</span>
-
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the forward pass.&quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="n">l</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">x</span>
-
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the backward pass.&quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-            <span class="n">grad</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">grad</span>
-
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the forward pass on __call__.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Print the representation for the network.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
-</code></pre></div>
-
-<h3>Optimizers</h3>
+def __repr__(self) -&gt; str:
+    """Print the representation for the network."""
+    return "\n".join(l.__repr__() for l in self.layers)
+</code></pre>
+<p>```</p>
+<h3 id="optimizers">Optimizers</h3>
 <p>Our main optimizer here is going to be Stochastic Gradient Descent. After we computed the backpropagation, for every layer in the network, we are going to update the weights. If the gradient is <span class="math">\(\Delta w\)</span> then the update rule is </p>
 <div class="math">$$w = w - \eta \Delta w - 2*\alpha w,$$</div>
 <p>where <span class="math">\(\eta\)</span> is the learning rate and <span class="math">\(\alpha\)</span> is the <span class="math">\(L^2\)</span> regularization parameter. The code is presented below.</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">SGD</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Stochastic Gradient Descent class.&quot;&quot;&quot;</span>
+<p>```python
+class SGD:
+    """Stochastic Gradient Descent class."""</p>
+<pre><code>def __init__(self, lr: float, l2: float = 0.):
+    """Initialize with learning rate and l2-regularization parameter."""
+    self.lr = lr
+    self.l2 = l2
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">l2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize with learning rate and l2-regularization parameter.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">l2</span> <span class="o">=</span> <span class="n">l2</span>
-
-    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">:</span> <span class="n">Network</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Perform optimization step.&quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="s1">&#39;dydw&#39;</span><span class="p">):</span>
-                <span class="n">l</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">W</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="o">*</span><span class="n">l</span><span class="o">.</span><span class="n">dydw</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">l2</span> <span class="o">*</span> <span class="n">l</span><span class="o">.</span><span class="n">W</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="s1">&#39;dydb&#39;</span><span class="p">):</span>
-                <span class="n">l</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">b</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="o">*</span><span class="n">l</span><span class="o">.</span><span class="n">dydb</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">l2</span> <span class="o">*</span> <span class="n">l</span><span class="o">.</span><span class="n">b</span>
-</code></pre></div>
-
-<h2>Training MNIST in Batches using MSE</h2>
+def step(self, net: Network):
+    """Perform optimization step."""
+    for l in net.layers:
+        if hasattr(l, 'dydw'):
+            l.W = l.W - self.lr*l.dydw - 2 * self.l2 * l.W
+        if hasattr(l, 'dydb'):
+            l.b = l.b - self.lr*l.dydb - 2 * self.l2 * l.b
+</code></pre>
+<p>```</p>
+<h2 id="training-mnist-in-batches-using-mse">Training MNIST in Batches using MSE</h2>
 <p>In the code below, we create a training/validation loop. Each important point is commented. </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">auto</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-
-
-<span class="k">def</span> <span class="nf">to_one_hot</span><span class="p">(</span><span class="n">vector</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Create one hot encoding of a vector.&quot;&quot;&quot;</span>
-    <span class="n">oh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vector</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">oh</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">vector</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">oh</span>
-
-
-<span class="c1"># Load training data</span>
-
-<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;mnist_train.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
-<span class="n">train_label</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s1">&#39;mnist_train.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># Create the basic network</span>
-<span class="n">net</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">layers</span><span class="o">=</span><span class="p">[</span>
-    <span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
-    <span class="n">ReLU</span><span class="p">(),</span>
-    <span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-<span class="p">])</span>
-<span class="c1"># Initialize loss class</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="n">MSE</span><span class="p">()</span>
-
-<span class="c1"># Initialize the optimizer, learning rate is 0.0001</span>
-<span class="n">optim</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="mf">1e-4</span><span class="p">)</span>
-
-<span class="c1"># permform the train/val split</span>
-<span class="n">x_train</span><span class="p">,</span> <span class="n">x_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-    <span class="n">train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span><span class="p">,</span>
-    <span class="n">train_label</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
-    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># to_one_hot</span>
-
-<span class="c1"># Convert labels to one-hot encodings</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">to_one_hot</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_val</span> <span class="o">=</span> <span class="n">to_one_hot</span><span class="p">(</span><span class="n">y_val</span><span class="p">)</span>
-
-<span class="c1"># batch size</span>
-<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">100</span>
-
-<span class="c1"># progress bar may not be visible in PDF mode, but it works in notebook or terminal mode</span>
-<span class="c1"># we set it to 100 epochs here</span>
-<span class="n">progress_bar</span> <span class="o">=</span> <span class="n">auto</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">progress_bar</span><span class="p">:</span>
-    <span class="c1"># offset to iterate through batches</span>
-    <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="c1"># initialize errors for validation and training</span>
-    <span class="n">val_err</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">err</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">)):</span>
-        <span class="c1"># while we can move through batches, extract them</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">]</span>
-        <span class="c1"># make prediction</span>
-        <span class="n">pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="c1"># calculate loss (and average error)</span>
-        <span class="n">err</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span><span class="o">/</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="c1"># begin backprop</span>
-        <span class="n">g</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>
-        <span class="c1"># perform SGD step</span>
-        <span class="n">optim</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
-        <span class="c1"># move to next batch</span>
-        <span class="n">offset</span> <span class="o">+=</span> <span class="n">batch_size</span>
-    <span class="c1"># reset offset for validation</span>
-    <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_val</span><span class="p">)):</span>
-        <span class="c1"># get validation data while we are not at the end</span>
-        <span class="n">val_data</span> <span class="o">=</span> <span class="n">x_val</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="n">val_label</span> <span class="o">=</span> <span class="n">y_val</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">]</span>
-        <span class="c1"># make prediction</span>
-        <span class="n">pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">val_data</span><span class="p">)</span>
-        <span class="c1"># get loss and error</span>
-        <span class="n">val_err</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">val_label</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_val</span><span class="p">)</span><span class="o">/</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="c1"># move offset to next batch</span>
-        <span class="n">offset</span> <span class="o">+=</span> <span class="n">batch_size</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c1"># update progress bar info</span>
-            <span class="n">progress_bar</span><span class="o">.</span><span class="n">set_postfix</span><span class="p">({</span><span class="s2">&quot;Mean_loss_train&quot;</span><span class="p">:</span> <span class="n">err</span><span class="p">,</span>
-                                      <span class="s2">&quot;Mean_loss_val&quot;</span><span class="p">:</span> <span class="n">val_err</span><span class="p">})</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Load test data and convert to one-hot</span>
-<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;mnist_test.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
-<span class="n">test_label</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;mnist_test.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">test_label</span> <span class="o">=</span> <span class="n">to_one_hot</span><span class="p">(</span><span class="n">test_label</span><span class="p">)</span>
-
-<span class="c1"># place offset and initialize error to 0</span>
-<span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">test_err</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)):</span>
-    <span class="c1"># get data batch</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">,</span> <span class="p">:]</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">test_label</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">]</span>
-    <span class="c1"># make prediction</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="c1"># get error</span>
-    <span class="n">test_err</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="o">/</span><span class="n">batch_size</span><span class="p">)</span>
-    <span class="n">offset</span> <span class="o">+=</span> <span class="n">batch_size</span>
-
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test Error is </span><span class="si">{</span><span class="n">test_err</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Test Error is 2643.26 ...
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span>
-<span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;retina&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-
-<span class="n">y_true</span> <span class="o">=</span> <span class="n">test_label</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.3f&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;True&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Text(114.0, 0.5, &#39;Predicted&#39;)
-</code></pre></div>
-
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_17_1.png"></p>
+<p>```python
+from tqdm import auto
+import numpy as np
+import pandas as pd
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split</p>
+<p>def to_one_hot(vector: Tensor) -&gt; Tensor:
+    """Create one hot encoding of a vector."""
+    oh = np.zeros((vector.shape[0], vector.max()+1))
+    oh[np.arange(vector.shape[0]), vector] = 1
+    return oh</p>
+<h1 id="load-training-data">Load training data</h1>
+<p>train = pd.read_csv('mnist_train.csv', header=None).values[:, 1:]
+train_label = pd.read_csv(
+    'mnist_train.csv', header=None).values[:, 0]</p>
+<h1 id="create-the-basic-network">Create the basic network</h1>
+<p>net = Network(layers=[
+    Linear(784, 128),
+    ReLU(),
+    Linear(128, 10),
+])</p>
+<h1 id="initialize-loss-class">Initialize loss class</h1>
+<p>loss = MSE()</p>
+<h1 id="initialize-the-optimizer-learning-rate-is-00001">Initialize the optimizer, learning rate is 0.0001</h1>
+<p>optim = SGD(1e-4)</p>
+<h1 id="permform-the-trainval-split">permform the train/val split</h1>
+<p>x_train, x_val, y_train, y_val = train_test_split(
+    train.astype(np.float32) / 255,
+    train_label.astype(np.int32),
+    test_size=0.2, random_state=42)  # to_one_hot</p>
+<h1 id="convert-labels-to-one-hot-encodings">Convert labels to one-hot encodings</h1>
+<p>y_train = to_one_hot(y_train)
+y_val = to_one_hot(y_val)</p>
+<h1 id="batch-size">batch size</h1>
+<p>batch_size = 100</p>
+<h1 id="progress-bar-may-not-be-visible-in-pdf-mode-but-it-works-in-notebook-or-terminal-mode">progress bar may not be visible in PDF mode, but it works in notebook or terminal mode</h1>
+<h1 id="we-set-it-to-100-epochs-here">we set it to 100 epochs here</h1>
+<p>progress_bar = auto.tqdm(range(100))
+for epoch in progress_bar:
+    # offset to iterate through batches
+    offset = 0
+    # initialize errors for validation and training
+    val_err = 0
+    err = 0
+    while (offset+batch_size &lt;= len(x_train)):
+        # while we can move through batches, extract them
+        data = x_train[offset:offset+batch_size, :]
+        label = y_train[offset:offset+batch_size]
+        # make prediction
+        pred = net(data)
+        # calculate loss (and average error)
+        err += loss(pred, label)/(len(x_train)/batch_size)
+        # begin backprop
+        g = net.backward(loss.grad)
+        # perform SGD step
+        optim.step(net)
+        # move to next batch
+        offset += batch_size
+    # reset offset for validation
+    offset = 0
+    while (offset+batch_size &lt;= len(x_val)):
+        # get validation data while we are not at the end
+        val_data = x_val[offset:offset+batch_size, :]
+        val_label = y_val[offset:offset+batch_size]
+        # make prediction
+        pred = net(val_data)
+        # get loss and error
+        val_err += loss(pred, val_label)/(len(x_val)/batch_size)
+        # move offset to next batch
+        offset += batch_size
+        if (epoch) % 2 == 0:
+            # update progress bar info
+            progress_bar.set_postfix({"Mean_loss_train": err,
+                                      "Mean_loss_val": val_err})
+```</p>
+<p>```python</p>
+<h1 id="load-test-data-and-convert-to-one-hot">Load test data and convert to one-hot</h1>
+<p>test = pd.read_csv('mnist_test.csv', header=None).values[:, 1:]
+test_label = pd.read_csv('mnist_test.csv', header=None).values[:, 0]
+test_label = to_one_hot(test_label)</p>
+<h1 id="place-offset-and-initialize-error-to-0">place offset and initialize error to 0</h1>
+<p>offset = 0
+test_err = 0.
+while (offset+batch_size &lt;= len(test)):
+    # get data batch
+    data = test[offset:offset+batch_size, :]
+    label = test_label[offset:offset+batch_size]
+    # make prediction
+    pred = net(data)
+    # get error
+    test_err += loss(pred, label)/(len(test)/batch_size)
+    offset += batch_size</p>
+<p>print(f"Test Error is {test_err:.2f} ...")
+```</p>
+<pre><code>Test Error is 2643.26 ...
+</code></pre>
+<p>```python
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
+from IPython.display import set_matplotlib_formats
+set_matplotlib_formats('retina')
+plt.style.use('ggplot')
+%matplotlib inline</p>
+<p>y_true = test_label.argmax(1)
+y_pred = net(test).argmax(1)
+ax = plt.figure(figsize=(15, 7))
+ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=".3f")
+ax.set_xlabel("True")
+ax.set_ylabel("Predicted")
+```</p>
+<pre><code>Text(114.0, 0.5, 'Predicted')
+</code></pre>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_17_1.png" /></p>
 <p>We can see from the confusion matrix above that the model performs poorly if the training is based on MSE. Let us try a different loss function: Cross Entropy loss.</p>
-<h2>Cross Entropy Training</h2>
-<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;Training example for a simple network with MNIST Dataset.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">auto</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">datatype</span> <span class="kn">import</span> <span class="n">Tensor</span>
-
-
-<span class="k">def</span> <span class="nf">to_one_hot</span><span class="p">(</span><span class="n">vector</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Create one hot encoding of a vector.&quot;&quot;&quot;</span>
-    <span class="n">oh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vector</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">oh</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">vector</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">oh</span>
-
-<span class="c1"># Load training data</span>
-<span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;mnist_train.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
-<span class="n">train_label</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s1">&#39;mnist_train.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># Create the network</span>
-<span class="n">net</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">layers</span><span class="o">=</span><span class="p">[</span>
-    <span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
-    <span class="n">Sigmoid</span><span class="p">(),</span>
-    <span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-<span class="p">])</span>
-<span class="c1"># Initialize loss class</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="n">CrossEntropyLoss</span><span class="p">()</span>
-
-<span class="c1"># Initialize optimizer with regularization</span>
-<span class="n">optim</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="mf">5e-2</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">)</span>
-
-<span class="c1"># split</span>
-<span class="n">x_train</span><span class="p">,</span> <span class="n">x_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-    <span class="n">train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span><span class="p">,</span>
-    <span class="n">train_label</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
-    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># to_one_hot</span>
-
-<span class="c1"># to one-hot</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">to_one_hot</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_val</span> <span class="o">=</span> <span class="n">to_one_hot</span><span class="p">(</span><span class="n">y_val</span><span class="p">)</span>
-<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">progress_bar</span> <span class="o">=</span> <span class="n">auto</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span>
-
-<span class="c1"># this will be used later</span>
-<span class="n">accuracies</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                    <span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                    <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="p">[]}</span>
-<span class="n">acc_train</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">acc_val</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">progress_bar</span><span class="p">:</span>
-    <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">val_err</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">err</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">)):</span>
-        <span class="c1"># grab the batch</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="c1"># I try to avoid a runtime warning (only happens in notebook, not sure why)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">RuntimeWarning</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Runtime warning on </span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="c1"># get loss</span>
-        <span class="n">err</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span><span class="o">/</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="c1"># backprop</span>
-        <span class="n">g</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>
-        <span class="c1"># update weights</span>
-        <span class="n">optim</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
-        <span class="c1"># next batch index</span>
-        <span class="n">offset</span> <span class="o">+=</span> <span class="n">batch_size</span>
-        <span class="c1"># keep scores</span>
-        <span class="n">acc_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span>
-            <span class="n">label</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-            <span class="n">pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="p">))</span>
-    <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_val</span><span class="p">)):</span>
-        <span class="c1"># get validation data</span>
-        <span class="n">val_data</span> <span class="o">=</span> <span class="n">x_val</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="n">val_label</span> <span class="o">=</span> <span class="n">y_val</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">]</span>
-        <span class="c1"># predict</span>
-        <span class="n">pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">val_data</span><span class="p">)</span>
-        <span class="c1"># get loss</span>
-        <span class="n">val_err</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">val_label</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_val</span><span class="p">)</span><span class="o">/</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="c1"># next batch index</span>
-        <span class="n">offset</span> <span class="o">+=</span> <span class="n">batch_size</span>
-        <span class="c1"># keep scores</span>
-        <span class="n">acc_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span>
-            <span class="n">val_label</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-            <span class="n">pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="p">))</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="c1"># update progress bar</span>
-        <span class="n">progress_bar</span><span class="o">.</span><span class="n">set_postfix</span><span class="p">({</span><span class="s2">&quot;loss_train&quot;</span><span class="p">:</span> <span class="n">err</span><span class="p">,</span>
-                                  <span class="s2">&quot;loss_val&quot;</span><span class="p">:</span> <span class="n">val_err</span><span class="p">,</span>
-                                  <span class="s2">&quot;acc_val&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">acc_val</span><span class="p">)})</span>
-    <span class="c1"># keep scores for visualization</span>
-    <span class="n">accuracies</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">acc_train</span><span class="p">))</span>
-    <span class="n">accuracies</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">acc_val</span><span class="p">))</span>
-    <span class="n">acc_train</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">acc_val</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="c1"># Load test data and convert to one-hot</span>
-<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;mnist_test.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
-<span class="n">test_label</span> <span class="o">=</span> <span class="n">to_one_hot</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s1">&#39;mnist_test.csv&#39;</span><span class="p">,</span>
-    <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
-
-
-<span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">test_err</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)):</span>
-    <span class="c1"># get batch</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">,</span> <span class="p">:]</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">test_label</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span><span class="o">+</span><span class="n">batch_size</span><span class="p">]</span>
-    <span class="c1"># predict</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="c1"># get loss</span>
-    <span class="n">test_err</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="o">/</span><span class="n">batch_size</span><span class="p">)</span>
-    <span class="c1"># offset</span>
-    <span class="n">offset</span> <span class="o">+=</span> <span class="n">batch_size</span>
-    <span class="c1"># get scores</span>
-    <span class="n">accuracies</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span>
-        <span class="n">label</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-        <span class="n">pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="p">))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Test Accuracy: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accuracies</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Average Test Accuracy: 0.95
-</code></pre></div>
-
+<h2 id="cross-entropy-training">Cross Entropy Training</h2>
+<p>```python
+"""Training example for a simple network with MNIST Dataset."""
+from tqdm import auto
+import numpy as np
+import pandas as pd
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from datatype import Tensor</p>
+<p>def to_one_hot(vector: Tensor) -&gt; Tensor:
+    """Create one hot encoding of a vector."""
+    oh = np.zeros((vector.shape[0], vector.max()+1))
+    oh[np.arange(vector.shape[0]), vector] = 1
+    return oh</p>
+<h1 id="load-training-data_1">Load training data</h1>
+<p>train = pd.read_csv('mnist_train.csv', header=None).values[:, 1:]
+train_label = pd.read_csv(
+    'mnist_train.csv', header=None).values[:, 0]</p>
+<h1 id="create-the-network">Create the network</h1>
+<p>net = Network(layers=[
+    Linear(784, 128),
+    Sigmoid(),
+    Linear(128, 10),
+])</p>
+<h1 id="initialize-loss-class_1">Initialize loss class</h1>
+<p>loss = CrossEntropyLoss()</p>
+<h1 id="initialize-optimizer-with-regularization">Initialize optimizer with regularization</h1>
+<p>optim = SGD(5e-2, 0.0001)</p>
+<h1 id="split">split</h1>
+<p>x_train, x_val, y_train, y_val = train_test_split(
+    train.astype(np.float32) / 255,
+    train_label.astype(np.int32),
+    test_size=0.2, random_state=42)  # to_one_hot</p>
+<h1 id="to-one-hot">to one-hot</h1>
+<p>y_train = to_one_hot(y_train)
+y_val = to_one_hot(y_val)
+batch_size = 100
+progress_bar = auto.tqdm(range(200))</p>
+<h1 id="this-will-be-used-later">this will be used later</h1>
+<p>accuracies: dict = {"train": [],
+                    "val": [],
+                    "test": []}
+acc_train: list = []
+acc_val: list = []</p>
+<p>for epoch in progress_bar:
+    offset = 0
+    val_err = 0
+    err = 0
+    while (offset+batch_size &lt;= len(x_train)):
+        # grab the batch
+        data = x_train[offset:offset+batch_size, :]
+        label = y_train[offset:offset+batch_size, :]
+        # I try to avoid a runtime warning (only happens in notebook, not sure why)
+        try:
+            pred = net(data)
+        except RuntimeWarning:
+            print(f"Runtime warning on {offset}")
+        # get loss
+        err += loss(pred, label)/(len(x_train)/batch_size)
+        # backprop
+        g = net.backward(loss.grad)
+        # update weights
+        optim.step(net)
+        # next batch index
+        offset += batch_size
+        # keep scores
+        acc_train.append(accuracy_score(
+            label.argmax(axis=1),
+            pred.argmax(axis=1)
+        ))
+    offset = 0
+    while (offset+batch_size &lt;= len(x_val)):
+        # get validation data
+        val_data = x_val[offset:offset+batch_size, :]
+        val_label = y_val[offset:offset+batch_size]
+        # predict
+        pred = net(val_data)
+        # get loss
+        val_err += loss(pred, val_label)/(len(x_val)/batch_size)
+        # next batch index
+        offset += batch_size
+        # keep scores
+        acc_val.append(accuracy_score(
+            val_label.argmax(axis=1),
+            pred.argmax(axis=1)
+        ))
+    if (epoch) % 2 == 0:
+        # update progress bar
+        progress_bar.set_postfix({"loss_train": err,
+                                  "loss_val": val_err,
+                                  "acc_val": np.mean(acc_val)})
+    # keep scores for visualization
+    accuracies['train'].append(np.mean(acc_train))
+    accuracies['val'].append(np.mean(acc_val))
+    acc_train = []
+    acc_val = []</p>
+<h1 id="load-test-data-and-convert-to-one-hot_1">Load test data and convert to one-hot</h1>
+<p>test = pd.read_csv('mnist_test.csv', header=None).values[:, 1:]
+test_label = to_one_hot(pd.read_csv(
+    'mnist_test.csv',
+    header=None).values[:, 0])</p>
+<p>offset = 0
+test_err = 0.
+while (offset+batch_size &lt;= len(test)):
+    # get batch
+    data = test[offset:offset+batch_size, :]
+    label = test_label[offset:offset+batch_size]
+    # predict
+    pred = net(data)
+    # get loss
+    test_err += loss(pred, label)/(len(test)/batch_size)
+    # offset
+    offset += batch_size
+    # get scores
+    accuracies['test'].append(accuracy_score(
+        label.argmax(axis=1),
+        pred.argmax(axis=1)
+    ))</p>
+<p>print(f"Average Test Accuracy: {np.mean(accuracies['test']):.2f}")</p>
+<p>```</p>
+<pre><code>Average Test Accuracy: 0.95
+</code></pre>
 <p>Let us plot the evolution of accuracies during testing and confusion matrix. For a higher performing model we expect to see the confusion matrix consolidate results on the diagonal:</p>
-<div class="highlight"><pre><span></span><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">accuracies</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training score&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">accuracies</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation score&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Accuracy per epoch&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</code></pre></div>
-
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_22_0.png"></p>
-<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">test_label</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.3f&quot;</span><span class="p">)</span>
-
-<span class="n">_</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;True&quot;</span><span class="p">)</span>
-<span class="n">_</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_23_1.png"></p>
-<h2>Conclusion</h2>
+<p><code>python
+fig = plt.figure(figsize=(15, 6))
+_ = plt.plot(accuracies['train'], label="Training score")
+_ = plt.plot(accuracies['val'], label="Validation score")
+_ = plt.xlabel("Epoch")
+_ = plt.ylabel("Accuracy")
+_ = plt.title("Accuracy per epoch")
+_ = plt.legend()</code></p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_22_0.png" /></p>
+<p>```python
+y_true = test_label.argmax(1)
+y_pred = net(test).argmax(1)
+_ = plt.figure(figsize=(15, 7))
+ax = sns.heatmap(confusion_matrix(y_true, y_pred), annot=True, fmt=".3f")</p>
+<p><em>=ax.set_xlabel("True")
+</em>=ax.set_ylabel("Predicted")
+```</p>
+<p><img alt="png" src="https://iliailmer.github.io/images/2020-06-14-numpy-learn/output_23_1.png" /></p>
+<h2 id="conclusion">Conclusion</h2>
 <p>We implemented a neural network class that supports several activation functions. We followed here a design pattern based on PyTorch deep learning package. We implemented linear (fully-connected) layer, ReLU and Sigmoid layer. Each layer includes a backpropagation function <code>backward</code> that sends the gradient from the output back to input. As a result we were able to use a Cross Entropy Loss function to train a handwritten digit classifier with 95% accuracy on the test set. Notice that on the graph we observe a pattern of periodically dropping accuracy. I assume this is due to internal structure of the loss landscape: we repeatedly "walk" out of the minimum region and then "walk" back in during the SGD.</p>
 <p>Using the Mean Squared Error loss function did not yield a productive result here, however, while developing this library, I observed that if I train on a small sample of data (i.e. 50 items or less), the model was able to learn the underlying data representations very well and was able to over fit. This is one the tests usually performed on new architectures in order to check if the model can learn at all. This, unfortunately, did not scale in case of MSE but it did for Cross Entropy Loss.</p>
 <p>The overall structure of the project is posted on my github <a href="https://github.com/iliailmer/numpy_learn">page</a></p>
@@ -980,4 +935,5 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
 </script>
 
 </body>
+
 </html>

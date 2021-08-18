@@ -1,39 +1,38 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
 
-    <link id="dark-theme-style" rel="stylesheet" type="text/css"
-          media="(prefers-color-scheme: dark)"
-    href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
+  <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
-    <link id="pygments-dark-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: dark)"
-          href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
-          href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
 
+  <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
 
-    <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
+  <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+    title="Ilia Ilmer Atom">
 
 
-    <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -45,19 +44,18 @@
   ga('create', 'UA-131502498-2', 'auto');
   ga('send', 'pageview');
 </script>
-<!-- End Google Analytics -->  
+<!-- End Google Analytics -->
 
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#333">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#333">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Microsoft EDGE -->
-    <meta name="msapplication-TileColor" content="#333">
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333">
 
- 
 
 <meta name="author" content="Ilia Ilmer" />
 <meta name="description" content="Lately, I have been reading more papers on modern advances in deep learning in order to get a clear view of what problem I want to focus on during my PhD research. There is a lot of information to process and an incredible amount of papers are being published from …" />
@@ -82,6 +80,7 @@
   <title>Ilia Ilmer &ndash; RiCNN and Rotation Robustness of ConvNets. A Paper Review</title>
 
 </head>
+
 <body >
   <aside>
     <div>
@@ -94,55 +93,58 @@
       </h1>
 
 <p>Algorithms and Coffee</p>
+      <form class="navbar-search" action="https://iliailmer.github.io/search.html" role="search">
+        <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+      </form>
 
       <nav>
         <ul class="list">
 
 
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/about.html#about">
-                  About
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/publications.html#publications">
-                  Publications
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/software.html#software">
-                  Software
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/talks.html#talks">
-                  Talks
-                </a>
-              </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/about.html#about">
+              About
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/publications.html#publications">
+              Publications
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/software.html#software">
+              Software
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/talks.html#talks">
+              Talks
+            </a>
+          </li>
 
         </ul>
       </nav>
 
       <ul class="social">
-          <li>
-            <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
-              <i class="fab fa-gitlab"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
+        <li>
+          <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
+            <i class="fab fa-gitlab"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -160,7 +162,7 @@
 
 <article class="single">
   <header>
-      
+    
     <h1 id="paper-review">RiCNN and Rotation Robustness of ConvNets. A Paper Review</h1>
     <p>
       Posted on Sat 15 June 2019 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
@@ -174,36 +176,36 @@
 <p>There is a lot of information to process and an incredible amount of papers are being published from all over the world.</p>
 <p>In order to keep up, I will do my best to document everything that I read in this weekly series of paper reviews. The aim is to post one review a week and go from there.</p>
 <p>The first paper I will talk about is the one by <a href="https://arxiv.org/abs/1805.12301">Chidester, Do, and Ma</a> titled <strong>Rotation Equivariance and Invariance in Convolutional Neural Networks</strong>.</p>
-<h1>What is the key problem?</h1>
+<h1 id="what-is-the-key-problem">What is the key problem?</h1>
 <p>The advantage of convnets over other algorithms is in the amount of different features such network extracts from a given input. Convnets are a very powerful and form a very ubiquitous family of algorithms with various applications in industry.</p>
 <p>When it comes to image classification, the same image or the same object in the image could be presented in various positions: it could be shifted left or right, and even rotated. The shift, or, <em>translation</em>, is something the network can withstand. The problem arises when the input is rotated.</p>
 <p>If the network has never seen this rotated image, the result of classification will be wrong regardless of whether or not the net has seen the <em>un</em>-rotated original. This originates in the nature of the convolution: the operation of sliding the feature extracting kernel along the image (<a href="https://ezyang.github.io/convolution-visualizer/index.html">this</a> is an excellent depiction of convolution).</p>
-<p><img alt="convolution" src="https://cdn-images-1.medium.com/max/1600/1*1okwhewf5KCtIPaFib4XaA.gif">
+<p><img alt="convolution" src="https://cdn-images-1.medium.com/max/1600/1*1okwhewf5KCtIPaFib4XaA.gif" />
 Convolution in its natural habitat: a blog post.</p>
 <p>One common way of dealing with this is to rotate by a random angle images in the input. This is called <em>augmentation</em> and it increases the number of input data, which in turn may increase training time. Such trade-off is undesirable: why increase training time and sacrifice memory for a super-large network with hundreds of thousands of images already at hand?</p>
 <p><em><strong>Side note:</strong> not to say that augmentation is a bad technique. Quite the <a href="http://cs231n.stanford.edu/reports/2017/pdfs/300.pdf">opposite</a>, it is a very powerful way to avoid overfitting.</em></p>
 <p>So here is the problem: how can the network learn image transformation without explicitly seeing the transformed image during training?</p>
-<h1>Rotation Equivariance</h1>
+<h1 id="rotation-equivariance">Rotation Equivariance</h1>
 <p>In the second section of the paper, the authors propose a multi-stage approach to dealing with rotations.</p>
 <p>Stage 1 is rotation equivariance, stage 2 is a rotation invariant layer in the network just before the fully-connected classifier block, and stage 3 is the fully-connected layer itself.</p>
-<h3>Rotation Equivariance</h3>
+<h3 id="rotation-equivariance_1">Rotation Equivariance</h3>
 <p>The term equivariance when applied to rotation transformation means the following: if a function
-<img alt="F" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathcal%7BF%7D%5Cnocache"> acts on an input <img alt="x" src="http://mathurl.com/render.cgi?%5Cinlinemode%20x%5Cnocache"> then the result is<img alt="y" src="http://mathurl.com/render.cgi?%5Cinlinemode%20y%20%3D%20%5Cmathcal%7BF%7D%28x%29%5Cnocache">. If the input is "corrupted" by a transformation <img alt="T" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathrm%7BT%7D%5Cnocache"> (rotation, shift, etc.), then <em>equivariance with respect to</em> <img alt="T" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathrm%7BT%7D%5Cnocache"> implies existence of a transform <img alt="S" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathrm%7BS%7D%5Cnocache"> such that:</p>
-<p><img alt="F(Tx)=S(F(x))" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathcal%7BF%7D%28%5Cmathrm%7BT%7Dx%7D%29%20%3D%20%5Cmathrm%7BS%7D%28%5Cmathcal%7BF%7D%28x%29%29%5Cnocache">.</p>
+<img alt="F" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathcal%7BF%7D%5Cnocache" /> acts on an input <img alt="x" src="http://mathurl.com/render.cgi?%5Cinlinemode%20x%5Cnocache" /> then the result is<img alt="y" src="http://mathurl.com/render.cgi?%5Cinlinemode%20y%20%3D%20%5Cmathcal%7BF%7D%28x%29%5Cnocache" />. If the input is "corrupted" by a transformation <img alt="T" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathrm%7BT%7D%5Cnocache" /> (rotation, shift, etc.), then <em>equivariance with respect to</em> <img alt="T" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathrm%7BT%7D%5Cnocache" /> implies existence of a transform <img alt="S" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathrm%7BS%7D%5Cnocache" /> such that:</p>
+<p><img alt="F(Tx)=S(F(x))" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathcal%7BF%7D%28%5Cmathrm%7BT%7Dx%7D%29%20%3D%20%5Cmathrm%7BS%7D%28%5Cmathcal%7BF%7D%28x%29%29%5Cnocache" />.</p>
 <p>The invariance property would look like this:</p>
-<p><img alt="F(Tx) = F(x)" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathcal%7BF%7D%28%5Cmathrm%7BT%7Dx%7D%29%20%3D%20%5Cmathcal%7BF%7D%28x%29%5Cnocache">.</p>
-<h1>Proposed Solution</h1>
-<h3>Rotation of the Filters</h3>
+<p><img alt="F(Tx) = F(x)" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathcal%7BF%7D%28%5Cmathrm%7BT%7Dx%7D%29%20%3D%20%5Cmathcal%7BF%7D%28x%29%5Cnocache" />.</p>
+<h1 id="proposed-solution">Proposed Solution</h1>
+<h3 id="rotation-of-the-filters">Rotation of the Filters</h3>
 <p>What the authors proposed is to connect rotation of the input with that of the feature extractor explicitly. To elaborate, the convolutional kernel is, essentially, rotated for a desired range of angles. At the same time, the image is split into conic regions, each region will have a designated rotated copy of the convolution kernel. Each rotated kernel is applied to the region.</p>
 <p>This formulation opens up a new formalism: a conic convolution.</p>
-<p><img alt="diagram" src="https://iliailmer.github.io/images/ricnn-paper-review/diagram.png">
+<p><img alt="diagram" src="https://iliailmer.github.io/images/ricnn-paper-review/diagram.png" />
 Diagram of the proposed network by <a href="https://arxiv.org/abs/1805.12301">Chidester, Do, and Ma</a>.</p>
-<p>The authors prove a very interesting property of this network. Essentially, the rotation equivariance property we stated still holds, according the results, however, <img alt="T" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathrm%7BT%7D%5Cnocache"> is equal to <img alt="F" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathcal%7BF%7D%5Cnocache">. (This is proven in Theorem 1 of the article.)</p>
-<h3>Discrete Fourier transform (DFT)</h3>
+<p>The authors prove a very interesting property of this network. Essentially, the rotation equivariance property we stated still holds, according the results, however, <img alt="T" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathrm%7BT%7D%5Cnocache" /> is equal to <img alt="F" src="http://mathurl.com/render.cgi?%5Cinlinemode%20%5Cmathcal%7BF%7D%5Cnocache" />. (This is proven in Theorem 1 of the article.)</p>
+<h3 id="discrete-fourier-transform-dft">Discrete Fourier transform (DFT)</h3>
 <p>After that, the results of the conic section of the network need proceed to an additional section before the fully-connected one. It is required to preserve the rotation equivariance extracted by the conic portion before unravelling the tensors.</p>
 <p>Such encoding of the equivariance is achieved through the DFT procedure. The authors note the cyclical property of the last convolutional with respect to rotation order. Applying  DFT to the output of this convolution yields a representation in which the rotation is "hard-coded".</p>
 <p>Finally, this representation is passed into the fully connected layer.</p>
-<h1>Conclusion</h1>
+<h1 id="conclusion">Conclusion</h1>
 <p>I will not focus this review on the results of the work when applied to benchmark datasets, I believe it is only fair that one refers to the <a href="https://arxiv.org/abs/1805.12301">paper</a> itself for that.</p>
 <p>Rotation equivariance and general robustness of neural networks to external peturbations is important and in applications such as medical imaging, where the data can be the same image from different angles (or with different transformations applied), a neural network must return a faulty result as the life of a patient is on the line.</p>
   </div>
@@ -264,4 +266,5 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
 </script>
 
 </body>
+
 </html>

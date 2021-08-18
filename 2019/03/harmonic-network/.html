@@ -1,39 +1,38 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
 
-    <link id="dark-theme-style" rel="stylesheet" type="text/css"
-          media="(prefers-color-scheme: dark)"
-    href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
+  <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
-    <link id="pygments-dark-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: dark)"
-          href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
-          href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
 
+  <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
 
-    <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
+  <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+    title="Ilia Ilmer Atom">
 
 
-    <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -45,19 +44,18 @@
   ga('create', 'UA-131502498-2', 'auto');
   ga('send', 'pageview');
 </script>
-<!-- End Google Analytics -->  
+<!-- End Google Analytics -->
 
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#333">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#333">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Microsoft EDGE -->
-    <meta name="msapplication-TileColor" content="#333">
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333">
 
- 
 
 <meta name="author" content="Ilia Ilmer" />
 <meta name="description" content="I implement an interesting result from a recent paper on convolutional neural networks. Introduction In this post I will briefly discuss my implementation of a model introduced in this paper. In short, the authors suggest using predefined filters in a convolutional network based on Discrete Cosine Transform. I used PyTorch …" />
@@ -82,6 +80,7 @@
   <title>Ilia Ilmer &ndash; Harmonic networks: implementation of paper results</title>
 
 </head>
+
 <body >
   <aside>
     <div>
@@ -94,55 +93,58 @@
       </h1>
 
 <p>Algorithms and Coffee</p>
+      <form class="navbar-search" action="https://iliailmer.github.io/search.html" role="search">
+        <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+      </form>
 
       <nav>
         <ul class="list">
 
 
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/about.html#about">
-                  About
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/publications.html#publications">
-                  Publications
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/software.html#software">
-                  Software
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/talks.html#talks">
-                  Talks
-                </a>
-              </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/about.html#about">
+              About
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/publications.html#publications">
+              Publications
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/software.html#software">
+              Software
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/talks.html#talks">
+              Talks
+            </a>
+          </li>
 
         </ul>
       </nav>
 
       <ul class="social">
-          <li>
-            <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
-              <i class="fab fa-gitlab"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
+        <li>
+          <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
+            <i class="fab fa-gitlab"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -160,7 +162,7 @@
 
 <article class="single">
   <header>
-      
+    
     <h1 id="harmonic-network/">Harmonic networks: implementation of paper results</h1>
     <p>
       Posted on Sun 10 March 2019 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
@@ -171,74 +173,70 @@
 
   <div>
     <p>I implement an interesting result from a recent paper on convolutional neural networks.</p>
-<h1>Introduction</h1>
+<h1 id="introduction">Introduction</h1>
 <p>In this post I will briefly discuss my implementation of a model introduced in <a href="https://arxiv.org/abs/1812.03205v1">this paper</a>.</p>
 <p>In short, the authors suggest using predefined filters in a convolutional network based on Discrete Cosine Transform.</p>
 <p>I used PyTorch for neural network implementation, the other packages include <code>pandas</code> for data reading,
 <code>numpy, scipy, skimage</code>, etc.</p>
 <p>The dataset I was using is the <a href="https://www.kaggle.com/kmader/skin-cancer-mnist-ham10000">skin cancer MNIST</a> from Kaggle.</p>
 <p>I really enjoyed working on this project! However, it is still far from being complete and I will try to fix some errors it has in due time.</p>
-<h1>Paper summary</h1>
+<h1 id="paper-summary">Paper summary</h1>
 <p>In this paper, the authors propose a modification to the common algorithm of convolutional neural networks.</p>
 <p>Classically, such networks are comprised of convolutional layers. Each layer, in turn, has a corresponding amount of kernels which are slided over the input during convolution (<a href="https://ujjwalkarn.me/2016/08/11/intuitive-explanation-convnets/">see visualization here</a>). As the input is carried through the network, in the final, non-convolutional (fully-connected) layer the network measure the error between the true label/value and the prediction is carried backwards through back propagation algorithm. That way the weights (kernels) are adjusted to accommodate for the discrepancy in prediction and improve feature extraction, which is the primary purpose of convolutional layers.</p>
 <p>The paper, however, considers a different approach to convolutional neural networks. In suggested algorithm, the net's layers are predefined by decomposition of the input according to the Discrete Cosine Transform (the DCT). The <a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform">DCT</a> is a method for feature extraction that is based on <a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier Transform</a>. It separates frequencies that comprise the input signal from itself and thus produce features (the frequency spectrum).</p>
 <p>The authors use convolutional  approach to computing the Discrete Cosine transform, building filters that result in equivalent mathematical formulations upon convolution. Using these filters as kernels in CNN, they construct a Harmonic Network. Such network can be computationally expensive (more on that later), but it is able to show state of the art results on common image datasets such as CIFAR10.</p>
 <p>The harmonic block that replaces the usual convolutional layer consists of a linear combination of features from the DCT of the input from the previous layer. These features can optionally be batch normalized.</p>
-<h1>Difficulties in implementation</h1>
+<h1 id="difficulties-in-implementation">Difficulties in implementation</h1>
 <p>Let me discuss some difficulties I ran into when I was implementing the network. I will try to be as brief as I can.</p>
-<h2>Finding the right kernel (filter bank)</h2>
+<h2 id="finding-the-right-kernel-filter-bank">Finding the right kernel (filter bank)</h2>
 <p>Firs of all, representing the DCT as a convolution sounds intuitively simple but turned out to be more difficult in practice. Let's look at the formula transforming the 2D N-by-N input signal <span class="math">\(x\)</span> into 2D output signal <span class="math">\(\hat X\)</span>:</p>
 <p><span class="math">\(\hat X_{u,v} = \sum_{ii=0}^{N-1}\left[\sum_{jj=0}^{N-1} x_{ii,jj} \cos\left(\frac{\pi}{N}\left(ii+0.5\right) u \right)\right] \cos\left(\frac{\pi}{N}\left(jj+0.5\right) v \right).\)</span></p>
 <p>So the approach is to use a separate kernel for each combination of <span class="math">\((u,~v)\)</span> indices. They will implicitly represent the direction in which our filter is looking at the image.</p>
 <p>So, if our sliding convolution window is <span class="math">\(N\times N\)</span> then we need <span class="math">\(N^2\)</span> filters, <span class="math">\(N\times N\)</span> each:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">PI</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-<span class="k">def</span> <span class="nf">fltr</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span> <span class="c1"># note, that I will always use N=k and N=K in where</span>
-                      <span class="c1"># but we can have N&gt;K. I have not tried N&lt;K,</span>
-                      <span class="c1"># it&#39;d be pretty cool to try that as well</span>
-  <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">([[</span><span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">v</span><span class="o">*</span><span class="n">PI</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="p">(</span><span class="n">ii</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)))</span>
-                           <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">u</span><span class="o">*</span><span class="n">PI</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="p">(</span><span class="n">jj</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)))</span>
-                           <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span> <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)])</span>
-</code></pre></div>
-
+<p><code>py
+import torch
+import numpy as np
+PI = np.pi
+def fltr(u, v, N, k): # note, that I will always use N=k and N=K in where
+                      # but we can have N&gt;K. I have not tried N&lt;K,
+                      # it'd be pretty cool to try that as well
+  return torch.as_tensor([[torch.cos(torch.as_tensor(v*PI/N*(ii+0.5)))
+                           * torch.cos(torch.as_tensor(u*PI/N*(jj+0.5)))
+                           for ii in range(k)] for jj in range(k)])</code></p>
 <p>So, once we get the necessary filters, we need to properly collect them into the so-called <em>filter bank</em>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">torch</span>
-<span class="k">def</span> <span class="nf">get_filter_bank</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
-
-  <span class="n">filter_bank</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">fltr</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
-                                          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">)])</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">)])</span>
-  <span class="n">filter_bank</span> <span class="o">=</span> <span class="n">filter_bank</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">K</span><span class="p">])</span>
-  <span class="n">filter_bank</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">filter_bank</span><span class="p">]</span><span class="o">*</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-  <span class="n">filter_bank</span> <span class="o">=</span> <span class="n">filter_bank</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">filter_bank</span>
-</code></pre></div>
-
+<p>```py
+import torch
+def get_filter_bank(input_channels, N, K):</p>
+<p>filter_bank = torch.stack([torch.stack([fltr(j, i, N, K)
+                                          for i in range(K)]) for j in range(K)])
+  filter_bank = filter_bank.reshape([-1, 1, K, K])
+  filter_bank = torch.cat([filter_bank]*input_channels, dim=1)
+  filter_bank = filter_bank.to('cuda')
+  return filter_bank
+```</p>
 <p>Great, the filters are collected. The cool thing with PyTorch is that by default these tensors will not be updated in the backwards pass. This is because the property called <code>requires_grad</code> is initialized to <code>False</code> automatically. (I should probably add that it can always be manipulated manually, but we will not worry about that here.)</p>
-<h2>Further processing of harmonic blocks</h2>
+<h2 id="further-processing-of-harmonic-blocks">Further processing of harmonic blocks</h2>
 <p>One convolution with kernels is not enough. The authors propose a way of combining them linearly through <span class="math">\(1\times1\)</span> convolution. That way each consequent layer is a linear combination of the previous one. This convolution <strong>is</strong> affected by the backwards pass. The linear combination occurs across the result of convolution with DCT filters.</p>
 <p>If the input has 3 channels and each channel produces 9 convolution results (<span class="math">\(3\times 3\)</span> filters, 9 of them)
 then we get the output shape after the harmonic block as (3,9,W,H) where W and H are width and height respectively. The linear combination than happens across the <strong>9</strong> outputs for each channel. That's it!</p>
-<h2>Sending to GPU device using <code>torch.cuda()</code></h2>
+<h2 id="sending-to-gpu-device-using-torchcuda">Sending to GPU device using <code>torch.cuda()</code></h2>
 <p>A problem I encountered while implementing the Harmonic block of the network was that just sending the model to GPU using</p>
-<div class="highlight"><pre><span></span><code><span class="n">model</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
-</code></pre></div>
-
+<p><code>py
+model.cuda()</code></p>
 <p>is not enough. I had to "manually" send the convolution weights. Note that it's not really manually as in "low-level" but rather this line of code from before:</p>
-<div class="highlight"><pre><span></span><code><span class="n">filter_bank</span> <span class="o">=</span> <span class="n">filter_bank</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+<p><code>py
+filter_bank = filter_bank.to('cuda')</code></p>
 <p>Not sure why the model does not send the DCT filters upon regular GPU sending but manually it all works.</p>
-<h2>Selecting learning rate</h2>
+<h2 id="selecting-learning-rate">Selecting learning rate</h2>
 <p>Another problem was the learning rate. From lessons on <a href="https://fast.ai">FastAI</a> I learned that trying the learning rate of 0.01 is quite common (the amazing function for finding a proper learning rate consistently recommends doing so across multiple CNN models). However, in here, we get quite rapid loss increase!</p>
-<h3>Update, March,2019</h3>
+<h3 id="update-march2019">Update, March,2019</h3>
 <p>Experimenting with learning rate finding yielded that 0.001 learning rate with <em>Adam</em> optimizer works really well for my architecture, especially on an unbalanced <a href="https://arxiv.org/abs/1803.10417">dataset</a> I use for my research.</p>
-<h2>Image preprocessing, added March,2019</h2>
+<h2 id="image-preprocessing-added-march2019">Image preprocessing, added March,2019</h2>
 <p>In the preprocessing stage, the images are downsized to 64 by 64 pixels using <code>skimage</code> library. Originals in the dataset used are 450 by 600, which can take too much of the memory.</p>
 <p>Additional preprocessing consists of hair removal described in <a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.13.3821&amp;rep=rep1&amp;type=pdf">this paper</a>.</p>
-<h1>Result</h1>
+<h1 id="result">Result</h1>
 <p>Although it overfits during training, the model gives ~84% in both precision and recall which is pretty nice.</p>
-<h1>Summary</h1>
+<h1 id="summary">Summary</h1>
 <p>I really enjoyed working on the implementation. I learned a lot about how PyTorch works and how to use it when building a model from scratch.</p>
 <p>Even though this is still a work in progress for me, I will be gradually improving the implementation as much as I can, time permitting. Some things I plan to do</p>
 <ul>
@@ -370,4 +368,5 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
 </script>
 
 </body>
+
 </html>

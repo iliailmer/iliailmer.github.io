@@ -1,39 +1,38 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/stylesheet/style.min.css">
 
-    <link id="dark-theme-style" rel="stylesheet" type="text/css"
-          media="(prefers-color-scheme: dark)"
-    href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
+  <link id="dark-theme-style" rel="stylesheet" type="text/css"   media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/stylesheet/dark-theme.min.css">
 
-    <link id="pygments-dark-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: dark)"
-          href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
-    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-              media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
-          href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
+  <link id="pygments-dark-theme" rel="stylesheet" type="text/css"      media="(prefers-color-scheme: dark)"      href="https://iliailmer.github.io/theme/pygments/monokai.min.css">
+  <link id="pygments-light-theme" rel="stylesheet" type="text/css"     media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"      href="https://iliailmer.github.io/theme/pygments/emacs.min.css">
 
+  <link rel="stylesheet" href="https://iliailmer.github.io/theme/tipuesearch/tipuesearch.min.css" />
 
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/fontawesome.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/brands.css">
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
 
-    <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
+  <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+    title="Ilia Ilmer Atom">
 
 
-    <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -45,19 +44,18 @@
   ga('create', 'UA-131502498-2', 'auto');
   ga('send', 'pageview');
 </script>
-<!-- End Google Analytics -->  
+<!-- End Google Analytics -->
 
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#333">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#333">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Microsoft EDGE -->
-    <meta name="msapplication-TileColor" content="#333">
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333">
 
- 
 
 <meta name="author" content="Ilia Ilmer" />
 <meta name="description" content="In this post, I briefly describe my experience in setting up training with PyTorch. Introduction PyTorch is an extremely useful and convenient framework for deep learning. When it comes to working on a deep learning project, I am more comfortable with PyTorch rather than TensorFlow. In this quick post, I …" />
@@ -80,6 +78,7 @@
   <title>Ilia Ilmer &ndash; How to write a decent training loop with enough flexibility.</title>
 
 </head>
+
 <body >
   <aside>
     <div>
@@ -92,55 +91,58 @@
       </h1>
 
 <p>Algorithms and Coffee</p>
+      <form class="navbar-search" action="https://iliailmer.github.io/search.html" role="search">
+        <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+      </form>
 
       <nav>
         <ul class="list">
 
 
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/about.html#about">
-                  About
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/publications.html#publications">
-                  Publications
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/software.html#software">
-                  Software
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/talks.html#talks">
-                  Talks
-                </a>
-              </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/about.html#about">
+              About
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/publications.html#publications">
+              Publications
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/software.html#software">
+              Software
+            </a>
+          </li>
+          <li>
+            <a target="_self"
+              href="https://iliailmer.github.io/pages/talks.html#talks">
+              Talks
+            </a>
+          </li>
 
         </ul>
       </nav>
 
       <ul class="social">
-          <li>
-            <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
-              <i class="fab fa-gitlab"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
+        <li>
+          <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
+            <i class="fab fa-gitlab"></i>
+          </a>
+        </li>
+        <li>
+          <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -158,7 +160,7 @@
 
 <article class="single">
   <header>
-      
+    
     <h1 id="how-to-make-training-loop">How to write a decent training loop with enough flexibility.</h1>
     <p>
       Posted on Sat 15 June 2019 in <a href="https://iliailmer.github.io/category/posts.html">Posts</a>
@@ -169,10 +171,10 @@
 
   <div>
     <p>In this post, I briefly describe my experience in setting up training with PyTorch.</p>
-<h2>Introduction</h2>
+<h2 id="introduction">Introduction</h2>
 <p>PyTorch is an extremely useful and convenient framework for deep learning. When it comes to working on  a deep learning project, I am more comfortable with PyTorch rather than TensorFlow.</p>
 <p>In this quick post, I would like to show how one can go about building a custom training loop, something that I struggled when I was getting started. It is a useful skill to be able to build the training loop on your own because that can help you understand better what happens under the hood of a deep learning package that abstracts a lot of nuts and bolts away from the end-user.</p>
-<h2>The Overview of Training</h2>
+<h2 id="the-overview-of-training">The Overview of Training</h2>
 <p>When one trains a network, we need to follow a certain paradigm.</p>
 <p>First, set the model into training mode.</p>
 <p>Second, start iterating through the training set.</p>
@@ -185,42 +187,41 @@
 </ul>
 <p>This last step we acknowledge that the method for optimization of our model is based on a gradient descent. It can be eqither Adam, SGD, or any other (RAdam is the brand new one which seems to beat state of the art).</p>
 <p>In code, we can put it in the form like this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
-  <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>  <span class="c1"># preparing model for training</span>
-  <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">training_set</span><span class="p">:</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>  <span class="c1"># unpack the batch</span>
-    <span class="c1"># the step below is necessary so that we update the gradient only pertinent to the current batch</span>
-    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-    <span class="c1"># compute the output</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
-    <span class="c1"># calculate the loss function</span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
-    <span class="c1"># calculate the gradient using backpropagation</span>
-    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-    <span class="c1"># take a step with the optimizer</span>
-    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-</code></pre></div>
-
-<h3>A Trick for Better Training with Lower Memory</h3>
+<p>```python
+def train(epoch):
+  model.train()  # preparing model for training
+  for batch in training_set:
+    x, y = batch  # unpack the batch
+    # the step below is necessary so that we update the gradient only pertinent to the current batch
+    optimizer.zero_grad()
+    # compute the output
+    output = model(x.cuda())
+    # calculate the loss function
+    loss = criterion(output, y.cuda())
+    # calculate the gradient using backpropagation
+    loss.backward()
+    # take a step with the optimizer
+    optimizer.step()</p>
+<p>```</p>
+<h3 id="a-trick-for-better-training-with-lower-memory">A Trick for Better Training with Lower Memory</h3>
 <p>A small batch can result in a small gradient. This, in turn, leads to a problem called <a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem">vanishing gradient problem</a>: the value is so small, computer simple treats it as zero (underflow). To avoid it, a trick of accumulating gradient as you iterate through the dataset. I saw a practical implementation in this <a href="https://www.kaggle.com/c/understanding_cloud_organization/discussion/105614#latest-662360">discussion</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">train_accumulate</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">accumulation_step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-  <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>  <span class="c1"># preparing model for training</span>
-  <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">training_set</span><span class="p">):</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>  <span class="c1"># unpack the batch</span>
-    <span class="c1"># compute the output</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
-    <span class="c1"># calculate the loss function</span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
-    <span class="c1"># calculate the gradient using backpropagation</span>
-    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">idx</span><span class="o">%</span><span class="n">accumulation_step</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-      <span class="c1"># take a step with the optimizer once</span>
-      <span class="c1"># we accumulated enough gradients</span>
-      <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-      <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-</code></pre></div>
-
-<h2>In Closing: abstracting training loop</h2>
+<p><code>python
+def train_accumulate(epoch, accumulation_step = 1):
+  model.eval()  # preparing model for training
+  for idx, batch in enumerate(training_set):
+    x, y = batch  # unpack the batch
+    # compute the output
+    output = model(x.cuda())
+    # calculate the loss function
+    loss = criterion(output, y.cuda())
+    # calculate the gradient using backpropagation
+    loss.backward()
+    if idx%accumulation_step==0:
+      # take a step with the optimizer once
+      # we accumulated enough gradients
+      optimizer.step()
+      optimizer.zero_grad()</code></p>
+<h2 id="in-closing-abstracting-training-loop">In Closing: abstracting training loop</h2>
 <p>In this post I summarized my experience in building a training loop for PyTorch. Lately, I have been using a more abstracted way of training through <a href="https://catalyst-team.github.io/catalyst/">Catalyst</a>. It is a great tool for higher level abstraction during training and a lot of hardwork has been done to take away the hard part of training.</p>
 <p>Nevertheless, both, I believe, are equally important: the abstract and the explicit methods.</p>
 <p>Thanks for reading!</p>
@@ -280,4 +281,5 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
 </script>
 
 </body>
+
 </html>
