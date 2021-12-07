@@ -3,6 +3,5 @@ pip
 markdown
 beautifulsoup4
 html5lib
-pelican-search
 pelican-render-math
 pelican-simple-footnotes

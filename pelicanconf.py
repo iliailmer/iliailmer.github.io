@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*- #
 
 import datetime
-from pelican.plugins import render_math, search, simple_footnotes
+from pelican.plugins import render_math, simple_footnotes
 
 DEFAULT_PAGINATION = 10
 
@@ -44,7 +44,7 @@ EXTRA_PATH_METADATA = {
 
 # Enable i18n plugin.
 PLUGIN_PATHS = ["./pelican-themes"]
-PLUGINS = [render_math, search, simple_footnotes]
+PLUGINS = [render_math, simple_footnotes]
 # MARKDOWN = {"extensions": ["toc", "fenced_code", "codehilite"]}
 
 # Default theme language.
