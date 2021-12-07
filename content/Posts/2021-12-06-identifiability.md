@@ -174,6 +174,8 @@ global_id = assess_identifiability(ode, to_check, 0.9)
 
 Both parameters `b, c` are globally identifiable with probability `0.9` in this case.
 
+## References: 
+
 [^1]:
     > R. Munoz-Tamayo, L. Puillet, J.B. Daniel, D. Sauvant, O. Martin, M. Taghipoor, P. Blavy [*Review: To be or not to be an identifiable model. Is this a relevant question in animal science modelling?*](https://doi.org/10.1017/S1751731117002774), Animal, Vol 12 (4), 701-712, 2018. The model is the ODE system (3) in Supplementary Material 2, initial conditions are assumed to be unknown.
 
