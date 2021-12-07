@@ -7,7 +7,7 @@ Title: Software
 Here is a list of programs I maintain, develop, and/or contribute to:
 
 - I work on a Google Summer of Code project for [SciML](https://github.com/SciML/), contributing identifiability algorithm to the toolkit. We recently ported [`StructuralIdentifiability.jl`](https://github.com/SciML/StructuralIdentifiability.jl) which I help maintain.
-- I develop and maintain [Structural Identifiability Toolbox](https://maple.cloud/app/6509768948056064/Structural+Identifiability+Toolbox). An online tool for assessing parameter identifiability.
+- I develop and maintain [Structural Identifiability Toolbox](https://maple.cloud/app/6509768948056064/Structural+Identifiability+Toolbox) which is an online tool for assessing parameter identifiability.
 - I maintain [SIAN-Julia](https://github.com/alexeyovchinnikov/SIAN-Julia), see dev fork [here](https://github.com/iliailmer/SIAN-Julia).
 - I contributed to [Symbolics.jl](https://github.com/JuliaSymbolics/Symbolics.jl)
 - As a personal project, I wrote a `numpy` deep learning library in the style of PyTorch: [numpy-learn](https://github.com/iliailmer/numpy_learn)
