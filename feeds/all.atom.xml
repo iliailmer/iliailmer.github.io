@@ -1,5 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia Ilmer</title><link href="https://iliailmer.github.io/" rel="alternate"></link><link href="https://iliailmer.github.io/feeds/all.atom.xml" rel="self"></link><id>https://iliailmer.github.io/</id><updated>2021-08-17T00:00:00-04:00</updated><subtitle>Algorithms and Coffee</subtitle><entry><title>Google Summer of Code: Final Results</title><link href="https://iliailmer.github.io/2021/08/google-summer-of-code-final-results.html" rel="alternate"></link><published>2021-08-17T00:00:00-04:00</published><updated>2021-08-17T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-08-17:/2021/08/google-summer-of-code-final-results.html</id><summary type="html">&lt;p&gt;&lt;a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/releases/"&gt;&lt;img alt="GitHub release" src="https://img.shields.io/github/release/SciML/StructuralIdentifiability.jl.svg"&gt;&lt;/a&gt; &lt;a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/stargazers/"&gt;&lt;img alt="GitHub stars" src="https://img.shields.io/github/stars/SciML/StructuralIdentifiability.jl.svg?style=social&amp;amp;label=Star&amp;amp;maxAge=2592000"&gt;&lt;/a&gt; &lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia Ilmer</title><link href="https://iliailmer.github.io/" rel="alternate"></link><link href="https://iliailmer.github.io/feeds/all.atom.xml" rel="self"></link><id>https://iliailmer.github.io/</id><updated>2021-12-06T00:00:00-05:00</updated><subtitle>Algorithms and Coffee</subtitle><entry><title>Parameter identifiability in Julia</title><link href="https://iliailmer.github.io/2021/12/parameter-identifiability-in-julia.html" rel="alternate"></link><published>2021-12-06T00:00:00-05:00</published><updated>2021-12-06T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-12-06:/2021/12/parameter-identifiability-in-julia.html</id><summary type="html">&lt;p&gt;In this blog I will present a tutorial on a Julia package called &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called &lt;code&gt;SIAN.jl&lt;/code&gt;, but that's for another time.&lt;/p&gt;
+&lt;p&gt;This tutorial will be …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this blog I will present a tutorial on a Julia package called &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called &lt;code&gt;SIAN.jl&lt;/code&gt;, but that's for another time.&lt;/p&gt;
+&lt;p&gt;This tutorial will be published on the documentation page for &lt;code&gt;ModelingToolkit.jl&lt;/code&gt;.&lt;/p&gt;
+&lt;h1&gt;Parameter Identifiability in ODE Models&lt;/h1&gt;
+&lt;p&gt;Ordinary differential equations are commonly used for modeling real-world processes. The problem of parameter identifiability is one of the key design challenges for mathematical models. A parameter is said to be &lt;em&gt;identifiable&lt;/em&gt; if one can recover its value from experimental data. &lt;em&gt;Structural&lt;/em&gt; identifiabiliy is a theoretical property of a model that answers this question. In this tutorial, we will show how to use &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; with &lt;code&gt;ModelingToolkit.jl&lt;/code&gt; to assess identifiability of parameters in ODE models. The theory behind &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; is presented in paper &lt;sup id="fnref:4"&gt;&lt;a class="footnote-ref" href="#fn:4"&gt;4&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;We will start by illutrating &lt;strong&gt;local identifiability&lt;/strong&gt; in which a parameter is known up to &lt;em&gt;finitely many values&lt;/em&gt;, and then proceed to determining &lt;strong&gt;global identifiability&lt;/strong&gt;, that is, which parameters can be identified &lt;em&gt;uniquely&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;To install &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt;, simply run&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="n"&gt;Pkg&lt;/span&gt;
+&lt;span class="n"&gt;Pkg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;StructuralIdentifiability&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The package has a standalone data structure for ordinary differential equations but is also compatible with &lt;code&gt;ODESystem&lt;/code&gt; type from &lt;code&gt;ModelingToolkit.jl&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Local Identifiability&lt;/h2&gt;
+&lt;h3&gt;Input System&lt;/h3&gt;
+&lt;p&gt;We will consider the following model:&lt;/p&gt;
+&lt;div class="math"&gt;$$\begin{cases}
+\frac{d\,x_4}{d\,t} = - \frac{k_5 x_4}{k_6 + x_4},\\
+\frac{d\,x_5}{d\,t} = \frac{k_5 x_4}{k_6 + x_4} - \frac{k_7 x_5}{(k_8 + x_5 + x_6)},\\
+\frac{d\,x_6}{d\,t} = \frac{k_7 x_5}{(k_8 + x_5 + x_6)} - \frac{k_9  x_6  (k_{10} - x_6) }{k_{10}},\\
+\frac{d\,x_7}{d\,t} = \frac{k_9  x_6  (k_{10} - x_6)}{ k_{10}},\\
+y_1 = x_4,\\
+y_2 = x_5\end{cases}$$&lt;/div&gt;
+&lt;p&gt;This model describes the biohydrogenation&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1"&gt;1&lt;/a&gt;&lt;/sup&gt; process&lt;sup id="fnref:2"&gt;&lt;a class="footnote-ref" href="#fn:2"&gt;2&lt;/a&gt;&lt;/sup&gt; with unknown initial conditions.&lt;/p&gt;
+&lt;h3&gt;Using the &lt;code&gt;ODESystem&lt;/code&gt; object&lt;/h3&gt;
+&lt;p&gt;To define the ode system in Julia, we use &lt;code&gt;ModelingToolkit.jl&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We first define the parameters, variables, differential equations and the output equations.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="n"&gt;StructuralIdentifiability&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ModelingToolkit&lt;/span&gt;
+
+&lt;span class="c"&gt;# define parameters and variables&lt;/span&gt;
+&lt;span class="nd"&gt;@variables&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;x5&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;x6&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;x7&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;y1&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;y2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="nd"&gt;@parameters&lt;/span&gt; &lt;span class="n"&gt;k5&lt;/span&gt; &lt;span class="n"&gt;k6&lt;/span&gt; &lt;span class="n"&gt;k7&lt;/span&gt; &lt;span class="n"&gt;k8&lt;/span&gt; &lt;span class="n"&gt;k9&lt;/span&gt; &lt;span class="n"&gt;k10&lt;/span&gt;
+&lt;span class="n"&gt;D&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Differential&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c"&gt;# define equations&lt;/span&gt;
+&lt;span class="n"&gt;eqs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;k5&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;k6&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;k5&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;k6&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;k7&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;k8&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x5&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x6&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;k7&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x5&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;k8&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x5&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;k9&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x6&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;k10&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;x6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;k10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;k9&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x6&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;k10&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;x6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;k10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;y1&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;y2&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;x5&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="c"&gt;# define the system&lt;/span&gt;
+&lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ODESystem&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;eqs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="ss"&gt;:Biohydrogenation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;After that we are ready to check the system for local identifiability:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c"&gt;# query local identifiability&lt;/span&gt;
+&lt;span class="c"&gt;# we pass the ode-system&lt;/span&gt;
+&lt;span class="n"&gt;local_id_all&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;assess_local_identifiability&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;de&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.99&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="c"&gt;# [ Info: Preproccessing `ModelingToolkit.ODESystem` object&lt;/span&gt;
+                &lt;span class="c"&gt;# 6-element Vector{Bool}:&lt;/span&gt;
+                &lt;span class="c"&gt;#  1&lt;/span&gt;
+                &lt;span class="c"&gt;#  1&lt;/span&gt;
+                &lt;span class="c"&gt;#  1&lt;/span&gt;
+                &lt;span class="c"&gt;#  1&lt;/span&gt;
+                &lt;span class="c"&gt;#  1&lt;/span&gt;
+                &lt;span class="c"&gt;#  1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;We can see that all states (except &lt;span class="math"&gt;\(x_7\)&lt;/span&gt;) and all parameters are locally identifiable with probability 0.99. &lt;/p&gt;
+&lt;p&gt;Let's try to check specific parameters and their combinations&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;to_check&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;k5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;k7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;k10&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;k9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;k5&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;k6&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;local_id_some&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;assess_local_identifiability&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;de&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;to_check&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.99&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="c"&gt;# 4-element Vector{Bool}:&lt;/span&gt;
+                &lt;span class="c"&gt;#  1&lt;/span&gt;
+                &lt;span class="c"&gt;#  1&lt;/span&gt;
+                &lt;span class="c"&gt;#  1&lt;/span&gt;
+                &lt;span class="c"&gt;#  1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Notice that in this case, everything (except the state variable &lt;span class="math"&gt;\(x_7\)&lt;/span&gt;) is locally identifiable, including combinations such as &lt;span class="math"&gt;\(k_{10}/k_9, k_5+k_6\)&lt;/span&gt;&lt;/p&gt;
+&lt;h2&gt;Global Identifiability&lt;/h2&gt;
+&lt;p&gt;In this part tutorial, let us cover an example problem of querying the ODE for globally identifiable parameters.&lt;/p&gt;
+&lt;h3&gt;Input System&lt;/h3&gt;
+&lt;p&gt;Let us consider the following four-dimensional model with two outputs:&lt;/p&gt;
+&lt;div class="math"&gt;$$\begin{cases}
+    x_1'(t) = -b  x_1(t) + \frac{1 }{ c + x_4(t)},\\
+    x_2'(t) = \alpha  x_1(t) - \beta  x_2(t),\\
+    x_3'(t) = \gamma  x_2(t) - \delta  x_3(t),\\
+    x_4'(t) = \sigma  x_4(t)  \frac{(\gamma x_2(t) - \delta x_3(t))}{ x_3(t)},\\
+    y(t) = x_1(t)
+\end{cases}$$&lt;/div&gt;
+&lt;p&gt;We will run a global identifiability check on this enzyme dynamics&lt;sup id="fnref:3"&gt;&lt;a class="footnote-ref" href="#fn:3"&gt;3&lt;/a&gt;&lt;/sup&gt; model. We will use the default settings: the probability of correctness will be &lt;code&gt;p=0.99&lt;/code&gt; and we are interested in identifiability of all possible parameters&lt;/p&gt;
+&lt;p&gt;Global identifiability needs information about local identifiability first, but the function we chose here will take care of that extra step for us.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: as of writing this tutorial, UTF-symbols such as Greek characters are not supported by one of the project's dependencies, see (this issue)[https://github.com/SciML/StructuralIdentifiability.jl/issues/43].&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="n"&gt;StructuralIdentifiability&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ModelingToolkit&lt;/span&gt;
+&lt;span class="nd"&gt;@parameters&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;beta&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;delta&lt;/span&gt; &lt;span class="n"&gt;sigma&lt;/span&gt;
+&lt;span class="nd"&gt;@variables&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;x1&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;x2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;x3&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;D&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Differential&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;eqs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;beta&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x2&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;delta&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;sigma&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x2&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;delta&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x1&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+
+
+&lt;span class="n"&gt;ode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ODESystem&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;eqs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="ss"&gt;:GoodwinOsc&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nd"&gt;@time&lt;/span&gt; &lt;span class="n"&gt;global_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;assess_identifiability&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ode&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="c"&gt;# 28.961573 seconds (88.92 M allocations: 5.541 GiB, 4.01% gc time)&lt;/span&gt;
+                &lt;span class="c"&gt;# Dict{Nemo.fmpq_mpoly, Symbol} with 7 entries:&lt;/span&gt;
+                &lt;span class="c"&gt;#   c     =&amp;gt; :globally&lt;/span&gt;
+                &lt;span class="c"&gt;#   a     =&amp;gt; :nonidentifiable&lt;/span&gt;
+                &lt;span class="c"&gt;#   g     =&amp;gt; :nonidentifiable&lt;/span&gt;
+                &lt;span class="c"&gt;#   delta =&amp;gt; :locally&lt;/span&gt;
+                &lt;span class="c"&gt;#   sigma =&amp;gt; :globally&lt;/span&gt;
+                &lt;span class="c"&gt;#   beta  =&amp;gt; :locally&lt;/span&gt;
+                &lt;span class="c"&gt;#   b     =&amp;gt; :globally&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;We can see that only parameters &lt;code&gt;a, g&lt;/code&gt; are unidentifiable and everything else can be uniquely recovered.&lt;/p&gt;
+&lt;p&gt;Let us consider the same system but with two inputs and we will try to find out identifiability with probability &lt;code&gt;0.9&lt;/code&gt; for parameters &lt;code&gt;c&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="n"&gt;StructuralIdentifiability&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ModelingToolkit&lt;/span&gt;
+&lt;span class="nd"&gt;@parameters&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;beta&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;delta&lt;/span&gt; &lt;span class="n"&gt;sigma&lt;/span&gt;
+&lt;span class="nd"&gt;@variables&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;x1&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;x2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;x3&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;u1&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;u2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;D&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Differential&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;eqs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;beta&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x2&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;u1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x2&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;delta&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x3&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;u2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt; &lt;span class="n"&gt;sigma&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x4&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x2&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;delta&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;x3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;x1&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="c"&gt;# check only 2 parameters&lt;/span&gt;
+&lt;span class="n"&gt;to_check&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="n"&gt;ode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ODESystem&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;eqs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="ss"&gt;:GoodwinOsc&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;global_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;assess_identifiability&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ode&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;to_check&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.9&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="c"&gt;# Dict{Num, Symbol} with 2 entries:&lt;/span&gt;
+            &lt;span class="c"&gt;#   b =&amp;gt; :globally&lt;/span&gt;
+            &lt;span class="c"&gt;#   c =&amp;gt; :globally&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Both parameters &lt;code&gt;b, c&lt;/code&gt; are globally identifiable with probability &lt;code&gt;0.9&lt;/code&gt; in this case.&lt;/p&gt;
+&lt;div class="footnote"&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;blockquote&gt;
+&lt;p&gt;R. Munoz-Tamayo, L. Puillet, J.B. Daniel, D. Sauvant, O. Martin, M. Taghipoor, P. Blavy &lt;a href="https://doi.org/10.1017/S1751731117002774"&gt;&lt;em&gt;Review: To be or not to be an identifiable model. Is this a relevant question in animal science modelling?&lt;/em&gt;&lt;/a&gt;, Animal, Vol 12 (4), 701-712, 2018. The model is the ODE system (3) in Supplementary Material 2, initial conditions are assumed to be unknown.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:2"&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Moate P.J., Boston R.C., Jenkins T.C. and Lean I.J., &lt;a href="doi:10.3168/jds.2007-0398"&gt;&lt;em&gt;Kinetics of Ruminal Lipolysis of Triacylglycerol and Biohydrogenationof Long-Chain Fatty Acids: New Insights from Old Data&lt;/em&gt;&lt;/a&gt;, Journal of Dairy Science 91, 731–742, 2008&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:3"&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Goodwin, B.C. &lt;a href="https://doi.org/10.1016/0065-2571(65)90067-1"&gt;&lt;em&gt;Oscillatory behavior in enzymatic control processes&lt;/em&gt;&lt;/a&gt;, Advances in Enzyme Regulation, Vol 3 (C), 425-437, 1965&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:4"&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Dong, R., Goodbrake, C., Harrington, H. A., &amp;amp; Pogudin, G. &lt;a href="https://arxiv.org/pdf/2111.00991"&gt;&lt;em&gt;Computing input-output projections of dynamical models with applications to structural identifiability&lt;/em&gt;&lt;/a&gt;. arXiv preprint arXiv:2111.00991.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="Posts"></category><category term="Julia"></category><category term="Parameter Identifiability"></category></entry><entry><title>Google Summer of Code: Final Results</title><link href="https://iliailmer.github.io/2021/08/google-summer-of-code-final-results.html" rel="alternate"></link><published>2021-08-17T00:00:00-04:00</published><updated>2021-08-17T00:00:00-04:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-08-17:/2021/08/google-summer-of-code-final-results.html</id><summary type="html">&lt;p&gt;&lt;a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/releases/"&gt;&lt;img alt="GitHub release" src="https://img.shields.io/github/release/SciML/StructuralIdentifiability.jl.svg"&gt;&lt;/a&gt; &lt;a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/stargazers/"&gt;&lt;img alt="GitHub stars" src="https://img.shields.io/github/stars/SciML/StructuralIdentifiability.jl.svg?style=social&amp;amp;label=Star&amp;amp;maxAge=2592000"&gt;&lt;/a&gt; &lt;/p&gt;
 &lt;p&gt;Over the course of the summer, my work resulted in successfully ported code of &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt;, a package that can help researchers who use ordinary differential equations in their work. The package allows answering queries about individual identifiability of parameters and their combinations. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; package is ready to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/releases/"&gt;&lt;img alt="GitHub release" src="https://img.shields.io/github/release/SciML/StructuralIdentifiability.jl.svg"&gt;&lt;/a&gt; &lt;a href="https://GitHub.com/SciML/StructuralIdentifiability.jl/stargazers/"&gt;&lt;img alt="GitHub stars" src="https://img.shields.io/github/stars/SciML/StructuralIdentifiability.jl.svg?style=social&amp;amp;label=Star&amp;amp;maxAge=2592000"&gt;&lt;/a&gt; &lt;/p&gt;
 &lt;p&gt;Over the course of the summer, my work resulted in successfully ported code of &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt;, a package that can help researchers who use ordinary differential equations in their work. The package allows answering queries about individual identifiability of parameters and their combinations. &lt;/p&gt;
