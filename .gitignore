@@ -151,6 +151,7 @@ pelican-themes
 !pelican-plugins/render_math
 !pelican-plugins/tipue_search
 !pelican-plugins/simple_footnotes
+!pelican-plugins/better
 !pelican-plugins/extract_toc
 .vscode
 # content
