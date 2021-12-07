@@ -75,5 +75,5 @@ SOCIAL = (
 MENUITEMS = (
     # ("About", "/pages/about.html"),
     # ("Talks", "/pages/talks.html"),
-    ("CV", "/files/resume.pdf"),
+    # ("CV", "/files/resume.pdf"),
 )
