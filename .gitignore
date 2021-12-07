@@ -147,10 +147,6 @@ pelican-plugins
 pelican-themes
 
 !pelican-themes/Flex
-!pelican-plugins/i18n_subsites
-!pelican-plugins/render_math
-!pelican-plugins/simple_footnotes
-!pelican-plugins/extract_toc
 .vscode
 # content
 .DS_Store

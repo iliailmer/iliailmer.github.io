@@ -43,8 +43,8 @@ EXTRA_PATH_METADATA = {
 }
 
 # Enable i18n plugin.
-PLUGIN_PATHS = ["./pelican-plugins", "./pelican-themes"]
-PLUGINS = [render_math, search, "i18n_subsites", "simple_footnotes"]
+PLUGIN_PATHS = ["./pelican-themes"]
+PLUGINS = [render_math, search, simple_footnotes]
 # MARKDOWN = {"extensions": ["toc", "fenced_code", "codehilite"]}
 
 # Default theme language.
