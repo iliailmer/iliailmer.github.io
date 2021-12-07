@@ -57,13 +57,13 @@
 
 
 <meta name="author" content="Ilia Ilmer" />
-<meta name="description" content="In this blog I will present a tutorial on a Julia package called StructuralIdentifiability.jl which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called SIAN.jl, but that&#39;s for another time. This tutorial will be …" />
+<meta name="description" content="In this post I will present a tutorial on a Julia package called StructuralIdentifiability.jl which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called SIAN.jl, but that&#39;s for another time. This tutorial will be …" />
 <meta name="keywords" content="Julia, Parameter Identifiability">
 
 
   <meta property="og:site_name" content="Ilia Ilmer"/>
   <meta property="og:title" content="Parameter identifiability in Julia"/>
-  <meta property="og:description" content="In this blog I will present a tutorial on a Julia package called StructuralIdentifiability.jl which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called SIAN.jl, but that&#39;s for another time. This tutorial will be …"/>
+  <meta property="og:description" content="In this post I will present a tutorial on a Julia package called StructuralIdentifiability.jl which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called SIAN.jl, but that&#39;s for another time. This tutorial will be …"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:url" content="https://iliailmer.github.io/2021/12/parameter-identifiability-in-julia.html"/>
   <meta property="og:type" content="article"/>
@@ -172,7 +172,7 @@
 
 
   <div>
-    <p>In this blog I will present a tutorial on a Julia package called <code>StructuralIdentifiability.jl</code> which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called <code>SIAN.jl</code>, but that's for another time.</p>
+    <p>In this post I will present a tutorial on a Julia package called <code>StructuralIdentifiability.jl</code> which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called <code>SIAN.jl</code>, but that's for another time.</p>
 <p>This tutorial will be published on the documentation page for <code>ModelingToolkit.jl</code>.</p>
 <h1>Parameter Identifiability in ODE Models</h1>
 <p>Ordinary differential equations are commonly used for modeling real-world processes. The problem of parameter identifiability is one of the key design challenges for mathematical models. A parameter is said to be <em>identifiable</em> if one can recover its value from experimental data. <em>Structural</em> identifiabiliy is a theoretical property of a model that answers this question. In this tutorial, we will show how to use <code>StructuralIdentifiability.jl</code> with <code>ModelingToolkit.jl</code> to assess identifiability of parameters in ODE models. The theory behind <code>StructuralIdentifiability.jl</code> is presented in paper <sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>.</p>
