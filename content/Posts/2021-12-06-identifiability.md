@@ -113,7 +113,7 @@ We will run a global identifiability check on this enzyme dynamics[^3] model. We
 
 Global identifiability needs information about local identifiability first, but the function we chose here will take care of that extra step for us.
 
-__Note__: as of writing this tutorial, UTF-symbols such as Greek characters are not supported by one of the project's dependencies, see (this issue)[https://github.com/SciML/StructuralIdentifiability.jl/issues/43].
+__Note__: as of writing this tutorial, UTF-symbols such as Greek characters are not supported by one of the project's dependencies, see [this issue](https://github.com/SciML/StructuralIdentifiability.jl/issues/43).
 
 ```julia
 using StructuralIdentifiability, ModelingToolkit
