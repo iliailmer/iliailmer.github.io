@@ -141,6 +141,7 @@ y_2 = x_5\end{cases}$$&lt;/div&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Both parameters &lt;code&gt;b, c&lt;/code&gt; are globally identifiable with probability &lt;code&gt;0.9&lt;/code&gt; in this case.&lt;/p&gt;
+&lt;h2&gt;References:&lt;/h2&gt;
 &lt;div class="footnote"&gt;
 &lt;hr&gt;
 &lt;ol&gt;
