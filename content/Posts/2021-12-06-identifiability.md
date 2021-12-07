@@ -4,7 +4,7 @@ date: 2021-12-6
 tags: Julia, Parameter Identifiability
 ---
 
-In this blog I will present a tutorial on a Julia package called `StructuralIdentifiability.jl` which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called `SIAN.jl`, but that's for another time.
+In this post I will present a tutorial on a Julia package called `StructuralIdentifiability.jl` which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called `SIAN.jl`, but that's for another time.
 
 This tutorial will be published on the documentation page for `ModelingToolkit.jl`.
 
