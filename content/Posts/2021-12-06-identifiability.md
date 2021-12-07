@@ -1,5 +1,5 @@
 ---
-Title: Parameter identifiability in Julia. A tutorial.
+Title: Parameter identifiability in Julia
 date: 2021-12-6
 tags: Julia, Parameter Identifiability
 ---
