@@ -1,5 +1,5 @@
 ---
-Title: Installing Julia and some quick probability theory tricks
+Title: Installing Julia
 date: 2021-12-6
 status: hidden
 tags: Julia, Parameter Identifiability
