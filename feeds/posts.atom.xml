@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia Ilmer - Posts</title><link href="https://iliailmer.github.io/" rel="alternate"></link><link href="https://iliailmer.github.io/feeds/posts.atom.xml" rel="self"></link><id>https://iliailmer.github.io/</id><updated>2021-12-06T00:00:00-05:00</updated><subtitle>Algorithms and Coffee</subtitle><entry><title>Parameter identifiability in Julia</title><link href="https://iliailmer.github.io/2021/12/parameter-identifiability-in-julia.html" rel="alternate"></link><published>2021-12-06T00:00:00-05:00</published><updated>2021-12-06T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-12-06:/2021/12/parameter-identifiability-in-julia.html</id><summary type="html">&lt;p&gt;In this post I will present a tutorial on a Julia package called &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called &lt;code&gt;SIAN.jl&lt;/code&gt;, but that's for another time.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ilia Ilmer - Posts</title><link href="https://iliailmer.github.io/" rel="alternate"></link><link href="https://iliailmer.github.io/feeds/posts.atom.xml" rel="self"></link><id>https://iliailmer.github.io/</id><updated>2022-02-07T00:00:00-05:00</updated><subtitle>Algorithms and Coffee</subtitle><entry><title>Installing Julia</title><link href="https://iliailmer.github.io/2022/02/installing-julia.html" rel="alternate"></link><published>2022-02-07T00:00:00-05:00</published><updated>2022-02-07T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2022-02-07:/2022/02/installing-julia.html</id><summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;In this quick tutorial, I will share how to install Julia language on a Mac computer, setup symlinks to run it from command line and then will go through a couple of problems in probability and their Julia language simulations.&lt;/p&gt;
+&lt;h2&gt;Installing Julia on macos&lt;/h2&gt;
+&lt;p&gt;We are going to install …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;In this quick tutorial, I will share how to install Julia language on a Mac computer, setup symlinks to run it from command line and then will go through a couple of problems in probability and their Julia language simulations.&lt;/p&gt;
+&lt;h2&gt;Installing Julia on macos&lt;/h2&gt;
+&lt;p&gt;We are going to install a Long-Term-Support version of Julia, specifically, the latest iteration of Julia 1.6.&lt;/p&gt;
+&lt;p&gt;To this end, &lt;a href="https://julialang-s3.julialang.org/bin/mac/x64/1.6/julia-1.6.5-mac64.dmg"&gt;follow this link&lt;/a&gt; to download the latest release (Intel-based). &lt;strong&gt;Note&lt;/strong&gt;: if you would like to install the latest Julia version which is, as of writing this, Julia-1.7.1, you can follow &lt;a href="https://julialang-s3.julialang.org/bin/mac/x64/1.7/julia-1.7.1-mac64.dmg"&gt;this link for Intel-based macs&lt;/a&gt; and &lt;a href="https://julialang-s3.julialang.org/bin/mac/aarch64/1.7/julia-1.7.1-macaarch64.dmg"&gt;this link for M1-based macs&lt;/a&gt;. The last one is experimental and not all packages may work with it!&lt;/p&gt;
+&lt;p&gt;Once your download is done, run the .dmg file by clicking on it. The Julia-1.6 application file will pop up. Add it to your Applications folder. To be able to call &lt;code&gt;julia&lt;/code&gt; from command line, open up your terminal and run the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ln -s /Applications/Julia-1.6.app/Contents/Resources/julia/bin/julia  /usr/local/bin/julia
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If you downloaded Julia-1.7, you will have to run:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ln -s /Applications/Julia-1.7.app/Contents/Resources/julia/bin/julia  /usr/local/bin/julia
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then run the following command to make apply changes&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;exec&lt;/span&gt; $&lt;span class="nv"&gt;SHELL&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and, finally, run&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;julia
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;to see something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;               _
+   _       _ _&lt;span class="o"&gt;(&lt;/span&gt;_&lt;span class="o"&gt;)&lt;/span&gt;_     &lt;span class="p"&gt;|&lt;/span&gt;  Documentation: https://docs.julialang.org
+  &lt;span class="o"&gt;(&lt;/span&gt;_&lt;span class="o"&gt;)&lt;/span&gt;     &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;_&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;_&lt;span class="o"&gt;)&lt;/span&gt;    &lt;span class="p"&gt;|&lt;/span&gt;
+   _ _   _&lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;_  __ _   &lt;span class="p"&gt;|&lt;/span&gt;  Type &lt;span class="s2"&gt;&amp;quot;?&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; help, &lt;span class="s2"&gt;&amp;quot;]?&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; Pkg help.
+  &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;/ _&lt;span class="sb"&gt;`&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;  &lt;span class="p"&gt;|&lt;/span&gt;
+  &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;_&lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;_&lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;  &lt;span class="p"&gt;|&lt;/span&gt;  Version &lt;span class="m"&gt;1&lt;/span&gt;.6.5 &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2021&lt;/span&gt;-12-19&lt;span class="o"&gt;)&lt;/span&gt;
+ _/ &lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="se"&gt;\_&lt;/span&gt;_&lt;span class="s1"&gt;&amp;#39;_|_|_|\__&amp;#39;&lt;/span&gt;_&lt;span class="p"&gt;|&lt;/span&gt;  &lt;span class="p"&gt;|&lt;/span&gt;  Official https://julialang.org/ release
+&lt;span class="p"&gt;|&lt;/span&gt;__/                   &lt;span class="p"&gt;|&lt;/span&gt;
+
+julia&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If you see this, then you are done!&lt;/p&gt;</content><category term="Posts"></category><category term="Julia"></category></entry><entry><title>Parameter identifiability in Julia</title><link href="https://iliailmer.github.io/2021/12/parameter-identifiability-in-julia.html" rel="alternate"></link><published>2021-12-06T00:00:00-05:00</published><updated>2021-12-06T00:00:00-05:00</updated><author><name>Ilia Ilmer</name></author><id>tag:iliailmer.github.io,2021-12-06:/2021/12/parameter-identifiability-in-julia.html</id><summary type="html">&lt;p&gt;In this post I will present a tutorial on a Julia package called &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called &lt;code&gt;SIAN.jl&lt;/code&gt;, but that's for another time.&lt;/p&gt;
 &lt;p&gt;This tutorial will be …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post I will present a tutorial on a Julia package called &lt;code&gt;StructuralIdentifiability.jl&lt;/code&gt; which I help maintain and contribute to. In the next post I will present a similar introduction to another package I help develop called &lt;code&gt;SIAN.jl&lt;/code&gt;, but that's for another time.&lt;/p&gt;
 &lt;p&gt;This tutorial will be published on the documentation page for &lt;code&gt;ModelingToolkit.jl&lt;/code&gt;.&lt;/p&gt;
 &lt;h1&gt;Parameter Identifiability in ODE Models&lt;/h1&gt;
