@@ -1,6 +1,6 @@
 ---
 Title: Simulating Textbook Probability Problems in Julia
-date: 2022-02-08
+date: 2022-02-06
 status: draft
 tags: Julia, Probability, Simulation
 ---
