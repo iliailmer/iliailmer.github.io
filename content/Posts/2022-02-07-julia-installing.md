@@ -2,7 +2,7 @@
 Title: Installing Julia
 date: 2021-12-6
 status: hidden
-tags: Julia, Parameter Identifiability
+tags: Julia
 ---
 
 # Introduction
