@@ -1,6 +1,6 @@
 ---
 Title: Installing Julia
-date: 2022-02-07
+date: 2022-02-06
 tags: Julia
 ---
 

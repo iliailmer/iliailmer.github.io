@@ -47,6 +47,7 @@ PLUGIN_PATHS = ["./pelican-themes"]
 PLUGINS = [render_math, simple_footnotes]
 # MARKDOWN = {"extensions": ["toc", "fenced_code", "codehilite"]}
 
+DEFAULT_METADATA = {"author": "Ilia Ilmer"}
 # Default theme language.
 I18N_TEMPLATES_LANG = "en"
 
