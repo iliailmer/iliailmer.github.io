@@ -149,7 +149,7 @@ Let's also look at the average as we increase the number of iterations:
 
 <details><summary>Show code</summary>
 <p>
-```
+```julia
 means = [mean(results[1:i]) for i ∈ 2:length(results)]
 stddevs = [std(results[1:i]) for i ∈ 2:length(results)]
 
