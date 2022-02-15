@@ -2,7 +2,7 @@
 Title: Software
 ---
 
-# List of Software
+## List of Software
 
 Here is a list of programs I maintain, develop, and/or contribute to:
 

@@ -2,7 +2,7 @@
 Title: Talks
 ---
 
-# List of Talks
+## List of Talks
 
 - __22nd Workshop on Computer Algebra in Memory of V. Gerdt__, online, hosted at JINR, Dubna, Russia, May 24-25, 2021. _Title_: Software for structural identifiability analysis: role of Gröbner bases and characteristic sets;
 - __4th International Conference "Computer Algebra"__, online, hosted at RUDN, Moscow, Russia, June 28-29, 2021. _Title_: Role of monomial orderings in efficient Gröbner basis computation in parameter identifiability problem;
