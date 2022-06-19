@@ -169,16 +169,12 @@
 
       {% if SITESUBTITLE %}<p>{{ SITESUBTITLE }}</p>{% endif %}
 
-      <<<<<<< HEAD {% if PLUGINS and 'tipue_search' in PLUGINS %} <form class="navbar-search"
-        action="{{ SITEURL }}/search.html" role="search">
-        <input type="text" name="q" id="tipue_search_input" placeholder="{{ _('Search...') }}">
-        </form>
-        =======
+      
         {% if PLUGINS and ('tipue_search' in PLUGINS or 'pelican.plugins.tipue_search' in PLUGINS)%}
         <form class="navbar-search" action="{{ SITEURL }}/search.html" role="search">
           <input type="text" name="q" id="tipue_search_input" placeholder="{{ _('Search...') }}">
         </form>
-        >>>>>>> master
+      
         {% endif %}
 
         {% if (pages and DISPLAY_PAGES_ON_MENU) or LINKS %}
