@@ -92,7 +92,15 @@
   {% endif %}
 
   {% if GOOGLE_GLOBAL_SITE_TAG %}
-  {% include "partial/ggst.html" %}
+  <!-- {% include "partial/ggst.html" %} -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1N8FJ0992"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-H1N8FJ0992');
+  </script>
   {% endif %}
 
   {% if BROWSER_COLOR %}
