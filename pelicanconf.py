@@ -12,7 +12,7 @@ SITENAME = "Ilia Ilmer"
 SITETITLE = "Ilia Ilmer"
 SITESUBTITLE = "Algorithms and Coffee"
 
-THEME = "./pelican-themes/Flex"
+THEME = "./themes/Flex"
 # THEME_COLOR = "dark"
 THEME_COLOR_AUTO_DETECT_BROWSER_PREFERENCE = True
 THEME_COLOR_ENABLE_USER_OVERRIDE = True

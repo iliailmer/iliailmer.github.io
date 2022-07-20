@@ -6,7 +6,7 @@ authors = ["Ilia <i.ilmer@icloud.com>"]
 license = "CC BY-SA 4.0"
 
 [tool.poetry.dependencies]
-python = "3.9"
+python = ">=3.9,<3.11"
 jupyter = "^1.0.0"
 numpy = "^1.22.3"
 scipy = "^1.8.0"
