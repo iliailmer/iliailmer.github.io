@@ -3,7 +3,7 @@
 
 import datetime
 from pelican.plugins import render_math, simple_footnotes
-from pelican.themes import Flex
+
 
 DEFAULT_PAGINATION = 10
 
