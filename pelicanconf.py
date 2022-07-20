@@ -3,6 +3,7 @@
 
 import datetime
 from pelican.plugins import render_math, simple_footnotes
+from pelican.themes import Flex
 
 DEFAULT_PAGINATION = 10
 
@@ -12,7 +13,7 @@ SITENAME = "Ilia Ilmer"
 SITETITLE = "Ilia Ilmer"
 SITESUBTITLE = "Algorithms and Coffee"
 
-THEME = "./themes/Flex"
+THEME = Flex  # "./themes/Flex"
 # THEME_COLOR = "dark"
 THEME_COLOR_AUTO_DETECT_BROWSER_PREFERENCE = True
 THEME_COLOR_ENABLE_USER_OVERRIDE = True
