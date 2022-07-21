@@ -18,7 +18,7 @@ jobs:
         run: |
           pip install --no-cache-dir -U pip
           pip install -r requirements.txt
-          git clone https://github.com/alexandrevicenzi/Flex.git theme/
+          git clone https://github.com/alexandrevicenzi/Flex.git theme/Flex
           ls theme/Flex
           python -m pip install pelican-render-math    
           python -m pip install pelican-simple-footnotes
