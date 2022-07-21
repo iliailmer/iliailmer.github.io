@@ -19,7 +19,7 @@ jobs:
           pip install --no-cache-dir -U pip
           pip install -r requirements.txt
           pelican-themes -i theme/Flex
-          ls theme
+          ls theme/Flex
           python -m pip install pelican-render-math    
           python -m pip install pelican-simple-footnotes
 
