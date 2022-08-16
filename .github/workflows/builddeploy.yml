@@ -7,6 +7,7 @@ on:
 jobs:
   builddeploy:
     runs-on: ubuntu-latest
+    environment: github-actions
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -24,7 +25,6 @@ jobs:
           python -m pip install pelican-simple-footnotes
 
       - name: Build 🔧
-        environment: github-actions
         run: |
           make publish
       - name: Add nojekyll
