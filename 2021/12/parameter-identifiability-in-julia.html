@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow" />
 
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
@@ -30,13 +30,22 @@
   <link rel="stylesheet" type="text/css" href="https://iliailmer.github.io/theme/font-awesome/css/solid.css">
 
 
-    <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
+  <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
+
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333">
+
+  <link href="https://iliailmer.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ilia Ilmer Atom">
 
 
-    <link rel="shortcut icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://iliailmer.github.io/images/favicon.ico" type="image/x-icon">
-
-<!-- Google Analytics -->
 <script type="text/javascript">
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -46,8 +55,6 @@
   ga('create', 'UA-131502498-2', 'auto');
   ga('send', 'pageview');
 </script>
-<!-- End Google Analytics -->  
-<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1N8FJ0992"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -56,16 +63,11 @@
 
   gtag('config', 'G-H1N8FJ0992');
 </script>
-<!-- End of Global site tag (gtag.js) - Google Analytics -->
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#333">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#333">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Microsoft EDGE -->
-    <meta name="msapplication-TileColor" content="#333">
+
+
+
+
+
 
  
 
@@ -90,86 +92,96 @@
 
   <title>Ilia Ilmer &ndash; Parameter identifiability in Julia</title>
 
+
 </head>
 <body >
-  <aside>
-    <div>
-      <a href="https://iliailmer.github.io/">
-        <img src="https://iliailmer.github.io/images/compressed.jpeg" alt="Ilia Ilmer" title="Ilia Ilmer">
-      </a>
 
-      <h1>
-        <a href="https://iliailmer.github.io/">Ilia Ilmer</a>
-      </h1>
+<aside>
+  <div>
+    <a href="https://iliailmer.github.io/">
+      <img src="https://iliailmer.github.io/images/compressed.jpeg" alt="Ilia Ilmer" title="Ilia Ilmer">
+    </a>
 
-<p>Algorithms and Coffee</p>
-      <nav>
-        <ul class="list">
+    <h1>
+      <a href="https://iliailmer.github.io/">Ilia Ilmer</a>
+    </h1>
 
+    <p>Algorithms and Coffee</p>
 
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/about.html#about">
-                  About
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/cv.html#cv">
-                  CV
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/publications.html#publications">
-                  Publications
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/software.html#software">
-                  Software
-                </a>
-              </li>
-              <li>
-                <a target="_self"
-                   href="https://iliailmer.github.io/pages/talks.html#talks">
-                  Talks
-                </a>
-              </li>
-
-        </ul>
-      </nav>
-
-      <ul class="social">
-          <li>
-            <a  class="sc-github" href="https://github.com/iliailmer" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-gitlab" href="https://gitlab.com/iliailmer" target="_blank">
-              <i class="fab fa-gitlab"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-linkedin" href="https://linkedin.com/in/iilmer" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
-      </ul>
-    </div>
-
-  </aside>
-  <main>
 
     <nav>
-      <a href="https://iliailmer.github.io/">Home</a>
+      <ul class="list">
 
 
-      <a href="https://iliailmer.github.io/feeds/all.atom.xml">Atom</a>
+            <li>
+              <a target="_self"
+                 href="https://iliailmer.github.io/pages/about.html#about">
+                About
+              </a>
+            </li>
+            <li>
+              <a target="_self"
+                 href="https://iliailmer.github.io/pages/cv.html#cv">
+                CV
+              </a>
+            </li>
+            <li>
+              <a target="_self"
+                 href="https://iliailmer.github.io/pages/publications.html#publications">
+                Publications
+              </a>
+            </li>
+            <li>
+              <a target="_self"
+                 href="https://iliailmer.github.io/pages/software.html#software">
+                Software
+              </a>
+            </li>
+            <li>
+              <a target="_self"
+                 href="https://iliailmer.github.io/pages/talks.html#talks">
+                Talks
+              </a>
+            </li>
 
+      </ul>
     </nav>
+
+    <ul class="social">
+      <li>
+        <a class="sc-github"
+           href="https://github.com/iliailmer"
+           target="_blank">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-gitlab"
+           href="https://gitlab.com/iliailmer"
+           target="_blank">
+          <i class="fa-brands fa-gitlab"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-linkedin"
+           href="https://linkedin.com/in/iilmer"
+           target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</aside>
+  <main>
+
+<nav>
+  <a href="https://iliailmer.github.io/">Home</a>
+
+
+  <a href="https://iliailmer.github.io/feeds/all.atom.xml">Atom</a>
+
+</nav>
 
 <article class="single">
   <header>
@@ -189,8 +201,8 @@
 <p>Ordinary differential equations are commonly used for modeling real-world processes. The problem of parameter identifiability is one of the key design challenges for mathematical models. A parameter is said to be <em>identifiable</em> if one can recover its value from experimental data. <em>Structural</em> identifiabiliy is a theoretical property of a model that answers this question. In this tutorial, we will show how to use <code>StructuralIdentifiability.jl</code> with <code>ModelingToolkit.jl</code> to assess identifiability of parameters in ODE models. The theory behind <code>StructuralIdentifiability.jl</code> is presented in paper <sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>.</p>
 <p>We will start by illutrating <strong>local identifiability</strong> in which a parameter is known up to <em>finitely many values</em>, and then proceed to determining <strong>global identifiability</strong>, that is, which parameters can be identified <em>uniquely</em>.</p>
 <p>To install <code>StructuralIdentifiability.jl</code>, simply run</p>
-<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">Pkg</span><span class="w"></span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;StructuralIdentifiability&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">Pkg</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;StructuralIdentifiability&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>The package has a standalone data structure for ordinary differential equations but is also compatible with <code>ODESystem</code> type from <code>ModelingToolkit.jl</code>.</p>
@@ -208,50 +220,50 @@ y_2 = x_5\end{cases}$$</div>
 <h3>Using the <code>ODESystem</code> object</h3>
 <p>To define the ode system in Julia, we use <code>ModelingToolkit.jl</code>.</p>
 <p>We first define the parameters, variables, differential equations and the output equations.</p>
-<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">StructuralIdentifiability</span><span class="p">,</span><span class="w"> </span><span class="n">ModelingToolkit</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">StructuralIdentifiability</span><span class="p">,</span><span class="w"> </span><span class="n">ModelingToolkit</span>
 
-<span class="c"># define parameters and variables</span><span class="w"></span>
-<span class="nd">@variables</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">x4</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x5</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x6</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x7</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">y1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">output</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span><span class="w"> </span><span class="n">y2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">output</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span><span class="w"></span>
-<span class="nd">@parameters</span><span class="w"> </span><span class="n">k5</span><span class="w"> </span><span class="n">k6</span><span class="w"> </span><span class="n">k7</span><span class="w"> </span><span class="n">k8</span><span class="w"> </span><span class="n">k9</span><span class="w"> </span><span class="n">k10</span><span class="w"></span>
-<span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Differential</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"></span>
+<span class="c"># define parameters and variables</span>
+<span class="nd">@variables</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">x4</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x5</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x6</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x7</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">y1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">output</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span><span class="w"> </span><span class="n">y2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">output</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span>
+<span class="nd">@parameters</span><span class="w"> </span><span class="n">k5</span><span class="w"> </span><span class="n">k6</span><span class="w"> </span><span class="n">k7</span><span class="w"> </span><span class="n">k8</span><span class="w"> </span><span class="n">k9</span><span class="w"> </span><span class="n">k10</span>
+<span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Differential</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
-<span class="c"># define equations</span><span class="w"></span>
-<span class="n">eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x4</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x4</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">k6</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x4</span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x5</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">k5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x4</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">k6</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x4</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k7</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x5</span><span class="o">/</span><span class="p">(</span><span class="n">k8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x6</span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x6</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">k7</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">k8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x6</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k9</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x6</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">k10</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x6</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">k10</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x7</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">k9</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x6</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">k10</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x6</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">k10</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">y1</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">x4</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">y2</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">x5</span><span class="w"></span>
-<span class="p">]</span><span class="w"></span>
+<span class="c"># define equations</span>
+<span class="n">eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x4</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x4</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">k6</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x4</span><span class="p">),</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x5</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">k5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x4</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">k6</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x4</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k7</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x5</span><span class="o">/</span><span class="p">(</span><span class="n">k8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x6</span><span class="p">),</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x6</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">k7</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">k8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x6</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k9</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x6</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">k10</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x6</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">k10</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x7</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">k9</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x6</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">k10</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x6</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">k10</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y1</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">x4</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y2</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">x5</span>
+<span class="p">]</span>
 
-<span class="c"># define the system</span><span class="w"></span>
-<span class="n">de</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ODESystem</span><span class="p">(</span><span class="n">eqs</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="ss">:Biohydrogenation</span><span class="p">)</span><span class="w"></span>
+<span class="c"># define the system</span>
+<span class="n">de</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ODESystem</span><span class="p">(</span><span class="n">eqs</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="ss">:Biohydrogenation</span><span class="p">)</span>
 </code></pre></div>
 
 <p>After that we are ready to check the system for local identifiability:</p>
-<div class="highlight"><pre><span></span><code><span class="c"># query local identifiability</span><span class="w"></span>
-<span class="c"># we pass the ode-system</span><span class="w"></span>
-<span class="n">local_id_all</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">assess_local_identifiability</span><span class="p">(</span><span class="n">de</span><span class="p">,</span><span class="w"> </span><span class="mf">0.99</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="c"># [ Info: Preproccessing `ModelingToolkit.ODESystem` object</span><span class="w"></span>
-<span class="w">                </span><span class="c"># 6-element Vector{Bool}:</span><span class="w"></span>
-<span class="w">                </span><span class="c">#  1</span><span class="w"></span>
-<span class="w">                </span><span class="c">#  1</span><span class="w"></span>
-<span class="w">                </span><span class="c">#  1</span><span class="w"></span>
-<span class="w">                </span><span class="c">#  1</span><span class="w"></span>
-<span class="w">                </span><span class="c">#  1</span><span class="w"></span>
-<span class="w">                </span><span class="c">#  1</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="c"># query local identifiability</span>
+<span class="c"># we pass the ode-system</span>
+<span class="n">local_id_all</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">assess_local_identifiability</span><span class="p">(</span><span class="n">de</span><span class="p">,</span><span class="w"> </span><span class="mf">0.99</span><span class="p">)</span>
+<span class="w">                </span><span class="c"># [ Info: Preproccessing `ModelingToolkit.ODESystem` object</span>
+<span class="w">                </span><span class="c"># 6-element Vector{Bool}:</span>
+<span class="w">                </span><span class="c">#  1</span>
+<span class="w">                </span><span class="c">#  1</span>
+<span class="w">                </span><span class="c">#  1</span>
+<span class="w">                </span><span class="c">#  1</span>
+<span class="w">                </span><span class="c">#  1</span>
+<span class="w">                </span><span class="c">#  1</span>
 </code></pre></div>
 
 <p>We can see that all states (except <span class="math">\(x_7\)</span>) and all parameters are locally identifiable with probability 0.99. </p>
 <p>Let's try to check specific parameters and their combinations</p>
-<div class="highlight"><pre><span></span><code><span class="n">to_check</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">k5</span><span class="p">,</span><span class="w"> </span><span class="n">k7</span><span class="p">,</span><span class="w"> </span><span class="n">k10</span><span class="o">/</span><span class="n">k9</span><span class="p">,</span><span class="w"> </span><span class="n">k5</span><span class="o">+</span><span class="n">k6</span><span class="p">]</span><span class="w"></span>
-<span class="n">local_id_some</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">assess_local_identifiability</span><span class="p">(</span><span class="n">de</span><span class="p">,</span><span class="w"> </span><span class="n">to_check</span><span class="p">,</span><span class="w"> </span><span class="mf">0.99</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="c"># 4-element Vector{Bool}:</span><span class="w"></span>
-<span class="w">                </span><span class="c">#  1</span><span class="w"></span>
-<span class="w">                </span><span class="c">#  1</span><span class="w"></span>
-<span class="w">                </span><span class="c">#  1</span><span class="w"></span>
-<span class="w">                </span><span class="c">#  1</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="n">to_check</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">k5</span><span class="p">,</span><span class="w"> </span><span class="n">k7</span><span class="p">,</span><span class="w"> </span><span class="n">k10</span><span class="o">/</span><span class="n">k9</span><span class="p">,</span><span class="w"> </span><span class="n">k5</span><span class="o">+</span><span class="n">k6</span><span class="p">]</span>
+<span class="n">local_id_some</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">assess_local_identifiability</span><span class="p">(</span><span class="n">de</span><span class="p">,</span><span class="w"> </span><span class="n">to_check</span><span class="p">,</span><span class="w"> </span><span class="mf">0.99</span><span class="p">)</span>
+<span class="w">                </span><span class="c"># 4-element Vector{Bool}:</span>
+<span class="w">                </span><span class="c">#  1</span>
+<span class="w">                </span><span class="c">#  1</span>
+<span class="w">                </span><span class="c">#  1</span>
+<span class="w">                </span><span class="c">#  1</span>
 </code></pre></div>
 
 <p>Notice that in this case, everything (except the state variable <span class="math">\(x_7\)</span>) is locally identifiable, including combinations such as <span class="math">\(k_{10}/k_9, k_5+k_6\)</span></p>
@@ -269,58 +281,58 @@ y_2 = x_5\end{cases}$$</div>
 <p>We will run a global identifiability check on this enzyme dynamics<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> model. We will use the default settings: the probability of correctness will be <code>p=0.99</code> and we are interested in identifiability of all possible parameters</p>
 <p>Global identifiability needs information about local identifiability first, but the function we chose here will take care of that extra step for us.</p>
 <p><strong>Note</strong>: as of writing this tutorial, UTF-symbols such as Greek characters are not supported by one of the project's dependencies, see <a href="https://github.com/SciML/StructuralIdentifiability.jl/issues/43">this issue</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">StructuralIdentifiability</span><span class="p">,</span><span class="w"> </span><span class="n">ModelingToolkit</span><span class="w"></span>
-<span class="nd">@parameters</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">beta</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="n">sigma</span><span class="w"></span>
-<span class="nd">@variables</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">x1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x3</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x4</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">output</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span><span class="w"></span>
-<span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Differential</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">StructuralIdentifiability</span><span class="p">,</span><span class="w"> </span><span class="n">ModelingToolkit</span>
+<span class="nd">@parameters</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">beta</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="n">sigma</span>
+<span class="nd">@variables</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">x1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x3</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x4</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">output</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span>
+<span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Differential</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
-<span class="n">eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x4</span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">beta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x3</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x3</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x4</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x3</span><span class="p">)</span><span class="o">/</span><span class="n">x3</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">y</span><span class="o">~</span><span class="n">x1</span><span class="w"></span>
-<span class="p">]</span><span class="w"></span>
+<span class="n">eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x4</span><span class="p">),</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">beta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x3</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x4</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x3</span><span class="p">)</span><span class="o">/</span><span class="n">x3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="o">~</span><span class="n">x1</span>
+<span class="p">]</span>
 
 
-<span class="n">ode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ODESystem</span><span class="p">(</span><span class="n">eqs</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="ss">:GoodwinOsc</span><span class="p">)</span><span class="w"></span>
+<span class="n">ode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ODESystem</span><span class="p">(</span><span class="n">eqs</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="ss">:GoodwinOsc</span><span class="p">)</span>
 
-<span class="nd">@time</span><span class="w"> </span><span class="n">global_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">assess_identifiability</span><span class="p">(</span><span class="n">ode</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="c"># 28.961573 seconds (88.92 M allocations: 5.541 GiB, 4.01% gc time)</span><span class="w"></span>
-<span class="w">                </span><span class="c"># Dict{Nemo.fmpq_mpoly, Symbol} with 7 entries:</span><span class="w"></span>
-<span class="w">                </span><span class="c">#   c     =&gt; :globally</span><span class="w"></span>
-<span class="w">                </span><span class="c">#   a     =&gt; :nonidentifiable</span><span class="w"></span>
-<span class="w">                </span><span class="c">#   g     =&gt; :nonidentifiable</span><span class="w"></span>
-<span class="w">                </span><span class="c">#   delta =&gt; :locally</span><span class="w"></span>
-<span class="w">                </span><span class="c">#   sigma =&gt; :globally</span><span class="w"></span>
-<span class="w">                </span><span class="c">#   beta  =&gt; :locally</span><span class="w"></span>
-<span class="w">                </span><span class="c">#   b     =&gt; :globally</span><span class="w"></span>
+<span class="nd">@time</span><span class="w"> </span><span class="n">global_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">assess_identifiability</span><span class="p">(</span><span class="n">ode</span><span class="p">)</span>
+<span class="w">                </span><span class="c"># 28.961573 seconds (88.92 M allocations: 5.541 GiB, 4.01% gc time)</span>
+<span class="w">                </span><span class="c"># Dict{Nemo.fmpq_mpoly, Symbol} with 7 entries:</span>
+<span class="w">                </span><span class="c">#   c     =&gt; :globally</span>
+<span class="w">                </span><span class="c">#   a     =&gt; :nonidentifiable</span>
+<span class="w">                </span><span class="c">#   g     =&gt; :nonidentifiable</span>
+<span class="w">                </span><span class="c">#   delta =&gt; :locally</span>
+<span class="w">                </span><span class="c">#   sigma =&gt; :globally</span>
+<span class="w">                </span><span class="c">#   beta  =&gt; :locally</span>
+<span class="w">                </span><span class="c">#   b     =&gt; :globally</span>
 </code></pre></div>
 
 <p>We can see that only parameters <code>a, g</code> are unidentifiable and everything else can be uniquely recovered.</p>
 <p>Let us consider the same system but with two inputs and we will try to find out identifiability with probability <code>0.9</code> for parameters <code>c</code> and <code>b</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">StructuralIdentifiability</span><span class="p">,</span><span class="w"> </span><span class="n">ModelingToolkit</span><span class="w"></span>
-<span class="nd">@parameters</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">beta</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="n">sigma</span><span class="w"></span>
-<span class="nd">@variables</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">x1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x3</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x4</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">output</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span><span class="w"> </span><span class="n">u1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">input</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span><span class="w"> </span><span class="n">u2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">input</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span><span class="w"></span>
-<span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Differential</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">StructuralIdentifiability</span><span class="p">,</span><span class="w"> </span><span class="n">ModelingToolkit</span>
+<span class="nd">@parameters</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">beta</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="n">sigma</span>
+<span class="nd">@variables</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">x1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x3</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">x4</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">output</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span><span class="w"> </span><span class="n">u1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">input</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span><span class="w"> </span><span class="n">u2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">input</span><span class="o">=</span><span class="nb">true</span><span class="p">]</span>
+<span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Differential</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
-<span class="n">eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x4</span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">beta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">u1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x3</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u2</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x4</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x3</span><span class="p">)</span><span class="o">/</span><span class="n">x3</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="n">y</span><span class="o">~</span><span class="n">x1</span><span class="w"></span>
-<span class="p">]</span><span class="w"></span>
+<span class="n">eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x4</span><span class="p">),</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">beta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">u1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x3</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u2</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D</span><span class="p">(</span><span class="n">x4</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x3</span><span class="p">)</span><span class="o">/</span><span class="n">x3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="o">~</span><span class="n">x1</span>
+<span class="p">]</span>
 
-<span class="c"># check only 2 parameters</span><span class="w"></span>
-<span class="n">to_check</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">]</span><span class="w"></span>
+<span class="c"># check only 2 parameters</span>
+<span class="n">to_check</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">]</span>
 
-<span class="n">ode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ODESystem</span><span class="p">(</span><span class="n">eqs</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="ss">:GoodwinOsc</span><span class="p">)</span><span class="w"></span>
+<span class="n">ode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ODESystem</span><span class="p">(</span><span class="n">eqs</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="ss">:GoodwinOsc</span><span class="p">)</span>
 
-<span class="n">global_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">assess_identifiability</span><span class="p">(</span><span class="n">ode</span><span class="p">,</span><span class="w"> </span><span class="n">to_check</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="c"># Dict{Num, Symbol} with 2 entries:</span><span class="w"></span>
-<span class="w">            </span><span class="c">#   b =&gt; :globally</span><span class="w"></span>
-<span class="w">            </span><span class="c">#   c =&gt; :globally</span><span class="w"></span>
+<span class="n">global_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">assess_identifiability</span><span class="p">(</span><span class="n">ode</span><span class="p">,</span><span class="w"> </span><span class="n">to_check</span><span class="p">,</span><span class="w"> </span><span class="mf">0.9</span><span class="p">)</span>
+<span class="w">            </span><span class="c"># Dict{Num, Symbol} with 2 entries:</span>
+<span class="w">            </span><span class="c">#   b =&gt; :globally</span>
+<span class="w">            </span><span class="c">#   c =&gt; :globally</span>
 </code></pre></div>
 
 <p>Both parameters <code>b, c</code> are globally identifiable with probability <code>0.9</code> in this case.</p>
@@ -431,9 +443,9 @@ y_2 = x_5\end{cases}$$</div>
 
 </article>
 
-    <footer>
+<footer>
 <p>
-  &copy; 2022  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
+  &copy; 2023  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
 </p>
 <p>
 Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
@@ -456,11 +468,7 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
          width="80"
          height="15"/>
   </a>
-</p>    </footer>
-  </main>
-
-
-
+</p></footer>  </main>
 
 <script type="application/ld+json">
 {
@@ -472,7 +480,5 @@ Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a 
   "description": ""
 }
 </script>
-
-  
 </body>
 </html>
