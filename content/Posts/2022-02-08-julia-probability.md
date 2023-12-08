@@ -32,7 +32,7 @@ Note that $\mathbb{P}(A^c) = 1 - \mathbb{P}(A)$ and same for $B,~C$. Thus, the t
 
 $$\mathbb{P}(\textrm{\geq 1 test = True}) = 1 - (1 - 0.2)  (1 - 0.3)  (1 - 0.5)$$
 
-This value equals **0.75**, let's keep that in mind.
+This value equals **0.72**, let's keep that in mind.
 
 ### Monte-Carlo Simulation
 
