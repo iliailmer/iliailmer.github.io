@@ -15,7 +15,7 @@ Title: About
 
 - 📝 I (semi-)regularly write quick articles on [my website](https://iliailmer.github.io).
 
-- 📄 Learn about my experiences from [this resume](https://iliailmer.github.io/files/resume.pdf).
+- 📄 Learn about my experiences from [this resume](https://iliailmer.github.io/images/cv/cv.pdf).
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
